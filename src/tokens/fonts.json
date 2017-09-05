@@ -1,0 +1,27 @@
+{
+  "body": {
+		"font-family": "('franklin-gothic-urw', Franklin Gothic Medium, Tahoma)",
+		"weight": 400,
+		"line-height": 1.5
+	},
+  "heading-bold": {
+		"font-family": "('FoundersGroteskCondensedWeb-Bold', Arial Narrow, Helvetica, Arial)",
+		"weight": 400,
+		"line-height": 0.84375
+	},
+  "heading-medium": {
+		"font-family": "('FoundersGroteskCondensedWeb-SemiBold', Arial Narrow, Helvetica, Arial)",
+		"weight": 400,
+		"line-height": 0.84375
+	},
+  "heading-light": {
+		"font-family": "('FoundersGroteskCondensedWeb-Light', Arial Narrow, Helvetica, Arial)",
+		"weight": 400,
+		"line-height": 0.84375
+	},
+  "mono": {
+		"font-family": "('apercu-mono', Courier New)",
+		"weight": 300,
+		"line-height": 1.5
+	}
+}

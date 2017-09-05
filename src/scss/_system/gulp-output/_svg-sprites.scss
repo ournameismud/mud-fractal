@@ -1,0 +1,34 @@
+$sprites: (
+  sprite: (
+		width: 76px, 
+		height: 53px, 
+		svgPath: '../images/svg-sprite.svg'
+	),
+	arrow: (
+		width: 16.04px, 
+		height: 10.97px, 
+		backgroundX: 0px, 
+		backgroundY: 0px
+	),
+	chevron: (
+		width: 28.33px, 
+		height: 17px, 
+		backgroundX: -17px, 
+		backgroundY: -11px
+	),
+	close: (
+		width: 11.27px, 
+		height: 11.27px, 
+		backgroundX: -46px, 
+		backgroundY: -28px
+	),
+	tick: (
+		width: 17.44px, 
+		height: 12.97px, 
+		backgroundX: -58px, 
+		backgroundY: -40px
+	),
+);
+
+
+

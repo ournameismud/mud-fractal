@@ -1,0 +1,7 @@
+<div class="g@xsmall l-pairs-grid {% if modifier %}l-pairs-grid--{{ modifier }}{% endif %}" {% if dev %}devmode{% endif %}>
+  {% for item in entries %}
+    <div class="l-pairs-grid__cell">
+      {% include '@' ~ item.template with item.data %}
+    </div>
+  {% endfor %}
+</div>

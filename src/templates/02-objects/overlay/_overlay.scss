@@ -1,0 +1,19 @@
+.o-overlay {
+	position: relative;
+
+	&::after {
+		content: " ";
+		width: 100%;
+		height: 100%;
+		position: absolute;
+		top: 0;
+		left: 0;
+		background-color: rgba($black, .09);
+	}
+
+	& > div {
+		z-index: 1;
+	}
+}
+
+

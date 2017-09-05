@@ -1,0 +1,107 @@
+/* stylelint-disable */
+
+.icon {
+	position: relative;
+	display: block;
+	max-width: 100%;
+
+  > svg {
+    position: absolute;
+		width: 100%;
+		max-width: 100%;
+    height: 100%;
+    display: block;
+    fill: currentColor;
+  }
+
+  &:after {
+    content: "";
+    display: block;
+    height: 0; 
+    width: auto;
+  }
+}
+
+.icon--ui-basket {
+  width: 96px;
+  &:after {
+    padding-bottom: 100%;
+  }
+}
+.icon--ui-chevron {
+  width: 9.53px;
+  &:after {
+    padding-bottom: 177.77777777777777%;
+  }
+}
+.icon--ui-facebook {
+  width: 48px;
+  &:after {
+    padding-bottom: 100%;
+  }
+}
+.icon--ui-foot {
+  width: 15.36px;
+  &:after {
+    padding-bottom: 220.00000000000003%;
+  }
+}
+.icon--ui-logo {
+  width: 115.07px;
+  &:after {
+    padding-bottom: 28.695652173913043%;
+  }
+}
+.icon--ui-search {
+  width: 48.63px;
+  &:after {
+    padding-bottom: 100%;
+  }
+}
+.icon--ui-twitter {
+  width: 48px;
+  &:after {
+    padding-bottom: 83.33333333333334%;
+  }
+}
+.icon--ui-youtube {
+  width: 48px;
+  &:after {
+    padding-bottom: 70.83333333333334%;
+  }
+}
+
+
+
+
+$icon--ui-basket-width: 96px;
+$icon--ui-basket-height: 96px;
+$icon--ui-basket-ratio: 1;
+
+$icon--ui-chevron-width: 9px;
+$icon--ui-chevron-height: 16px;
+$icon--ui-chevron-ratio: 1.7777777777777777;
+
+$icon--ui-facebook-width: 48px;
+$icon--ui-facebook-height: 48px;
+$icon--ui-facebook-ratio: 1;
+
+$icon--ui-foot-width: 15px;
+$icon--ui-foot-height: 33px;
+$icon--ui-foot-ratio: 2.2;
+
+$icon--ui-logo-width: 115px;
+$icon--ui-logo-height: 33px;
+$icon--ui-logo-ratio: 0.28695652173913044;
+
+$icon--ui-search-width: 48px;
+$icon--ui-search-height: 48px;
+$icon--ui-search-ratio: 1;
+
+$icon--ui-twitter-width: 48px;
+$icon--ui-twitter-height: 40px;
+$icon--ui-twitter-ratio: 0.8333333333333334;
+
+$icon--ui-youtube-width: 48px;
+$icon--ui-youtube-height: 34px;
+$icon--ui-youtube-ratio: 0.7083333333333334;

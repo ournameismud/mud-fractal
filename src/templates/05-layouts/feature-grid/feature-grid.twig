@@ -1,0 +1,25 @@
+<div class="g@xsmall l-feat-grid" {% if dev %}devmode{% endif %}>
+  <div class="l-feat-grid__side">
+		{% for item in sidebar %}
+			<div class="l-feat-grid__cell">
+				{% include '@' ~ item.template with item.data %}
+			</div>
+		{% endfor %}
+  </div>
+
+  <div class="l-feat-grid__feed">
+		{% for item in aside %}
+			<div class="l-feat-grid__cell">
+				{% include '@' ~ item.template with item.data %}
+			</div>
+		{% endfor %}
+  </div>
+
+  <div class="l-feat-grid__lead">
+		{% for item in lead %}
+			<div class="l-feat-grid__cell">
+				{% include '@' ~ item.template with item.data %}
+			</div>
+		{% endfor %}
+  </div>
+</div>

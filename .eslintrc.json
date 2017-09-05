@@ -1,0 +1,68 @@
+{
+	"env": {
+		"browser": true,
+		"es6": true,
+		"jest": true
+	},
+	"globals": {
+		"ENV": true,
+		"$": true,
+		"jQuery": true,
+		"log": true,
+		"google": true,
+		"process": true,
+		"require": true,
+		"global": true,
+		"TASK_CONFIG": true,
+		"PATH_CONFIG": true,
+		"SERVER": true,
+		"module": true
+	},
+	"plugins": [
+		"react",
+		"jest"
+	],
+	"extends": "eslint:recommended",
+	"parser": "babel-eslint",
+	"parserOptions": {
+		"ecmaVersion": 7,
+		"sourceType": "module",
+		"ecmaFeatures": {
+			"jsx": true
+		}
+	},
+	"rules": {
+		"no-console": ["warn", {
+			"allow": ["warn", "error"]
+		}],
+		"indent": [
+			"warn",
+			"tab"
+		],
+		"linebreak-style": [
+			"warn",
+			"unix"
+		],
+		"quotes": [
+			"warn",
+			"single"
+		],
+		"semi": [
+			"warn",
+			"never"
+		],
+		"no-unused-vars": [
+			"warn"
+		],
+		"eqeqeq": ["error", "allow-null"],
+		"no-extra-bind": "error",
+		"no-implicit-globals": "off",
+		"no-redeclare": "error",
+		"no-var": "warn",
+		"camelcase": ["error", {
+			"properties": "never"
+		}],
+		"no-plusplus": "error",
+		"react/jsx-uses-vars": [2]
+	}
+}

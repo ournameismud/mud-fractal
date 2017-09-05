@@ -1,0 +1,21 @@
+/* TEAM */
+
+    MUD
+    http://ournameismud.co.uk
+    @asclearasmud
+    Bath, UK
+            
+                [...]
+							
+/* THANKS */
+
+    Name: name or url
+                 
+                [...]
+                        
+/* SITE */
+
+    Last update: 2017/03/18 
+    Standards: HTML5, CSS3, ES2015..
+    Components: Modernizr, jQuery, Picturefill, WebFontLoader, lodash etc.
+    Software: Node

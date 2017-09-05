@@ -1,0 +1,38 @@
+/*
+  Settings
+*/
+
+
+@import '_config/base';
+@import '_config/fonts';
+@import '_config/colors';
+@import '_config/dimensions';
+
+$debug: false;
+
+@import '_config/type-config';
+@import 'fonts.css';
+
+/*
+  Utility functions
+*/
+
+@import '_system/core/utilities';
+
+
+.Header {
+	background-color: c(base, brand);
+}
+
+.Header-title {
+	font-family: font('heading-bold');
+	font-weight: normal;
+}
+
+.Pen-previewLink svg {
+	fill: c(base, brand);
+}
+
+a {
+	color: c(base, brand);
+}

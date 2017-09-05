@@ -1,0 +1,25 @@
+{% extends "@wrapper" %}
+
+{% block content %}
+	{% include '@hero--slide' with hero %}
+	<div class="wrapper">
+		{% include '@pairs-grid' with { 
+			modifier: 'intro',
+			entries: intro
+		} %}
+
+		<div class="g-row">
+			{% include '@promo' with banner %}
+		</div>
+		
+		{% include '@feature-grid' with { 
+			sidebar: sidebar, 
+			aside: aside, 
+			lead, lead 
+		} %}
+		
+		{% include '@pairs-grid' with { 
+			entries: promos
+		} %}
+	</div>
+{% endblock %}

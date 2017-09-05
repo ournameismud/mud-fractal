@@ -1,0 +1,24 @@
+.o-burger {
+	@include menu-icon-rotate($width: rem(20px), $height: 2px, $color: $white, $curve: true, $active_class: '.is-active', $gap: 2.5);
+
+	position: relative;
+	display: block;
+	width: rem(50px);
+	background-color: c(secondary, brand);
+
+	&.is-active {
+		span {
+			background-color: transparent;
+		}
+	}
+}
+
+.o-burger--overlay {
+	position: absolute;
+	top: rem($header-offest);
+	right: 0;
+	width: rem(50px);
+	height: rem($header-btn-height);
+	z-index: 4;
+}
+

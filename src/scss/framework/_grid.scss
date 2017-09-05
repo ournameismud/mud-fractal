@@ -1,0 +1,24 @@
+.g-row {
+	margin-bottom: vr(8, $units: true);
+
+	@include mq($from: breakpoint('medium')) {
+		margin-bottom: vr(12, $units: true);
+	}
+
+	@include mq($from: breakpoint('xlarge')) {
+		margin-bottom: vr(16, $units: true);
+	}
+}
+
+
+
+
+@each $break, $key in $breakpoints {
+	@include mq($from: breakpoint($break)) {
+		.g\@#{$break} {
+			display: flex;
+			flex-wrap: wrap;
+		}
+	}
+}
+

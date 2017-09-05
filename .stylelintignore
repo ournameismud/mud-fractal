@@ -1,0 +1,9 @@
+
+# ignoring the config folder
+# contains some custom syntax (lost) that doesn't play nice
+
+src/scss/_config
+
+# thirdparty code might live here
+# so lets not lint
+src/scss/_system

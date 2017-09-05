@@ -1,0 +1,6 @@
+<article class="c-teaser">
+	{% include '@sub-heading' with { text: subheading, modifier: theme } %}
+	<h3 class="c-teaser__heading">{{ title }}</h3>
+	<p>{{ body }}</p>
+	{% include '@author' %}
+</article>

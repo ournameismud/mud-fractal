@@ -1,0 +1,56 @@
+/* stylelint-disable */
+
+@mixin font-type($font: 'base') {
+	@warn 'This mixin is no longer available, please use font function instead'
+}
+
+@mixin menu-icon-rotate($width: 30px, $height: 6px, $color: $white, $curve: true, $active_class: '.is-active', $gap: 2) {
+	$exit_lenght: $height * 2;
+	$bar_gaps: ($height * $gap) + 1;
+	//position: relative;
+	& > span {
+		transition: transform 300ms;
+		transform: translateY(0);
+		margin: auto;
+
+		&,
+		&:before,
+		&:after {
+			width: $width;
+			height: $height;
+			background-color: $color;
+			position: absolute; // firefox fix
+			top: 0;
+			left: 0;
+			right: 0;
+			bottom: 0;
+			margin: auto;
+			z-index: 21;
+			@if $curve==true {
+				border-radius: $height;
+			}
+		}
+		&:before,
+		&:after {
+			transition: transform 300ms;
+			content: " ";
+		}
+		&:before {
+			transform: translateY(-$bar_gaps);
+		}
+		&:after {
+			transform: translateY($bar_gaps);
+		}
+	}
+	&.is-active {
+		& > span {
+			&:before {
+				transform: translateY(0) rotate(45deg);
+			}
+			&:after {
+				transform: translateY(0) rotate(-45deg);
+			}
+		}
+	}
+}
+

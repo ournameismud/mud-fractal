@@ -1,0 +1,141 @@
+export default {
+
+	stamp: Date.now(),
+
+	js: {
+		entries: {
+			app: ['./app.js']
+		},
+		hot: true,
+		extensions: ['js', 'json'],
+		extractSharedJs: false,
+		filename: 'bundle' // no extension
+	},
+
+	serviceWorker: {
+		watch: true,
+		task: 'code',
+		extensions: ['js']
+	},
+
+	json: {
+		watch: true,
+		task: 'asset',
+		extensions: ['json']
+	},
+
+	scss: {
+		task: 'code',
+		watch: true,
+		autoprefixer: {
+			browsers: ['last 3 version']
+		},
+		options: {
+			indentedSyntax: false,
+			outputStyle: 'expanded'
+		},
+		cssnanoOptions: {
+			autoprefixer: false
+		},
+		extensions: ['scss'],
+		lintIgnorePaths: ['_system/**/*.scss', '_config/*.scss'],
+		filename: 'style' // no extension
+	},
+
+
+	craftTemplates: {
+		task: 'asset',
+		watch: true,
+		extensions: ['twig', 'html']
+	},
+
+	images: {
+		task: 'asset',
+		watch: true,
+		extensions: ['jpg', 'png', 'svg', 'gif']
+	},
+
+	svgs: {
+		task: 'asset',
+		watch: true,
+		extensions: ['svg']
+	},
+
+	staticAssets: {
+		task: null,
+		watch: false,
+		extensions: ['*']
+	},
+
+	sprites: {
+		task: false,
+		watch: false,
+		mode: {
+			css: {
+				spacing: {
+					padding: 0
+				},
+				dest: './',
+				layout: 'diagonal',
+				sprite: 'svg-sprite.svg',
+				bust: false,
+				render: {
+					scss: {
+						dest: '_system/gulp-output/_svg-sprites.scss',
+						template: 'gulp/libs/sprites.tmp.scss'
+					}
+				}
+			}
+		},
+
+		extensions: ['svg']
+	},
+
+	cssFonts: {
+		task: 'asset',
+		watch: true,
+		extensions: ['css']
+	},
+
+	fonts: {
+		task: 'asset',
+		watch: true,
+		extensions: ['woff2', 'woff', 'eot', 'ttf', 'svg']
+	},
+
+	favicons: {
+		task: 'asset',
+		extensions: ['xml', 'ico', 'json', 'png', 'svg']
+	},
+
+	symbols: {
+		task: 'asset',
+		watch: true,
+		scssTemplate: '../gulp/libs/symbols.tmp.scss',
+		scssOutputPath: 'scss/_system/gulp-output/',
+		scssOutputFile: '_svg-symbols.scss',
+		sourceFile: 'images/svg-symbols/source.html',
+		fileName: 'symbols.twig',
+		extensions: ['svg']
+	},
+
+	tokens: {
+		task: 'asset',
+		watch: true,
+		prefix: '$tokens: ',
+		extensions: ['json']
+	},
+
+	watch: {
+		gulpWatch: {
+			usePolling: false
+		}
+	},
+
+	critical: {
+		inline: false,
+		width: 1300,
+		minify: true,
+		height: 900
+	}
+}

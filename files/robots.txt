@@ -1,0 +1,6 @@
+# robots.txt
+
+# Disallow all
+# User-agent: *
+# Disallow: /
+

@@ -1,0 +1,50 @@
+{
+  "extends": "stylelint-config-standard",
+  "plugins": [
+    "stylelint-scss"
+  ],
+	"ignoreFiles": [
+		"./src/scss/_system/**/*",
+		"./src/scss/_config/*"
+	],
+  "rules": {
+    "at-rule-no-unknown": [ true, {
+      "ignoreAtRules": [
+        "extends",
+        "ignores",
+				"function",
+				"include",
+				"each",
+				"mixin",
+				"return",
+				"if",
+				"else",
+				"warn",
+				"for"
+      ]
+    }],
+    "block-no-empty": null,
+    "color-no-invalid-hex": true,
+    "color-hex-length": "long",
+    "declaration-colon-space-after": "always",
+    "indentation": ["tab", {
+      "except": ["value"]
+    }],
+    "number-leading-zero": "never",
+    "max-empty-lines": 10,
+    "selector-pseudo-element-colon-notation": "double",
+    "unit-whitelist": ["em", "rem", "%", "ms", "px", "vh", "vw", "vmin", "vmax", "deg"],
+    "property-no-unknown": [
+      true, {
+        ignoreProperties: ["/^lost-/", "/^tap-/", "aspect-ratio", "triangle", "font-range", "apperance"]
+      }
+    ],
+    "max-nesting-depth": 3,
+		"selector-type-no-unknown": null,
+		"selector-pseudo-class-no-unknown": [
+			null, {
+				ignorePseudoClasses: ["/^at-/", "/^exactly-/"]
+			}
+		]
+  }
+}

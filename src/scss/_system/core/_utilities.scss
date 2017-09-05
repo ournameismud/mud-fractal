@@ -1,0 +1,135 @@
+/* stylelint-disable */
+@function leading($font-size, $computed) {
+	$fs: strip-units($font-size);
+	@return $computed / $fs;
+}
+
+
+@function calcfluid($min-type-size, $max-type-size, $start-fluid-width: $start-fluid-width, $stop-fluid-width: $stop-fluid-width) {
+	@return calc( #{$min-type-size} + (#{strip-units($max-type-size)} - #{strip-units($min-type-size)}) * ((100vw - #{$start-fluid-width}) / (#{strip-units($stop-fluid-width)} - #{strip-units($start-fluid-width)})) );
+}
+
+@function strip-units($value) {
+	@return $value / ($value * 0 + 1);
+}
+
+@function gutter($lines: 1, $value: $base-padding) {
+	$gutter: strip-units($value);
+	@if length($lines)==1 {
+		@return rem(floor(($gutter * $lines) * 1px));
+	} @else {
+		@warn 'To many values used in gutter function';
+		@return null;
+	}
+}
+
+@function gridCalc($columns, $total-columns: $base-max-columns) {
+	@return percentage($columns / $total-columns);
+}
+
+// colour functions
+// Add percentage of white to a color
+@function tint($color, $percent) {
+	@return mix(white, $color, $percent);
+}
+
+// Add percentage of black to a color
+@function shade($color, $percent) {
+	@return mix(black, $color, $percent);
+}
+
+
+@function c($palette, $tone: 'base') {
+	@return map-get(map-get($colors, $palette), $tone);
+}
+
+@function breakpoint($break) {
+	@return map-get($breakpoints, $break);
+}
+
+@function get-gutter($gutter) {
+	@return rem(map-get($grid-gutters, $gutter));
+}
+
+@function rem-to-px($value, $context: $current-rootsize) {
+
+    @if unit($value) == "rem" {
+        $value : strip-units($value) * strip-units($current-rootsize);
+        $value : $value * 1px;
+    }
+    @return $value;
+}
+
+@function rem($value, $context: $current-rootsize, $report: false) {
+    @if $report == true {
+        @debug $value $context;
+    }
+    @if unit($context) == "rem" {
+        $context: rem-to-px($context);
+    }
+    @if unit($value) == "px" {
+        $value : strip-units($value) / strip-units($context);
+        $value : $value * 1rem;
+    }
+    @return $value;
+}
+
+@mixin svg($sprite) {
+	$map: map-get($sprites, $sprite);
+	background: url('../images/svg-sprite.svg') map-get($map, backgroundX) map-get($map, backgroundY) no-repeat;
+	width: map-get($map, width);
+	height: map-get($map, height);
+}
+
+@function ratio($x: 16, $y: 9) {
+	@return percentage($y / $x);
+}
+
+
+@function font($font: body) {
+	@return map-get(map-get($fonts, $font), 'font-family');
+}
+
+@function weight($font: body) {
+	@return map-get(map-get($fonts, $font), 'weight');
+}
+
+@function line-height($font: body) {
+	@return map-get(map-get($fonts, $font), 'line-height');
+}
+
+@mixin font($font: body) {
+	font-family: map-get(map-get($fonts, $font), 'font-family');
+	font-weight: map-get(map-get($fonts, $font), 'weight');
+}
+
+@mixin font-baseline($font-size: $base-font-size, $line-height:  $base-type-leading, $browser-default-font-size: $current-rootsize) {
+  font-size: strip-units($base-font-size) / strip-units($browser-default-font-size) + em;
+  line-height: $base-line-height / $base-font-size;
+}
+
+@function vr($lines: $base-line-multiple, $grid: $base-line-grid, $font-size: $base-font-size, $units: false) {
+	$output: ($lines * $grid) / $font-size;
+	@if $units {
+		@return rem($output * 1rem);
+	} @else {
+		@return $output;
+	}
+}
+
+@mixin susy-use($settings) {
+  @if type-of($settings) != 'map' {
+    $settings: susy-compile($settings);
+  }
+  
+  $global: $susy;
+  $susy: map-merge($susy, $settings) !global;
+  @content;
+  $susy: $global !global;
+}
+
+@mixin dev() {
+	@if $env == 'development' {
+		@content;
+	}
+}

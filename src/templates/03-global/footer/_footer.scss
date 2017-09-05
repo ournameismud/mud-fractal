@@ -1,0 +1,118 @@
+.c-footer {
+	font-size: ms(-1);
+}
+
+.c-footer__row {
+	display: flex;
+	justify-content: space-between;
+	flex-wrap: wrap;
+}
+
+.c-footer__row--last {
+	border-top: 1px solid c(secondary, neutral);
+	padding-top: vr(5, $units: true);
+	margin-top: vr(5, $units: true);
+}
+
+.c-footer__list {
+	margin-bottom: gutter(1);
+}
+
+.c-footer__group--popular {
+	width: 100%;
+
+	@include mq($from: breakpoint('xlarge')) {
+		width: span(8 wide);
+	}
+}
+
+.c-footer__heading {
+	margin-bottom: vr(5, $units: true);
+	font-size: responsive ms(3) ms(5);
+}
+
+.c-footer__title {
+	text-transform: uppercase;
+	margin-bottom: vr(1, $units: true);
+	font-size: ms(-1);
+}
+
+.c-footer__col {
+	width: span(8 of 16);
+	margin-bottom: gutter(1);
+
+	@include mq($from: breakpoint('xsmall')) {
+		width: span(4 of 16);
+	}
+
+	@include mq($from: breakpoint('xlarge')) {
+		width: span(2 of 8);
+	}
+}
+
+.c-footer__group--info {
+	@include mq($from: breakpoint('xlarge')) {
+		width: span(2 wide);
+	}
+}
+
+.c-footer__group--community {
+	@include mq($from: breakpoint('xsmall')) {
+		width: span(8 wide);
+	}
+
+	@include mq($from: breakpoint('xlarge')) {
+		width: span(4 wide);
+	}
+}
+
+.c-footer__group--partners {
+	@include mq($from: breakpoint('xlarge')) {
+		width: span(11 wide);
+	}
+}
+
+.c-footer__group--company {
+	display: flex;
+	justify-content: space-between;
+	flex-wrap: wrap;
+
+	@include mq($from: breakpoint('xlarge')) {
+		width: span(4 wide);
+	}
+}
+
+.c-footer__list--partners,
+.c-footer__list--social {
+	display: flex;
+	align-items: center;
+}
+
+.c-footer__list--partners .c-footer__heading {
+	margin: 0;
+}
+
+.c-footer__list--partners li {
+	margin-right: rem(35px);
+}
+
+.c-footer__list--social {
+	margin-right: rem(10px);
+}
+
+.c-footer__list--social li {
+	margin-right: rem(12px);
+}
+
+.c-footer__copy {
+	font-size: ms(-3);
+}
+
+.c-footer__copy .icon {
+	display: inline-block;
+	margin-right: rem(10px);
+	opacity: .2;
+	position: relative;
+	top: 5px;
+	width: 10px;
+}

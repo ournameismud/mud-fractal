@@ -1,0 +1,64 @@
+@include dev() {
+	[devmode] {
+		& > * {
+			border: 1px dotted c(base, brand);
+		}
+
+		.l-pairs-grid__cell {
+			aspect-ratio: '1:1';
+			background-color: rgba(c(base, brand), .5);
+			margin-bottom: gutter(1);
+
+			.box {
+				display: flex;
+				justify-content: center;
+				align-items: center;
+			}
+
+			& > * {
+				outline: none;
+			}
+		}
+	}
+}
+
+
+.l-pairs-grid {
+	margin-bottom: vr(8, $units: true);
+
+	@include mq($from: breakpoint('xsmall')) {
+		justify-content: flex-start;
+	}
+
+	@include mq($from: breakpoint('medium')) {
+		margin-bottom: vr(12, $units: true);
+	}
+
+	@include mq($from: breakpoint('xlarge')) {
+		margin-bottom: vr(16, $units: true);
+	}
+}
+
+
+.l-pairs-grid__cell {
+	@include mq($from: breakpoint('xsmall')) {
+		width: span(6 of 12);
+
+		&:not(:nth-child(2n)) {
+			margin-right: susy-gutter(1);
+		}
+	}
+}
+
+
+.l-pairs-grid--intro {
+	@include mq($from: breakpoint('medium')) {
+		.l-pairs-grid__cell:nth-child(odd) {
+			width: span(7);
+		}
+
+		.l-pairs-grid__cell:nth-child(even) {
+			width: span(9);
+		}
+	}
+}
