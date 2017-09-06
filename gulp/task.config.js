@@ -4,19 +4,31 @@ export default {
 
 	js: {
 		entries: {
-			app: ['./app.js']
+			app: [
+				'./app.js'
+			]
 		},
-		hot: true,
+		serviceWorker: {
+			sw: [
+				'./sw.js'
+			]
+		},
+		hot: {
+			enabled: true,
+			reload: true,
+			quiet: true,
+			react: false
+		},
 		extensions: ['js', 'json'],
 		extractSharedJs: false,
 		filename: 'bundle' // no extension
 	},
 
-	serviceWorker: {
-		watch: true,
-		task: 'code',
-		extensions: ['js']
-	},
+	// serviceWorker: {
+	// 	watch: true,
+	// 	task: 'code',
+	// 	extensions: ['js']
+	// },
 
 	json: {
 		watch: true,
@@ -43,11 +55,11 @@ export default {
 	},
 
 
-	craftTemplates: {
-		task: 'asset',
-		watch: true,
-		extensions: ['twig', 'html']
-	},
+	// craftTemplates: {
+	// 	task: 'asset',
+	// 	watch: true,
+	// 	extensions: ['twig', 'html']
+	// },
 
 	images: {
 		task: 'asset',

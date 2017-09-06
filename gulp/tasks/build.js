@@ -3,7 +3,7 @@ import sizereport from 'gulp-sizereport'
 import gulpSequence from 'gulp-sequence'
 import path from 'path'
 import { getTasks } from '../libs/utils'
-import fractal from './fractal'
+import fractal, { exportPaths } from './fractal'
 import del from 'del'
 
 gulp.task('size-report', function () {
@@ -27,19 +27,38 @@ function buildFractal() {
 	builder.on('error', err => logger.error(err.message))
 	return builder.build().then(() => {
 		logger.success('Fractal build completed!')
+		exportPaths().then(moveTwigTemplatesToCraft)
 	})
+}
+
+function moveTwigTemplatesToCraft(resp) {
+	for(const key in resp) {
+		const { src, dest } = resp[key]
+
+		gulp.src(path.resolve(process.env.PWD, src))
+			.pipe(gulp.dest(path.resolve(process.env.PWD, PATH_CONFIG.craftTemplates.dest, dest)))
+	}
 }
 
 export function build(cb) {
 	const { assetTasks, codeTasks } = getTasks()
 	assetTasks.push('move-scripts')
 	codeTasks.push('bundle-script')
-	gulpSequence('build:fractal', 'clean:dist', assetTasks, codeTasks, 'size-report', cb)
+	gulpSequence('clean:dist', assetTasks, codeTasks, 'size-report', cb)
+}
+
+export function _build(cb) {
+	const { assetTasks, codeTasks } = getTasks()
+	assetTasks.push('move-scripts')
+	codeTasks.push('bundle-script')
+	gulpSequence('build:library', 'clean:dist', assetTasks, codeTasks, 'size-report', cb)
 }
 
 gulp.task('build', build)
-gulp.task('build:library', build)
-gulp.task('build:fractal', buildFractal)
+gulp.task('build:fractal', _build)
+gulp.task('build:library', buildFractal)
+
+
 gulp.task('clean:dist', () => {
 	return del([
 		path.resolve(process.env.PWD, PATH_CONFIG.dist),

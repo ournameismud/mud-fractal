@@ -4,3 +4,19 @@
 Frontend starter kit integrated with fractal
 http://fractal.build/
 
+###### Recommended requirements
+- node >= 8.4.0
+- gulp >= 3.91
+- yarn >= 0.27.5
+- webpack >= 3.0.0
+
+###### Installation
+
+`yarn`
+
+###### Development mode
+
+`yarn start`
+
+###### Build for production
+`npm run build`

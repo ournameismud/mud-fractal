@@ -1,0 +1,62 @@
+{
+  "@theme": {
+    "src": "src/templates/01-base/theme/theme.twig",
+    "dest": "01-base/theme"
+  },
+  "@typography": {
+    "src": "src/templates/01-base/typography/typography.twig",
+    "dest": "01-base/typography"
+  },
+  "@burger": {
+    "src": "src/templates/02-objects/burger/burger.twig",
+    "dest": "02-objects/burger"
+  },
+  "@button": {
+    "src": "src/templates/02-objects/button/button.twig",
+    "dest": "02-objects/button"
+  },
+  "@footer": {
+    "src": "src/templates/03-global/footer/footer.twig",
+    "dest": "03-global/footer"
+  },
+  "@header": {
+    "src": "src/templates/03-global/header/header.twig",
+    "dest": "03-global/header"
+  },
+  "@menu": {
+    "src": "src/templates/03-global/menu/menu.twig",
+    "dest": "03-global/menu"
+  },
+  "@teaser": {
+    "src": "src/templates/04-components/teaser/teaser.twig",
+    "dest": "04-components/teaser"
+  },
+  "@box": {
+    "src": "src/templates/05-layouts/_box/_box.twig",
+    "dest": "05-layouts/_box"
+  },
+  "@feed-grid": {
+    "src": "src/templates/05-layouts/feed-grid/feed-grid.twig",
+    "dest": "05-layouts/feed-grid"
+  },
+  "@home": {
+    "src": "src/templates/06-pages/home/home.twig",
+    "dest": "06-pages/home"
+  },
+  "@wrapper": {
+    "src": "src/templates/06-pages/_wrapper.twig",
+    "dest": "06-pages"
+  },
+  "@helpers": {
+    "src": "src/templates/macros/_helpers.twig",
+    "dest": "macros"
+  },
+  "@layout": {
+    "src": "src/templates/wrapper/_layout.twig",
+    "dest": "wrapper"
+  },
+  "@symbols": {
+    "src": "src/templates/wrapper/_symbols.twig",
+    "dest": "wrapper"
+  }
+}

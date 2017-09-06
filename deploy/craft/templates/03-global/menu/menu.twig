@@ -1,0 +1,37 @@
+{% import 'macros/_helpers.twig' as h %}
+
+<nav class="c-menu" role="navigation" aria-label="Site navigation" id="site-menu">
+	<button id="menu-sub-nav-closer" data-hide-subnav>
+		{{ h.symbol('ui-chevron') }}
+	</button>
+	<ul class="r-list c-menu__root">
+		{% for entry in menu %}
+			<li class="c-menu__item c-menu__item--lv1">
+				<a href="{{ entry.slug }}" class="c-menu__link {% if entry.theme %}c-menu__link--{{ entry.theme }}{% endif %}" {% if entry.children|length %}aria-haspopup="true"{% endif %}>{{ entry.title }}</a>
+				{% if entry.children|length %}
+					<button class="c-menu__expander" data-show-subnav>
+						{{ h.symbol('ui-chevron') }}
+					</button>
+					<div class="c-menu__dd" aria-hidden="true">
+						<div class="wrapper c-menu__row">
+							<aside class="c-menu__aside">
+								<h2 class="c-menu__heading t-{{ entry.theme }}">{{ entry.heading }}</h2>
+								<p>{{ entry.body }}</p>
+							</aside>
+							<ul class="r-list c-menu__child" aria-label="submenu">
+								{% for child in entry.children %}
+									<li class="c-menu__item--lv2">
+										<a href="{{ child.slug }}">{{ child.title }}</a>
+									</li>
+								{% endfor %}
+							</ul>
+							<aside class="c-menu__aside">
+								{% include '@teaser--menu' with entry.article %}
+							</aside>
+						</div>
+					</div>
+				{% endif %}
+			</li>
+		{% endfor %}
+	</ul>
+</nav>

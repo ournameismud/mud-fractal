@@ -9,4 +9,9 @@ if(module.hot) {
 	module.hot.accept()
 }
 
+log(module)
+
 new App(document, behaviours).start()
+
+
+document.body.style.backgroundColor = 'green'

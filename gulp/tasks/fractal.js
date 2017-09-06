@@ -1,4 +1,7 @@
+import fs from 'fs'
+import path from 'path'
 const fractal = require('@frctl/fractal').create()
+
 
 const paths = {
 	build: PATH_CONFIG.build,
@@ -74,5 +77,31 @@ fractal.web.set('static.path', paths.static)
 fractal.web.set('builder.dest', paths.build)
 fractal.web.set('builder.urls.ext', '.html')
 
-// Export config
+// https://clearleft.com/posts/443
+export function exportPaths() {
+
+	return new Promise((resolve, reject) => {
+		const map = {}
+		for (let item of fractal.components.flatten()) {
+
+
+			map[`@${item.handle}`] = {
+				src: path.relative(process.cwd(), item.viewPath),
+				dest: path.relative(process.cwd(), item.viewDir).split('templates/')[1]
+			}
+		}
+
+
+		fs.writeFile(path.resolve(process.env.PWD, PATH_CONFIG.craftTemplates.config, 'components-map.json'), JSON.stringify(map, null, 2), 'utf8', (err) => {
+			if (err) {
+				reject(err)
+				return
+			}
+			resolve(map)
+		})
+	})
+}
+
+fractal.components.on('updated', exportPaths)
+
 export default fractal

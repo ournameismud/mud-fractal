@@ -5,7 +5,7 @@
 	"dist": "./tmp/public/dist",
 	"static": "./tmp/public",
 	"build": "./deploy/public",
-
+	
 	"browserSync": {
 		"server": {
 			"baseDir": "tmp/public",
@@ -15,8 +15,9 @@
 
 
 	"craftTemplates": {
-		"src": "../deploy/craft/templates",
-		"dest": "../deploy/craft/templates"
+		"src": "./deploy/craft/templates",
+		"config": "./deploy/craft/config",
+		"dest": "./deploy/craft/templates"
 	},
 
   "staticAssets": {
@@ -33,10 +34,6 @@
 		]
   },
 
-  "serviceWorker": {
-    "src": "js/service-worker.js",
-    "dest": "./"
-  },
 
 	"inline": {
 		"src": [

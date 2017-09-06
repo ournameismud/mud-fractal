@@ -1,13 +1,11 @@
 import gulp from 'gulp'
 import webpack from 'webpack'
 import inject from 'gulp-inject'
-import {
-	logger
-} from '../libs/utils'
+import { logger } from '../libs/utils'
 import webpackConfig from './webpack.config.babel'
-import path from 'path'
 import uglify from 'gulp-uglify'
-import browserSync from 'browser-sync'
+// import browserSync from 'browser-sync'
+// import path from 'path'
 import util from 'gulp-util'
 
 export function webpackProduction(callback) {
@@ -32,14 +30,14 @@ export function inlineScripts() {
 		.pipe(gulp.dest(PATH_CONFIG.inline.path))
 }
 
-export function serviceWorker() {
-	return gulp.src(path.resolve(PATH_CONFIG.src, PATH_CONFIG.serviceWorker.src))
-		.pipe(uglify())
-		.pipe(gulp.dest(path.resolve(PATH_CONFIG.dest, PATH_CONFIG.serviceWorker.dest)))
-		.pipe(browserSync.stream())
-}
+// export function serviceWorker() {
+// 	return gulp.src(path.resolve(PATH_CONFIG.src, PATH_CONFIG.serviceWorker.src))
+// 		.pipe(uglify())
+// 		.pipe(gulp.dest(path.resolve(PATH_CONFIG.dest, PATH_CONFIG.serviceWorker.dest)))
+// 		.pipe(browserSync.stream())
+// }
 
 
-gulp.task('serviceWorker', serviceWorker)
+// gulp.task('serviceWorker', serviceWorker)
 gulp.task('inline-scripts', inlineScripts)
 gulp.task('bundle-script', webpackProduction)

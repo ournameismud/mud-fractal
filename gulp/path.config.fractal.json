@@ -1,0 +1,8 @@
+{
+  "baseDir": "./deploy/library",
+  "src": "./src",
+	"dest": "./deploy/library",
+	"dist": "./deploy/library/dist",
+	"static": "./deploy/tmp",
+	"build": "./deploy/library"
+}

@@ -6,8 +6,6 @@ import backstopjs from 'backstopjs'
 import util from 'gulp-util'
 import requireGlob from 'require-glob'
 
-
-
 export default function test() {
 
 	const { url, defaults } = TASK_CONFIG.backstop
@@ -69,9 +67,5 @@ export default function test() {
 		})
 
 }
-
-
-
-
 
 gulp.task('backstop_reference', test)
