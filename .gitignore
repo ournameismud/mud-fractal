@@ -5,18 +5,18 @@
 ._*
 .Spotlight-V100
 .Trashes
+.vscode
+.sass-cache
+*.map
 ehthumbs.db
 Thumbs.db
 npm-debug.log
-.vscode
-.editorconfig
+#.editorconfig
 
 # Assets #
 ######################
-.sass-cache
-node_modules
-*.map
 tmp
+node_modules
 reports
 
 deploy/public/imager
@@ -30,29 +30,9 @@ deploy/public_html/resources
 deploy/public_html/downloads
 deploy/public_html/uploads
 
-
 # Craft #
 ######################
 # http://buildwithcraft.com/help/craft-storage-gitignore#craft-storage-runtime
 deploy/craft/storage/backups/
 deploy/craft/storage/runtime/
 deploy/craft/storage/userphotos/
-
-
-# ExpressionEngine #
-######################
-# https://github.com/github/gitignore/blob/master/ExpressionEngine.gitignore
-# Images
-deploy/public_html/images/avatars/
-deploy/public_html/images/captchas/
-deploy/public_html/images/smileys/
-deploy/public_html/images/member_photos/
-deploy/public_html/images/signature_attachments/
-deploy/public_html/images/pm_attachments/
-
-# Caches
-sized/
-thumbs/
-_thumbs/
-*/expressionengine/cache/*
-
