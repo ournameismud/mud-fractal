@@ -132,9 +132,8 @@
     "build": "gulp build:fractal --production --fractal",
     "build:cms": "gulp build --production",
 		"test": "jest",
-		"pathmap": "fractal pathmap",
     "reference": "gulp backstop_reference --test --reference",
-    "regression": "gulp backstop_reference --test"
+    "diff": "gulp backstop_reference --test"
   },
   "name": "ournameismud.com",
   "description": "Mudstone 7.1.0 integrated with Fractal",

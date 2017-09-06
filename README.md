@@ -18,5 +18,14 @@ http://fractal.build/
 
 `yarn start`
 
-###### Build for production
-`npm run build`
+###### Build component library
+`yarn run build`
+
+###### Build for craftcms
+`yarn run build:cms`
+
+###### Take regression test reference
+`yarn run reference`
+
+###### Regression test diff 
+`yarn run diff`
