@@ -1,26 +1,10 @@
 {% import 'macros/_helpers.twig' as h %}
 
-<header class="c-header {% if hasHero %}c-header--float{% endif %}" data-behaviour="MobileMenu SearchOverlay BasketPopOut">
+<header class="c-header {% if hasHero %}c-header--float{% endif %}" data-behaviour="MobileMenu">
 	<a href="#0" class="o-burger c-header__btn" id="menu-btn">
 		<span></span>
-	</a>
-	<a href="/" class="c-header__logo">
-		{{ h.symbol('ui-logo') }}
 	</a>
 
 	{% include '@menu' %}
 
-	<a href="#0" class="c-header__action c-header__action--search" id="search-btn">
-		{{ h.symbol('ui-search') }}
-	</a>
-	<span class="c-header__action c-header__action--basket">
-		<a href="#0" id="basket-btn">
-			{{ h.symbol('ui-basket') }}
-			<span>2</span>
-		</a>
-		{% include '@basket' %}
-	</span>
-	
-
-	{% include '@search' %}
 </header>

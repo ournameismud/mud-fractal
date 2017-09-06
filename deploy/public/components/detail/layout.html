@@ -1,0 +1,866 @@
+<!DOCTYPE html>
+<html lang="en-gb" dir="ltr" class="no-js">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script>
+    window.frctl = {
+        env: 'static'
+    };
+    </script>
+    <script>var cl = document.querySelector('html').classList; cl.remove('no-js'); cl.add('has-js');</script>
+    <link rel="shortcut icon" href="../../favicon.ico" type="image/ico">
+
+<link rel="stylesheet" href="../../fractal/css/default.css?cachebust=1.2.0" type="text/css">
+
+<link rel="stylesheet" href="../../dist/css/theme.1504653224156.css?cachebust=1.2.0" type="text/css">
+
+
+<title>Layout | MudStone</title>
+
+</head>
+<body>
+
+
+
+<div class="Frame" id="frame">
+
+    <div class="Frame-header">
+        <div class="Header">
+    <button class="Header-button Header-navToggle" data-action="toggle-sidebar">
+        <svg class="Header-navToggleIcon Header-navToggleIcon--open" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0 0h24v24H0z" fill="none"/>
+    <path d="M19 6.4L17.6 5 12 10.6 6.4 5 5 6.4 10.6 12 5 17.6 6.4 19 12 13.4 17.6 19 19 17.6 13.4 12z"/>
+</svg>
+
+        <svg class="Header-navToggleIcon Header-navToggleIcon--closed" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0 0h24v24H0z" fill="none"/>
+    <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
+</svg>
+
+    </button>
+    <a href="../../index.html" class="Header-title" data-pjax>MudStone</a>
+</div>
+
+    </div>
+
+    <div class="Frame-body" data-role="body">
+
+        <div class="Frame-panel Frame-panel--main" data-role="main">
+            <div class="Frame-inner" id="pjax-container">
+            
+
+
+    
+    
+
+<div class="Pen" data-behaviour="pen" id="pen-57dc3c62f51c63f8acb9ff8657b085d1">
+
+    
+
+    <div class="Pen-panel Pen-header">
+    <h1 class="Pen-title">
+        <a class="Pen-previewLink" href="../preview/layout.html" title="Component preview">
+            Layout
+            <svg fill="#000000" height="22" viewBox="0 0 24 24" width="22" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0 0h24v24H0z" fill="none"/>
+    <path d="M19 4H5c-1.11 0-2 .9-2 2v12c0 1.1.89 2 2 2h4v-2H5V8h14v10h-4v2h4c1.1 0 2-.9 2-2V6c0-1.1-.89-2-2-2zm-7 6l-4 4h3v6h2v-6h3l-4-4z"/>
+</svg>
+
+        </a>
+    </h1>
+    
+
+<div class="Status Status--tag">
+
+<label class="Status-label" style="background-color: #FF9233; border-color: #FF9233;">WIP</label>
+
+</div>
+
+
+</div>
+
+
+    <div class="Pen-panel Pen-preview Preview" data-behaviour="preview" id="preview-57dc3c62f51c63f8acb9ff8657b085d1">
+    <div class="Preview-wrapper" data-role="resizer">
+        <div class="Preview-resizer">
+            
+             <iframe
+                class="Preview-iframe"
+                data-role="window"
+                src="../preview/layout.html"
+                sandbox="allow-same-origin allow-scripts allow-forms"
+                 style=""
+                marginwidth="0" marginheight="0" frameborder="0" vspace="0" hspace="0" scrolling="yes">
+            </iframe>
+        </div>
+        <div class="Preview-handle" data-role="resize-handle"></div>
+        <div class="Preview-overlay"></div>
+    </div>
+</div>
+
+
+    <div class="Pen-handle Pen-handle--browser" data-role="resize-handle"></div>
+
+    <div class="Pen-panel Pen-info" data-role="info">
+    <div class="Browser" data-behaviour="browser" id="browser-57dc3c62f51c63f8acb9ff8657b085d1">
+
+    
+
+<div class="Browser-controls">
+    <ul class="Browser-tabs">
+        
+        
+        <li class="Browser-tab Browser-tab--html is-active " data-role="tab">
+            <a href="#browser-57dc3c62f51c63f8acb9ff8657b085d1-panel-html">HTML</a>
+        </li>
+        
+        
+        
+        <li class="Browser-tab Browser-tab--view" data-role="tab">
+            <a href="#browser-57dc3c62f51c63f8acb9ff8657b085d1-panel-view">View</a>
+        </li>
+        
+        
+        
+        <li class="Browser-tab Browser-tab--context" data-role="tab">
+            <a href="#browser-57dc3c62f51c63f8acb9ff8657b085d1-panel-context">Context</a>
+        </li>
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        <li class="Browser-tab Browser-tab--info" data-role="tab">
+            <a href="#browser-57dc3c62f51c63f8acb9ff8657b085d1-panel-info">Info</a>
+        </li>
+        
+        
+        
+        <li class="Browser-tab Browser-tab--notes" data-role="tab">
+            <a href="#browser-57dc3c62f51c63f8acb9ff8657b085d1-panel-notes">Notes</a>
+        </li>
+        
+        
+    </ul>
+</div>
+
+
+    
+    
+<div class="Browser-panel Browser-code is-active" data-role="tab-panel" id="browser-57dc3c62f51c63f8acb9ff8657b085d1-panel-html">
+    <code class="Code Code--lang-html">
+        
+        <pre><span class="hljs-meta">&lt;!DOCTYPE html&gt;</span>
+
+<span class="hljs-tag">&lt;<span class="hljs-name">html</span> <span class="hljs-attr">lang</span>=<span class="hljs-string">"en-gb"</span> <span class="hljs-attr">dir</span>=<span class="hljs-string">"ltr"</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"no-js"</span>&gt;</span>
+
+<span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">charset</span>=<span class="hljs-string">"utf-8"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span>Footprint | Frontend Pattern Library<span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"description"</span> <span class="hljs-attr">content</span>=<span class="hljs-string">""</span>&gt;</span>
+
+    <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"viewport"</span> <span class="hljs-attr">content</span>=<span class="hljs-string">"width=device-width, initial-scale=1"</span>&gt;</span>
+
+    <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"viewport"</span> <span class="hljs-attr">content</span>=<span class="hljs-string">"width=device-width, initial-scale=1"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">"apple-touch-icon"</span> <span class="hljs-attr">sizes</span>=<span class="hljs-string">"180x180"</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"/apple-touch-icon.png"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">"icon"</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"image/png"</span> <span class="hljs-attr">sizes</span>=<span class="hljs-string">"32x32"</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"/favicon-32x32.png"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">"icon"</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"image/png"</span> <span class="hljs-attr">sizes</span>=<span class="hljs-string">"16x16"</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"/favicon-16x16.png"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">"manifest"</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"/manifest.json"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">"mask-icon"</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"/safari-pinned-tab.svg"</span> <span class="hljs-attr">color</span>=<span class="hljs-string">"#cb1d18"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"theme-color"</span> <span class="hljs-attr">content</span>=<span class="hljs-string">"#cb1d18"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="javascript">
+        <span class="hljs-keyword">var</span> html = <span class="hljs-built_in">document</span>.getElementsByTagName(<span class="hljs-string">"html"</span>)[<span class="hljs-number">0</span>];
+        html.classList ? html.classList.remove(<span class="hljs-string">"no-js"</span>) : html.className = el.className.replace(<span class="hljs-keyword">new</span> <span class="hljs-built_in">RegExp</span>(<span class="hljs-string">"(^|\\b)"</span> + className.split(<span class="hljs-string">" "</span>).join(<span class="hljs-string">"|"</span>) + <span class="hljs-string">"(\\b|$)"</span>, <span class="hljs-string">"gi"</span>), <span class="hljs-string">" "</span>);
+    </span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+    <span class="hljs-comment">&lt;!-- build:critical--&gt;</span>
+    <span class="hljs-comment">&lt;!-- endbuild --&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">"preload"</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"/dist/css/style.1504653224156.css"</span> <span class="hljs-attr">as</span>=<span class="hljs-string">"style"</span> <span class="hljs-attr">onload</span>=<span class="hljs-string">"this.rel='stylesheet'"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">noscript</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">"stylesheet"</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"/dist/css/style.1504653224156.css"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">noscript</span>&gt;</span>
+    <span class="hljs-comment">&lt;!-- inject:js --&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="javascript">
+        ! <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">e</span>) </span>{
+            <span class="hljs-keyword">var</span> t = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">t, n</span>) </span>{
+<span class="hljs-meta">                "use strict"</span>;
+                <span class="hljs-keyword">var</span> o = e.document.getElementsByTagName(<span class="hljs-string">"script"</span>)[<span class="hljs-number">0</span>],
+                    r = e.document.createElement(<span class="hljs-string">"script"</span>);
+                <span class="hljs-keyword">return</span> r.src = t, r.async = !<span class="hljs-number">0</span>, o.parentNode.insertBefore(r, o), n &amp;&amp; <span class="hljs-string">"function"</span> == <span class="hljs-keyword">typeof</span> n &amp;&amp; (r.onload = n), r
+            };
+            <span class="hljs-string">"undefined"</span> != <span class="hljs-keyword">typeof</span> <span class="hljs-built_in">module</span> ? <span class="hljs-built_in">module</span>.exports = t : e.loadJS = t
+        }(<span class="hljs-string">"undefined"</span> != <span class="hljs-keyword">typeof</span> global ? global : <span class="hljs-keyword">this</span>);
+    </span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="javascript">
+        ! <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">e</span>) </span>{
+<span class="hljs-meta">            "use strict"</span>;
+            <span class="hljs-keyword">var</span> n = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">n, t, o</span>) </span>{
+                <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">i</span>(<span class="hljs-params">e</span>) </span>{
+                    <span class="hljs-keyword">if</span> (a.body) <span class="hljs-keyword">return</span> e();
+                    setTimeout(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+                        i(e)
+                    })
+                }
+
+                <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">r</span>(<span class="hljs-params"></span>) </span>{
+                    l.addEventListener &amp;&amp; l.removeEventListener(<span class="hljs-string">"load"</span>, r), l.media = o || <span class="hljs-string">"all"</span>
+                }
+                <span class="hljs-keyword">var</span> d, a = e.document,
+                    l = a.createElement(<span class="hljs-string">"link"</span>);
+                <span class="hljs-keyword">if</span> (t) d = t;
+                <span class="hljs-keyword">else</span> {
+                    <span class="hljs-keyword">var</span> f = (a.body || a.getElementsByTagName(<span class="hljs-string">"head"</span>)[<span class="hljs-number">0</span>]).childNodes;
+                    d = f[f.length - <span class="hljs-number">1</span>]
+                }
+                <span class="hljs-keyword">var</span> s = a.styleSheets;
+                l.rel = <span class="hljs-string">"stylesheet"</span>, l.href = n, l.media = <span class="hljs-string">"only x"</span>, i(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+                    d.parentNode.insertBefore(l, t ? d : d.nextSibling)
+                });
+                <span class="hljs-keyword">var</span> u = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">e</span>) </span>{
+                    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> n = l.href, t = s.length; t--;)
+                        <span class="hljs-keyword">if</span> (s[t].href === n) <span class="hljs-keyword">return</span> e();
+                    setTimeout(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+                        u(e)
+                    })
+                };
+                <span class="hljs-keyword">return</span> l.addEventListener &amp;&amp; l.addEventListener(<span class="hljs-string">"load"</span>, r), l.onloadcssdefined = u, u(r), l
+            };
+            <span class="hljs-string">"undefined"</span> != <span class="hljs-keyword">typeof</span> exports ? exports.loadCSS = n : e.loadCSS = n
+        }(<span class="hljs-string">"undefined"</span> != <span class="hljs-keyword">typeof</span> global ? global : <span class="hljs-keyword">this</span>);
+    </span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="actionscript">
+        ! <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(t)</span> </span>{
+            <span class="hljs-keyword">if</span> (t.loadCSS) {
+                <span class="hljs-keyword">var</span> e = loadCSS.relpreload = {};
+                <span class="hljs-keyword">if</span> (e.support = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> </span>{
+                        <span class="hljs-keyword">try</span> {
+                            <span class="hljs-keyword">return</span> t.document.createElement(<span class="hljs-string">"link"</span>).relList.supports(<span class="hljs-string">"preload"</span>)
+                        } <span class="hljs-keyword">catch</span> (t) {
+                            <span class="hljs-keyword">return</span> !<span class="hljs-number">1</span>
+                        }
+                    }, e.poly = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> </span>{
+                        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> e = t.document.getElementsByTagName(<span class="hljs-string">"link"</span>), r = <span class="hljs-number">0</span>; r &lt; e.length; r++) {
+                            <span class="hljs-keyword">var</span> n = e[r];
+                            <span class="hljs-string">"preload"</span> === n.rel &amp;&amp; <span class="hljs-string">"style"</span> === n.getAttribute(<span class="hljs-string">"as"</span>) &amp;&amp; (t.loadCSS(n.href, n, n.getAttribute(<span class="hljs-string">"media"</span>)), n.rel = <span class="hljs-literal">null</span>)
+                        }
+                    }, !e.support()) {
+                    e.poly();
+                    <span class="hljs-keyword">var</span> r = t.setInterval(e.poly, <span class="hljs-number">300</span>);
+                    t.addEventListener &amp;&amp; t.addEventListener(<span class="hljs-string">"load"</span>, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> </span>{
+                        e.poly(), t.clearInterval(r)
+                    }), t.attachEvent &amp;&amp; t.attachEvent(<span class="hljs-string">"onload"</span>, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> </span>{
+                        t.clearInterval(r)
+                    })
+                }
+            }
+        }(<span class="hljs-keyword">this</span>);
+    </span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+    <span class="hljs-comment">&lt;!-- endinject --&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="javascript">
+        <span class="hljs-keyword">if</span> (!<span class="hljs-built_in">window</span>.HTMLPictureElement || !(<span class="hljs-string">'sizes'</span> <span class="hljs-keyword">in</span> <span class="hljs-built_in">document</span>.createElement(<span class="hljs-string">'img'</span>))) {
+            <span class="hljs-built_in">document</span>.createElement(<span class="hljs-string">'picture'</span>);
+            loadJS(<span class="hljs-string">"/dist/js/picturefill.min.js"</span>);
+        }
+    </span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span>
+
+<span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span>
+
+    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">style</span>=<span class="hljs-string">"display: none"</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">svg</span> <span class="hljs-attr">xmlns</span>=<span class="hljs-string">"http://www.w3.org/2000/svg"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">svg</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"/dist/js/bundle.1504653224156.js"</span>&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span>
+
+<span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span></pre>
+        
+    </code>
+</div>
+
+    
+    <div class="Browser-panel Browser-code" data-role="tab-panel" id="browser-57dc3c62f51c63f8acb9ff8657b085d1-panel-view">
+    <code class="Code Code--lang-twig">
+        <pre><span class="xml"><span class="hljs-meta">&lt;!DOCTYPE html&gt;</span>
+
+</span><span class="hljs-template-tag">{% <span class="hljs-name"><span class="hljs-keyword">set</span></span> CACHE = getStamp() %}</span><span class="xml">
+<span class="hljs-tag">&lt;<span class="hljs-name">html</span> <span class="hljs-attr">lang</span>=<span class="hljs-string">"en-gb"</span> <span class="hljs-attr">dir</span>=<span class="hljs-string">"ltr"</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"no-js"</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span>
+	  <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">charset</span>=<span class="hljs-string">"utf-8"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span>Footprint | Frontend Pattern Library<span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span>
+	  <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"description"</span> <span class="hljs-attr">content</span>=<span class="hljs-string">""</span>&gt;</span>
+		
+		<span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"viewport"</span> <span class="hljs-attr">content</span>=<span class="hljs-string">"width=device-width, initial-scale=1"</span>&gt;</span>
+
+	  <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"viewport"</span> <span class="hljs-attr">content</span>=<span class="hljs-string">"width=device-width, initial-scale=1"</span>&gt;</span>
+		<span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">"apple-touch-icon"</span> <span class="hljs-attr">sizes</span>=<span class="hljs-string">"180x180"</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"/apple-touch-icon.png"</span>&gt;</span>
+		<span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">"icon"</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"image/png"</span> <span class="hljs-attr">sizes</span>=<span class="hljs-string">"32x32"</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"/favicon-32x32.png"</span>&gt;</span>
+		<span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">"icon"</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"image/png"</span> <span class="hljs-attr">sizes</span>=<span class="hljs-string">"16x16"</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"/favicon-16x16.png"</span>&gt;</span>
+		<span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">"manifest"</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"/manifest.json"</span>&gt;</span>
+		<span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">"mask-icon"</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"/safari-pinned-tab.svg"</span> <span class="hljs-attr">color</span>=<span class="hljs-string">"#cb1d18"</span>&gt;</span>
+		<span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"theme-color"</span> <span class="hljs-attr">content</span>=<span class="hljs-string">"#cb1d18"</span>&gt;</span>
+	  <span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="javascript"><span class="hljs-keyword">var</span> html=<span class="hljs-built_in">document</span>.getElementsByTagName(<span class="hljs-string">"html"</span>)[<span class="hljs-number">0</span>];html.classList?html.classList.remove(<span class="hljs-string">"no-js"</span>):html.className=el.className.replace(<span class="hljs-keyword">new</span> <span class="hljs-built_in">RegExp</span>(<span class="hljs-string">"(^|\\b)"</span>+className.split(<span class="hljs-string">" "</span>).join(<span class="hljs-string">"|"</span>)+<span class="hljs-string">"(\\b|$)"</span>,<span class="hljs-string">"gi"</span>),<span class="hljs-string">" "</span>);</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+		<span class="hljs-comment">&lt;!-- build:critical--&gt;</span>
+		<span class="hljs-comment">&lt;!-- endbuild --&gt;</span>
+		<span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">"preload"</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"/dist/css/style</span></span></span><span class="hljs-template-variable">{{ CACHE.stamp }}</span><span class="xml"><span class="hljs-tag"><span class="hljs-string">.css"</span> <span class="hljs-attr">as</span>=<span class="hljs-string">"style"</span> <span class="hljs-attr">onload</span>=<span class="hljs-string">"this.rel='stylesheet'"</span>&gt;</span>
+		<span class="hljs-tag">&lt;<span class="hljs-name">noscript</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">"stylesheet"</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"/dist/css/style</span></span></span><span class="hljs-template-variable">{{ CACHE.stamp }}</span><span class="xml"><span class="hljs-tag"><span class="hljs-string">.css"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">noscript</span>&gt;</span>
+		<span class="hljs-comment">&lt;!-- inject:js --&gt;</span>
+	  <span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="javascript">!<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">e</span>)</span>{<span class="hljs-keyword">var</span> t=<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">t,n</span>)</span>{<span class="hljs-string">"use strict"</span>;<span class="hljs-keyword">var</span> o=e.document.getElementsByTagName(<span class="hljs-string">"script"</span>)[<span class="hljs-number">0</span>],r=e.document.createElement(<span class="hljs-string">"script"</span>);<span class="hljs-keyword">return</span> r.src=t,r.async=!<span class="hljs-number">0</span>,o.parentNode.insertBefore(r,o),n&amp;&amp;<span class="hljs-string">"function"</span>==<span class="hljs-keyword">typeof</span> n&amp;&amp;(r.onload=n),r};<span class="hljs-string">"undefined"</span>!=<span class="hljs-keyword">typeof</span> <span class="hljs-built_in">module</span>?<span class="hljs-built_in">module</span>.exports=t:e.loadJS=t}(<span class="hljs-string">"undefined"</span>!=<span class="hljs-keyword">typeof</span> global?global:<span class="hljs-keyword">this</span>);</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+	  <span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="actionscript">!<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(e)</span></span>{<span class="hljs-string">"use strict"</span>;<span class="hljs-keyword">var</span> n=<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(n,t,o)</span></span>{<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">i</span><span class="hljs-params">(e)</span></span>{<span class="hljs-keyword">if</span>(a.body)<span class="hljs-keyword">return</span> e();setTimeout(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span></span>{i(e)})}<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">r</span><span class="hljs-params">()</span></span>{l.addEventListener&amp;&amp;l.removeEventListener(<span class="hljs-string">"load"</span>,r),l.media=o||<span class="hljs-string">"all"</span>}<span class="hljs-keyword">var</span> d,a=e.document,l=a.createElement(<span class="hljs-string">"link"</span>);<span class="hljs-keyword">if</span>(t)d=t;<span class="hljs-keyword">else</span>{<span class="hljs-keyword">var</span> f=(a.body||a.getElementsByTagName(<span class="hljs-string">"head"</span>)[<span class="hljs-number">0</span>]).childNodes;d=f[f.length<span class="hljs-number">-1</span>]}<span class="hljs-keyword">var</span> s=a.styleSheets;l.rel=<span class="hljs-string">"stylesheet"</span>,l.href=n,l.media=<span class="hljs-string">"only x"</span>,i(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span></span>{d.parentNode.insertBefore(l,t?d:d.nextSibling)});<span class="hljs-keyword">var</span> u=<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(e)</span></span>{<span class="hljs-keyword">for</span>(<span class="hljs-keyword">var</span> n=l.href,t=s.length;t--;)<span class="hljs-keyword">if</span>(s[t].href===n)<span class="hljs-keyword">return</span> e();setTimeout(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span></span>{u(e)})};<span class="hljs-keyword">return</span> l.addEventListener&amp;&amp;l.addEventListener(<span class="hljs-string">"load"</span>,r),l.onloadcssdefined=u,u(r),l};<span class="hljs-string">"undefined"</span>!=<span class="hljs-keyword">typeof</span> exports?exports.loadCSS=n:e.loadCSS=n}(<span class="hljs-string">"undefined"</span>!=<span class="hljs-keyword">typeof</span> global?global:<span class="hljs-keyword">this</span>);</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+	  <span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="actionscript">!<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(t)</span></span>{<span class="hljs-keyword">if</span>(t.loadCSS){<span class="hljs-keyword">var</span> e=loadCSS.relpreload={};<span class="hljs-keyword">if</span>(e.support=<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span></span>{<span class="hljs-keyword">try</span>{<span class="hljs-keyword">return</span> t.document.createElement(<span class="hljs-string">"link"</span>).relList.supports(<span class="hljs-string">"preload"</span>)}<span class="hljs-keyword">catch</span>(t){<span class="hljs-keyword">return</span>!<span class="hljs-number">1</span>}},e.poly=<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span></span>{<span class="hljs-keyword">for</span>(<span class="hljs-keyword">var</span> e=t.document.getElementsByTagName(<span class="hljs-string">"link"</span>),r=<span class="hljs-number">0</span>;r&lt;e.length;r++){<span class="hljs-keyword">var</span> n=e[r];<span class="hljs-string">"preload"</span>===n.rel&amp;&amp;<span class="hljs-string">"style"</span>===n.getAttribute(<span class="hljs-string">"as"</span>)&amp;&amp;(t.loadCSS(n.href,n,n.getAttribute(<span class="hljs-string">"media"</span>)),n.rel=<span class="hljs-literal">null</span>)}},!e.support()){e.poly();<span class="hljs-keyword">var</span> r=t.setInterval(e.poly,<span class="hljs-number">300</span>);t.addEventListener&amp;&amp;t.addEventListener(<span class="hljs-string">"load"</span>,<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span></span>{e.poly(),t.clearInterval(r)}),t.attachEvent&amp;&amp;t.attachEvent(<span class="hljs-string">"onload"</span>,<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span></span>{t.clearInterval(r)})}}}(<span class="hljs-keyword">this</span>);</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+	  <span class="hljs-comment">&lt;!-- endinject --&gt;</span>
+		<span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="javascript">
+	    <span class="hljs-keyword">if</span>(!<span class="hljs-built_in">window</span>.HTMLPictureElement || !(<span class="hljs-string">'sizes'</span> <span class="hljs-keyword">in</span> <span class="hljs-built_in">document</span>.createElement(<span class="hljs-string">'img'</span>))){
+	      <span class="hljs-built_in">document</span>.createElement(<span class="hljs-string">'picture'</span>);
+	      loadJS(<span class="hljs-string">"/dist/js/picturefill.min.js"</span>);
+	    }
+	  </span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>	
+  <span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span>
+
+  <span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span>
+    </span><span class="hljs-template-variable">{{ yield }}</span><span class="xml">
+		</span><span class="hljs-template-tag">{% <span class="hljs-name"><span class="hljs-keyword">include</span></span> 'wrapper/_symbols.twig' %}</span><span class="xml">
+		<span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"/dist/js/bundle</span></span></span><span class="hljs-template-variable">{{ CACHE.stamp }}</span><span class="xml"><span class="hljs-tag"><span class="hljs-string">.js"</span>&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span></span></pre>
+    </code>
+</div>
+
+    
+    <div class="Browser-panel Browser-code" data-role="tab-panel" id="browser-57dc3c62f51c63f8acb9ff8657b085d1-panel-context">
+    <code class="Code Code--lang-json">
+        
+            
+            <pre>{
+  <span class="hljs-attr">"menu"</span>: [
+    {
+      <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Home"</span>,
+      <span class="hljs-attr">"slug"</span>: <span class="hljs-string">"#0"</span>
+    },
+    {
+      <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Things"</span>,
+      <span class="hljs-attr">"slug"</span>: <span class="hljs-string">"#0"</span>
+    },
+    {
+      <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Other Things"</span>,
+      <span class="hljs-attr">"slug"</span>: <span class="hljs-string">"#0"</span>
+    },
+    {
+      <span class="hljs-attr">"title"</span>: <span class="hljs-string">"More Things"</span>,
+      <span class="hljs-attr">"slug"</span>: <span class="hljs-string">"#0"</span>
+    }
+  ]
+}</pre>
+            
+        
+    </code>
+</div>
+
+    
+    
+
+
+
+
+    
+    <div class="Browser-panel" data-role="tab-panel" id="browser-57dc3c62f51c63f8acb9ff8657b085d1-panel-info">
+    <ul class="Meta">
+        <li class="Meta-item">
+            <strong class="Meta-key">Handle:</strong>
+            <span class="Meta-value">@layout</span>
+        </li>
+        
+        
+        
+        
+        
+        <li class="Meta-item">
+            <strong class="Meta-key">Preview:</strong>
+            <span class="Meta-value">
+                <ul>
+                    <li><a data-no-pjax href="../preview/layout.html"><span>With layout</span> <svg fill="#000000" height="22" viewBox="0 0 24 24" width="22" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0 0h24v24H0z" fill="none"/>
+    <path d="M19 4H5c-1.11 0-2 .9-2 2v12c0 1.1.89 2 2 2h4v-2H5V8h14v10h-4v2h4c1.1 0 2-.9 2-2V6c0-1.1-.89-2-2-2zm-7 6l-4 4h3v6h2v-6h3l-4-4z"/>
+</svg>
+</a></li>
+                    <li><a data-no-pjax href="../render/layout.html"><span>Component only</span> <svg fill="#000000" height="22" viewBox="0 0 24 24" width="22" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0 0h24v24H0z" fill="none"/>
+    <path d="M19 4H5c-1.11 0-2 .9-2 2v12c0 1.1.89 2 2 2h4v-2H5V8h14v10h-4v2h4c1.1 0 2-.9 2-2V6c0-1.1-.89-2-2-2zm-7 6l-4 4h3v6h2v-6h3l-4-4z"/>
+</svg>
+</a></li>
+                </ul>
+            </span>
+        </li>
+        <li class="Meta-item">
+            <strong class="Meta-key">Filesystem Path:</strong>
+            <span class="Meta-value">src/templates/wrapper/_layout.twig</span>
+        </li>
+        
+        
+    </ul>
+</div>
+
+    
+    <div class="Browser-panel Browser-notes" data-role="tab-panel" id="browser-57dc3c62f51c63f8acb9ff8657b085d1-panel-notes">
+    <div class="Prose Prose--condensed">
+        
+        <p class="Browser-isEmptyNote">There are no notes for this item.</p>
+        
+    </div>
+</div>
+
+    
+
+</div>
+
+</div>
+
+
+    
+
+</div>
+
+
+            </div>
+        </div>
+
+        <div class="Frame-handle" data-role="frame-resize-handle"></div>
+        
+        <div class="Frame-panel Frame-panel--sidebar" data-role="sidebar">
+            <nav class="Navigation">
+
+    
+<div class="Navigation-group">
+
+<div class="Tree" data-behaviour="tree" id="tree-components">
+    <h3 class="Tree-title">components</h3>
+    <ul class="Tree-items Tree-depth-1">
+        
+    
+        
+        <li class="Tree-item Tree-collection Tree-depth-2" data-behaviour="collection" id="tree-components-collection-base">
+            <h4 class="Tree-collectionLabel" data-role="toggle">
+                <span>Base</span>
+            </h4>
+            <ul class="Tree-collectionItems" data-role="items">
+            
+            
+            
+            
+    
+        
+        
+        <li class="Tree-item Tree-entity" data-role="item">
+            <a class="Tree-entityLink" href="theme.html" data-pjax>
+                <span>Theme</span>
+                
+
+<div class="Status Status--unlabelled">
+
+<div class="Status-dots">
+
+
+<span class="Status-dot" style="border-color: #FF9233;" title="WIP"></span>
+
+
+</div>
+
+</div>
+
+
+            </a>
+        </li>
+        
+    
+        
+        
+        <li class="Tree-item Tree-entity" data-role="item">
+            <a class="Tree-entityLink" href="typography.html" data-pjax>
+                <span>Typography</span>
+                
+
+<div class="Status Status--unlabelled">
+
+<div class="Status-dots">
+
+
+<span class="Status-dot" style="border-color: #FF9233;" title="WIP"></span>
+
+
+</div>
+
+</div>
+
+
+            </a>
+        </li>
+        
+    
+
+            </ul>
+        </li>
+        
+    
+        
+        <li class="Tree-item Tree-collection Tree-depth-2" data-behaviour="collection" id="tree-components-collection-objects">
+            <h4 class="Tree-collectionLabel" data-role="toggle">
+                <span>Objects</span>
+            </h4>
+            <ul class="Tree-collectionItems" data-role="items">
+            
+            
+            
+            
+    
+        
+        
+        <li class="Tree-item Tree-entity" data-role="item">
+            <a class="Tree-entityLink" href="burger.html" data-pjax>
+                <span>Burger</span>
+                
+
+<div class="Status Status--unlabelled">
+
+<div class="Status-dots">
+
+
+<span class="Status-dot" style="border-color: #29CC29;" title="Ready"></span>
+
+
+</div>
+
+</div>
+
+
+            </a>
+        </li>
+        
+    
+        
+        
+        <li class="Tree-item Tree-entity" data-role="item">
+            <a class="Tree-entityLink" href="button.html" data-pjax>
+                <span>Button</span>
+                
+
+<div class="Status Status--unlabelled">
+
+<div class="Status-dots">
+
+
+<span class="Status-dot" style="border-color: #FF9233;" title="WIP"></span>
+
+
+</div>
+
+</div>
+
+
+            </a>
+        </li>
+        
+    
+
+            </ul>
+        </li>
+        
+    
+        
+        <li class="Tree-item Tree-collection Tree-depth-2" data-behaviour="collection" id="tree-components-collection-global">
+            <h4 class="Tree-collectionLabel" data-role="toggle">
+                <span>Global</span>
+            </h4>
+            <ul class="Tree-collectionItems" data-role="items">
+            
+            
+            
+            
+    
+        
+        
+        <li class="Tree-item Tree-entity" data-role="item">
+            <a class="Tree-entityLink" href="footer.html" data-pjax>
+                <span>Footer</span>
+                
+
+<div class="Status Status--unlabelled">
+
+<div class="Status-dots">
+
+
+<span class="Status-dot" style="border-color: #FF9233;" title="WIP"></span>
+
+
+</div>
+
+</div>
+
+
+            </a>
+        </li>
+        
+    
+        
+        
+        <li class="Tree-item Tree-entity" data-role="item">
+            <a class="Tree-entityLink" href="header.html" data-pjax>
+                <span>Header</span>
+                
+
+<div class="Status Status--unlabelled">
+
+<div class="Status-dots">
+
+
+<span class="Status-dot" style="border-color: #FF9233;" title="WIP"></span>
+
+
+</div>
+
+</div>
+
+
+            </a>
+        </li>
+        
+    
+        
+        
+        <li class="Tree-item Tree-entity" data-role="item">
+            <a class="Tree-entityLink" href="menu.html" data-pjax>
+                <span>Menu</span>
+                
+
+<div class="Status Status--unlabelled">
+
+<div class="Status-dots">
+
+
+<span class="Status-dot" style="border-color: #FF9233;" title="WIP"></span>
+
+
+</div>
+
+</div>
+
+
+            </a>
+        </li>
+        
+    
+
+            </ul>
+        </li>
+        
+    
+        
+        <li class="Tree-item Tree-collection Tree-depth-2" data-behaviour="collection" id="tree-components-collection-components">
+            <h4 class="Tree-collectionLabel" data-role="toggle">
+                <span>Components</span>
+            </h4>
+            <ul class="Tree-collectionItems" data-role="items">
+            
+            
+            
+            
+    
+        
+        <li class="Tree-item Tree-collection Tree-depth-3" data-behaviour="collection" id="tree-components-collection-teaser">
+            <h4 class="Tree-collectionLabel" data-role="toggle">
+                <span>Teaser</span>
+            </h4>
+            <ul class="Tree-collectionItems" data-role="items">
+            
+            
+            
+            
+    
+        
+        
+        <li class="Tree-item Tree-entity" data-role="item">
+            <a class="Tree-entityLink" href="teaser--default.html" data-pjax>
+                <span>Default</span>
+                
+
+<div class="Status Status--unlabelled">
+
+<div class="Status-dots">
+
+
+<span class="Status-dot" style="border-color: #FF9233;" title="WIP"></span>
+
+
+</div>
+
+</div>
+
+
+            </a>
+        </li>
+        
+    
+        
+        
+        <li class="Tree-item Tree-entity" data-role="item">
+            <a class="Tree-entityLink" href="teaser--box.html" data-pjax>
+                <span>Box</span>
+                
+
+<div class="Status Status--unlabelled">
+
+<div class="Status-dots">
+
+
+<span class="Status-dot" style="border-color: #FF9233;" title="WIP"></span>
+
+
+</div>
+
+</div>
+
+
+            </a>
+        </li>
+        
+    
+
+            </ul>
+        </li>
+        
+    
+
+            </ul>
+        </li>
+        
+    
+        
+        <li class="Tree-item Tree-collection Tree-depth-2" data-behaviour="collection" id="tree-components-collection-layouts">
+            <h4 class="Tree-collectionLabel" data-role="toggle">
+                <span>Layouts</span>
+            </h4>
+            <ul class="Tree-collectionItems" data-role="items">
+            
+            
+            
+            
+    
+        
+        
+        <li class="Tree-item Tree-entity" data-role="item">
+            <a class="Tree-entityLink" href="feed-grid.html" data-pjax>
+                <span>Feed Grid</span>
+                
+
+<div class="Status Status--unlabelled">
+
+<div class="Status-dots">
+
+
+<span class="Status-dot" style="border-color: #FF9233;" title="WIP"></span>
+
+
+</div>
+
+</div>
+
+
+            </a>
+        </li>
+        
+    
+
+            </ul>
+        </li>
+        
+    
+        
+        <li class="Tree-item Tree-collection Tree-depth-2" data-behaviour="collection" id="tree-components-collection-pages">
+            <h4 class="Tree-collectionLabel" data-role="toggle">
+                <span>Pages</span>
+            </h4>
+            <ul class="Tree-collectionItems" data-role="items">
+            
+            
+            
+            
+    
+        
+        
+        <li class="Tree-item Tree-entity" data-role="item">
+            <a class="Tree-entityLink" href="home.html" data-pjax>
+                <span>Home</span>
+                
+
+<div class="Status Status--unlabelled">
+
+<div class="Status-dots">
+
+
+<span class="Status-dot" style="border-color: #FF9233;" title="WIP"></span>
+
+
+</div>
+
+</div>
+
+
+            </a>
+        </li>
+        
+    
+
+            </ul>
+        </li>
+        
+    
+
+    </ul>
+</div>
+
+</div>
+
+
+
+    
+<div class="Navigation-group">
+
+<div class="Tree" data-behaviour="tree" id="tree-docs">
+    <h3 class="Tree-title">documentation</h3>
+    <ul class="Tree-items Tree-depth-1">
+        
+    
+        
+        
+        <li class="Tree-item Tree-entity" data-role="item">
+            <a class="Tree-entityLink" href="../../index.html" data-pjax>
+                <span>Overview</span>
+                
+            </a>
+        </li>
+        
+    
+
+    </ul>
+</div>
+
+</div>
+
+
+
+    
+
+
+</nav>
+
+        </div>
+    </div>
+</div>
+
+
+
+
+<script src="../../fractal/js/mandelbrot.js?cachebust=1.2.0"></script>
+
+
+
+</body>
+</html>

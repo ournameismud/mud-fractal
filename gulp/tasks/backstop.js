@@ -7,19 +7,27 @@ import util from 'gulp-util'
 import requireGlob from 'require-glob'
 
 
+
 export default function test() {
 
+	const { url, defaults } = TASK_CONFIG.backstop
 	const proxyConfig = SERVER.proxy || null
 	const task = util.env.reference ? 'reference' : 'test'
-	
-	requireGlob('../../src/templates/**/**/*.test.config.js')
+	requireGlob(path.resolve(process.env.PWD, PATH_CONFIG.src, PATH_CONFIG.fractal.src, '**/**/*.test.config.js'))
 		.then(function (modules) {
 			const scenarios = []
 
 			for(let key in modules) {
 				for(let row in modules[key]) {
-					const config = `${row}TestConfig`
-					scenarios.push(...modules[key][row][config].default)
+					const config = modules[key][row][`${row}TestConfig`].default.map((conf) => {
+						return {
+							...defaults,
+							...conf.options,
+							label: conf.label,
+							url: `${url}${conf.label}.html`
+						}
+					})
+					scenarios.push(...config)
 				}
 			}
 			
@@ -45,6 +53,7 @@ export default function test() {
 				...config,
 				scenarios
 			}
+
 
 			SERVER.notify = false
 			SERVER.open = false

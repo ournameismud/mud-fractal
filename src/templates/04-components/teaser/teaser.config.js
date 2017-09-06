@@ -1,14 +1,14 @@
 const baseImgPath = '/dist/images/'
 
 module.exports = {
-	selector: 'c-teaser',
+	selector: '.c-teaser',
 	title: 'Teaser',
 	status: 'wip',
 	context: {
-		title: 'Going off-grid in southern Bahia, Brazil',
+		title: 'Lorem doreum sit dalor gotreym',
 		theme: 'latin',
-		subheading: 'Latin America',
-		body: 'The unspoilt nature, rich cultural heritage, diverse traditions and rituals, unique ancient architecture, cuisine and wine',
+		subheading: 'Stains',
+		body: 'A descript about some thing or other',
 		author: 'Kirsty Holmes',
 		image: {
 			src: `${baseImgPath}teaser-1.jpg`,
@@ -21,37 +21,12 @@ module.exports = {
 
 	variants: [
 		{
-			name: 'default'
+			name: 'default',
+			selector: 'c-teaser'
 		},
 		{
 			name: 'box',
-			context: {
-				modifier: 'box'
-			}
-		},
-		{
-			name: 'menu',
-			context: {
-				modifier: 'menu',
-				image: {
-					src: `${baseImgPath}teaser-menu-1.jpg`,
-					alt: 'A picture of people enjoying the sunshine',
-					width: '265',
-					height: '177'
-				},
-			}
-		},
-		{
-			name: 'lead',
-			context: {
-				modifier: 'lead',
-				image: {
-					src: `${baseImgPath}teaser-lead-1.jpg`,
-					alt: 'A picture of people enjoying the sunshine',
-					width: '511',
-					height: '336'
-				},
-			}
+			selector: 'c-teaser'
 		}
 	]
 }

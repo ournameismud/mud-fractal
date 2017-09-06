@@ -122,5 +122,9 @@
 			{ "url": "b.html", "template": "b.html"},
 			{ "url": "c.html", "template": "c.html"}
 		]
+	},
+
+	"fractal": {
+		"src": "templates"
 	}
 }

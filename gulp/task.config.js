@@ -137,5 +137,19 @@ export default {
 		width: 1300,
 		minify: true,
 		height: 900
+	},
+
+	backstop: {
+		url: 'http://localhost:3000/components/preview/',
+		defaults: {
+			selectorExpansion: true,
+			hideSelectors: [],
+			removeSelectors: [],
+			readyEvent: null,
+			delay: 500,
+			misMatchThreshold: 0.2,
+			requireSameDimensions: true,
+			selector: 'body'
+		}
 	}
 }
