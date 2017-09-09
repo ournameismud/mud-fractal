@@ -3,7 +3,7 @@ const baseImgPath = '/dist/images/'
 module.exports = {
 	selector: '.c-teaser',
 	title: 'Teaser',
-	status: 'wip',
+	status: 'ready',
 	context: {
 		title: 'Lorem doreum sit dalor gotreym',
 		theme: 'latin',

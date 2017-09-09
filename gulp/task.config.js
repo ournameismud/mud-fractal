@@ -1,5 +1,7 @@
 export default {
 
+	title: 'Mudstone Component Library',
+
 	stamp: Date.now(),
 
 	js: {
@@ -161,7 +163,7 @@ export default {
 			delay: 500,
 			misMatchThreshold: 0.2,
 			requireSameDimensions: true,
-			selector: 'body'
+			selector: ['body']
 		}
 	}
 }

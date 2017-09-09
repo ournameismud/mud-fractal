@@ -27,6 +27,7 @@ export default function fractalServer() {
 		],
 		port: 3000,
 		logLevel: 'info',
+		https: true,
 		watch: true,
 		logFileChanges: true,
 		watchOptions: {

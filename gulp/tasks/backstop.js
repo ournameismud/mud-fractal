@@ -11,20 +11,24 @@ export default function test() {
 	const { url, defaults } = TASK_CONFIG.backstop
 	const proxyConfig = SERVER.proxy || null
 	const task = util.env.reference ? 'reference' : 'test'
+	const test = task === 'reference' ? 'ready' : 'test'
+
 	requireGlob(path.resolve(process.env.PWD, PATH_CONFIG.src, PATH_CONFIG.fractal.src, '**/**/*.test.config.js'))
 		.then(function (modules) {
 			const scenarios = []
 
 			for(let key in modules) {
 				for(let row in modules[key]) {
-					const config = modules[key][row][`${row}TestConfig`].default.map((conf) => {
-						return {
-							...defaults,
-							...conf.options,
-							label: conf.label,
-							url: `${url}${conf.label}.html`
-						}
-					})
+					const config = modules[key][row][`${row}TestConfig`].default
+						.filter(({status}) => status === test)
+						.map((conf) => {
+							return {
+								...defaults,
+								...conf.options,
+								label: conf.label,
+								url: `${url}${conf.label}.html`
+							}
+						})
 					scenarios.push(...config)
 				}
 			}

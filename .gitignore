@@ -19,6 +19,7 @@ tmp
 node_modules
 reports
 
+deploy/library
 deploy/public/imager
 deploy/public/images
 deploy/public/resources

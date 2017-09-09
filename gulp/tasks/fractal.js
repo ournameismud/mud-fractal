@@ -1,6 +1,7 @@
 import fs from 'fs'
 import path from 'path'
 const fractal = require('@frctl/fractal').create()
+// import util from 'gulp-util'
 
 
 const paths = {
@@ -55,7 +56,7 @@ const twigConf = {
 const twigAdapter = require('@frctl/twig')(twigConf)
 // const twigAdapterDocs = require('@frctl/twig')(twigConf)
 // Project config
-fractal.set('project.title', 'MudStone')
+fractal.set('project.title', TASK_CONFIG.title)
 
 // Components config
 fractal.components.engine(twigAdapter)
@@ -80,18 +81,17 @@ fractal.web.set('builder.urls.ext', '.html')
 // https://clearleft.com/posts/443
 export function exportPaths() {
 
+	if(!global.production) return
+
 	return new Promise((resolve, reject) => {
 		const map = {}
 		for (let item of fractal.components.flatten()) {
-
-
 			map[`@${item.handle}`] = {
 				src: path.relative(process.cwd(), item.viewPath),
 				dest: path.relative(process.cwd(), item.viewDir).split('templates/')[1]
 			}
 		}
-
-
+		
 		fs.writeFile(path.resolve(process.env.PWD, PATH_CONFIG.craftTemplates.config, 'components-map.json'), JSON.stringify(map, null, 2), 'utf8', (err) => {
 			if (err) {
 				reject(err)
@@ -103,5 +103,38 @@ export function exportPaths() {
 }
 
 fractal.components.on('updated', exportPaths)
+
+fractal.components.set('default.context', {
+	'siteTitle': TASK_CONFIG.title
+})
+
+
+fractal.components.set('statuses', {
+	tool: {
+		label: 'Prototype',
+		description: 'Do not implement.',
+		color: '#FF3333'
+	},
+	wip: {
+		label: 'WIP',
+		description: 'Work in progress. Implement with caution.',
+		color: '#FF9233'
+	},
+	ready: {
+		label: 'Ready',
+		description: 'Ready to implement. Snapshot saved',
+		color: '#4ae4ae'
+	},
+	test: {
+		label: 'Test',
+		description: 'Regression test',
+		color: '#44aaee'
+	},
+	production: {
+		label: 'Production',
+		description: 'Component in production, regression tests approved',
+		color: '#29CC29'
+	}
+})
 
 export default fractal
