@@ -6,8 +6,6 @@
 	},
 	"globals": {
 		"ENV": true,
-		"$": true,
-		"jQuery": true,
 		"log": true,
 		"google": true,
 		"process": true,
@@ -16,7 +14,8 @@
 		"TASK_CONFIG": true,
 		"PATH_CONFIG": true,
 		"SERVER": true,
-		"module": true
+		"module": true,
+		"__dirname": true
 	},
 	"plugins": [
 		"react",

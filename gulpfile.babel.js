@@ -9,7 +9,7 @@ import PATH_CONFIG_TEST from './gulp/path.config.test.json'
 import TASK_CONFIG from './gulp/task.config'
 
 // Fallback for windows backs out of node_modules folder to root of project
-process.env.PWD = process.env.PWD || path.resolve(process.cwd(), '../../')
+process.env.PWD = process.env.PWD || __dirname
 
 let CONFIG = PATH_CONFIG
 
