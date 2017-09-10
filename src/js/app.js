@@ -12,4 +12,3 @@ if(module.hot) {
 
 new App(document, behaviours).start()
 
-

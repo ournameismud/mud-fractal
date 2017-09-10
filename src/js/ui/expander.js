@@ -1,7 +1,7 @@
 import Concert from 'concert'
 import Delegate from 'dom-delegate'
-import { mergeOptions, fromTo } from '@/utils/helpers'
-
+import fromTo from 'mud-from-to'
+import { mergeOptions } from '@/utils/helpers'
 
 /**
  * 

@@ -21,6 +21,7 @@
     "lodash.once": "^4.1.1",
     "lodash.throttle": "^4.1.1",
     "lodash.uniqueid": "^4.0.1",
+    "mud-from-to": "^1.0.0",
     "normalize-scss": "^7.0.0",
     "object-fit-images": "^3.1.3",
     "path-to-regexp": "^1.7.0",
@@ -128,10 +129,10 @@
   "private": true,
   "scripts": {
     "start": "gulp",
-		"dev": "gulp watch",
+    "dev": "gulp watch",
     "build": "gulp build:fractal --production --fractal",
     "build:cms": "gulp build --production",
-		"test": "jest",
+    "test": "jest",
     "reference": "gulp backstop_reference --test --reference",
     "diff": "gulp backstop_reference --test"
   },
