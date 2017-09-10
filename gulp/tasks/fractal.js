@@ -66,6 +66,8 @@ fractal.components.set('default.collated', false)
 fractal.components.set('ext', '.twig')
 fractal.components.set('path', `${paths.src}/templates`)
 fractal.components.set('layout', `${paths.src}/templates/wrapper/_layout.twig`)
+fractal.components.set('default.context', TASK_CONFIG.fractal.context)
+fractal.components.set('statuses', TASK_CONFIG.fractal.statuses)
 
 // Docs config
 // fractal.docs.engine(twigAdapterDocs)
@@ -103,38 +105,5 @@ export function exportPaths() {
 }
 
 fractal.components.on('updated', exportPaths)
-
-fractal.components.set('default.context', {
-	'siteTitle': TASK_CONFIG.title
-})
-
-
-fractal.components.set('statuses', {
-	tool: {
-		label: 'Prototype',
-		description: 'Do not implement.',
-		color: '#FF3333'
-	},
-	wip: {
-		label: 'WIP',
-		description: 'Work in progress. Implement with caution.',
-		color: '#FF9233'
-	},
-	ready: {
-		label: 'Ready',
-		description: 'Ready to implement. Snapshot saved',
-		color: '#4ae4ae'
-	},
-	test: {
-		label: 'Test',
-		description: 'Regression test',
-		color: '#44aaee'
-	},
-	production: {
-		label: 'Production',
-		description: 'Component in production, regression tests approved',
-		color: '#29CC29'
-	}
-})
 
 export default fractal

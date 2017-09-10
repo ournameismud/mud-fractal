@@ -153,6 +153,39 @@ export default {
 		height: 900
 	},
 
+	fractal: {
+		context: {
+			siteTitle: 'Mudstone Component Library'
+		},
+		statuses: {
+			tool: {
+				label: 'Prototype',
+				description: 'Do not implement.',
+				color: '#FF3333'
+			},
+			wip: {
+				label: 'WIP',
+				description: 'Work in progress. Implement with caution.',
+				color: '#FF9233'
+			},
+			ready: {
+				label: 'Ready',
+				description: 'Ready to implement. Snapshot saved',
+				color: '#4ae4ae'
+			},
+			test: {
+				label: 'Test',
+				description: 'Regression test',
+				color: '#44aaee'
+			},
+			production: {
+				label: 'Production',
+				description: 'Component in production, regression tests approved',
+				color: '#29CC29'
+			}
+		}
+	},
+
 	backstop: {
 		url: 'http://localhost:3000/components/preview/',
 		defaults: {
@@ -164,6 +197,37 @@ export default {
 			misMatchThreshold: 0.2,
 			requireSameDimensions: true,
 			selector: ['body']
+		},
+		config: {
+			id: 'backstop_prod_test',
+			viewports: [
+				{
+					name: 'phone',
+					width: 320,
+					height: 480
+				},
+				{
+					name: 'tablet',
+					width: 780,
+					height: 1024
+				},
+				{
+					name: 'desktop',
+					width: 1120,
+					height: 700
+				}
+			],
+			paths: {
+				bitmaps_reference: '__snapshots/bitmaps_reference',
+				bitmaps_test: '__snapshots/bitmaps_test',
+				casper_scripts: '__snapshots/casper_scripts',
+				html_report: '__snapshots/html_report',
+				ci_report: '__snapshots/ci_report'
+			},
+			casperFlags: [],
+			engine: 'phantomjs',
+			report: ['browser'],
+			debug: false
 		}
 	}
 }

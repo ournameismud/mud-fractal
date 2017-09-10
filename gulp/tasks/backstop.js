@@ -1,7 +1,6 @@
 import browserSync from 'browser-sync'
 import gulp from 'gulp'
 import path from 'path'
-import config from '../backstop.config'
 import backstopjs from 'backstopjs'
 import util from 'gulp-util'
 import requireGlob from 'require-glob'
@@ -52,7 +51,7 @@ export default function test() {
 			}
 
 			const conf = {
-				...config,
+				...TASK_CONFIG.backstop.config,
 				scenarios
 			}
 
