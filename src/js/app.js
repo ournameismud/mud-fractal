@@ -1,5 +1,5 @@
 import '@/plugins/logger'
-// import '@/plugins/webfontloader'
+import WebFontLoader from '@/plugins/webfontloader'
 import App from '@/core/loader'
 import * as behaviours from '@/behaviours'
 
@@ -9,6 +9,6 @@ if(module.hot) {
 	module.hot.accept()
 }
 
-
+new WebFontLoader()
 new App(document, behaviours).start()
 
