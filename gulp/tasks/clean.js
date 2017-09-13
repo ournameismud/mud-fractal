@@ -6,8 +6,8 @@ import path from 'path'
 export function clean() {
 	return del(
 		[
-			path.resolve(process.env.PWD, PATH_CONFIG.dest, '*.html'),
-			path.resolve(process.env.PWD, PATH_CONFIG.dist)
+			path.resolve(process.env.PWD, PATH_CONFIG.public, '*.html'),
+			path.resolve(process.env.PWD, PATH_CONFIG.public, PATH_CONFIG.dist)
 		],
 		{
 			force: true

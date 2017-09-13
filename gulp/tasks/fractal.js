@@ -1,7 +1,6 @@
 import fs from 'fs'
 import path from 'path'
 const fractal = require('@frctl/fractal').create()
-// import util from 'gulp-util'
 
 const paths = {
 	build: PATH_CONFIG.build,

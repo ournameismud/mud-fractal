@@ -36,7 +36,7 @@ export function scss() {
 		),
 		dest: path.resolve(
 			process.env.PWD,
-			PATH_CONFIG.dest,
+			PATH_CONFIG.public,
 			PATH_CONFIG.scss.dest
 		),
 		svg: path.resolve(

@@ -9,7 +9,7 @@ export function critialCss() {
 	paths.map(({ url, template }) => {
 		critical
 			.generate({
-				base: path.resolve(process.env.PWD, PATH_CONFIG.dest),
+				base: path.resolve(process.env.PWD, PATH_CONFIG.public),
 				src: url,
 				...TASK_CONFIG.critical
 			})

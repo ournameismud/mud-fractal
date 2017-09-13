@@ -1,5 +1,6 @@
 .c-teaser {
 	font-size: responsive ms(-1) ms(0);
+
 	p:last-of-type {
 		margin-bottom: vr(2, $units: true);
 	}
@@ -12,10 +13,12 @@
 
 .c-teaser--lead {
 	font-size: responsive ms(0) ms(2);
+
 	.c-teaser__heading,
 	.c-teaser__img {
 		margin-bottom: vr(4, $units: true);
 	}
+
 	p:last-of-type {
 		margin-bottom: vr(6, $units: true);
 	}

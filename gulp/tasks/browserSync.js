@@ -12,8 +12,6 @@ export default function fractalServer() {
 	const logger = fractal.cli.console
 
 	fractal.web.set('server.syncOptions', {
-		open: false,
-		browser: ['google chrome'],
 		baseDir: path.resolve(process.env.PWD, SERVER.server.baseDir),
 		middleware: [
 			require('webpack-dev-middleware')(compiler, {
@@ -22,12 +20,6 @@ export default function fractalServer() {
 			}),
 			require('webpack-hot-middleware')(compiler)
 		],
-		port: 3000,
-		logLevel: 'info',
-		https: {
-			key: path.resolve(process.env.PWD, 'private', 'key.pem'),
-			cert: path.resolve(process.env.PWD, 'private', 'cert.pem')
-		},
 		watch: true,
 		logFileChanges: true,
 		watchOptions: {
@@ -40,7 +32,8 @@ export default function fractalServer() {
 					ignored: '**/*.hot-update.json'
 				}
 			}
-		]
+		],
+		...TASK_CONFIG.server
 	})
 
 	fractal.web.set('server.sync', true)

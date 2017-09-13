@@ -15,7 +15,7 @@ export function sprites() {
 		),
 		dest: path.resolve(
 			process.env.PWD,
-			PATH_CONFIG.dest,
+			PATH_CONFIG.public,
 			PATH_CONFIG.sprites.dest
 		)
 	}

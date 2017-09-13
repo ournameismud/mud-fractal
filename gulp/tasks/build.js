@@ -30,7 +30,7 @@ function buildFractal() {
 	builder.on('error', err => logger.error(err.message))
 	return builder.build().then(() => {
 		logger.success('Fractal build completed!')
-		exportPaths().then(moveTwigTemplatesToCraft)
+		// exportPaths().then(moveTwigTemplatesToCraft)
 	})
 }
 
@@ -48,30 +48,20 @@ function moveTwigTemplatesToCraft(resp) {
 	}
 }
 
-export function build(cb) {
+export function buildCode(cb) {
 	const { assetTasks, codeTasks } = getTasks()
 	assetTasks.push('move-scripts')
 	codeTasks.push('bundle-script')
 	gulpSequence('clean:dist', assetTasks, codeTasks, 'size-report', cb)
 }
 
-export function _build(cb) {
-	const { assetTasks, codeTasks } = getTasks()
-	assetTasks.push('move-scripts')
-	codeTasks.push('bundle-script')
-	gulpSequence(
-		'build:library',
-		'clean:dist',
-		assetTasks,
-		codeTasks,
-		'size-report',
-		cb
-	)
+export function build(cb) {
+	gulpSequence('build:fractal', 'build:code', cb)
 }
 
 gulp.task('build', build)
-gulp.task('build:fractal', _build)
-gulp.task('build:library', buildFractal)
+gulp.task('build:fractal', buildFractal)
+gulp.task('build:code', buildCode)
 
 gulp.task('clean:dist', () => {
 	return del([path.resolve(process.env.PWD, PATH_CONFIG.dist)], {

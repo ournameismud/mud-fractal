@@ -14,7 +14,7 @@ export default env => {
 	)
 	const dest = path.resolve(
 		process.env.PWD,
-		PATH_CONFIG.dest,
+		PATH_CONFIG.public,
 		PATH_CONFIG.js.dest
 	)
 	const { filename, entries, hot } = TASK_CONFIG.js

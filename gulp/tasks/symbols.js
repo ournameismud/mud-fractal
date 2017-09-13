@@ -21,7 +21,7 @@ export function symbols() {
 		],
 		dest: path.resolve(
 			process.env.PWD,
-			PATH_CONFIG.dest,
+			PATH_CONFIG.public,
 			PATH_CONFIG.symbols.dest
 		),
 		scssTemplate: path.resolve(

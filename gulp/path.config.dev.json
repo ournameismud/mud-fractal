@@ -1,10 +1,9 @@
 {
-	"baseDir": "./tmp/public",
 	"src": "./src",
-	"dest": "./tmp/public",
-	"dist": "./tmp/public/dist",
+	"public": "./tmp/public",
 	"static": "./tmp/public",
 	"build": "./deploy/public",
+	"dist": "dist",
 
 	"browserSync": {
 		"server": {

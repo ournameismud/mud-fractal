@@ -32,7 +32,7 @@ export function moveScripts() {
 
 	const dest = path.resolve(
 		process.env.PWD,
-		PATH_CONFIG.dest,
+		PATH_CONFIG.public,
 		PATH_CONFIG.js.dest
 	)
 
@@ -61,7 +61,7 @@ export function cssFonts() {
 		),
 		dest: path.resolve(
 			process.env.PWD,
-			PATH_CONFIG.dest,
+			PATH_CONFIG.public,
 			PATH_CONFIG.cssFonts.dest
 		)
 	}

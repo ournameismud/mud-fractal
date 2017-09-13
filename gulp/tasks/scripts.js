@@ -52,7 +52,9 @@ export function serviceWorker() {
 		)
 		.pipe(gulpif(global.production, uglify()))
 		.pipe(
-			gulp.dest(path.resolve(PATH_CONFIG.dest, PATH_CONFIG.serviceWorker.dest))
+			gulp.dest(
+				path.resolve(PATH_CONFIG.public, PATH_CONFIG.serviceWorker.dest)
+			)
 		)
 		.pipe(browserSync.stream())
 }

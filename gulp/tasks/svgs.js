@@ -11,7 +11,11 @@ export function svgs() {
 			PATH_CONFIG.svgs.src,
 			'*.svg'
 		),
-		dest: path.resolve(process.env.PWD, PATH_CONFIG.dest, PATH_CONFIG.svgs.dest)
+		dest: path.resolve(
+			process.env.PWD,
+			PATH_CONFIG.public,
+			PATH_CONFIG.svgs.dest
+		)
 	}
 
 	return gulp

@@ -1,7 +1,5 @@
 {
-	"baseDir": "./deploy/public",
-	"dest": "./deploy/public",
-	"dist": "./deploy/public/dist",
+	"public": "./deploy/public",
 
 	"browserSync": {
 		"proxy": "http://local.ournameismud.co.uk"

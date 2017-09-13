@@ -1,8 +1,11 @@
 {
-	"baseDir": "./deploy/library",
-	"src": "./src",
-	"dest": "./deploy/library",
-	"dist": "./deploy/library/dist",
+	"public": "./deploy/library",
 	"static": "./deploy/tmp",
-	"build": "./deploy/library"
+	"build": "./deploy/library",
+	"browserSync": {
+		"server": {
+			"baseDir": "deploy/library",
+			"index": "index.html"
+		}
+	}
 }

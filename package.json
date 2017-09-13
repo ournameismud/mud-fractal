@@ -12,9 +12,12 @@
 	"scripts": {
 		"start": "gulp",
 		"dev": "gulp watch",
-		"build": "gulp build:fractal --production --fractal",
-		"build:cms": "gulp build --production",
+		"build": "gulp build --production --fractal",
+		"build:cms": "gulp build:code --production",
 		"test": "jest",
+		"preserver": "npm run build",
+		"server": "gulp server --fractal",
+		"prereference": "npm run build",
 		"reference": "gulp backstop_reference --test --reference",
 		"diff": "gulp backstop_reference --test",
 		"gen-cert": "node ./cert/cli.js gen-certs"
