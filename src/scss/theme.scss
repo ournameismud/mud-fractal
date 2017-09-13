@@ -2,7 +2,6 @@
   Settings
 */
 
-
 @import '_config/base';
 @import '_config/fonts';
 @import '_config/colors';
@@ -18,7 +17,6 @@ $debug: false;
 */
 
 @import '_system/core/utilities';
-
 
 .Header {
 	background-color: c(base, brand);
