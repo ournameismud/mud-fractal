@@ -4,7 +4,6 @@ import util from 'gulp-util'
 import PATH_CONFIG from './gulp/path.config.dev.json'
 import PATH_CONFIG_FRACTAL from './gulp/path.config.fractal.json'
 import PATH_CONFIG_PRODUCTION from './gulp/path.config.production.json'
-import PATH_CONFIG_TEST from './gulp/path.config.test.json'
 import TASK_CONFIG from './gulp/task.config'
 
 // Fallback for windows backs out of node_modules folder to root of project
@@ -13,7 +12,7 @@ process.env.PWD = process.env.PWD || __dirname
 let CONFIG = PATH_CONFIG
 
 if (util.env.test) {
-	CONFIG = { ...PATH_CONFIG, ...PATH_CONFIG_TEST }
+	CONFIG = { ...PATH_CONFIG, ...PATH_CONFIG_FRACTAL }
 }
 
 if (util.env.production) {
