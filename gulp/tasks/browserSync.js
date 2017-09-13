@@ -2,13 +2,10 @@ import fractal from './fractal'
 import gulp from 'gulp'
 import webpack from 'webpack'
 import webpackConfig from './webpack.config.babel'
-import {
-	pathToUrl
-} from '../libs/utils'
+import { pathToUrl } from '../libs/utils'
 import path from 'path'
 
 export default function fractalServer() {
-
 	const env = global.production ? 'production' : 'development'
 	const config = webpackConfig(env)
 	const compiler = webpack(config)
@@ -34,11 +31,13 @@ export default function fractalServer() {
 			ignoreInitial: true,
 			ignored: ['**/*.js', '**/*.scss', '!**/*.config.js', '**/*.json']
 		},
-		files: [{
-			options: {
-				ignored: '**/*.hot-update.json'
+		files: [
+			{
+				options: {
+					ignored: '**/*.hot-update.json'
+				}
 			}
-		}]
+		]
 	})
 
 	fractal.web.set('server.sync', true)

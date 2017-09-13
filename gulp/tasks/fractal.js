@@ -3,11 +3,10 @@ import path from 'path'
 const fractal = require('@frctl/fractal').create()
 // import util from 'gulp-util'
 
-
 const paths = {
 	build: PATH_CONFIG.build,
 	src: PATH_CONFIG.src,
-	static: PATH_CONFIG.static,
+	static: PATH_CONFIG.static
 }
 
 const stamp = global.production ? `.${TASK_CONFIG.stamp}` : ''
@@ -17,7 +16,7 @@ const mandelbrot = require('@frctl/mandelbrot')({
 	lang: 'en-gb',
 	styles: ['default', `/dist/css/theme${stamp}.css`],
 	static: {
-		mount: 'fractal',
+		mount: 'fractal'
 	}
 })
 
@@ -26,8 +25,10 @@ const mdFootnote = require('markdown-it-footnote')
 const md = require('markdown-it')({
 	html: true,
 	xhtmlOut: true,
-	typographer: true,
-}).use(mdAbbr).use(mdFootnote)
+	typographer: true
+})
+	.use(mdAbbr)
+	.use(mdFootnote)
 
 const twigConf = {
 	filters: {
@@ -82,8 +83,7 @@ fractal.web.set('builder.urls.ext', '.html')
 
 // https://clearleft.com/posts/443
 export function exportPaths() {
-
-	if(!global.production) return
+	if (!global.production) return
 
 	return new Promise((resolve, reject) => {
 		const map = {}
@@ -93,14 +93,23 @@ export function exportPaths() {
 				dest: path.relative(process.cwd(), item.viewDir).split('templates/')[1]
 			}
 		}
-		
-		fs.writeFile(path.resolve(process.env.PWD, PATH_CONFIG.craftTemplates.config, 'components-map.json'), JSON.stringify(map, null, 2), 'utf8', (err) => {
-			if (err) {
-				reject(err)
-				return
+
+		fs.writeFile(
+			path.resolve(
+				process.env.PWD,
+				PATH_CONFIG.craftTemplates.config,
+				'components-map.json'
+			),
+			JSON.stringify(map, null, 2),
+			'utf8',
+			err => {
+				if (err) {
+					reject(err)
+					return
+				}
+				resolve(map)
 			}
-			resolve(map)
-		})
+		)
 	})
 }
 

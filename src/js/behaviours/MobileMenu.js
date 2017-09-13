@@ -1,12 +1,8 @@
 import SideNav from '@/ui/SideNav'
 import Behaviour from '@/core'
 import Viewport from '@/utils/viewport'
-import {
-	DomClass
-} from '@/utils/dom'
-import {
-	transitionSteps
-} from '@/utils/helpers'
+import { DomClass } from '@/utils/dom'
+import { transitionSteps } from '@/utils/helpers'
 /**
  *
  * @extends Behaviour
@@ -77,7 +73,7 @@ export class MobileMenu extends Behaviour {
 	onClickShow = (event, element) => {
 		event.preventDefault()
 
-		if(this.isRunning) return
+		if (this.isRunning) return
 		this.isRunning = true
 
 		this.current = element.nextElementSibling
@@ -94,7 +90,7 @@ export class MobileMenu extends Behaviour {
 	onClickHide = event => {
 		event.preventDefault()
 
-		if(this.isRunning) return
+		if (this.isRunning) return
 		this.isRunning = true
 
 		this.closeSubNav()

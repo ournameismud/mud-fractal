@@ -6,11 +6,17 @@ import querystring from 'querystring'
 import { removeEmpty } from 'webpack-config-utils'
 import { pathToUrl } from '../libs/utils'
 
-
-export default (env) => {
-
-	const context = path.resolve(process.env.PWD, PATH_CONFIG.src, PATH_CONFIG.js.src)
-	const dest = path.resolve(process.env.PWD, PATH_CONFIG.dest, PATH_CONFIG.js.dest)
+export default env => {
+	const context = path.resolve(
+		process.env.PWD,
+		PATH_CONFIG.src,
+		PATH_CONFIG.js.src
+	)
+	const dest = path.resolve(
+		process.env.PWD,
+		PATH_CONFIG.dest,
+		PATH_CONFIG.js.dest
+	)
 	const { filename, entries, hot } = TASK_CONFIG.js
 
 	const config = {
@@ -20,7 +26,10 @@ export default (env) => {
 		context: context,
 		output: {
 			path: path.normalize(dest),
-			filename: env === 'production' ? `${filename}.${TASK_CONFIG.stamp}.js` : `${filename}.js`,
+			filename:
+				env === 'production'
+					? `${filename}.${TASK_CONFIG.stamp}.js`
+					: `${filename}.js`,
 			publicPath: pathToUrl(PATH_CONFIG.js.dest, '/'),
 			pathinfo: env !== 'production' && true
 		},
@@ -29,7 +38,8 @@ export default (env) => {
 				'@': context
 			}
 		},
-		devtool: env === 'production' ? 'source-map' : 'eval-cheap-module-source-map',
+		devtool:
+			env === 'production' ? 'source-map' : 'eval-cheap-module-source-map',
 		module: {
 			loaders: [
 				{
@@ -37,14 +47,17 @@ export default (env) => {
 					loader: 'babel-loader',
 					exclude: /node_modules/,
 					query: {
-						'presets': [
-							['env', {
-								'targets': {
-									'browsers': ['last 2 versions', 'safari >= 7']
+						presets: [
+							[
+								'env',
+								{
+									targets: {
+										browsers: ['last 2 versions', 'safari >= 7']
+									}
 								}
-							}]
+							]
 						],
-						'plugins': [
+						plugins: [
 							'transform-object-rest-spread',
 							'transform-class-properties'
 						],
@@ -69,12 +82,14 @@ export default (env) => {
 		])
 	}
 
-	if(env === 'development') {
+	if (env === 'development') {
 		// Create new entry object with webpack-hot-middleware and react-hot-loader (if enabled)
 		if (!hot || hot.enabled !== false) {
 			for (let key in entries) {
 				const entry = []
-				const hotMiddleware = `webpack-hot-middleware/client?${querystring.stringify(hot)}`
+				const hotMiddleware = `webpack-hot-middleware/client?${querystring.stringify(
+					hot
+				)}`
 
 				if (hot.react) {
 					entry.push('react-hot-loader/patch')
@@ -86,7 +101,7 @@ export default (env) => {
 		}
 	}
 
-	if(env === 'production') {
+	if (env === 'production') {
 		config.plugins.push(
 			new webpack.optimize.UglifyJsPlugin(),
 			new webpack.NoEmitOnErrorsPlugin()

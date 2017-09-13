@@ -6,24 +6,27 @@ import { getTasks } from '../libs/utils'
 import fractal, { exportPaths } from './fractal'
 import del from 'del'
 
-gulp.task('size-report', function () {
-	return gulp.src(
-		[
-			path.resolve(process.env.PWD, PATH_CONFIG.dist, '**/*.css'), 
-			path.resolve(process.env.PWD, PATH_CONFIG.dist, '**/*.js'), 
+gulp.task('size-report', function() {
+	return gulp
+		.src([
+			path.resolve(process.env.PWD, PATH_CONFIG.dist, '**/*.css'),
+			path.resolve(process.env.PWD, PATH_CONFIG.dist, '**/*.js'),
 			'*!rev-manifest.json'
 		])
-		.pipe(sizereport({
-			gzip: true
-		}))
+		.pipe(
+			sizereport({
+				gzip: true
+			})
+		)
 })
-
 
 function buildFractal() {
 	const logger = fractal.cli.console
 	const builder = fractal.web.builder()
 
-	builder.on('progress', (completed, total) => logger.update(`Exported ${completed} of ${total} items`, 'info'))
+	builder.on('progress', (completed, total) =>
+		logger.update(`Exported ${completed} of ${total} items`, 'info')
+	)
 	builder.on('error', err => logger.error(err.message))
 	return builder.build().then(() => {
 		logger.success('Fractal build completed!')
@@ -32,11 +35,16 @@ function buildFractal() {
 }
 
 function moveTwigTemplatesToCraft(resp) {
-	for(const key in resp) {
+	for (const key in resp) {
 		const { src, dest } = resp[key]
 
-		gulp.src(path.resolve(process.env.PWD, src))
-			.pipe(gulp.dest(path.resolve(process.env.PWD, PATH_CONFIG.craftTemplates.dest, dest)))
+		gulp
+			.src(path.resolve(process.env.PWD, src))
+			.pipe(
+				gulp.dest(
+					path.resolve(process.env.PWD, PATH_CONFIG.craftTemplates.dest, dest)
+				)
+			)
 	}
 }
 
@@ -51,18 +59,22 @@ export function _build(cb) {
 	const { assetTasks, codeTasks } = getTasks()
 	assetTasks.push('move-scripts')
 	codeTasks.push('bundle-script')
-	gulpSequence('build:library', 'clean:dist', assetTasks, codeTasks, 'size-report', cb)
+	gulpSequence(
+		'build:library',
+		'clean:dist',
+		assetTasks,
+		codeTasks,
+		'size-report',
+		cb
+	)
 }
 
 gulp.task('build', build)
 gulp.task('build:fractal', _build)
 gulp.task('build:library', buildFractal)
 
-
 gulp.task('clean:dist', () => {
-	return del([
-		path.resolve(process.env.PWD, PATH_CONFIG.dist),
-	], {
+	return del([path.resolve(process.env.PWD, PATH_CONFIG.dist)], {
 		force: true
 	})
 })

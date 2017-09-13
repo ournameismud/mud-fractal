@@ -1,11 +1,11 @@
 {
-  "baseDir": "./deploy/library",
-  "dest": "./deploy/library",
-  "dist": "./deploy/library/dist",
+	"baseDir": "./deploy/library",
+	"dest": "./deploy/library",
+	"dist": "./deploy/library/dist",
 	"browserSync": {
 		"server": {
 			"baseDir": "deploy/library",
-      "index": "index.html"
+			"index": "index.html"
 		}
 	}
 }

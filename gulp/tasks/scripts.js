@@ -11,42 +11,51 @@ import path from 'path'
 import util from 'gulp-util'
 
 export function webpackProduction(callback) {
-	const env = global.production 
-		? 'production' 
-		: util.env.test 
-			? 'test'
-			: 'development'
+	const env = global.production
+		? 'production'
+		: util.env.test ? 'test' : 'development'
 	const config = webpackConfig(env)
-	webpack(config, function (err, stats) {
+	webpack(config, function(err, stats) {
 		logger(err, stats)
 		callback()
 	})
 }
 export function inlineScripts() {
-	return gulp.src(`${PATH_CONFIG.inline.path}/${PATH_CONFIG.inline.output}`)
-		.pipe(inject(gulp.src(PATH_CONFIG.inline.src).pipe(uglify()), {
-			transform: function (filepath, file) {
-				return `<script>${file.contents.toString()}</script>`
-			}
-		}))
+	return gulp
+		.src(`${PATH_CONFIG.inline.path}/${PATH_CONFIG.inline.output}`)
+		.pipe(
+			inject(gulp.src(PATH_CONFIG.inline.src).pipe(uglify()), {
+				transform: function(filepath, file) {
+					return `<script>${file.contents.toString()}</script>`
+				}
+			})
+		)
 		.pipe(gulp.dest(PATH_CONFIG.inline.path))
 }
 
 export function serviceWorker() {
-	return gulp.src(path.resolve(PATH_CONFIG.src, PATH_CONFIG.serviceWorker.src, 'sw.js'))
-		.pipe(babel({
-			plugins: [
-				['inline-replace-variables', {
-					'__CSS__': `/dist/css/style${global.production ? '.' + TASK_CONFIG.stamp : ''}.css`,
-					'__JS__': `/dist/js/bundle${global.production ? '.' + TASK_CONFIG.stamp : ''}.js`
-				}]
-			]
-		}))
+	const STAMP = global.production ? `.${TASK_CONFIG.stamp}` : ''
+	return gulp
+		.src(path.resolve(PATH_CONFIG.src, PATH_CONFIG.serviceWorker.src, 'sw.js'))
+		.pipe(
+			babel({
+				plugins: [
+					[
+						'inline-replace-variables',
+						{
+							__CSS__: `/dist/css/style${STAMP}.css`,
+							__JS__: `/dist/js/bundle${STAMP}.js`
+						}
+					]
+				]
+			})
+		)
 		.pipe(gulpif(global.production, uglify()))
-		.pipe(gulp.dest(path.resolve(PATH_CONFIG.dest, PATH_CONFIG.serviceWorker.dest)))
+		.pipe(
+			gulp.dest(path.resolve(PATH_CONFIG.dest, PATH_CONFIG.serviceWorker.dest))
+		)
 		.pipe(browserSync.stream())
 }
-
 
 gulp.task('serviceWorker', serviceWorker)
 gulp.task('inline-scripts', inlineScripts)

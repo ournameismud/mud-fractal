@@ -2,18 +2,17 @@ import gulp from 'gulp'
 import htmlreplace from 'gulp-html-replace'
 
 export function cacheBusterTask() {
-
 	const cms = '{% set stamp = "%s" %}'
 
 	const production = {
-		'cms': {
+		cms: {
 			src: `.${TASK_CONFIG.stamp}`,
 			tpl: cms
 		}
 	}
 
 	const development = {
-		'cms': {
+		cms: {
 			src: '',
 			tpl: cms
 		}
@@ -21,10 +20,13 @@ export function cacheBusterTask() {
 
 	const files = global.production ? production : development
 
-	return gulp.src(PATH_CONFIG.tags.src)
-		.pipe(htmlreplace(files, {
-			keepBlockTags: true
-		}))
+	return gulp
+		.src(PATH_CONFIG.tags.src)
+		.pipe(
+			htmlreplace(files, {
+				keepBlockTags: true
+			})
+		)
 		.pipe(gulp.dest(PATH_CONFIG.tags.dest))
 }
 

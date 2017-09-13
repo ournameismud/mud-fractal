@@ -13,27 +13,24 @@ process.env.PWD = process.env.PWD || __dirname
 
 let CONFIG = PATH_CONFIG
 
-if(util.env.test) {
-	CONFIG = {...PATH_CONFIG, ...PATH_CONFIG_TEST}
-} 
+if (util.env.test) {
+	CONFIG = { ...PATH_CONFIG, ...PATH_CONFIG_TEST }
+}
 
-if(util.env.production) {
-	CONFIG = {...PATH_CONFIG, ...PATH_CONFIG_PRODUCTION}
-} 
+if (util.env.production) {
+	CONFIG = { ...PATH_CONFIG, ...PATH_CONFIG_PRODUCTION }
+}
 
-if(util.env.fractal && util.env.production) {
-	CONFIG = {...PATH_CONFIG,  ...PATH_CONFIG_PRODUCTION, ...PATH_CONFIG_FRACTAL}
-} else if(util.env.fractal) {
-	CONFIG = {...PATH_CONFIG, ...PATH_CONFIG_FRACTAL}
+if (util.env.fractal && util.env.production) {
+	CONFIG = { ...PATH_CONFIG, ...PATH_CONFIG_PRODUCTION, ...PATH_CONFIG_FRACTAL }
+} else if (util.env.fractal) {
+	CONFIG = { ...PATH_CONFIG, ...PATH_CONFIG_FRACTAL }
 }
 
 global.production = util.env.production
-
 global.PATH_CONFIG = CONFIG
 global.SERVER = CONFIG.browserSync
-
 global.TASK_CONFIG = TASK_CONFIG
-
 
 requireDir('./gulp/tasks', {
 	recurse: true

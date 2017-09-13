@@ -1,19 +1,14 @@
 export default {
-
 	title: 'Mudstone Component Library',
 
 	stamp: Date.now(),
 
 	js: {
 		entries: {
-			app: [
-				'./app.js'
-			]
+			app: ['./app.js']
 		},
 		serviceWorker: {
-			sw: [
-				'./sw.js'
-			]
+			sw: ['./sw.js']
 		},
 		hot: {
 			enabled: true,
@@ -55,7 +50,6 @@ export default {
 		lintIgnorePaths: ['_system/**/*.scss', '_config/*.scss'],
 		filename: 'style' // no extension
 	},
-
 
 	// craftTemplates: {
 	// 	task: 'asset',

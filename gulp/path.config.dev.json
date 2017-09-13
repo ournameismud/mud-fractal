@@ -1,18 +1,17 @@
 {
-  "baseDir": "./tmp/public",
-  "src": "./src",
+	"baseDir": "./tmp/public",
+	"src": "./src",
 	"dest": "./tmp/public",
 	"dist": "./tmp/public/dist",
 	"static": "./tmp/public",
 	"build": "./deploy/public",
-	
+
 	"browserSync": {
 		"server": {
 			"baseDir": "tmp/public",
-      "index": "index.html"
+			"index": "index.html"
 		}
 	},
-
 
 	"craftTemplates": {
 		"src": "./deploy/craft/templates",
@@ -20,25 +19,24 @@
 		"dest": "./deploy/craft/templates"
 	},
 
-  "staticAssets": {
-    "src": "static",
-    "dest": "dist/static"
-  },
+	"staticAssets": {
+		"src": "static",
+		"dest": "dist/static"
+	},
 
-  "js": {
-    "src": "js",
-    "dest": "dist/js",
+	"js": {
+		"src": "js",
+		"dest": "dist/js",
 		"libs": [
 			"./node_modules/jquery/dist/jquery.min.js",
 			"./node_modules/picturefill/dist/picturefill.min.js"
 		]
 	},
-	
-	"serviceWorker": {
-    "src": "js",
-    "dest": "./"
-	},
 
+	"serviceWorker": {
+		"src": "js",
+		"dest": "./"
+	},
 
 	"inline": {
 		"src": [
@@ -50,79 +48,75 @@
 		"path": "./src/templates/wrapper/"
 	},
 
-  "json": {
-    "src": "js/json",
-    "dest": "./"
-  },
-
-  "scss": {
-    "src": "scss",
-    "dest": "dist/css",
-		"inlineSVG": "images/svg-assets",
-		"components": "templates/**/**/**/*.scss"
-  },
-
-
-  "cssFonts": {
-    "src": "scss",
-    "dest": "dist/css"
-  },
-
-  "images": {
-    "src": "images/site",
-    "dest": "dist/images"
-  },
-
-  "fonts": {
-    "src": "fonts",
-    "dest": "dist/fonts"
-  },
-
-  "symbols": {
-    "src": "images/svg-symbols",
-    "dest": "dist/images",
-    "fileName": "_symbols.twig",
-    "fileDest": "templates/wrapper"
-  },
-
-	"sprites": {
-    "src": "images/svg-sprites",
-    "dest": "dist/images"
+	"json": {
+		"src": "js/json",
+		"dest": "./"
 	},
 
-  "svgs": {
-    "src": "images/svg-assets",
-    "dest": "dist/images"
-  },
+	"scss": {
+		"src": "scss",
+		"dest": "dist/css",
+		"inlineSVG": "images/svg-assets",
+		"components": "templates/**/**/**/*.scss"
+	},
 
-  "favicons": {
-    "src": "favicons",
-    "dest": "./"
-  },
+	"cssFonts": {
+		"src": "scss",
+		"dest": "dist/css"
+	},
+
+	"images": {
+		"src": "images/site",
+		"dest": "dist/images"
+	},
+
+	"fonts": {
+		"src": "fonts",
+		"dest": "dist/fonts"
+	},
+
+	"symbols": {
+		"src": "images/svg-symbols",
+		"dest": "dist/images",
+		"fileName": "_symbols.twig",
+		"fileDest": "templates/wrapper"
+	},
+
+	"sprites": {
+		"src": "images/svg-sprites",
+		"dest": "dist/images"
+	},
+
+	"svgs": {
+		"src": "images/svg-assets",
+		"dest": "dist/images"
+	},
+
+	"favicons": {
+		"src": "favicons",
+		"dest": "./"
+	},
 
 	"tokens": {
 		"src": "tokens",
-		"files": [
-			"colors.json",
-			"fonts.json"
-		],
+		"files": ["colors.json", "fonts.json"],
 		"dest": "scss/_config"
 	},
 
-  "tags": {
-    "src": "./tmp/public/*.html",
-    "dest": "./tmp/public/",
-    "css": "/dist/css/",
-    "js": "/dist/js/"
+	"tags": {
+		"src": "./tmp/public/*.html",
+		"dest": "./tmp/public/",
+		"css": "/dist/css/",
+		"js": "/dist/js/"
 	},
-	
+
 	"critical": {
 		"templates": "./src/public",
 		"paths": [
-			{ "url": "index.html", "template": "index.html"},
-			{ "url": "a.html", "template": "a.html"},
-			{ "url": "b.html", "template": "b.html"},
-			{ "url": "c.html", "template": "c.html"}
+			{ "url": "index.html", "template": "index.html" },
+			{ "url": "a.html", "template": "a.html" },
+			{ "url": "b.html", "template": "b.html" },
+			{ "url": "c.html", "template": "c.html" }
 		]
 	},
 

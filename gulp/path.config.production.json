@@ -1,19 +1,18 @@
 {
-  "baseDir": "./deploy/public",
-  "dest": "./deploy/public",
-  "dist": "./deploy/public/dist",
+	"baseDir": "./deploy/public",
+	"dest": "./deploy/public",
+	"dist": "./deploy/public/dist",
 
-  
 	"browserSync": {
-    "proxy": "http://local.ournameismud.co.uk"
+		"proxy": "http://local.ournameismud.co.uk"
 	},
 
-  "tags": {
-    "src": "./deploy/craft/templates/wrapper/_layout.twig",
-    "dest": "./deploy/craft/templates/wrapper/",
-    "css": "/dist/css/",
-    "js": "/dist/js/"
-  },
+	"tags": {
+		"src": "./deploy/craft/templates/wrapper/_layout.twig",
+		"dest": "./deploy/craft/templates/wrapper/",
+		"css": "/dist/css/",
+		"js": "/dist/js/"
+	},
 
 	"inline": {
 		"src": [
@@ -24,14 +23,14 @@
 		"output": "_layout.twig",
 		"path": "./deploy/craft/templates/wrapper/"
 	},
-	
+
 	"critical": {
 		"templates": "./deploy/craft/templates/",
 		"paths": [
-			{ "url": "", "dir": "/", "template": "index.twig"},
-			{ "url": "a", "dir": "/templates/", "template": "a.twig"},
-			{ "url": "b", "dir": "/templates/", "template": "b.twig"},
-			{ "url": "c", "dir": "/templates/", "template": "c.twig"}
+			{ "url": "", "dir": "/", "template": "index.twig" },
+			{ "url": "a", "dir": "/templates/", "template": "a.twig" },
+			{ "url": "b", "dir": "/templates/", "template": "b.twig" },
+			{ "url": "c", "dir": "/templates/", "template": "c.twig" }
 		]
 	}
 }
