@@ -12,6 +12,7 @@ ehthumbs.db
 Thumbs.db
 npm-debug.log
 #.editorconfig
+private
 
 # Assets #
 ######################

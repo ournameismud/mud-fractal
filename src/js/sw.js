@@ -1,14 +1,10 @@
 /* eslint-disable */
 const CACHE_NAME = 'mudstone-sw'
-const urlsToCache = [
-	'/',
-	__CSS__,
-	__JS__
-]
+const urlsToCache = ['/', __CSS__, __JS__]
 /* eslint-enable */
 
 function addToCache(request, response) {
-	if(response.ok) {
+	if (response.ok) {
 		const copy = response.clone()
 		caches.open(CACHE_NAME).then(cache => {
 			cache.put(request, copy)
@@ -19,7 +15,7 @@ function addToCache(request, response) {
 
 function fetchFromCache(event) {
 	return caches.match(event.request).then(response => {
-		if(!response) {
+		if (!response) {
 			// A synchronous error that will kick off the catch handler
 			throw Error('${event.request.url} not found in cache')
 		}
@@ -54,24 +50,27 @@ function respondFromCacheThenNetwork(event) {
 }
 
 function shouldHandleFetch(event) {
-	return(event.request.method.toLowerCase() === 'get' && (event.request.url.indexOf('/icons/') === -1) && (event.request
-		.url.indexOf('/browser-sync/') === -1) && (event.request.url.indexOf('google-analytics.com') === -1))
+	return (
+		event.request.method.toLowerCase() === 'get' &&
+		event.request.url.indexOf('/icons/') === -1 &&
+		event.request.url.indexOf('/browser-sync/') === -1 &&
+		event.request.url.indexOf('google-analytics.com') === -1
+	)
 }
 
 // Open cache and store assets
-self.addEventListener('install', (event) => {
+self.addEventListener('install', event => {
 	// Perform install steps
 	event.waitUntil(
-		caches.open(CACHE_NAME)
-			.then((cache) => {
-				return cache.addAll(urlsToCache)
-			})
+		caches.open(CACHE_NAME).then(cache => {
+			return cache.addAll(urlsToCache)
+		})
 	)
 })
 
-self.addEventListener('fetch', (event) => {
-	if(shouldHandleFetch(event)) {
-		if(event.request.headers.get('Accept').indexOf('text/html') >= 0) {
+self.addEventListener('fetch', event => {
+	if (shouldHandleFetch(event)) {
+		if (event.request.headers.get('Accept').indexOf('text/html') >= 0) {
 			respondFromNetworkThenCache(event)
 		} else {
 			respondFromCacheThenNetwork(event)
@@ -79,14 +78,14 @@ self.addEventListener('fetch', (event) => {
 	}
 })
 
-self.addEventListener('activate', (event) => {
+self.addEventListener('activate', event => {
 	const cacheWhitelist = [CACHE_NAME]
 	// Clean up old cache versions
 	event.waitUntil(
-		caches.keys().then(function (cacheNames) {
+		caches.keys().then(function(cacheNames) {
 			return Promise.all(
-				cacheNames.map(function (cacheName) {
-					if(cacheWhitelist.indexOf(cacheName) === -1) {
+				cacheNames.map(function(cacheName) {
+					if (cacheWhitelist.indexOf(cacheName) === -1) {
 						return caches.delete(cacheName)
 					}
 				})

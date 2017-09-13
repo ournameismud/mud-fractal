@@ -24,7 +24,10 @@ export default function fractalServer() {
 		],
 		port: 3000,
 		logLevel: 'info',
-		https: true,
+		https: {
+			key: path.resolve(process.env.PWD, 'private', 'key.pem'),
+			cert: path.resolve(process.env.PWD, 'private', 'cert.pem')
+		},
 		watch: true,
 		logFileChanges: true,
 		watchOptions: {

@@ -3,5 +3,6 @@
 	"singleQuote": true,
 	"semi": false,
 	"useTabs": true,
-	"cssEnable": ["less", "css", "scss"]
+	"cssEnable": ["less", "css", "scss"],
+	"tabWidth": 2
 }

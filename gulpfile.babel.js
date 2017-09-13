@@ -21,7 +21,11 @@ if (util.env.production) {
 }
 
 if (util.env.fractal && util.env.production) {
-	CONFIG = { ...PATH_CONFIG, ...PATH_CONFIG_PRODUCTION, ...PATH_CONFIG_FRACTAL }
+	CONFIG = {
+		...PATH_CONFIG,
+		...PATH_CONFIG_PRODUCTION,
+		...PATH_CONFIG_FRACTAL
+	}
 } else if (util.env.fractal) {
 	CONFIG = { ...PATH_CONFIG, ...PATH_CONFIG_FRACTAL }
 }
