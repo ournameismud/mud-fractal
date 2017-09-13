@@ -1,8 +1,9 @@
 # Mudstone + Fractal
 ![Mud](http://ournameismud.co.uk/css/images/maps-icon.png)
 
-Frontend starter kit integrated with fractal
+Frontend starter kit integrated with fractal, inspired by blendid
 http://fractal.build/
+https://github.com/vigetlabs/blendid
 
 ###### Recommended requirements
 - node >= 8.4.0
