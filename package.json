@@ -18,7 +18,7 @@
 		"preserver": "npm run build",
 		"server": "gulp server --fractal",
 		"prereference": "npm run build",
-		"reference": "gulp backstop_reference --test --reference",
+		"reference": "gulp backstop_reference --fractal --reference",
 		"diff": "gulp backstop_reference --test",
 		"gen-cert": "node ./cert/cli.js gen-certs"
 	},
