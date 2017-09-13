@@ -1,4 +1,23 @@
 {
+	"name": "ournameismud.com",
+	"description": "Mudstone 7.1.0 integrated with Fractal",
+	"version": "0.1.2",
+	"main": "gulpfile.babel.js",
+	"author": "Dave Stockley @ournameismud",
+	"license": "MIT",
+	"engines": {
+		"node": ">=6.9.1"
+	},
+	"private": true,
+	"scripts": {
+		"start": "gulp",
+		"dev": "gulp watch",
+		"build": "gulp build:fractal --production --fractal",
+		"build:cms": "gulp build --production",
+		"test": "jest",
+		"reference": "gulp backstop_reference --test --reference",
+		"diff": "gulp backstop_reference --test"
+	},
 	"dependencies": {
 		"barba.js": "^1.0.0",
 		"concert": "^2.1.0",
@@ -105,24 +124,5 @@
 		"webpack-config-utils": "^2.3.0",
 		"webpack-dev-middleware": "^1.11.0",
 		"webpack-hot-middleware": "^2.18.2"
-	},
-	"engines": {
-		"node": ">=6.9.1"
-	},
-	"private": true,
-	"scripts": {
-		"start": "gulp",
-		"dev": "gulp watch",
-		"build": "gulp build:fractal --production --fractal",
-		"build:cms": "gulp build --production",
-		"test": "jest",
-		"reference": "gulp backstop_reference --test --reference",
-		"diff": "gulp backstop_reference --test"
-	},
-	"name": "ournameismud.com",
-	"description": "Mudstone 7.1.0 integrated with Fractal",
-	"version": "0.1.1",
-	"main": "gulpfile.babel.js",
-	"author": "Dave Stockley @ournameismud",
-	"license": "MIT"
+	}
 }
