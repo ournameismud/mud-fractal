@@ -1,4 +1,3 @@
-import path from 'path'
 import requireDir from 'require-dir'
 import util from 'gulp-util'
 
