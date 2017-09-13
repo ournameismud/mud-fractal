@@ -6,7 +6,6 @@
 
 @include normalize();
 
-
 /*
   Settings
 */
@@ -17,14 +16,11 @@
 @import '_config/dimensions';
 @import '_config/type-config';
 
-
-
 /*
   Utility functions
 */
 
 @import '_system/core/utilities';
-
 
 /*
   Media query debugger
@@ -32,13 +28,11 @@
 
 @import '_config/debug';
 
-
 /*
   Custom, site specific mixins
 */
 
 @import '_system/site-mixins/mixins';
-
 
 /*
   svg-symbols generated via `gulp symbols`
@@ -50,6 +44,7 @@
 /*
   Resets, and globals
 */
+
 @import 'framework/index';
 @import 'framework/grid';
 
@@ -57,41 +52,47 @@
   Base styles
   Typography, Buttons, Tables, Form elements, Etc
 */
-@import '../templates/01-base/**/**/*';
 
+@import '../templates/01-base/**/**/*';
 
 /*
   Object patterns
 */
+
 @import '../templates/02-objects/**/**/*';
 
 /*
   Global elements patterns
 */
+
 @import '../templates/03-global/**/**/*';
 
 /*
   Components patterns
 */
+
 @import '../templates/04-components/**/**/*';
 
 /*
   Layouts
 */
+
 @import '../templates/05-layouts/**/**/*';
 
 /*
   Pages
 */
+
 @import '../templates/06-pages/**/**/*';
 
 /*
   Utilities
 */
+
 @import 'framework/utils';
 
 /*
   Print styles
 */
-@import 'print';
 
+@import 'print';

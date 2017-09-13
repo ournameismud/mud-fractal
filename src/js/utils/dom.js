@@ -1,13 +1,13 @@
 const testElement = document.createElement('div')
 
-const prefix = (function () {
+const prefix = (function() {
 	const styles = window.getComputedStyle(document.documentElement, '')
 	const pre = (Array.prototype.slice
 		.call(styles)
 		.join('')
-		.match(/-(moz|webkit|ms)-/) || (styles.OLink === '' && ['', 'o'])
-	)[1]
-	const dom = ('WebKit|Moz|MS|O').match(new RegExp('(' + pre + ')', 'i'))[1]
+		.match(/-(moz|webkit|ms)-/) ||
+		(styles.OLink === '' && ['', 'o']))[1]
+	const dom = 'WebKit|Moz|MS|O'.match(new RegExp('(' + pre + ')', 'i'))[1]
 	return {
 		dom: dom,
 		lowercase: pre,
@@ -16,12 +16,12 @@ const prefix = (function () {
 	}
 })()
 
-export const transitionEnd = (function(){
+export const transitionEnd = (function() {
 	const transEndEventNames = {
-		WebkitTransition : 'webkitTransitionEnd',
-		MozTransition    : 'transitionend',
-		OTransition      : 'oTransitionEnd otransitionend',
-		transition       : 'transitionend'
+		WebkitTransition: 'webkitTransitionEnd',
+		MozTransition: 'transitionend',
+		OTransition: 'oTransitionEnd otransitionend',
+		transition: 'transitionend'
 	}
 	for (let name in transEndEventNames) {
 		if (testElement.style[name] !== undefined) {
@@ -42,14 +42,13 @@ export function css3(prop) {
 	}
 	const prefixed = prefix.css + capitalize(prop)
 	const test = [prop, prefixed]
-	for(let i = 0; i < test.length; i += 1) {
-		if(testElement && testElement.style[test[i]] !== undefined) {
+	for (let i = 0; i < test.length; i += 1) {
+		if (testElement && testElement.style[test[i]] !== undefined) {
 			return test[i]
 		}
 	}
 	return false
 }
-
 
 /**
  * Returns the first matched parent node
@@ -62,11 +61,11 @@ export function css3(prop) {
  */
 export function DomClosest(element, selector, stopSelector = 'body') {
 	let parent = null
-	while(element) {
-		if(element.matches(selector)) {
+	while (element) {
+		if (element.matches(selector)) {
 			parent = element
 			break
-		} else if(stopSelector && element.matches(stopSelector)) {
+		} else if (stopSelector && element.matches(stopSelector)) {
 			break
 		}
 		element = element.parentElement
@@ -85,8 +84,6 @@ export function DomSiblings(element) {
 	return [...element.parentNode.children].filter(child => child !== element)
 }
 
-
-
 /**
  * Applies an object of css properties to the given dom node
  *
@@ -97,7 +94,11 @@ export function DomSiblings(element) {
  */
 export function DomCss(element, properties) {
 	function camelCase(str) {
-		return str.replace(/-([a-z])/g, function($0, $1) { return $1.toUpperCase() }).replace('-','')
+		return str
+			.replace(/-([a-z])/g, function($0, $1) {
+				return $1.toUpperCase()
+			})
+			.replace('-', '')
 	}
 	for (let property in properties) {
 		if (properties.hasOwnProperty(property)) {
@@ -115,11 +116,10 @@ export function DomCss(element, properties) {
  * @return classList method
  */
 export function DomClass(element, context = document) {
-	const node = typeof element === 'string' ? context.querySelector(element) : element	
+	const node =
+		typeof element === 'string' ? context.querySelector(element) : element
 	return node.classList
 }
-
-
 
 /**
  * Remove the parents of an element from the DOM, leaving the element's content in place
@@ -128,7 +128,8 @@ export function DomClass(element, context = document) {
  * @param  {HTMLElement} element | select element to unwrap
  * @return void
  */
-export function DomUnwrap(element) {// 
+export function DomUnwrap(element) {
+	//
 	// get the element's parent node
 	const parent = element.parentNode
 	// move all children out of the element
@@ -136,8 +137,6 @@ export function DomUnwrap(element) {//
 	// remove the empty element
 	parent.removeChild(element)
 }
-
-
 
 /**
  * Remove the parents of an element from the DOM, leaving the element's content in place
@@ -147,13 +146,11 @@ export function DomUnwrap(element) {//
  * @param  {HTMLElement} wrapper | a new html element
  * @return void
  */
-export function DomWrap(element, wrapper) {// 
+export function DomWrap(element, wrapper) {
+	//
 	element.parentNode.insertBefore(wrapper, element)
 	return wrapper.appendChild(element)
 }
-
-
-
 
 /**
  * The following helper function insertAfter() lets you insert a new element after an existing one in the DOM tree:
@@ -164,7 +161,8 @@ export function DomWrap(element, wrapper) {//
  * @return void
  */
 export function DomInsertAfter(element, target) {
-	const method = typeof element === 'string' ? 'insertAdjacentHTML' : 'insertBefore'
+	const method =
+		typeof element === 'string' ? 'insertAdjacentHTML' : 'insertBefore'
 	return target.parentNode[method](element, target.nextSibling)
 }
 
@@ -177,7 +175,8 @@ export function DomInsertAfter(element, target) {
  * @return void
  */
 export function DomInsertBefore(element, target) {
-	const method = typeof element === 'string' ? 'insertAdjacentHTML' : 'insertBefore'
+	const method =
+		typeof element === 'string' ? 'insertAdjacentHTML' : 'insertBefore'
 	return target.parentNode[method](element, target)
 }
 
@@ -195,7 +194,6 @@ export function DomAppend(element, parent) {
 	parent.appendChild(fragment)
 }
 
-
 /**
  * Prepend an element into a container
  *
@@ -210,7 +208,6 @@ export function DomPrepend(element, parent) {
 	parent.insertBefore(fragment, parent.childNodes[0])
 }
 
-
 /**
  * Use the createElement() method for creating a DOM element:
  *
@@ -221,6 +218,6 @@ export function DomPrepend(element, parent) {
  */
 export function DomCreate(tag, content) {
 	const element = document.createElement(tag)
-	if(content) element.innerHTML = content
+	if (content) element.innerHTML = content
 	return element
 }

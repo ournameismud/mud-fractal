@@ -25,12 +25,14 @@ function getNodes(context = document) {
  */
 
 function gatherBehaviours(nodes) {
-	return nodes.map((node) => {
-		const behaviours = node.getAttribute('data-behaviour').split(' ')
-		return behaviours.map((behaviourName) => {
-			return { behaviourName, node: node}
+	return nodes
+		.map(node => {
+			const behaviours = node.getAttribute('data-behaviour').split(' ')
+			return behaviours.map(behaviourName => {
+				return { behaviourName, node: node }
+			})
 		})
-	}).reduce((acc, curr) => [ ...acc, ...curr ], [])
+		.reduce((acc, curr) => [...acc, ...curr], [])
 }
 
 /**
@@ -77,11 +79,15 @@ export default class App {
 		// get all of the behaviours from the current context
 		const all = gatherBehaviours(getNodes(context))
 		// get all of the behaviours outside of the barba wrapper
-		const outer = all.filter(({node}) => !DomClosest(node, this.containerClass))
+		const outer = all.filter(
+			({ node }) => !DomClosest(node, this.containerClass)
+		)
 		// get all of the behaviours inside of the barba wrapper
-		const inner  = all.filter(({node}) => DomClosest(node, this.containerClass))
+		const inner = all.filter(({ node }) =>
+			DomClosest(node, this.containerClass)
+		)
 		// concatenate the arrays together, and tell the function that this is the first load
-		// and call the 
+		// and call the
 		this.load([...outer, ...inner], true)
 		return this
 	}
@@ -95,8 +101,8 @@ export default class App {
 	 */
 	load(items, inital = true) {
 		const { behaviours } = this
-		// map over the items, returning an array of behaviour classes 
-		this.current = items.map(({node, behaviourName}) => {
+		// map over the items, returning an array of behaviour classes
+		this.current = items.map(({ node, behaviourName }) => {
 			// instantiate the new behaviours
 			const behaviour = new behaviours[behaviourName](node)
 			// initialize it (adds, events and the such)
@@ -107,12 +113,16 @@ export default class App {
 
 		// get the scoped behaviours, we'll need this later for destroying
 		// inital will be false on pagination so we can use the current set as scopeed
-		this.scoped = inital === true ? this.current.filter(({node}) => DomClosest(node, this.containerClass))
-			: this.scoped = this.current
+		this.scoped =
+			inital === true
+				? this.current.filter(({ node }) =>
+					DomClosest(node, this.containerClass)
+				)
+				: (this.scoped = this.current)
 
 		// from the event loop, call each behaviours mounted method
 		setTimeout(() => {
-			this.current.forEach(({behaviour}) => behaviour.mounted())
+			this.current.forEach(({ behaviour }) => behaviour.mounted())
 		})
 
 		return this
@@ -163,5 +173,4 @@ export default class App {
 
 		return this
 	}
-
 }

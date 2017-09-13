@@ -1,15 +1,18 @@
 import SideNav from '@/ui/SideNav'
 import Behaviour from '@/core'
 import Viewport from '@/utils/viewport'
-import { DomClass } from '@/utils/dom'
-import { transitionSteps } from '@/utils/helpers'
+import {
+	DomClass
+} from '@/utils/dom'
+import {
+	transitionSteps
+} from '@/utils/helpers'
 /**
  *
  * @extends Behaviour
  * @class MobileMenu
  */
 export class MobileMenu extends Behaviour {
-	
 	/**
 	 * @function constructor
 	 * @param  {HTMLElement} el | the html element the behaviour is mounted on
@@ -17,7 +20,7 @@ export class MobileMenu extends Behaviour {
 	 */
 	constructor(el) {
 		super(el)
-	
+
 		this.nav = new SideNav(document.getElementById('menu-btn'), {
 			canvas: document.getElementById('site-menu')
 		})
@@ -88,9 +91,9 @@ export class MobileMenu extends Behaviour {
 	 * @param {Object} event object 
 	 * @return Void
 	 */
-	onClickHide = (event) => {
+	onClickHide = event => {
 		event.preventDefault()
-		
+
 		if(this.isRunning) return
 		this.isRunning = true
 

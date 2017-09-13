@@ -19,7 +19,6 @@ import { DomClass } from '@/utils/dom'
  * 									pager: Boolean // adds pager html
  */
 export default class Slide extends Wallop {
-
 	/**
 	 * 
 	 * @function constructor
@@ -47,7 +46,7 @@ export default class Slide extends Wallop {
 			pager: true,
 			loop: false
 		}
-		
+
 		const opts = mergeOptions(defaults, options, element, 'slideOptions')
 
 		super(element, opts)
@@ -67,15 +66,15 @@ export default class Slide extends Wallop {
 	initialize = () => {
 		this.goTo(this.previousIndex)
 
-		if(this.options.pager) {
+		if (this.options.pager) {
 			this.renderPager()
 		}
-		
-		if(this.options.loop) {
+
+		if (this.options.loop) {
 			this.loop()
 		}
-		
-		if(this.options.swipe) {
+
+		if (this.options.swipe) {
 			this.addGestures()
 		}
 
@@ -90,14 +89,14 @@ export default class Slide extends Wallop {
 	 * @return Slide
 	 */
 	renderPager = () => {
-
-
 		const { pagerWrapper, pagerItem, pagerActiveClass } = this.options
 		this.$pagerWrapper = this.$tag.appendChild(domify(pagerWrapper))
-		this.$pagerWrapper.appendChild(domify(this.slides.map(() => pagerItem).join('')))
+		this.$pagerWrapper.appendChild(
+			domify(this.slides.map(() => pagerItem).join(''))
+		)
 		this.$buttons = [...this.$pagerWrapper.children].map(($button, index) => {
 			$button.setAttribute('data-index', index)
-			if(index === this.currentItemIndex) {
+			if (index === this.currentItemIndex) {
 				DomClass($button).add('is-current')
 			}
 			return $button
@@ -116,7 +115,9 @@ export default class Slide extends Wallop {
 	 * @return Slide
 	 */
 	addPagerEvents = () => {
-		this.$buttons.forEach(button => button.addEventListener('click', this.onPagerClick))
+		this.$buttons.forEach(button =>
+			button.addEventListener('click', this.onPagerClick)
+		)
 	}
 
 	/**
@@ -125,7 +126,9 @@ export default class Slide extends Wallop {
 	 * @return Slide
 	 */
 	removePagerEvents = () => {
-		this.$buttons.forEach(button => button.removeEventListener('click', this.onPagerClick))
+		this.$buttons.forEach(button =>
+			button.removeEventListener('click', this.onPagerClick)
+		)
 	}
 
 	/**
@@ -134,11 +137,10 @@ export default class Slide extends Wallop {
 	 * @param {Object} evt 
 	 * @return void
 	 */
-	onPagerClick = (evt) => {
+	onPagerClick = evt => {
 		evt.preventDefault()
 		const { currentTarget } = evt
 		const { index } = currentTarget.dataset
-
 
 		log(index)
 
@@ -174,14 +176,14 @@ export default class Slide extends Wallop {
 	 * @param {Object} details - deconstructed param
 	 * @return void
 	 */
-	onChange = ({detail}) => {
+	onChange = ({ detail }) => {
 		const { currentItemIndex } = detail
 
-		if(this.options.pager) {
+		if (this.options.pager) {
 			this.updatePagerLinks(this.previousIndex, currentItemIndex)
 		}
 
-		if(this.options.loop) {
+		if (this.options.loop) {
 			this.cancelLoop()
 			this.loop()
 		}
@@ -197,31 +199,31 @@ export default class Slide extends Wallop {
 	destroy() {
 		this.removeAllHelperSettings()
 		this.off('change', this.onChange)
-		
-		if(this.buttonPrevious) {
+
+		if (this.buttonPrevious) {
 			this.buttonPrevious.setAttribute('disabled', true)
 		}
 
-		if(this.buttonNext) {
+		if (this.buttonNext) {
 			this.buttonNext.setAttribute('disabled', true)
 		}
 
-		if(this.options.pager) {
+		if (this.options.pager) {
 			this.removePagerEvents()
 			this.$pagerWrapper.parentNode.removeChild(this.$pagerWrapper)
 		}
-		
-		if(this.options.loop) {
+
+		if (this.options.loop) {
 			this.cancelLoop()
 		}
-		
-		if(this.options.swipe) {
+
+		if (this.options.swipe) {
 			this.mc.destroy()
 		}
 
 		return this
 	}
-	
+
 	/**
 	 * loop through the slides
 	 * @function loop
@@ -252,9 +254,12 @@ export default class Slide extends Wallop {
 	addGestures = () => {
 		this.mc = new Hammer.Manager(this.$tag, {
 			recognizers: [
-				[Hammer.Pan, {
-					direction: Hammer.DIRECTION_HORIZONTAL
-				}]
+				[
+					Hammer.Pan,
+					{
+						direction: Hammer.DIRECTION_HORIZONTAL
+					}
+				]
 			]
 		})
 		this.mc.add(new Hammer.Pan())
@@ -267,11 +272,11 @@ export default class Slide extends Wallop {
 	 * @param {String} deconstructed event object
 	 * @return void
 	 */
-	onPanEnd = ({additionalEvent}) => {
-		if(additionalEvent === 'panleft') {
+	onPanEnd = ({ additionalEvent }) => {
+		if (additionalEvent === 'panleft') {
 			this.previous()
-		} else if(additionalEvent === 'panright') {
+		} else if (additionalEvent === 'panright') {
 			this.next()
 		}
-	} 
+	}
 }

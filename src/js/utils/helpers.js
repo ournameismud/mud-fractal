@@ -2,19 +2,17 @@ import { transitionEnd, DomCss } from './dom'
 import once from 'lodash.once'
 
 export const transitionSteps = (element, css) => {
-
 	function onEnd(resolve) {
 		resolve()
 	}
 
-	return new Promise((resolve) => {
+	return new Promise(resolve => {
 		setTimeout(() => {
 			element.addEventListener(transitionEnd, once(onEnd.bind(null, resolve)))
 			DomCss(element, css)
 		})
 	})
 }
-
 
 /**
  * Helper function to lock the screen in the current position and prevent scrolling
@@ -53,7 +51,7 @@ export const getJson = (el, name) => {
 	try {
 		const json = el.dataset[name]
 		output = typeof json === 'string' ? JSON.parse(json) : false
-	} catch(err) {
+	} catch (err) {
 		console.error(err)
 	}
 
@@ -64,8 +62,10 @@ export const getJson = (el, name) => {
  * Test against userAgent string, pretty cheap and can't really be trusted
  * @return {Boolean} 
  */
-export const isMobile = () => /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
-
+export const isMobile = () =>
+	/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+		navigator.userAgent
+	)
 
 /**
  * Helper to merge default options with provided options, and options from a dom node
@@ -85,10 +85,8 @@ export const mergeOptions = (defaults, opts, el, name) => {
 			...options,
 			...json
 		}
-	} catch(err) {
+	} catch (err) {
 		console.error(err)
 	}
 	return options
 }
-
-

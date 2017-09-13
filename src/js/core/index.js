@@ -7,7 +7,6 @@ import Listener from './listener'
 	Base Class, 
 */
 export default class Behaviour extends Concert {
-
 	constructor(el = document, name) {
 		super()
 		/*
@@ -20,7 +19,6 @@ export default class Behaviour extends Concert {
 		*/
 		this.store = new Store()
 
-
 		/*
 			Event delegation via dom-delegate
 		*/
@@ -30,7 +28,7 @@ export default class Behaviour extends Concert {
 			The DOM node that the behaviour is mounted on
 		*/
 		this.$el = el
-		
+
 		this.$body = document.body
 		this.$html = document.getElementsByTagName('html')[0]
 
@@ -52,39 +50,38 @@ export default class Behaviour extends Concert {
 		return this
 	}
 
-
 	setState = (obj, name = this.cid) => {
-		if(!isObject(obj)) {
+		if (!isObject(obj)) {
 			throw new Error('setState expects an object')
 		}
 		const { state } = this.store
-		const next = {...state[name], ...obj}
-		this.store.state = {[name]: next}
-	
+		const next = { ...state[name], ...obj }
+		this.store.state = { [name]: next }
+
 		return this
 	}
 
 	getGlobalState = () => {
 		return this.store.state
 	}
-	
-	getState = (name = this.cid) =>{
+
+	getState = (name = this.cid) => {
 		return this.store.state[name]
 	}
 
 	events = {}
-	
+
 	/*
 		Create event delegation from events objects
 		@return this
 	*/
 	delegateEvents = () => {
-		if(this.enabled) return
+		if (this.enabled) return
 
 		this.enabled = true
 		const events = this.events
-		if(!events) return this
-		for(let key in events) {
+		if (!events) return this
+		for (let key in events) {
 			const eventKey = events[key]
 			const method = typeof eventKey === 'function' ? eventKey : this[eventKey]
 			const parts = key.split(' ')
@@ -98,13 +95,13 @@ export default class Behaviour extends Concert {
 		@return this
 	*/
 	unDelegateEvents = () => {
-		if(!this.enabled) return
+		if (!this.enabled) return
 
 		this.enabled = false
 
 		const events = this.events
-		if(!events) return this
-		for(let key in events) {
+		if (!events) return this
+		for (let key in events) {
 			const eventKey = events[key]
 			const method = typeof eventKey === 'function' ? eventKey : this[eventKey]
 			const parts = key.split(' ')
@@ -112,7 +109,7 @@ export default class Behaviour extends Concert {
 		}
 		return this
 	}
-	
+
 	/*
 		Delegate the events
 		@return this
@@ -130,7 +127,7 @@ export default class Behaviour extends Concert {
 		this.$delegate.off(eventName, selector, this[listener])
 		return this
 	}
-	
+
 	/*
 		Initialize the events
 		@return this
@@ -145,9 +142,9 @@ export default class Behaviour extends Concert {
 		@return this
 	*/
 	destroy = () => {
-		if(typeof this.unmount === 'function') this.unmount()
+		if (typeof this.unmount === 'function') this.unmount()
 		this.unDelegateEvents()
-		for(let key in this){
+		for (let key in this) {
 			delete this[key]
 		}
 		return this

@@ -6,7 +6,7 @@ let _storeInstance = null
 
 export default class Store {
 	constructor() {
-		if(!_storeInstance){
+		if (!_storeInstance) {
 			_storeInstance = this
 		}
 		return _storeInstance
@@ -16,7 +16,7 @@ export default class Store {
 
 	set state(newState) {
 		const oldState = this._state
-		const nextState = {...oldState, ...newState}
+		const nextState = { ...oldState, ...newState }
 		this._state = nextState
 	}
 

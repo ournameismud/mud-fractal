@@ -27,4 +27,3 @@ export default class WebFontLoader extends Behaviour {
 		})
 	}
 }
-

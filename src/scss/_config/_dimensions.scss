@@ -1,35 +1,29 @@
 $breakpoints: (
-  small:  320px,
-  xsmall:	500px,
-  medium: 740px,
-  large: 	980px,
-  xlarge: 1100px,
-  max: 		1300px
+	small: 320px,
+	xsmall: 500px,
+	medium: 740px,
+	large: 980px,
+	xlarge: 1100px,
+	max: 1300px
 );
 
 $wrapper-width: 1380px;
 
 $base-padding: 20px;
 
-$grid-gutters: (
-	mobile: 15px,
-	tablet: 30px,
-	desktop: 60px
-);
+$grid-gutters: (mobile: 15px, tablet: 30px, desktop: 60px);
 
 // 4 symmetrical, fluid columns
 // gutters are 1/4 the size of a column
 // elements span 1 less gutter than columns
 // containers span 1 less gutter as well
 $susy: (
-  'columns': susy-repeat(16),
-  'gutters': 60px,
-  'spread': 'narrow',
-  'container-spread': 'narrow',
+	'columns': susy-repeat(16),
+	'gutters': 60px,
+	'spread': 'narrow',
+	'container-spread': 'narrow'
 );
 
-
 $header-offest: 15px;
-
 
 $header-btn-height: 50px;

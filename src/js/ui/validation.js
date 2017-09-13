@@ -20,9 +20,7 @@ import { DomClass, DomClosest } from '@/utils/dom'
  * 									constraints: Object // the validation rules, see validatejs.org for more information
  */
 
-
 export default class Validation extends Concert {
-
 	defaults = {
 		init: true,
 		group: false,
@@ -35,20 +33,20 @@ export default class Validation extends Concert {
 		constraints: {
 			'questions[test_email]': {
 				presence: {
-					'message': 'Please enter your email'
+					message: 'Please enter your email'
 				},
 				email: {
-					'message': 'Please enter a valid email address'
+					message: 'Please enter a valid email address'
 				}
 			},
 			'questions[test_name]': {
 				presence: {
-					'message': 'Please enter your name'
-				},
+					message: 'Please enter your name'
+				}
 			},
 			'questions[test_message]': {
 				presence: {
-					'message': 'Please enter your message'
+					message: 'Please enter your message'
 				}
 			}
 		}
@@ -67,18 +65,18 @@ export default class Validation extends Concert {
 		this.options = mergeOptions(this.defaults, options, el, 'validationOptions')
 
 		const rules = this.$form.querySelector('[data-validation-rules]')
-		
-		if(rules) {
+
+		if (rules) {
 			try {
 				this.options.constraints = JSON.parse(rules.innerHTML)
-			} catch(error) {
+			} catch (error) {
 				log(error)
 			}
 		}
 
 		// https://github.com/ansman/validate.js/issues/65
-		validate.validators.checked = function (value, options) {
-			if(value !== true) return options.message || 'must be checked'
+		validate.validators.checked = function(value, options) {
+			if (value !== true) return options.message || 'must be checked'
 		}
 
 		this.options.init && this.initalize()
@@ -91,13 +89,12 @@ export default class Validation extends Concert {
 	 * @param  {HTMLElement} el : the form to validate
 	 * @return Validation
 	 */
-	setForm = (el) => {
+	setForm = el => {
 		this.$form = el
 		this.$submit = this.$form.querySelector('[type="submit"]')
 
 		return this
 	}
-
 
 	get $$form() {
 		return this.$form
@@ -125,7 +122,7 @@ export default class Validation extends Concert {
 	removeEvents = () => {
 		this.delegate.off('change', '[data-validate]', this.onChange)
 		this.$form.removeEventListener('submit', this.onSubmit)
-		
+
 		return this
 	}
 
@@ -148,19 +145,21 @@ export default class Validation extends Concert {
 	 * @param  {HTMLElement} element : the input to validate
 	 * @return Void
 	 */
-	showError = (element) => {
+	showError = element => {
 		const name = element.getAttribute('name')
 		const instance = this.collection.find(item => item.name === name)
-		const errors = validate(this.$form, this.options.constraints, {fullMessages: false}) || {}
-		
-		if(errors[name] && instance) {
+		const errors =
+			validate(this.$form, this.options.constraints, { fullMessages: false }) ||
+			{}
+
+		if (errors[name] && instance) {
 			this.renderMessage(instance, errors[name])
 			return
 		}
 
-		if(instance) {
+		if (instance) {
 			this.removeError(instance)
-		}	
+		}
 	}
 
 	/**
@@ -170,18 +169,17 @@ export default class Validation extends Concert {
 	 * @param  {Object} event : event object
 	 * @return Void
 	 */
-	onSubmit = (event) => {
+	onSubmit = event => {
 		event.preventDefault()
 
 		const { constraints } = this.options
-		const errors = validate(this.$form, constraints, {fullMessages: false})
+		const errors = validate(this.$form, constraints, { fullMessages: false })
 
-
-		if(errors) {
-			this.collection.forEach(({$node}) => this.showError($node, 'submit'))
+		if (errors) {
+			this.collection.forEach(({ $node }) => this.showError($node, 'submit'))
 			this.trigger('form:errors-on-submit', errors)
 		}
-		
+
 		!errors && this.postForm()
 	}
 
@@ -197,18 +195,17 @@ export default class Validation extends Concert {
 
 		this.trigger('form:submit', this.$form)
 
-
 		axios({
 			method: 'post',
 			url,
 			data
 		})
-			.then(function (response) {
+			.then(function(response) {
 				emptyFieldsOnComplete && this.$form.reset()
 				this.resetInputNodes()
 				this.trigger('form:success', response)
 			})
-			.catch(function (error) {
+			.catch(function(error) {
 				this.trigger('form:error', error)
 			})
 	}
@@ -216,7 +213,7 @@ export default class Validation extends Concert {
 	resetInputNodes = () => {
 		const { validClass } = this.options
 
-		this.collection.forEach(({$node, $parent}) => {
+		this.collection.forEach(({ $node, $parent }) => {
 			DomClass($parent).remove(validClass)
 			DomClass($node).remove(validClass)
 		})
@@ -230,10 +227,10 @@ export default class Validation extends Concert {
 	 * @param  {Array} message : an array of messages, only the first[0] message is displayed
 	 * @return Void
 	 */
-	renderMessage = ({$message, $parent, $node}, message) => {
-		if(message[0] === $message.textContent) return
+	renderMessage = ({ $message, $parent, $node }, message) => {
+		if (message[0] === $message.textContent) return
 		const { errorClass, validClass } = this.options
-		
+
 		$message.textContent = ''
 		$message.textContent = message[0]
 		DomClass($parent).add(errorClass)
@@ -249,8 +246,8 @@ export default class Validation extends Concert {
 	 * @param  {HTMLElement, HTMLElement, HTMLElement} $message, $parent, $node : deconstructed argument containing all of the relevant html elements
 	 * @return Void
 	 */
-	removeError = ({$message, $parent, $node}) => {
-		if($message) $message.textContent = ''
+	removeError = ({ $message, $parent, $node }) => {
+		if ($message) $message.textContent = ''
 		const { errorClass, validClass } = this.options
 		DomClass($parent).remove(errorClass)
 		DomClass($node).remove(errorClass)
@@ -267,7 +264,7 @@ export default class Validation extends Concert {
 	 */
 	setDelegate = (el = this.$form) => {
 		this.delegate = new Delegate(el)
-		
+
 		return this
 	}
 
@@ -279,10 +276,12 @@ export default class Validation extends Concert {
 	 */
 	setupDom = () => {
 		this.$form.setAttribute('novalidate', true)
-		
+
 		const { constraints, group, messageWrapper } = this.options
-		for(let key in constraints) {
-			const nodes = [...this.$form.querySelectorAll(`[name='${key}']`)].map(($node) => {
+		for (let key in constraints) {
+			const nodes = [
+				...this.$form.querySelectorAll(`[name='${key}']`)
+			].map($node => {
 				const $parent = group ? DomClosest($node, group) : $node.parentNode
 				const $message = $parent.appendChild(domify(messageWrapper))
 				$node.setAttribute('data-validate', true)
@@ -296,7 +295,7 @@ export default class Validation extends Concert {
 			})
 			this.collection = [...this.collection, ...nodes]
 		}
-		
+
 		return this
 	}
 

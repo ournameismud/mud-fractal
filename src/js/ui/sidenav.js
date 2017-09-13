@@ -10,7 +10,6 @@ import { mergeOptions } from '@/utils/helpers'
  * @param  {Object} options : menu options
  */
 export default class SideNav extends Concert {
-
 	defaults = {
 		inner: document.getElementById('menu-inner'),
 		canvas: document.getElementById('menu-canvas'),
@@ -35,16 +34,21 @@ export default class SideNav extends Concert {
 		super()
 		this.$body = document.querySelector('body')
 		this.$html = document.querySelector('html')
-		this.options = mergeOptions(this.defaults, options, button, 'sidenavOptions')
+		this.options = mergeOptions(
+			this.defaults,
+			options,
+			button,
+			'sidenavOptions'
+		)
 		this.isVisible = false
-		this.$inner =  this.options.inner
-		this.$canvas =  this.options.canvas
-		this.$closer =  this.options.closer
-		this.$button =  button
+		this.$inner = this.options.inner
+		this.$canvas = this.options.canvas
+		this.$closer = this.options.closer
+		this.$button = button
 		this.events = ['before:open', 'after:open', 'before:close', 'after:close']
 		this.options.init && this.initialize()
 		this.enabled = false
-		if(this.options.lock) this.lock = lock()
+		if (this.options.lock) this.lock = lock()
 	}
 
 	/**
@@ -55,11 +59,11 @@ export default class SideNav extends Concert {
 	 */
 	addEvents = () => {
 		const { clickOutside } = this.options
-		if(clickOutside && this.$inner) {
+		if (clickOutside && this.$inner) {
 			this.$canvas.addEventListener('click', this.hideSideNav)
 			this.$inner.addEventListener('click', this.blockClicks)
 		}
-		if(this.$closer) this.$closer.addEventListener('click', this.hideSideNav)
+		if (this.$closer) this.$closer.addEventListener('click', this.hideSideNav)
 		this.$button.addEventListener('click', this.onButtonClick)
 		return this
 	}
@@ -72,11 +76,12 @@ export default class SideNav extends Concert {
 	 */
 	removeEvents = () => {
 		const { clickOutside } = this.options
-		if(clickOutside && this.$inner) {
+		if (clickOutside && this.$inner) {
 			this.$canvas.removeEventListener('click', this.hideSideNav)
 			this.$inner.removeEventListener('click', this.blockClicks)
 		}
-		if(this.$closer) this.$closer.removeEventListener('click', this.hideSideNav)
+		if (this.$closer)
+			this.$closer.removeEventListener('click', this.hideSideNav)
 		this.$button.removeEventListener('click', this.onButtonClick)
 		return this
 	}
@@ -88,7 +93,7 @@ export default class SideNav extends Concert {
 	 * @param {Object} e - click event object
 	 * @return void
 	 */
-	onButtonClick = (e) => {
+	onButtonClick = e => {
 		e.preventDefault()
 		this.isVisible ? this.hideSideNav() : this.showSideNav()
 	}
@@ -99,7 +104,7 @@ export default class SideNav extends Concert {
 	 * @function {Object} e - click event object
 	 * @return void
 	 */
-	blockClicks = (e) => {
+	blockClicks = e => {
 		e.stopPropagation()
 	}
 
@@ -117,7 +122,7 @@ export default class SideNav extends Concert {
 			lock
 		} = this.options
 
-		if(lock) this.lock.capture()
+		if (lock) this.lock.capture()
 
 		this.trigger('before:open')
 		this.$button.classList.add(buttonActiveClass)
@@ -139,7 +144,7 @@ export default class SideNav extends Concert {
 			canvasAnimatingClass,
 			lock
 		} = this.options
-		if(lock) this.lock.release()
+		if (lock) this.lock.release()
 		this.trigger('before:close')
 		this.$button.classList.remove(buttonActiveClass)
 		this.$canvas.classList.add(canvasAnimatingClass)
@@ -154,7 +159,7 @@ export default class SideNav extends Concert {
 	 * @return void
 	 */
 	onTransitionEnd = () => {
-		const {	canvasAnimatingClass } = this.options
+		const { canvasAnimatingClass } = this.options
 		this.isVisible = !this.isVisible
 		this.trigger(this.isVisible ? 'after:open' : 'after:close')
 		this.$canvas.classList.remove(canvasAnimatingClass)
@@ -168,7 +173,7 @@ export default class SideNav extends Concert {
 	 * @return SideNav
 	 */
 	destroy = () => {
-		if(!this.enabled) return this
+		if (!this.enabled) return this
 		this.isVisible = false
 
 		const {
@@ -192,7 +197,7 @@ export default class SideNav extends Concert {
 	 * @return SideNav
 	 */
 	initialize = () => {
-		if(this.enabled) return this
+		if (this.enabled) return this
 
 		this.enabled = true
 		this.addEvents()

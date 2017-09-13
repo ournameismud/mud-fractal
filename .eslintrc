@@ -17,11 +17,8 @@
 		"module": true,
 		"__dirname": true
 	},
-	"plugins": [
-		"react",
-		"jest"
-	],
-	"extends": "eslint:recommended",
+	"plugins": ["react", "jest"],
+	"extends": "prettier",
 	"parser": "babel-eslint",
 	"parserOptions": {
 		"ecmaVersion": 7,
@@ -31,36 +28,28 @@
 		}
 	},
 	"rules": {
-		"no-console": ["warn", {
-			"allow": ["warn", "error"]
-		}],
-		"indent": [
+		"no-console": [
 			"warn",
-			"tab"
+			{
+				"allow": ["warn", "error"]
+			}
 		],
-		"linebreak-style": [
-			"warn",
-			"unix"
-		],
-		"quotes": [
-			"warn",
-			"single"
-		],
-		"semi": [
-			"warn",
-			"never"
-		],
-		"no-unused-vars": [
-			"warn"
-		],
+		"indent": ["warn", "tab"],
+		"linebreak-style": ["warn", "unix"],
+		"quotes": ["warn", "single"],
+		"semi": ["warn", "never"],
+		"no-unused-vars": ["warn"],
 		"eqeqeq": ["error", "allow-null"],
 		"no-extra-bind": "error",
 		"no-implicit-globals": "off",
 		"no-redeclare": "error",
 		"no-var": "warn",
-		"camelcase": ["error", {
-			"properties": "never"
-		}],
+		"camelcase": [
+			"error",
+			{
+				"properties": "never"
+			}
+		],
 		"no-plusplus": "error",
 		"react/jsx-uses-vars": [2]
 	}

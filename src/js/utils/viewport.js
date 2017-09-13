@@ -1,6 +1,6 @@
 import Concert from 'concert'
 
-const isFunc = (fn) => typeof fn === 'function'
+const isFunc = fn => typeof fn === 'function'
 
 export default class Viewport extends Concert {
 	constructor(watch = false) {
@@ -19,18 +19,27 @@ export default class Viewport extends Concert {
 	change = undefined
 
 	get width() {
-		return window.innerWidth || document.documentElement.clientWidth || document.getElementsByTagName('body')[0].clientWidth
+		return (
+			window.innerWidth ||
+			document.documentElement.clientWidth ||
+			document.getElementsByTagName('body')[0].clientWidth
+		)
 	}
 
 	get height() {
-		return window.innerHeight || document.documentElement.clientHeight || document.getElementsByTagName('body')[0].clientHeight
+		return (
+			window.innerHeight ||
+			document.documentElement.clientHeight ||
+			document.getElementsByTagName('body')[0].clientHeight
+		)
 	}
 
-	getCurrentBreakpoint = () => this.style.getPropertyValue('content').replace(/'|"/g, '')
+	getCurrentBreakpoint = () =>
+		this.style.getPropertyValue('content').replace(/'|"/g, '')
 
 	checkBreakpoint = () => {
 		const current = this.getCurrentBreakpoint()
-		if(current !== this.last) {
+		if (current !== this.last) {
 			this.trigger('change', current)
 			this.last = current
 		}
@@ -39,11 +48,11 @@ export default class Viewport extends Concert {
 	watch = () => {
 		window.addEventListener('resize', this.dispatch, false)
 	}
-	
+
 	dispatch = () => {
 		requestAnimationFrame(() => {
 			this.trigger('resize')
-			if(this.last !== this.getCurrentBreakpoint()) {
+			if (this.last !== this.getCurrentBreakpoint()) {
 				this.checkBreakpoint()
 			}
 		})
@@ -51,12 +60,12 @@ export default class Viewport extends Concert {
 
 	match = (breakpoint, success, reject) => {
 		this.matches = window.matchMedia(breakpoint).matches
-		if(this.matches && isFunc(success) && this.change !== 'success') {
+		if (this.matches && isFunc(success) && this.change !== 'success') {
 			this.change = 'success'
 			success()
 		}
 
-		if(!this.matches && isFunc(reject) && this.change !== 'reject') {
+		if (!this.matches && isFunc(reject) && this.change !== 'reject') {
 			this.change = 'reject'
 			reject()
 		}

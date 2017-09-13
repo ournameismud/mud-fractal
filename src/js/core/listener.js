@@ -7,7 +7,7 @@ let _listenerInstance = null
 export default class Listener extends Concert {
 	constructor() {
 		super()
-		if(!_listenerInstance){
+		if (!_listenerInstance) {
 			_listenerInstance = this
 		}
 		return _listenerInstance
