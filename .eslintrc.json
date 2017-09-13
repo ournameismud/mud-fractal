@@ -15,7 +15,8 @@
 		"PATH_CONFIG": true,
 		"SERVER": true,
 		"module": true,
-		"__dirname": true
+		"__dirname": true,
+		"__STAMP__": true
 	},
 	"plugins": [
 		"react",

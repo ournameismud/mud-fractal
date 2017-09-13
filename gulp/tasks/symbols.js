@@ -6,7 +6,6 @@ import gulpif from 'gulp-if'
 import svgSymbols from 'gulp-svg-symbols'
 import rename from 'gulp-rename'
 import htmlmin from 'gulp-htmlmin'
-// import cheerio from 'gulp-cheerio'
 import browserSync from 'browser-sync'
 import path from 'path'
 
@@ -26,16 +25,6 @@ export function symbols() {
 	
 	const svgs = gulp.src(paths.src)
 		.pipe(svgmin())
-		/*
-		.pipe(cheerio({
-			run($) {
-				$('[fill]').removeAttr('fill');
-			},
-			parserOptions: { 
-				xmlMode: true 
-			}
-		}))
-		*/
 		.pipe(svgSymbols({
 			svgId:      'icon--%f',
 			className:  '.icon--%f',

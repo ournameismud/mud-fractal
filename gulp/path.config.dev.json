@@ -32,7 +32,12 @@
 			"./node_modules/jquery/dist/jquery.min.js",
 			"./node_modules/picturefill/dist/picturefill.min.js"
 		]
-  },
+	},
+	
+	"serviceWorker": {
+    "src": "js",
+    "dest": "./"
+	},
 
 
 	"inline": {

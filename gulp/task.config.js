@@ -26,11 +26,11 @@ export default {
 		filename: 'bundle' // no extension
 	},
 
-	// serviceWorker: {
-	// 	watch: true,
-	// 	task: 'code',
-	// 	extensions: ['js']
-	// },
+	serviceWorker: {
+		watch: true,
+		task: 'code',
+		extensions: ['js']
+	},
 
 	json: {
 		watch: true,
