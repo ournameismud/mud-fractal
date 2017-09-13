@@ -27,14 +27,14 @@ http://fractal.build/
 ###### Take regression test reference
 `yarn run reference`
 
+###### Regression test diff 
+`yarn run diff`
+
 ###### Creates a static server
 `yarn run server`
 
 ###### Generate SSL certs
 `yarn run gen-cert`
-
-###### Regression test diff 
-`yarn run diff`
 
 ###### Run tests
 `yarn run test`
