@@ -30,7 +30,6 @@
     "indentation": ["tab", {
       "except": ["value"]
     }],
-    "number-leading-zero": "never",
     "max-empty-lines": 10,
     "selector-pseudo-element-colon-notation": "double",
     "unit-whitelist": ["em", "rem", "%", "ms", "px", "vh", "vw", "vmin", "vmax", "deg"],
