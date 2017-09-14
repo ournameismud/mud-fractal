@@ -41,7 +41,6 @@
 	}
 }
 
-
 .c-header__action {
 	height: rem(40px);
 	background-color: $white;
@@ -62,14 +61,13 @@
 	margin-left: auto;
 
 	@include mq($from: breakpoint('large')) {
-		margin-left: gutter(.5);
+		margin-left: gutter(0.5);
 	}
 
 	@include mq($from: breakpoint('xlarge')) {
 		margin-left: gutter(2);
 	}
 }
-
 
 .c-header__action--basket {
 	min-width: rem(40px);

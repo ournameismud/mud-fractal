@@ -6,7 +6,7 @@
 
 		.l-feed-grid__cell {
 			aspect-ratio: '1:1';
-			background-color: rgba(c(base, brand), .5);
+			background-color: rgba(c(base, brand), 0.5);
 			margin-bottom: gutter(1);
 
 			.box {
@@ -21,7 +21,6 @@
 		}
 	}
 }
-
 
 .l-feed-grid {
 	margin-bottom: vr(8, $units: true);
@@ -38,8 +37,6 @@
 		margin-bottom: vr(16, $units: true);
 	}
 }
-
-
 
 .l-feed-grid__cell {
 	@include mq($from: breakpoint('xsmall')) {

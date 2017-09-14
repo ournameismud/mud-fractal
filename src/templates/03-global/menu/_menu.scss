@@ -138,7 +138,7 @@
 	}
 }
 
-[id="menu-sub-nav-closer"] {
+[id='menu-sub-nav-closer'] {
 	@include mq($until: breakpoint('large')) {
 		position: absolute;
 		top: rem(15px);
@@ -152,7 +152,8 @@
 		visibility: hidden;
 		opacity: 0;
 		transform: translate3d(-100%, 0, 0);
-		transition: transform 150ms ease-in-out, opacity 150ms ease-in-out, visibility 0ms 150ms;
+		transition: transform 150ms ease-in-out, opacity 150ms ease-in-out,
+			visibility 0ms 150ms;
 		z-index: 3;
 
 		&.is-visible {
@@ -186,14 +187,14 @@
 
 		.c-header--float & {
 			color: $white;
-			background-color: rgba($black, .3);
+			background-color: rgba($black, 0.3);
 		}
 	}
 }
 
 .c-menu__heading {
 	font-family: font('heading-bold');
-	line-height: .8;
+	line-height: 0.8;
 	margin-bottom: vr(4, $units: true);
 	font-size: ms(7);
 	text-transform: uppercase;

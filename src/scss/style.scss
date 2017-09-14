@@ -96,3 +96,19 @@
 */
 
 @import 'print';
+
+.whatever {
+	transition: opacity 300ms ease, transform 200ms 300ms ease, height 200ms ease;
+	background-image: radial-gradient(
+		circle at center,
+		rgba($black, 0.9),
+		$black 40%
+	);
+	height: 10px;
+	top: 0.2px;
+
+	&::after {
+		transition: opacity 800ms ease-in-out 200ms,
+			transform 400ms ease-in-out 200ms;
+	}
+}

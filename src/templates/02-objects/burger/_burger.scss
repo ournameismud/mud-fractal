@@ -29,7 +29,7 @@
 		&::before,
 		&::after {
 			transition: transform 300ms;
-			content: " ";
+			content: ' ';
 		}
 
 		&::before {
@@ -52,7 +52,6 @@
 			}
 		}
 	}
-
 
 	&.is-active {
 		span {

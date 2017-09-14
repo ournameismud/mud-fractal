@@ -17,7 +17,6 @@ body {
 	color: c(base, body);
 }
 
-
 /*
 	Headings
 */
@@ -76,8 +75,6 @@ h6 {
 	margin: 0 0 vr(4, $units: true);
 }
 
-
-
 /*
 	Base element styles
 	avoid adding font sizes to elements directly
@@ -110,6 +107,3 @@ a {
 address {
 	font-style: normal;
 }
-
-
-
