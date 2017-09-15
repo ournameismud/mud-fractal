@@ -3,6 +3,12 @@
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+### 0.1.4
+
+#### Update
+
+- Stylelint updated to play nicely with prettier
+
 ### 0.1.3
 
 #### Added

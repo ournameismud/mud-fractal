@@ -3,6 +3,7 @@ import Behaviour from '@/core'
 import Viewport from '@/utils/viewport'
 import { DomClass } from '@/utils/dom'
 import { transitionSteps } from '@/utils/helpers'
+
 /**
  *
  * @extends Behaviour
