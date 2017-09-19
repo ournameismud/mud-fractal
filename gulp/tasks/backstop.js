@@ -15,7 +15,7 @@ export default function test() {
 		path.resolve(
 			process.env.PWD,
 			PATH_CONFIG.src,
-			PATH_CONFIG.fractal.src,
+			PATH_CONFIG.fractal.templates,
 			'**/**/*.test.config.js'
 		)
 	).then(function(modules) {

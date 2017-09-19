@@ -3,9 +3,9 @@ import path from 'path'
 const fractal = require('@frctl/fractal').create()
 
 const paths = {
-	build: PATH_CONFIG.build,
 	src: PATH_CONFIG.src,
-	static: PATH_CONFIG.static
+	build: PATH_CONFIG.fractal.build,
+	static: PATH_CONFIG.fractal.static
 }
 
 const stamp = global.production ? `.${TASK_CONFIG.stamp}` : ''
@@ -112,6 +112,6 @@ export function exportPaths() {
 	})
 }
 
-fractal.components.on('updated', exportPaths)
+// fractal.components.on('updated', exportPaths)
 
 export default fractal

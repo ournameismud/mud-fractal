@@ -4,6 +4,7 @@ import path from 'path'
 import watch from 'gulp-watch'
 import { getWatch } from '../libs/utils'
 import * as tasks from './index'
+import util from 'gulp-util'
 
 export function watchTasks() {
 	const { watchList } = getWatch()
@@ -51,4 +52,5 @@ export function watchTasks() {
 	})
 }
 
-gulp.task('watch', ['browserSync'], watchTasks)
+const serverTask = util.env.cms ? 'server:cms' : 'server:fractal'
+gulp.task('watch', [serverTask], watchTasks)

@@ -11,6 +11,7 @@
 	"private": true,
 	"scripts": {
 		"start": "gulp",
+		"cms": "gulp --cms",
 		"dev": "gulp watch",
 		"build": "gulp build --production --fractal",
 		"build:cms": "gulp build:code --production",
