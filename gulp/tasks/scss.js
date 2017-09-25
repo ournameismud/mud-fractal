@@ -15,10 +15,10 @@ import postcssTriangle from 'postcss-triangle'
 import objectFitImages from 'postcss-object-fit-images'
 import styleLint from 'gulp-stylelint'
 import rucksack from 'rucksack-css'
+import sassVariables from 'gulp-sass-variables'
 import browserSync from 'browser-sync'
 import { handleErrors } from '../libs/utils'
 import path from 'path'
-import sassVariables from 'gulp-sass-variables'
 import util from 'gulp-util'
 
 export function scss() {

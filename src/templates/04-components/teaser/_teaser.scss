@@ -14,6 +14,10 @@
 .c-teaser--lead {
 	font-size: responsive ms(0) ms(2);
 
+	@include mq($from: breakpoint('medium')) {
+		height: 10px;
+	}
+
 	.c-teaser__heading,
 	.c-teaser__img {
 		margin-bottom: vr(4, $units: true);
