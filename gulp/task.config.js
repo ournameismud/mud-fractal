@@ -10,10 +10,10 @@ export default {
 		browser: ['google chrome'],
 		port: 3000,
 		logLevel: 'info',
-		https: {
-			key: path.resolve(process.env.PWD, 'private', 'key.pem'),
-			cert: path.resolve(process.env.PWD, 'private', 'cert.pem')
-		}
+		// https: {
+		// 	key: path.resolve(process.env.PWD, 'private', 'key.pem'),
+		// 	cert: path.resolve(process.env.PWD, 'private', 'cert.pem')
+		// }
 	},
 
 	js: {
