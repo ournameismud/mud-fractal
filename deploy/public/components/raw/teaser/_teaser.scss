@@ -1,0 +1,43 @@
+.c-teaser {
+	font-size: responsive ms(-1) ms(0);
+
+	p:last-of-type {
+		margin-bottom: vr(2, $units: true);
+	}
+}
+
+.c-teaser__img {
+	object-fit: cover;
+	width: 100%;
+}
+
+.c-teaser--lead {
+	font-size: responsive ms(0) ms(2);
+
+	@include mq($from: breakpoint('medium')) {
+		height: 10px;
+	}
+
+	.c-teaser__heading,
+	.c-teaser__img {
+		margin-bottom: vr(4, $units: true);
+	}
+
+	p:last-of-type {
+		margin-bottom: vr(6, $units: true);
+	}
+}
+
+.c-teaser--menu {
+	.c-teaser__heading {
+		font-size: ms(4);
+		line-height: vr(3);
+		font-family: font('heading-medium');
+		margin-bottom: vr(2, $units: true);
+	}
+}
+
+.c-teaser__heading,
+.c-teaser__img {
+	margin-bottom: vr(3, $units: true);
+}

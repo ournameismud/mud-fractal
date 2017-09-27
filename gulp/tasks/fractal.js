@@ -112,6 +112,6 @@ export function exportPaths() {
 	})
 }
 
-// fractal.components.on('updated', exportPaths)
+fractal.components.on('updated', exportPaths)
 
 export default fractal

@@ -30,7 +30,7 @@ function buildFractal() {
 	builder.on('error', err => logger.error(err.message))
 	return builder.build().then(() => {
 		logger.success('Fractal build completed!')
-		// exportPaths().then(moveTwigTemplatesToCraft)
+		exportPaths().then(moveTwigTemplatesToCraft)
 	})
 }
 

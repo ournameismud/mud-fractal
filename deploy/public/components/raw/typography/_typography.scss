@@ -1,0 +1,109 @@
+/*
+	Root
+*/
+
+html {
+	@include font-baseline();
+
+	-ms-text-size-adjust: 100%;
+	-webkit-text-size-adjust: 100%;
+}
+
+body {
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	font-family: font('body');
+	font-weight: weight('body');
+	color: c(base, body);
+}
+
+/*
+	Headings
+*/
+
+.heading-1,
+h1 {
+	font-size: responsive ms(10) ms(14);
+	font-family: font('heading-bold');
+	font-weight: weight('heading-bold');
+	line-height: line-height('heading-bold');
+	margin: 0 0 vr(4, $units: true);
+}
+
+.heading-2,
+h2 {
+	font-size: responsive ms(5) ms(8);
+	font-family: font('heading-bold');
+	font-weight: weight('heading-bold');
+	line-height: line-height('heading-bold');
+	margin: 0 0 vr(4, $units: true);
+}
+
+.heading-3,
+h3 {
+	font-size: responsive ms(4) ms(6);
+	font-family: font('heading-bold');
+	font-weight: weight('heading-bold');
+	line-height: line-height('heading-bold');
+	margin: 0 0 vr(4, $units: true);
+}
+
+.heading-4,
+h4 {
+	font-size: responsive ms(1) ms(3);
+	font-family: font('heading-bold');
+	font-weight: weight('heading-bold');
+	line-height: line-height('heading-bold');
+	margin: 0 0 vr(4, $units: true);
+}
+
+.heading-5,
+h5 {
+	font-size: responsive ms(-1) ms(0);
+	font-family: font('heading-bold');
+	font-weight: weight('heading-bold');
+	line-height: line-height('heading-bold');
+	margin: 0 0 vr(4, $units: true);
+}
+
+.heading-6,
+h6 {
+	font-size: responsive ms(-2) ms(-1);
+	font-family: font('heading-bold');
+	font-weight: weight('heading-bold');
+	line-height: line-height('heading-bold');
+	margin: 0 0 vr(4, $units: true);
+}
+
+/*
+	Base element styles
+	avoid adding font sizes to elements directly
+	utilise the cascade and utility classes
+*/
+
+p {
+	margin: 0 0 vr(4, $units: true);
+}
+
+small {
+	font-size: ms(-3);
+}
+
+b,
+strong {
+	font-weight: 700;
+}
+
+em {
+	font-style: normal;
+}
+
+a {
+	text-decoration: none;
+	color: inherit;
+	transition: opacity 300ms ease;
+}
+
+address {
+	font-style: normal;
+}
