@@ -131,6 +131,6 @@
 	"fractal": {
 		"templates": "templates",
 		"static": "./tmp/public",
-		"build": "./deploy/public"
+		"build": "./deploy/library"
 	}
 }

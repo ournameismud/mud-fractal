@@ -14,6 +14,7 @@
 		"cms": "gulp --cms",
 		"dev": "gulp watch",
 		"build": "gulp build --production --fractal",
+		"build:templates": "gulp build:fractal --cms --production --fractal",
 		"build:cms": "gulp build:code --production",
 		"test": "jest",
 		"preserver": "npm run build",

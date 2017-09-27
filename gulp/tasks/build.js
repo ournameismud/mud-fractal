@@ -64,7 +64,13 @@ gulp.task('build:fractal', buildFractal)
 gulp.task('build:code', buildCode)
 
 gulp.task('clean:dist', () => {
-	return del([path.resolve(process.env.PWD, PATH_CONFIG.dist)], {
-		force: true
-	})
+	return del(
+		[
+			path.resolve(process.env.PWD, PATH_CONFIG.public, PATH_CONFIG.dist),
+			path.resolve(process.env.PWD, PATH_CONFIG.fractal.build, PATH_CONFIG.dist)
+		],
+		{
+			force: true
+		}
+	)
 })
