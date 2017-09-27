@@ -45,6 +45,7 @@
 		"no-implicit-globals": "off",
 		"no-redeclare": "error",
 		"no-var": "warn",
+		"no-undef": "error",
 		"camelcase": [
 			"error",
 			{
