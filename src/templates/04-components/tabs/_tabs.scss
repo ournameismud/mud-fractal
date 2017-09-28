@@ -1,0 +1,21 @@
+.c-tabs {
+	position: relative;
+}
+
+.c-tabs__list {
+	position: relative;
+	overflow: hidden;
+}
+
+.c-tabs__item {
+	visibility: hidden;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+}
+
+.c-tabs__item--current {
+	visibility: visible;
+	position: relative;
+}

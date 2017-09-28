@@ -24,5 +24,3 @@ new App(document, behaviours).start()
 // 			log('Service Worker error', err)
 // 		})
 // }
-
-thing()

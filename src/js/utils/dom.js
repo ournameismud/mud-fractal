@@ -1,3 +1,5 @@
+import { camelCase } from './helpers'
+
 const testElement = document.createElement('div')
 
 const prefix = (function() {
@@ -93,13 +95,6 @@ export function DomSiblings(element) {
  * @return {Void}
  */
 export function DomCss(element, properties) {
-	function camelCase(str) {
-		return str
-			.replace(/-([a-z])/g, function($0, $1) {
-				return $1.toUpperCase()
-			})
-			.replace('-', '')
-	}
 	for (let property in properties) {
 		if (properties.hasOwnProperty(property)) {
 			element.style[css3(camelCase(property))] = properties[property]
