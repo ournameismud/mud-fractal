@@ -2,32 +2,33 @@ import requireDir from 'require-dir'
 import util from 'gulp-util'
 
 import PATH_CONFIG from './gulp/path.config.dev.json'
-import PATH_CONFIG_FRACTAL from './gulp/path.config.fractal.json'
-import PATH_CONFIG_PRODUCTION from './gulp/path.config.production.json'
-import PATH_CONFIG_CMS from './gulp/path.config.cms.json'
 import TASK_CONFIG from './gulp/task.config'
 
 // Fallback for windows backs out of node_modules folder to root of project
 process.env.PWD = process.env.PWD || __dirname
 
-let CONFIG = PATH_CONFIG
+const { env } = util.env
+let PATHS = PATH_CONFIG
 
-if (util.env.production) {
-	CONFIG = { ...CONFIG, ...PATH_CONFIG_PRODUCTION }
+if (util.env.config) {
+	try {
+		const PATH_OVERWRITES = require(`./gulp/path.config.${util.env
+			.config}.json`)
+		PATHS = { ...PATH_CONFIG, ...PATH_OVERWRITES }
+	} catch (e) {
+		throw new Error(e)
+	}
 }
 
-if (util.env.fractal || util.env.test) {
-	CONFIG = { ...CONFIG, ...PATH_CONFIG_FRACTAL }
-}
+global.env = env ? env : 'development'
 
-if (util.env.cms) {
-	CONFIG = { ...CONFIG, ...PATH_CONFIG_CMS }
-}
-
-global.production = util.env.production
-global.PATH_CONFIG = CONFIG
-global.SERVER = CONFIG.browserSync
+global.PRODUCTION = global.env === 'production'
+global.PATH_CONFIG = PATHS
+global.SERVER = PATHS.browserSync
 global.TASK_CONFIG = TASK_CONFIG
+global.BUILD_TYPE = util.env.config
+
+console.log(`CURRENT ENV: ${global.env}, CURRENT CONFIG: ${util.env.config}`) // eslint-disable-line
 
 requireDir('./gulp/tasks', {
 	recurse: true

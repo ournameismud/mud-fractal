@@ -1,11 +1,26 @@
 {
 	"public": "./deploy/library",
-	"static": "./deploy/tmp",
-	"build": "./deploy/library",
 	"browserSync": {
 		"server": {
 			"baseDir": "deploy/library",
 			"index": "index.html"
 		}
+	},
+
+	"critical": {
+		"templates": "./deploy/library/components/preview",
+		"inputBase": "./deploy/library",
+		"outputBase": "./deploy/library/components/preview",
+		"paths": [
+			{
+				"input": {
+					"url": "components/preview/home.html",
+					"source": "home.html"
+				},
+				"output": {
+					"dist": "./"
+				}
+			}
+		]
 	}
 }

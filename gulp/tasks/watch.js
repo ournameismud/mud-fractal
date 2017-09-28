@@ -52,5 +52,5 @@ export function watchTasks() {
 	})
 }
 
-const serverTask = util.env.cms ? 'server:cms' : 'server:fractal'
+const serverTask = util.env.config === 'cms' ? 'server:cms' : 'server:fractal'
 gulp.task('watch', [serverTask], watchTasks)

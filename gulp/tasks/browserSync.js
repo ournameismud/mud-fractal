@@ -7,8 +7,7 @@ import path from 'path'
 import browserSync from 'browser-sync'
 
 function fractalServer() {
-	const env = global.production ? 'production' : 'development'
-	const config = webpackConfig(env)
+	const config = webpackConfig(global.env)
 	const compiler = webpack(config)
 	const logger = fractal.cli.console
 
@@ -49,9 +48,7 @@ function fractalServer() {
 }
 
 function devServer() {
-	console.log('server:cms')
-	const env = global.production ? 'production' : 'development'
-	const config = webpackConfig(env)
+	const config = webpackConfig(global.env)
 	const compiler = webpack(config)
 	const proxyConfig = SERVER.proxy || null
 

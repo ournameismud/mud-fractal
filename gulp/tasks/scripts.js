@@ -11,10 +11,7 @@ import path from 'path'
 import util from 'gulp-util'
 
 export function webpackProduction(callback) {
-	const env = global.production
-		? 'production'
-		: util.env.test ? 'test' : 'development'
-	const config = webpackConfig(env)
+	const config = webpackConfig(global.env)
 	webpack(config, function(err, stats) {
 		logger(err, stats)
 		callback()
@@ -34,7 +31,7 @@ export function inlineScripts() {
 }
 
 export function serviceWorker() {
-	const STAMP = global.production ? `.${TASK_CONFIG.stamp}` : ''
+	const STAMP = PRODUCTION ? `.${TASK_CONFIG.stamp}` : ''
 	return gulp
 		.src(path.resolve(PATH_CONFIG.src, PATH_CONFIG.serviceWorker.src, 'sw.js'))
 		.pipe(
@@ -50,7 +47,7 @@ export function serviceWorker() {
 				]
 			})
 		)
-		.pipe(gulpif(global.production, uglify()))
+		.pipe(gulpif(PRODUCTION, uglify()))
 		.pipe(
 			gulp.dest(
 				path.resolve(PATH_CONFIG.public, PATH_CONFIG.serviceWorker.dest)

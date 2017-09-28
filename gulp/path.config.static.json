@@ -1,0 +1,18 @@
+{
+	"public": "./deploy/static",
+
+	"publish": {
+		"src": "./deploy/library",
+		"dist": "./deploy/static",
+		"html": [
+			{
+				"input": "./deploy/library/components/preview/home.html",
+				"name": "index"
+			},
+			{
+				"input": "./deploy/library/components/preview/barry.html",
+				"dir": "about-us"
+			}
+		]
+	}
+}

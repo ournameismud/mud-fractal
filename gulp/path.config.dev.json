@@ -130,7 +130,17 @@
 
 	"fractal": {
 		"templates": "templates",
-		"static": "./tmp/public",
-		"build": "./deploy/library"
+		"tmp": "./tmp/public",
+		"library": "./deploy/library"
+	},
+
+	"publish": {
+		"src": "./deploy/library",
+		"dist": "./deploy/static",
+		"html": [
+			{ "input": "./deploy/library/components/preview/home.html" },
+			{ "output": "./deploy/static/" },
+			{ "name": "index" }
+		]
 	}
 }

@@ -1,7 +1,11 @@
 import gulp from 'gulp'
 import sizereport from 'gulp-sizereport'
 import gulpSequence from 'gulp-sequence'
+import rename from 'gulp-rename'
+import gulpif from 'gulp-if'
+import htmlmin from 'gulp-htmlmin'
 import path from 'path'
+import util from 'gulp-util'
 import { getTasks } from '../libs/utils'
 import fractal, { exportPaths } from './fractal'
 import del from 'del'
@@ -30,7 +34,7 @@ function buildFractal() {
 	builder.on('error', err => logger.error(err.message))
 	return builder.build().then(() => {
 		logger.success('Fractal build completed!')
-		exportPaths().then(moveTwigTemplatesToCraft)
+		// exportPaths().then(moveTwigTemplatesToCraft)
 	})
 }
 
@@ -52,23 +56,63 @@ export function buildCode(cb) {
 	const { assetTasks, codeTasks } = getTasks()
 	assetTasks.push('move-scripts')
 	codeTasks.push('bundle-script')
-	gulpSequence('clean:dist', assetTasks, codeTasks, 'size-report', cb)
+	gulpSequence(
+		'clean:dist',
+		assetTasks,
+		codeTasks,
+		'critical',
+		'size-report',
+		cb
+	)
 }
 
 export function build(cb) {
-	gulpSequence('build:fractal', 'build:code', cb)
+	BUILD_TYPE === 'fractal'
+		? gulpSequence('build:fractal', 'build:code', cb)
+		: gulpSequence('build:code', cb)
+}
+
+gulp.task('move-html-files', () => {
+	const { html, dist } = PATH_CONFIG.publish
+	html.forEach(({ input, name, dir }) => {
+		gulp
+			.src(path.resolve(process.env.PWD, input))
+			.pipe(
+				gulpif(
+					typeof name !== 'undefined',
+					rename({
+						basename: name
+					})
+				)
+			)
+			.pipe(htmlmin({ collapseWhitespace: true }))
+			.pipe(
+				gulp.dest(path.resolve(process.env.PWD, dir ? `${dist}/${dir}` : dist))
+			)
+	})
+})
+
+gulp.task('move-dist-etc', () => {
+	gulp
+		.src([
+			path.resolve(process.env.PWD, PATH_CONFIG.publish.src, 'dist/**'),
+			path.resolve(process.env.PWD, PATH_CONFIG.publish.src, '!**.html')
+		])
+		.pipe(gulp.dest(path.resolve(process.env.PWD, PATH_CONFIG.publish.dist)))
+})
+
+export function buildStatic(cb) {
+	gulpSequence('clean:dist', 'move-html-files', 'move-dist-etc', cb)
 }
 
 gulp.task('build', build)
 gulp.task('build:fractal', buildFractal)
 gulp.task('build:code', buildCode)
+gulp.task('build:static', buildStatic)
 
 gulp.task('clean:dist', () => {
 	return del(
-		[
-			path.resolve(process.env.PWD, PATH_CONFIG.public, PATH_CONFIG.dist),
-			path.resolve(process.env.PWD, PATH_CONFIG.fractal.build, PATH_CONFIG.dist)
-		],
+		[path.resolve(process.env.PWD, PATH_CONFIG.public, PATH_CONFIG.dist)],
 		{
 			force: true
 		}

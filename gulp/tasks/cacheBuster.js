@@ -18,7 +18,7 @@ export function cacheBusterTask() {
 		}
 	}
 
-	const files = global.production ? production : development
+	const files = global.env === 'production' ? production : development
 
 	return gulp
 		.src(PATH_CONFIG.tags.src)

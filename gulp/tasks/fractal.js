@@ -4,11 +4,11 @@ const fractal = require('@frctl/fractal').create()
 
 const paths = {
 	src: PATH_CONFIG.src,
-	build: PATH_CONFIG.fractal.build,
-	static: PATH_CONFIG.fractal.static
+	library: PATH_CONFIG.fractal.library,
+	tmp: PATH_CONFIG.fractal.tmp
 }
 
-const stamp = global.production ? `.${TASK_CONFIG.stamp}` : ''
+const stamp = PRODUCTION ? `.${TASK_CONFIG.stamp}` : ''
 
 const mandelbrot = require('@frctl/mandelbrot')({
 	favicon: '/favicon.ico',
@@ -76,13 +76,13 @@ fractal.docs.set('path', `${paths.src}/docs`)
 
 // Web UI config
 fractal.web.theme(mandelbrot)
-fractal.web.set('static.path', paths.static)
-fractal.web.set('builder.dest', paths.build)
+fractal.web.set('static.path', paths.tmp)
+fractal.web.set('builder.dest', paths.library)
 fractal.web.set('builder.urls.ext', '.html')
 
 // https://clearleft.com/posts/443
 export function exportPaths() {
-	if (!global.production) return
+	if (!PRODUCTION) return
 
 	return new Promise((resolve, reject) => {
 		const map = {}

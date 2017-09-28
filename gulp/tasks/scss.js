@@ -62,7 +62,7 @@ export function scss() {
 			})
 		)
 		.on('error', handleErrors)
-		.pipe(gulpif(!global.production, sourcemaps.init()))
+		.pipe(gulpif(!PRODUCTION, sourcemaps.init()))
 		.pipe(sassGlob())
 		.pipe(
 			sassVariables({
@@ -83,7 +83,7 @@ export function scss() {
 		.on('error', handleErrors)
 		.pipe(
 			gulpif(
-				!global.production,
+				!PRODUCTION,
 				sourcemaps.init({
 					loadMaps: true
 				})
@@ -106,11 +106,11 @@ export function scss() {
 			])
 		)
 		.on('error', handleErrors)
-		.pipe(gulpif(global.production, cssnano(TASK_CONFIG.scss.cssnanoOptions)))
-		.pipe(gulpif(!global.production, sourcemaps.write()))
+		.pipe(gulpif(PRODUCTION, cssnano(TASK_CONFIG.scss.cssnanoOptions)))
+		.pipe(gulpif(!PRODUCTION, sourcemaps.write()))
 		.pipe(
 			gulpif(
-				global.production,
+				PRODUCTION,
 				rename({
 					suffix: `.${TASK_CONFIG.stamp}`
 				})
