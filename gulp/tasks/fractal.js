@@ -53,8 +53,40 @@ const twigConf = {
 	}
 }
 
+const nunjucks = require('@frctl/nunjucks')({
+	filters: {
+		markdown(str) {
+			return md.render(str)
+		},
+		markdownInline(str) {
+			return md.renderInline(str)
+		},
+		key(str, key) {
+			return str[key]
+		},
+		slugify(str) {
+			return str.toLowerCase().replace(/[^\w]+/g, '')
+		},
+		stringify() {
+			return JSON.stringify(this, null, '\t')
+		},
+		first(str) {
+			return str[0]
+		},
+		collection(val) {
+			return Array(val).fill(0)
+		},
+		limit(array, count) {
+			return array.slice(0, count)
+		}
+	},
+	globals: {
+		STAMP: stamp
+	},
+	paths: [`${paths.static}/dist/images`]
+})
+
 const twigAdapter = require('@frctl/twig')(twigConf)
-// const twigAdapterDocs = require('@frctl/twig')(twigConf)
 // Project config
 fractal.set('project.title', TASK_CONFIG.title)
 
@@ -70,7 +102,7 @@ fractal.components.set('default.context', TASK_CONFIG.fractal.context)
 fractal.components.set('statuses', TASK_CONFIG.fractal.statuses)
 
 // Docs config
-// fractal.docs.engine(twigAdapterDocs)
+fractal.docs.engine(nunjucks)
 fractal.docs.set('ext', '.md')
 fractal.docs.set('path', `${paths.src}/docs`)
 

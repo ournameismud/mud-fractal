@@ -1,7 +1,11 @@
 /*
   Settings
 */
-
+@import '../../node_modules/modularscale-sass/stylesheets/_modularscale.scss';
+@import '../../node_modules/sass-mq/mq.scss';
+@import 'susy';
+@import 'plugins/svg-grid';
+@import 'normalize';
 @import '_config/base';
 @import '_config/fonts';
 @import '_config/colors';
@@ -33,4 +37,27 @@ $debug: false;
 
 a {
 	color: c(base, brand);
+}
+
+.token-grid {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	margin-bottom: rem(20px);
+}
+
+.token-grid__thumb {
+	width: rem(100px);
+	height: rem(50px);
+	margin-right: rem(20px);
+}
+
+.token-grid__info {
+	flex: 1;
+}
+
+@for $i from -2 through 20 {
+	.fs--#{$i} {
+		font-size: ms($i);
+	}
 }

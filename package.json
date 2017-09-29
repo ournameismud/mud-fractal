@@ -57,6 +57,7 @@
 	"devDependencies": {
 		"@frctl/fractal": "1.1.5",
 		"@frctl/mandelbrot": "^1.2.0",
+		"@frctl/nunjucks": "^1.0.3",
 		"@frctl/twig": "^1.0.0-beta.2",
 		"autoprefixer": "^7.1.2",
 		"babel": "^6.23.0",

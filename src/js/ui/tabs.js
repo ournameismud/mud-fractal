@@ -3,9 +3,7 @@ import { mergeOptions, slugify } from '@/utils/helpers'
 import { DomClass } from '@/utils/dom'
 import Delegate from 'dom-delegate'
 import fromTo from 'mud-from-to'
-import pathToRegexp from 'path-to-regexp'
 
-window.pathToRegexp = pathToRegexp
 /**
  * 
  * @class tabs
