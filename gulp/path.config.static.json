@@ -1,6 +1,13 @@
 {
 	"public": "./deploy/static",
 
+	"browserSync": {
+		"server": {
+			"baseDir": "deploy/static",
+			"index": "index.html"
+		}
+	},
+
 	"publish": {
 		"src": "./deploy/library",
 		"dist": "./deploy/static",

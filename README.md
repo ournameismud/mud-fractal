@@ -24,6 +24,9 @@
 ###### Build for craftcms
 `yarn run build:cms`
 
+###### Build for optimised static files
+`yarn run build:static`
+
 ###### Take regression test reference
 `yarn run reference`
 
