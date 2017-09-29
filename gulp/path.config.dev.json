@@ -1,8 +1,6 @@
 {
 	"src": "./src",
 	"public": "./tmp/public",
-	"static": "./tmp/public",
-	"build": "./deploy/public",
 	"dist": "dist",
 
 	"browserSync": {
