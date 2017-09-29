@@ -66,7 +66,7 @@ export function scss() {
 		.pipe(sassGlob())
 		.pipe(
 			sassVariables({
-				$env: util.env.production
+				$env: PRODUCTION
 					? 'production'
 					: util.env.test ? 'test' : 'development'
 			})
