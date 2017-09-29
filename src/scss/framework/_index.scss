@@ -4,6 +4,14 @@
 	box-sizing: border-box;
 }
 
+/*
+	[1] Set a base background color to avoid white bars in landscape mode on iPhone X.
+			'constant(safe-area-inset-*)' should also be added to elements that bleed to edge of viewport.
+*/
+body {
+	background-color: c(bg, base); // [1]
+}
+
 img {
 	display: block;
 	max-width: 100%;
