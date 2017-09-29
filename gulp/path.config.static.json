@@ -11,13 +11,14 @@
 	"publish": {
 		"src": "./deploy/library",
 		"dist": "./deploy/static",
+		"templates": "components/preview",
 		"html": [
 			{
-				"input": "./deploy/library/components/preview/home.html",
+				"input": "home.html",
 				"name": "index"
 			},
 			{
-				"input": "./deploy/library/components/preview/barry.html",
+				"input": "barry.html",
 				"dir": "about-us"
 			}
 		]
