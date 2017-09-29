@@ -21,7 +21,7 @@
 		"__STAMP__": true
 	},
 	"plugins": ["react", "jest"],
-	"extends": "prettier",
+	"extends": ["prettier", "eslint:recommended"],
 	"parser": "babel-eslint",
 	"parserOptions": {
 		"ecmaVersion": 7,
@@ -48,6 +48,7 @@
 		"no-redeclare": "error",
 		"no-var": "warn",
 		"no-undef": "error",
+		"no-useless-escape": "off",
 		"camelcase": [
 			"error",
 			{

@@ -1,5 +1,5 @@
 import Wallop from 'wallop'
-import { mergeOptions, slugify } from '@/utils/helpers'
+import { mergeOptions, slugify, transitionSteps } from '@/utils/helpers'
 import { DomClass } from '@/utils/dom'
 import Delegate from 'dom-delegate'
 import fromTo from 'mud-from-to'
@@ -37,15 +37,16 @@ export default class Tabs extends Wallop {
 			showNextClass: 'c-tabs__item--showNext',
 			hidePreviousClass: 'c-tabs__item--hidePrevious',
 			hideNextClass: 'c-tabs__item--hideNext',
+			wrapper: 'c-tabs__list',
 			carousel: true,
 			pagerActiveClass: 'is-current',
 			selector: '[data-tab-pager]',
 			animate: true,
+			trackHistory: true,
 			init: true
 		}
 
 		const opts = mergeOptions(defaults, options, element, 'tabsOptions')
-		const pattern = pathToRegexp('/:foo/:bar')
 
 		super(element, opts)
 
@@ -53,10 +54,10 @@ export default class Tabs extends Wallop {
 		this.options = opts
 		this.$el = element
 		this.$tabs = [...element.querySelectorAll(`.${opts.itemClass}`)]
+		this.$wrapper = element.querySelector(`.${opts.wrapper}`)
 		this.previousIndex = this.currentItemIndex
 		opts.init && this.initialize()
 		this.hashes = []
-		this.page = pattern.exec(window.location.pathname)
 	}
 
 	/**
@@ -108,8 +109,6 @@ export default class Tabs extends Wallop {
 			const { tabTitle } = $tab.dataset
 			const $btn = this.$el.querySelector(`[href="#${id}"]`)
 
-			log(slugify(tabTitle))
-
 			return {
 				$tab,
 				$btn,
@@ -123,11 +122,43 @@ export default class Tabs extends Wallop {
 
 	clickHandle = (e, elm) => {
 		e.preventDefault()
-		const { index, title } = this.tabs.find(
+		const { animate } = this.options
+		const { index, title, $tab } = this.tabs.find(
 			({ hash }) => elm.getAttribute('href') === hash
 		)
-		window.history.pushState({}, '', title)
+
+		if (!animate) {
+			this.goToTab(index).updateHistory(title)
+
+			return
+		}
+
+		const $prevTab = this.tabs[this.previousIndex].$tab
+		transitionSteps($prevTab, { opacity: 0 }).then(() => {
+			fromTo(
+				{
+					start: $prevTab.clientHeight,
+					end: $tab.clientHeight,
+					duration: 300
+				},
+				v => (this.$wrapper.style.height = `${v}px`)
+			).then(() => {
+				$prevTab.style.opacity = ''
+				this.goToTab(index).updateHistory(title)
+				this.$wrapper.style.height = ''
+			})
+		})
+	}
+
+	goToTab = index => {
 		this.goTo(index)
+		return this
+	}
+
+	updateHistory = title => {
+		if (!this.options.trackHistory) return this
+		window.location.hash = title
+		return this
 	}
 
 	getTab = hash => {
