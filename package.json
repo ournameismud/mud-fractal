@@ -14,6 +14,7 @@
 		"cms": "gulp --config cms",
 		"dev": "gulp watch",
 		"build": "gulp build --env production --config cms",
+		"build:cms": "npm run build",
 		"build:fractal": "gulp build --env production --config fractal",
 		"prebuild:static": "npm run build:fractal",
 		"build:static": "gulp build:static --config static",
