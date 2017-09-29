@@ -59,7 +59,6 @@ export default class Tabs extends Wallop {
 		opts.init && this.initialize()
 		this.hashes = []
 		this.page = pattern.exec(window.location.pathname)
-		log(this.page)
 	}
 
 	/**
@@ -129,7 +128,7 @@ export default class Tabs extends Wallop {
 		const { index, title } = this.tabs.find(
 			({ hash }) => elm.getAttribute('href') === hash
 		)
-		window.history.replaceState('', '', title)
+		window.history.pushState({}, '', title)
 		this.goTo(index)
 	}
 

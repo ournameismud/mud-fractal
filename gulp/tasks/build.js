@@ -73,10 +73,11 @@ export function build(cb) {
 }
 
 gulp.task('move-html-files', () => {
-	const { html, dist, templates } = PATH_CONFIG.publish
+	const { html, dist, templates, src } = PATH_CONFIG.publish
 	html.forEach(({ input, name, dir }) => {
+		console.log(path.resolve(process.env.PWD, templates, input))
 		gulp
-			.src(path.resolve(process.env.PWD, templates, input))
+			.src(path.resolve(process.env.PWD, src, templates, input))
 			.pipe(
 				gulpif(
 					typeof name !== 'undefined',
