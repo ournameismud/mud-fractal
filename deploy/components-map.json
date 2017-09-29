@@ -1,0 +1,32 @@
+{
+  "@teaser": {
+    "src": "src/templates/04-components/teaser/teaser.twig",
+    "dest": "fractal/04-components/teaser",
+    "file": "teaser.twig"
+  },
+  "@teaser--box": {
+    "src": "src/templates/04-components/teaser/teaser.twig",
+    "dest": "fractal/04-components/teaser",
+    "file": "teaser--box.twig"
+  },
+  "@teaser--test": {
+    "src": "src/templates/04-components/teaser/teaser--test.twig",
+    "dest": "fractal/04-components/teaser",
+    "file": "teaser--test.twig"
+  },
+  "@teaser--tits": {
+    "src": "src/templates/04-components/teaser/teaser--tits.twig",
+    "dest": "fractal/04-components/teaser",
+    "file": "teaser--tits.twig"
+  },
+  "@layout": {
+    "src": "src/templates/wrapper/_layout.twig",
+    "dest": "fractal/wrapper",
+    "file": "layout.twig"
+  },
+  "@symbols": {
+    "src": "src/templates/wrapper/_symbols.twig",
+    "dest": "fractal/wrapper",
+    "file": "symbols.twig"
+  }
+}

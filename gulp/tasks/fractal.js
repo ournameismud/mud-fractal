@@ -114,14 +114,23 @@ fractal.web.set('builder.urls.ext', '.html')
 
 // https://clearleft.com/posts/443
 export function exportPaths() {
-	if (!PRODUCTION) return
+	//if (!PRODUCTION) return
 
 	return new Promise((resolve, reject) => {
 		const map = {}
-		for (let item of fractal.components.flatten()) {
-			map[`@${item.handle}`] = {
+		for (let item of fractal.components.flattenDeep()) {
+			const file = item.handle.includes('--default')
+				? item.handle.split('--default')[0]
+				: item.handle
+
+			const dest = path
+				.relative(process.cwd(), item.viewDir)
+				.split('templates/')[1]
+
+			map[`@${file}`] = {
 				src: path.relative(process.cwd(), item.viewPath),
-				dest: path.relative(process.cwd(), item.viewDir).split('templates/')[1]
+				dest: `fractal/${dest}`,
+				file: `${file}.twig`
 			}
 		}
 
