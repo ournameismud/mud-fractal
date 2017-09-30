@@ -19,6 +19,8 @@
 		"prebuild:static": "npm run build:fractal",
 		"build:static": "gulp build:static --config static",
 		"update:craft": "gulp update:craft --config cms --env production",
+		"preinit:craft": "npm run build:fractal",
+		"init:craft": "npm run update:craft",
 		"test": "jest",
 		"preserver": "npm run build:fractal",
 		"server": "gulp server --config fractal",

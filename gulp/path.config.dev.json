@@ -100,11 +100,6 @@
 		"dest": "scss/_config"
 	},
 
-	"tags": {
-		"src": "",
-		"dest": ""
-	},
-
 	"critical": {
 		"templates": "./src/public",
 		"paths": [

@@ -2,6 +2,8 @@ import gulp from 'gulp'
 import htmlreplace from 'gulp-html-replace'
 
 export function cacheBusterTask() {
+	if (!PATH_CONFIG.tags) return
+
 	const cms = '{% set stamp = "%s" %}'
 
 	const production = {

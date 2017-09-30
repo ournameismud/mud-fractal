@@ -21,6 +21,9 @@
 ###### Build component library
 `yarn run build`
 
+###### Setup fractal/craft built
+`yarn run init:craft`
+
 ###### Build for craftcms
 `yarn run build:cms`
 
