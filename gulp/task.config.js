@@ -46,6 +46,12 @@ export default {
 		extensions: ['json']
 	},
 
+	twig: {
+		watch: false,
+		task: 'code',
+		extensions: ['twig']
+	},
+
 	scss: {
 		task: 'code',
 		watch: true,

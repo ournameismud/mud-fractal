@@ -18,7 +18,12 @@
 
 	"staticAssets": {
 		"src": "static",
-		"dest": "dist/static"
+		"dest": "./desploy/static"
+	},
+
+	"twig": {
+		"src": "templates",
+		"dest": "./deploy/fractal"
 	},
 
 	"js": {

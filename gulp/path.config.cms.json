@@ -21,6 +21,13 @@
 		]
 	},
 
+	"symbols": {
+		"src": "images/svg-symbols",
+		"dest": "dist/images",
+		"fileName": "_symbols.twig",
+		"fileDest": "../deploy/craft/templates/includes"
+	},
+
 	"tags": {
 		"src": "./deploy/craft/templates/wrapper/_layout.twig",
 		"dest": "./deploy/craft/templates/wrapper/"

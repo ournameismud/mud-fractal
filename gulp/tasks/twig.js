@@ -30,9 +30,29 @@ function updateTwigTemplates() {
 	twigTemplates(require(json))
 }
 
-function twig(cb) {
+function buildTwig(cb) {
 	return gulpSequence('updateTwigTemplates', 'critical', 'cacheBuster', cb)
 }
 
 gulp.task('updateTwigTemplates', updateTwigTemplates)
+
+export function twig() {
+	const paths = {
+		src: path.resolve(
+			process.env.PWD,
+			PATH_CONFIG.src,
+			PATH_CONFIG.twig.src,
+			'**/**/*.twig'
+		),
+		dest: path.resolve(process.env.PWD, PATH_CONFIG.twig.dest)
+	}
+
+	return gulp
+		.src(paths.src)
+		.pipe(changed(paths.dest))
+		.pipe(gulp.dest(paths.dest))
+		.pipe(browserSync.stream())
+}
+
 gulp.task('twig', twig)
+gulp.task('build:twig', buildTwig)

@@ -68,7 +68,14 @@ export function buildCraft(cb) {
 	const { assetTasks, codeTasks } = getTasks()
 	assetTasks.push('move-scripts')
 	codeTasks.push('bundle-script')
-	gulpSequence('clean:dist', assetTasks, codeTasks, 'twig', 'size-report', cb)
+	gulpSequence(
+		'clean:dist',
+		assetTasks,
+		codeTasks,
+		'build:twig',
+		'size-report',
+		cb
+	)
 }
 
 export function build(cb) {

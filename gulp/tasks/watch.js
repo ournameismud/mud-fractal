@@ -47,18 +47,7 @@ export function watchTasks() {
 								taskPath.components
 							)
 						]
-					: taskName === 'twig'
-						? path.resolve(
-								process.env.PWD,
-								PATH_CONFIG.src,
-								PATH_CONFIG.fractal.templates,
-								'**/**/**/*.twig'
-							)
-						: path.join(srcPath, globPattern)
-
-			if (taskName === 'twig') {
-				taskName = 'twigTemplates'
-			}
+					: path.join(srcPath, globPattern)
 
 			watch(files, watchConfig, function() {
 				tasks[`${taskName}`]()
