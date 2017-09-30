@@ -1,7 +1,7 @@
 {
 	"name": "mud-fractal",
 	"description": "Mudstone 7.1.0 integrated with Fractal",
-	"version": "0.1.5",
+	"version": "0.2.0",
 	"main": "gulpfile.babel.js",
 	"author": "Dave Stockley @ournameismud",
 	"license": "MIT",

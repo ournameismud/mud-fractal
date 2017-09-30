@@ -3,7 +3,7 @@
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
-### 0.1.5
+### 0.2.0
 
 #### Added
 
@@ -11,6 +11,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Better path config handling
 - Generate static builds from fractal library
 - Critical css all the things
+
+#### Breaking changes
+
+- Production config has been removed
+- Production builds now handled via `env --production`
+- Setting path configs is handled via `config --cms`
 
 ### 0.1.4
 
