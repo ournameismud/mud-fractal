@@ -9,12 +9,23 @@ import util from 'gulp-util'
 import { getTasks } from '../libs/utils'
 import fractal, { exportPaths } from './fractal'
 import del from 'del'
+import { twigTemplates } from './twig'
 
 gulp.task('size-report', function() {
 	return gulp
 		.src([
-			path.resolve(process.env.PWD, PATH_CONFIG.dist, '**/*.css'),
-			path.resolve(process.env.PWD, PATH_CONFIG.dist, '**/*.js'),
+			path.resolve(
+				process.env.PWD,
+				PATH_CONFIG.public,
+				PATH_CONFIG.dist,
+				'**/*.css'
+			),
+			path.resolve(
+				process.env.PWD,
+				PATH_CONFIG.public,
+				PATH_CONFIG.dist,
+				'**/*.js'
+			),
 			'*!rev-manifest.json'
 		])
 		.pipe(
@@ -34,22 +45,8 @@ function buildFractal() {
 	builder.on('error', err => logger.error(err.message))
 	return builder.build().then(() => {
 		logger.success('Fractal build completed!')
-		// exportPaths().then(moveTwigTemplatesToCraft)
+		exportPaths().then(twigTemplates)
 	})
-}
-
-function moveTwigTemplatesToCraft(resp) {
-	for (const key in resp) {
-		const { src, dest } = resp[key]
-
-		gulp
-			.src(path.resolve(process.env.PWD, src))
-			.pipe(
-				gulp.dest(
-					path.resolve(process.env.PWD, PATH_CONFIG.craftTemplates.dest, dest)
-				)
-			)
-	}
 }
 
 export function buildCode(cb) {
@@ -60,10 +57,18 @@ export function buildCode(cb) {
 		'clean:dist',
 		assetTasks,
 		codeTasks,
+		'cacheBuster',
 		'critical',
 		'size-report',
 		cb
 	)
+}
+
+export function buildCraft(cb) {
+	const { assetTasks, codeTasks } = getTasks()
+	assetTasks.push('move-scripts')
+	codeTasks.push('bundle-script')
+	gulpSequence('clean:dist', assetTasks, codeTasks, 'twig', 'size-report', cb)
 }
 
 export function build(cb) {
@@ -72,10 +77,13 @@ export function build(cb) {
 		: gulpSequence('build:code', cb)
 }
 
+export function buildStatic(cb) {
+	gulpSequence('clean:dist', 'move-html-files', 'move-dist-etc', cb)
+}
+
 gulp.task('move-html-files', () => {
 	const { html, dist, templates, src } = PATH_CONFIG.publish
 	html.forEach(({ input, name, dir }) => {
-		console.log(path.resolve(process.env.PWD, templates, input))
 		gulp
 			.src(path.resolve(process.env.PWD, src, templates, input))
 			.pipe(
@@ -102,14 +110,15 @@ gulp.task('move-dist-etc', () => {
 		.pipe(gulp.dest(path.resolve(process.env.PWD, PATH_CONFIG.publish.dist)))
 })
 
-export function buildStatic(cb) {
-	gulpSequence('clean:dist', 'move-html-files', 'move-dist-etc', cb)
-}
+gulp.task('build-component-map', () => {
+	exportPaths()
+})
 
 gulp.task('build', build)
 gulp.task('build:fractal', buildFractal)
 gulp.task('build:code', buildCode)
 gulp.task('build:static', buildStatic)
+gulp.task('update:craft', buildCraft)
 
 gulp.task('clean:dist', () => {
 	return del(

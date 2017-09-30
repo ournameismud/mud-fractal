@@ -6,14 +6,14 @@ import htmlreplace from 'gulp-html-replace'
 import path from 'path'
 
 export function critialCss() {
-	const { paths, templates, inputBase, outputBase } = PATH_CONFIG.critical
+	const { paths, templates, urlBase, outputBase } = PATH_CONFIG.critical
 
 	paths.map(({ input, output }) => {
 		const { url, source } = input
 		const { name, dist } = output
 		critical
 			.generate({
-				base: path.resolve(process.env.PWD, inputBase),
+				base: path.resolve(process.env.PWD, urlBase),
 				src: url,
 				...TASK_CONFIG.critical
 			})

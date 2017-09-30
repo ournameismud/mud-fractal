@@ -1,8 +1,8 @@
 ---
 hidden: false
-title: Mudstone front-end component library
+title: Docs
 ---
-You are viewing the front-end component library for Domus.
+You are viewing the front-end component library for {{ title }}.
 
 ## Project Structure
 

@@ -21,14 +21,23 @@ if (util.env.config) {
 }
 
 global.env = env ? env : 'development'
-
 global.PRODUCTION = global.env === 'production'
 global.PATH_CONFIG = PATHS
 global.SERVER = PATHS.browserSync
 global.TASK_CONFIG = TASK_CONFIG
 global.BUILD_TYPE = util.env.config
+global.log = util.log
 
-console.log(`CURRENT ENV: ${global.env}, CURRENT CONFIG: ${util.env.config}`) // eslint-disable-line
+log(
+	`                  _    ___             _       _ 
+		 _____ _ _ _| |  |  _|___ ___ ___| |_ ___| |
+		|     | | | . |  |  _|  _| .'|  _|  _| .'| |
+		|_|_|_|___|___|  |_| |_| |__,|___|_| |__,|_|
+																																	
+		ENV: ${global.env}, 
+		CONFIG: ${util.env.config ? util.env.config : 'Development'}
+	`
+)
 
 requireDir('./gulp/tasks', {
 	recurse: true

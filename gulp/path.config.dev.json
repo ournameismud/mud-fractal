@@ -13,7 +13,7 @@
 	"craftTemplates": {
 		"src": "./deploy/craft/templates",
 		"config": "./deploy",
-		"dest": "./deploy/fractal"
+		"dest": "./deploy"
 	},
 
 	"staticAssets": {
@@ -96,15 +96,13 @@
 
 	"tokens": {
 		"src": "tokens",
-		"files": ["colors.json", "fonts.json"],
+		"files": ["colors.json", "fonts.json", "breakpoints.json"],
 		"dest": "scss/_config"
 	},
 
 	"tags": {
-		"src": "./tmp/public/*.html",
-		"dest": "./tmp/public/",
-		"css": "/dist/css/",
-		"js": "/dist/js/"
+		"src": "",
+		"dest": ""
 	},
 
 	"critical": {

@@ -9,6 +9,10 @@ import util from 'gulp-util'
 export function watchTasks() {
 	const { watchList } = getWatch()
 
+	if (util.env.config === 'cms') {
+		watchList.push('twig')
+	}
+
 	watchList.forEach(taskName => {
 		const taskConfig = TASK_CONFIG[taskName]
 		const taskPath = PATH_CONFIG[taskName]
@@ -43,7 +47,18 @@ export function watchTasks() {
 								taskPath.components
 							)
 						]
-					: path.join(srcPath, globPattern)
+					: taskName === 'twig'
+						? path.resolve(
+								process.env.PWD,
+								PATH_CONFIG.src,
+								PATH_CONFIG.fractal.templates,
+								'**/**/**/*.twig'
+							)
+						: path.join(srcPath, globPattern)
+
+			if (taskName === 'twig') {
+				taskName = 'twigTemplates'
+			}
 
 			watch(files, watchConfig, function() {
 				tasks[`${taskName}`]()

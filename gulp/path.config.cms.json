@@ -5,9 +5,9 @@
 	},
 
 	"critical": {
-		"templates": "./src/templates",
-		"inputBase": "./deploy/library",
-		"outputBase": "./src/templates",
+		"templates": "./deploy/fractal",
+		"urlBase": "./deploy/library",
+		"outputBase": "./deploy/fractal",
 		"paths": [
 			{
 				"input": {
@@ -15,10 +15,14 @@
 					"source": "06-pages/home/home.twig"
 				},
 				"output": {
-					"name": "home.html",
 					"dist": "06-pages/home"
 				}
 			}
 		]
+	},
+
+	"tags": {
+		"src": "./deploy/craft/templates/wrapper/_layout.twig",
+		"dest": "./deploy/craft/templates/wrapper/"
 	}
 }

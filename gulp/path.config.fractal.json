@@ -9,7 +9,7 @@
 
 	"critical": {
 		"templates": "./deploy/library/components/preview",
-		"inputBase": "./deploy/library",
+		"urlBase": "./deploy/library",
 		"outputBase": "./deploy/library/components/preview",
 		"paths": [
 			{

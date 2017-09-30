@@ -47,7 +47,7 @@ const twigConf = {
 	functions: {
 		getStamp() {
 			return {
-				stamp: stamp
+				stamp
 			}
 		}
 	}
@@ -81,7 +81,7 @@ const nunjucks = require('@frctl/nunjucks')({
 		}
 	},
 	globals: {
-		STAMP: stamp
+		title: TASK_CONFIG.title
 	},
 	paths: [`${paths.static}/dist/images`]
 })
@@ -114,8 +114,6 @@ fractal.web.set('builder.urls.ext', '.html')
 
 // https://clearleft.com/posts/443
 export function exportPaths() {
-	//if (!PRODUCTION) return
-
 	return new Promise((resolve, reject) => {
 		const map = {}
 		for (let item of fractal.components.flattenDeep()) {

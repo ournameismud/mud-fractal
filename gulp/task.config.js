@@ -1,7 +1,7 @@
 import path from 'path'
 
 export default {
-	title: 'Mudstone Component Library',
+	title: 'Mudstone',
 
 	stamp: Date.now(),
 
