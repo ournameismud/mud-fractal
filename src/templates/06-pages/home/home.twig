@@ -1,4 +1,13 @@
-{% extends "@wrapper" %}
+{% set layout = craft.getHeaders.fetch('x-barba') == 'true' 
+  ? "wrapper/_partial" 
+  : craft.getHeaders.fetch('X-JSON-Header')
+    ? "wrapper/_json"
+    : "wrapper/_layout" 
+%}
+
+{% set extend = craft is defined ? layout : '@wrapper' %}
+
+{% extends extend %}
 
 {% block critical_css %}
 	<!-- build:critical-->
