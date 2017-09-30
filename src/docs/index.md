@@ -1,6 +1,6 @@
 ---
-hidden: false
-title: Docs
+hidden: true
+title: Overview
 ---
 You are viewing the front-end component library for {{ title }}.
 
@@ -16,15 +16,16 @@ You are viewing the front-end component library for {{ title }}.
 
 ### Pattern library files
 
-All of the html, css for specific pattern components can be found in `src/library`. Eg:
+All of the html, css for specific pattern components can be found in `src/templates`. Eg:
 
 - `src/templates/03-global/header/header.twig`
 - `src/templates/03-global/header/_header.scss`
 
 ## Component categories
 
+* **Base:** Typography, themes, base styles
 * **Objects:** Small, reusable, and single purposes modules
 * **Components:** Reusable components, could be comprised of several modules
 * **Global:** Components that appear on every page on the site
 * **Layouts:** Components concerned with macro layout
-* **Templates:** Templates for particular page types
+* **Pages:** Templates for particular page types
