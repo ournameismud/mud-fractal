@@ -122,6 +122,10 @@ export default class Tabs extends Wallop {
 
 	clickHandle = (e, elm) => {
 		e.preventDefault()
+		const { pagerActiveClass } = this.options
+
+		if (elm.classList.contains(pagerActiveClass)) return
+
 		const { animate } = this.options
 		const { index, title, $tab } = this.tabs.find(
 			({ hash }) => elm.getAttribute('href') === hash

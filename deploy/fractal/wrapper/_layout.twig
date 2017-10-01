@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<!-- build:cms-->
+{% set stamp = getStamp().stamp %}
+<!-- endbuild-->
+
+<html lang="en-gb" dir="ltr" class="no-js">
+  <head>
+	  <meta charset="utf-8">
+    <title>{{ siteTitle|length ? siteTitle : 'Mud/Fractal' }}</title>
+	  <meta name="description" content="">
+		<meta name="viewport" content="width=device-width, initial-scale=1" viewport-fit="cover">
+		<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+		<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+		<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+		<link rel="manifest" href="/manifest.json">
+		<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#cb1d18">
+		<meta name="theme-color" content="#cb1d18">
+	  <script>var html=document.getElementsByTagName("html")[0];html.classList?html.classList.remove("no-js"):html.className=el.className.replace(new RegExp("(^|\\b)"+className.split(" ").join("|")+"(\\b|$)","gi")," ");</script>
+		{% block critical_css %}
+		<!-- build:critical-->
+		<!-- endbuild -->
+		{% endblock %}
+		<link rel="preload" href="/dist/css/style{{ stamp }}.css" as="style" onload="this.rel='stylesheet'">
+		<noscript><link rel="stylesheet" href="/dist/css/style{{ stamp }}.css"></noscript>
+		<!-- inject:js -->
+	  <script>!function(e){var t=function(t,n){"use strict";var o=e.document.getElementsByTagName("script")[0],r=e.document.createElement("script");return r.src=t,r.async=!0,o.parentNode.insertBefore(r,o),n&&"function"==typeof n&&(r.onload=n),r};"undefined"!=typeof module?module.exports=t:e.loadJS=t}("undefined"!=typeof global?global:this);</script>
+	  <script>!function(e){"use strict";var n=function(n,t,o){function i(e){if(a.body)return e();setTimeout(function(){i(e)})}function r(){l.addEventListener&&l.removeEventListener("load",r),l.media=o||"all"}var d,a=e.document,l=a.createElement("link");if(t)d=t;else{var f=(a.body||a.getElementsByTagName("head")[0]).childNodes;d=f[f.length-1]}var s=a.styleSheets;l.rel="stylesheet",l.href=n,l.media="only x",i(function(){d.parentNode.insertBefore(l,t?d:d.nextSibling)});var u=function(e){for(var n=l.href,t=s.length;t--;)if(s[t].href===n)return e();setTimeout(function(){u(e)})};return l.addEventListener&&l.addEventListener("load",r),l.onloadcssdefined=u,u(r),l};"undefined"!=typeof exports?exports.loadCSS=n:e.loadCSS=n}("undefined"!=typeof global?global:this);</script>
+	  <script>!function(t){if(t.loadCSS){var e=loadCSS.relpreload={};if(e.support=function(){try{return t.document.createElement("link").relList.supports("preload")}catch(t){return!1}},e.poly=function(){for(var e=t.document.getElementsByTagName("link"),r=0;r<e.length;r++){var n=e[r];"preload"===n.rel&&"style"===n.getAttribute("as")&&(t.loadCSS(n.href,n,n.getAttribute("media")),n.rel=null)}},!e.support()){e.poly();var r=t.setInterval(e.poly,300);t.addEventListener&&t.addEventListener("load",function(){e.poly(),t.clearInterval(r)}),t.attachEvent&&t.attachEvent("onload",function(){t.clearInterval(r)})}}}(this);</script>
+	  <!-- endinject -->
+		<script>
+	    if(!window.HTMLPictureElement || !('sizes' in document.createElement('img'))){
+	      document.createElement('picture');
+	      loadJS("/dist/js/picturefill.min.js");
+	    }
+	  </script>
+  </head>
+
+  <body>
+    {{ yield }}
+		{% include 'wrapper/_symbols.twig' %}
+		<script async defer src="/dist/js/bundle{{ stamp }}.js"></script>
+  </body>
+</html>
