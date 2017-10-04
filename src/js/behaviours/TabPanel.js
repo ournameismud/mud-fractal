@@ -1,5 +1,5 @@
-import Tabs from '@/ui/tabs'
 import Behaviour from '@/core'
+import Tabs from '@/ui/tabs'
 
 /**
  *

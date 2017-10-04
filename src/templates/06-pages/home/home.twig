@@ -4,16 +4,12 @@
     ? "wrapper/_json"
     : "wrapper/_layout" 
 %}
-
 {% set extend = craft is defined ? layout : '@wrapper' %}
-
 {% extends extend %}
-
 {% block critical_css %}
 	<!-- build:critical-->
 	<!-- endbuild -->
 {% endblock %}
 
 {% block content %}
-	{{ pageTitle }}
 {% endblock %}
