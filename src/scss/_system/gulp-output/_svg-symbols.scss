@@ -23,19 +23,19 @@
 }
 
 .icon--ui-facebook {
-  width: 48px;
+  width: rem(48px);
   &:after {
     padding-bottom: 100%;
   }
 }
 .icon--ui-twitter {
-  width: 48px;
+  width: rem(48px);
   &:after {
     padding-bottom: 83.33333333333334%;
   }
 }
 .icon--ui-youtube {
-  width: 48px;
+  width: rem(48px);
   &:after {
     padding-bottom: 70.83333333333334%;
   }

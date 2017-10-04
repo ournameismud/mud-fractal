@@ -23,7 +23,7 @@
 }
 
 <% _.forEach( icons, function( icon ){ %><%= icon.className %> {
-  width: <%= icon.width %>;
+  width: <%= 'rem(' + icon.width + ')' %>;
   &:after {
     padding-bottom: <%= ((parseInt(icon.height) / parseInt(icon.width)) * 100) + '%' %>;
   }

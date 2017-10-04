@@ -30,6 +30,7 @@
 		"gen-cert": "node ./cert/cli.js gen-certs"
 	},
 	"dependencies": {
+		"axios": "^0.16.2",
 		"barba.js": "^1.0.0",
 		"concert": "^2.1.0",
 		"debug": "^3.0.0",
@@ -86,6 +87,7 @@
 		"eslint-loader": "^1.9.0",
 		"eslint-plugin-jest": "^20.0.1",
 		"eslint-plugin-react": "^7.1.0",
+		"faker": "^4.1.0",
 		"glob": "^7.1.2",
 		"gulp": "^3.9.1",
 		"gulp-babel": "^7.0.0",
