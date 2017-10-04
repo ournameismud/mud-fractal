@@ -1,0 +1,10 @@
+{% import 'macros/_helpers.twig' as h %}
+
+<header class="c-header {% if hasHero %}c-header--float{% endif %}" data-behaviour="MobileMenu">
+	<a href="#0" class="o-burger c-header__btn" id="menu-btn">
+		<span></span>
+	</a>
+
+	{% include '@menu' %}
+
+</header>

@@ -6,6 +6,7 @@ module.exports = {
 		breakpoints: require(path.join(
 			process.cwd(),
 			'src/tokens/breakpoints.json'
-		))
+		)),
+		symbols: require(path.join(process.cwd(), 'src/tokens/symbols.json'))
 	}
 }

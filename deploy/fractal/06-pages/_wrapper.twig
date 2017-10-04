@@ -1,0 +1,8 @@
+{% include '@header' %}
+	<div id="barba-wrapper" class="site-page">
+		<div class="barba-container" data-namespace="{% block namespace %}{% endblock %}">
+			{% block content %}
+			{% endblock %}
+		</div>
+	</div>
+{% include '@footer' %}

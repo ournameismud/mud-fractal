@@ -46,7 +46,20 @@ export function symbols() {
 			PATH_CONFIG.src,
 			PATH_CONFIG.symbols.fileDest
 		),
-		fileName: PATH_CONFIG.symbols.fileName
+		fileName: PATH_CONFIG.symbols.fileName,
+		docsSrc: [
+			path.resolve(
+				process.env.PWD,
+				PATH_CONFIG.src,
+				PATH_CONFIG.symbols.docs,
+				PATH_CONFIG.symbols.json
+			)
+		],
+		docsDest: path.resolve(
+			process.env.PWD,
+			PATH_CONFIG.src,
+			PATH_CONFIG.symbols.docs
+		)
 	}
 
 	const svgs = gulp
@@ -69,6 +82,26 @@ export function symbols() {
 	function fileContents(filePath, file) {
 		return file.contents.toString()
 	}
+
+	gulp
+		.src(paths.docsSrc)
+		.pipe(
+			inject(
+				gulp.src(paths.src, {
+					read: false
+				}),
+				{
+					starttag: '"symbols": [',
+					endtag: ']',
+					transform: function(filepath, file, i, length) {
+						return `"${file.relative.split('.svg')[0]}"${i + 1 < length
+							? ','
+							: ''}`
+					}
+				}
+			)
+		)
+		.pipe(gulp.dest(paths.docsDest))
 
 	return gulp
 		.src(paths.sourceFile)

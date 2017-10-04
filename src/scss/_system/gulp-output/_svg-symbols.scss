@@ -22,6 +22,36 @@
   }
 }
 
+.icon--ui-facebook {
+  width: 48px;
+  &:after {
+    padding-bottom: 100%;
+  }
+}
+.icon--ui-twitter {
+  width: 48px;
+  &:after {
+    padding-bottom: 83.33333333333334%;
+  }
+}
+.icon--ui-youtube {
+  width: 48px;
+  &:after {
+    padding-bottom: 70.83333333333334%;
+  }
+}
 
 
 
+
+$icon--ui-facebook-width: 48px;
+$icon--ui-facebook-height: 48px;
+$icon--ui-facebook-ratio: 1;
+
+$icon--ui-twitter-width: 48px;
+$icon--ui-twitter-height: 40px;
+$icon--ui-twitter-ratio: 0.8333333333333334;
+
+$icon--ui-youtube-width: 48px;
+$icon--ui-youtube-height: 34px;
+$icon--ui-youtube-ratio: 0.7083333333333334;
