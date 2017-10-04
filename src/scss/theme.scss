@@ -12,6 +12,12 @@
 @import '_config/dimensions';
 @import '_config/breakpoints';
 
+/*
+  svg-symbols generated via `gulp symbols`
+*/
+
+@import '_system/gulp-output/svg-symbols';
+
 $debug: false;
 
 @import '_config/type-config';

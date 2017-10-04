@@ -81,7 +81,9 @@
 		"src": "images/svg-symbols",
 		"dest": "dist/images",
 		"fileName": "_symbols.twig",
-		"fileDest": "templates/wrapper"
+		"fileDest": "templates/wrapper",
+		"json": "symbols.json",
+		"docs": "tokens"
 	},
 
 	"sprites": {
