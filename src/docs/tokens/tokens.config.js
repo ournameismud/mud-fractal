@@ -1,12 +1,14 @@
 const path = require('path')
 module.exports = {
 	context: {
-		colors: require(path.join(process.cwd(), 'src/tokens/colors.json')),
-		fonts: require(path.join(process.cwd(), 'src/tokens/fonts.json')),
-		breakpoints: require(path.join(
-			process.cwd(),
+		colors: require(path.resolve(process.env.PWD, 'src/tokens/colors.json')),
+		fonts: require(path.resolve(process.env.PWD, 'src/tokens/fonts.json')),
+		breakpoints: require(path.resolve(
+			process.env.PWD,
 			'src/tokens/breakpoints.json'
 		)),
-		symbols: require(path.join(process.cwd(), 'src/tokens/symbols.json'))
+		symbols: require(path.resolve(process.env.PWD, 'src/tokens/symbols.json'))
 	}
 }
+
+//
