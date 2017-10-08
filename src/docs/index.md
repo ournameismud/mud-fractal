@@ -2,7 +2,7 @@
 hidden: true
 title: Overview
 ---
-You are viewing the front-end component library for {{ title }}.
+You are viewing the front-end component library for {{ title }}
 
 ## Project Structure
 

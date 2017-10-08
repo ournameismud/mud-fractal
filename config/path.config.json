@@ -108,12 +108,19 @@
 	},
 
 	"critical": {
-		"templates": "./src/public",
+		"templates": "./deploy/library/components/preview",
+		"urlBase": "./deploy/library",
+		"outputBase": "./deploy/library/components/preview",
 		"paths": [
-			{ "url": "index.html", "template": "index.html" },
-			{ "url": "a.html", "template": "a.html" },
-			{ "url": "b.html", "template": "b.html" },
-			{ "url": "c.html", "template": "c.html" }
+			{
+				"input": {
+					"url": "components/preview/home.html",
+					"source": "home.html"
+				},
+				"output": {
+					"dist": "./"
+				}
+			}
 		]
 	},
 

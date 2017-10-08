@@ -6,11 +6,24 @@
 	"author": "Dave Stockley @ournameismud",
 	"license": "MIT",
 	"engines": {
-		"node": ">=7.1.0"
+		"node": ">=8.6.0"
 	},
 	"private": true,
 	"scripts": {
-		"start": "mulp"
+		"start": "mulp",
+		"cms": "mulp -- -- --config cms",
+		"build": "mulp -- build -- --env production --config cms",
+		"build:cms": "yarn run build",
+		"build:fractal": "mulp -- build -- --env production --config fractal",
+		"prebuild:static": "yarn run build:fractal",
+		"build:static": "mulp -- build:static -- --config static",
+		"update:craft": "mulp -- update:craft -- --config cms --env production",
+		"preinit:craft": "yarn run build:fractal",
+		"init:craft": "yarn run update:craft",
+		"prereference": "yarn run buildfractal",
+		"reference": "mulp -- backstop_reference -- --config fractal --reference",
+		"diff": "mulp -- backstop_reference -- --config fractal --test",
+		"gen-cert": "node ./cert/cli.js gen-certs"
 	},
 	"dependencies": {
 		"axios": "^0.16.2",
@@ -42,6 +55,6 @@
 		"webfontloader": "^1.6.28"
 	},
 	"devDependencies": {
-		"mulp": "0.0.2"
+		"mulp": "0.0.6"
 	}
 }

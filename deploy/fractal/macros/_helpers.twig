@@ -1,0 +1,11 @@
+{#
+  Get symbol markup
+  @param symbol: The symbol name (same as the svg file name, i.e. twitter, not icon-twitter)
+#}
+{% macro symbol(name) %}
+	<i class="icon icon--{{ name }}">
+		<svg>
+			<use class="no-barba" xlink:href="#{{ name }}"></use>
+		</svg>
+	</i>
+{% endmacro %}

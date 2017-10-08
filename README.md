@@ -18,7 +18,7 @@
 
 `yarn start`
 
-###### Build component library
+###### Build
 `yarn run build`
 
 ###### Setup fractal/craft build
@@ -35,9 +35,6 @@
 
 ###### Regression test diff 
 `yarn run diff`
-
-###### Creates a static server
-`yarn run server`
 
 ###### Generate SSL certs
 `yarn run gen-cert`
