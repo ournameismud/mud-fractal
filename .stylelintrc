@@ -4,6 +4,7 @@
   ],
 	"ignoreFiles": [
 		"./src/scss/_system/**/*",
+		"./src/scss/_tokens/**/*",
 		"./src/scss/_config/*"
 	],
   "rules": {

@@ -19,7 +19,7 @@ private
 tmp
 node_modules
 reports
-
+deploy
 deploy/library
 deploy/public/imager
 deploy/public/images

@@ -1,5 +1,5 @@
 /* eslint-disable */
-const CACHE_NAME = 'mulp-sw'
+const CACHE_NAME = 'mudstone-sw'
 const urlsToCache = ['/', __CSS__, __JS__]
 /* eslint-enable */
 
