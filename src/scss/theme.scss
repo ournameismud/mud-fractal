@@ -18,7 +18,6 @@ $debug: false;
 */
 
 @import '_system/core/utilities';
-
 .Header {
 	background-color: c(base, brand);
 }
@@ -34,4 +33,49 @@ $debug: false;
 
 a {
 	color: c(base, brand);
+}
+
+.token-grid {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	margin-bottom: rem(20px);
+}
+
+.token-grid__thumb {
+	width: rem(100px);
+	height: rem(50px);
+	margin-right: rem(20px);
+}
+
+.token-grid__info {
+	flex: 1;
+}
+
+@for $i from -2 through 20 {
+	.fs--#{$i} {
+		font-size: ms($i);
+	}
+}
+
+.sym-grid {
+	display: flex;
+	flex-wrap: wrap;
+}
+
+.sym-item {
+	margin-right: gutter(1);
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+
+	.icon {
+		margin: auto;
+	}
+
+	span {
+		margin-top: auto;
+		font-size: rem(14px);
+	}
 }

@@ -55,6 +55,6 @@
 		"webfontloader": "^1.6.28"
 	},
 	"devDependencies": {
-		"mulp": "0.0.6"
+		"mulp": "^0.0.6"
 	}
 }

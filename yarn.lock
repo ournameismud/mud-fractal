@@ -6953,9 +6953,9 @@ mud-from-to@^1.0.0:
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/mud-from-to/-/mud-from-to-1.0.4.tgz#e75075a850c0b79f608a4015b8fe94ad10b94eb5"
 
-mulp@0.0.5:
-  version "0.0.5"
-  resolved "https://registry.yarnpkg.com/mulp/-/mulp-0.0.5.tgz#da84d4a7ed1a9dc1651d6f29e7f6240c43c0c458"
+mulp@^0.0.6:
+  version "0.0.6"
+  resolved "https://registry.yarnpkg.com/mulp/-/mulp-0.0.6.tgz#1c493d1985bba7c0952eeaf2b1856bb8f23c1bbd"
   dependencies:
     "@frctl/fractal" "1.1.5"
     "@frctl/mandelbrot" "^1.2.0"
