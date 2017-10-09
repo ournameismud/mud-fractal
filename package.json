@@ -11,7 +11,7 @@
 	"private": true,
 	"scripts": {
 		"start": "mulp",
-		"cms": "mulp -- -- --config cms",
+		"cms": "mulp -- --config cms",
 		"build": "mulp -- build -- --env production --config cms",
 		"build:cms": "yarn run build",
 		"build:fractal": "mulp -- build -- --env production --config fractal",
