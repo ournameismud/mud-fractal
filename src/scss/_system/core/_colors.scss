@@ -1,0 +1,29 @@
+/*
+	@function tint
+	@param $color: the input colour
+	@param $percent: amount of tint to apply
+	@return hex
+*/
+@function tint($color, $percent) {
+	@return mix(white, $color, $percent);
+}
+
+/*
+	@function shade
+	@param $color: the input colour
+	@param $percent: amount of shade to apply
+	@return hex
+*/
+@function shade($color, $percent) {
+	@return mix(black, $color, $percent);
+}
+
+/*
+	@function c
+	@param $palette: name of the colour group in the $colors map
+	@param $tone: name of the target colour
+	@return hex
+*/
+@function c($palette, $tone: 'base') {
+	@return map-get(map-get($colors, $palette), $tone);
+}

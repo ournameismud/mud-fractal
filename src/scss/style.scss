@@ -1,3 +1,7 @@
+/*
+  Third party dependencies
+*/
+
 @import '../../node_modules/modularscale-sass/stylesheets/_modularscale.scss';
 @import '../../node_modules/sass-mq/mq.scss';
 @import 'susy';
@@ -7,27 +11,36 @@
 @include normalize();
 
 /*
+  Utilities and functions
+*/
+
+@import '_system/core/units';
+@import '_system/core/colors';
+@import '_system/core/type';
+@import '_system/core/spaces';
+@import '_system/core/mq';
+@import '_system/core/misc';
+
+/*
   Settings
 */
 
 @import '_config/base';
-@import '_tokens/fonts';
-@import '_tokens/colors';
-@import '_tokens/breakpoints';
 @import '_config/dimensions';
 @import '_config/type-config';
 
 /*
-  Utility functions
+  JSON Output
 */
-
-@import '_system/core/utilities';
+@import '_tokens/fonts';
+@import '_tokens/colors';
+@import '_tokens/breakpoints';
 
 /*
   Media query debugger
 */
 
-@import '_config/debug';
+@import '_system/debug';
 
 /*
   Custom, site specific mixins
@@ -40,14 +53,13 @@
 */
 
 @import '_system/gulp-output/svg-symbols';
-@import '_system/gulp-output/svg-sprites';
+// @import '_system/gulp-output/svg-sprites';
 
 /*
   Resets, and globals
 */
 
-@import 'framework/index';
-@import 'framework/grid';
+@import 'framework/base';
 
 /*
   Base styles
@@ -75,7 +87,7 @@
 @import '../templates/04-components/**/**/*';
 
 /*
-  Layouts
+  Grids and macro layouts
 */
 
 @import '../templates/05-layouts/**/**/*';
@@ -87,7 +99,7 @@
 @import '../templates/06-pages/**/**/*';
 
 /*
-  Utilities
+  Utility classes
 */
 
 @import 'framework/utils';
@@ -97,19 +109,3 @@
 */
 
 @import 'print';
-
-.whatever {
-	transition: opacity 300ms ease, transform 200ms 300ms ease, height 200ms ease;
-	background-image: radial-gradient(
-		circle at center,
-		rgba($black, 0.9),
-		$black 40%
-	);
-	height: 10px;
-	top: 0.2px;
-
-	&::after {
-		transition: opacity 800ms ease-in-out 200ms,
-			transform 400ms ease-in-out 200ms;
-	}
-}

@@ -20,8 +20,12 @@
 		<!-- build:critical-->
 		<!-- endbuild -->
 		{% endblock %}
-		<link rel="preload" href="/dist/css/style{{ stamp }}.css" as="style" onload="this.rel='stylesheet'">
-		<noscript><link rel="stylesheet" href="/dist/css/style{{ stamp }}.css"></noscript>
+		{% if stamp %}
+			<link rel="preload" href="/dist/css/style{{ stamp }}.css" as="style" onload="this.rel='stylesheet'">
+			<noscript><link rel="stylesheet" href="/dist/css/style{{ stamp }}.css"></noscript>
+		{% else %}
+			<link rel="stylesheet" href="/dist/css/style{{ stamp }}.css">
+		{% endif %}
 		<!-- inject:js -->
 	  <script>!function(e){var t=function(t,n){"use strict";var o=e.document.getElementsByTagName("script")[0],r=e.document.createElement("script");return r.src=t,r.async=!0,o.parentNode.insertBefore(r,o),n&&"function"==typeof n&&(r.onload=n),r};"undefined"!=typeof module?module.exports=t:e.loadJS=t}("undefined"!=typeof global?global:this);</script>
 	  <script>!function(e){"use strict";var n=function(n,t,o){function i(e){if(a.body)return e();setTimeout(function(){i(e)})}function r(){l.addEventListener&&l.removeEventListener("load",r),l.media=o||"all"}var d,a=e.document,l=a.createElement("link");if(t)d=t;else{var f=(a.body||a.getElementsByTagName("head")[0]).childNodes;d=f[f.length-1]}var s=a.styleSheets;l.rel="stylesheet",l.href=n,l.media="only x",i(function(){d.parentNode.insertBefore(l,t?d:d.nextSibling)});var u=function(e){for(var n=l.href,t=s.length;t--;)if(s[t].href===n)return e();setTimeout(function(){u(e)})};return l.addEventListener&&l.addEventListener("load",r),l.onloadcssdefined=u,u(r),l};"undefined"!=typeof exports?exports.loadCSS=n:e.loadCSS=n}("undefined"!=typeof global?global:this);</script>

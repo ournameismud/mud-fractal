@@ -1,7 +1,22 @@
 /*
   Settings
 */
+@import '../../node_modules/modularscale-sass/stylesheets/_modularscale.scss';
 
+/*
+  Utilities and functions
+*/
+
+@import '_system/core/units';
+@import '_system/core/colors';
+@import '_system/core/type';
+@import '_system/core/spaces';
+@import '_system/core/mq';
+@import '_system/core/misc';
+
+/*
+  Settings
+*/
 @import '_config/base';
 @import '_tokens/fonts';
 @import '_tokens/colors';
@@ -17,7 +32,8 @@ $debug: false;
   Utility functions
 */
 
-@import '_system/core/utilities';
+@import '_system/gulp-output/svg-symbols';
+
 .Header {
 	background-color: c(base, brand);
 }

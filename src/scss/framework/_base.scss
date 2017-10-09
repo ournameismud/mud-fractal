@@ -4,18 +4,27 @@
 	box-sizing: border-box;
 }
 
+/*
+	image defaults
+*/
 img {
 	display: block;
 	max-width: 100%;
 	height: auto;
 }
 
+/*
+	Reset fieldset styles
+*/
 fieldset {
 	border: 0;
 	padding: 0;
 	margin: 0;
 }
 
+/*
+	Reset button styles
+*/
 button {
 	appearance: none;
 	background: none;
@@ -23,28 +32,33 @@ button {
 	border: 0;
 }
 
+/*
+	Reset for ul/ol elements
+*/
 .r-list {
 	list-style: none;
 	padding: 0;
 	margin: 0;
 }
 
+/*
+	class used for lazyloading images, combined with data-src
+*/
 .lazyload {
 	opacity: 0;
 	transition: opacity 300ms ease-in-out;
 }
 
+/*
+	base wrapper class
+*/
 .wrapper {
 	width: 100%;
 	max-width: rem($wrapper-width);
 	margin: auto;
-	padding: 0 get-gutter('mobile');
+	padding: 0 gutter(1);
 
 	@include mq($from: breakpoint('medium')) {
-		padding: 0 get-gutter('tablet');
-	}
-
-	@include mq($from: breakpoint('large')) {
-		padding: 0 get-gutter('desktop');
+		padding: 0 gutter(2);
 	}
 }

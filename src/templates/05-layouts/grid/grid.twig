@@ -1,0 +1,10 @@
+<div class="l-grid" {% if dev is defined %}devmode{% endif %}>
+  {% for item in entries %}
+    <div class="l-grid__cell">
+      {% include '@' ~ item.template with item.data %}
+    </div>
+    <div class="l-grid__cell">
+      {% include '@' ~ item.template with item.data %}
+    </div>
+  {% endfor %}
+</div>

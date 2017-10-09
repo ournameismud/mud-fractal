@@ -14,13 +14,13 @@ new App(document, behaviours).start()
 /*
 * Register Service Worker
 */
-if ('serviceWorker' in navigator) {
-	navigator.serviceWorker
-		.register('/sw.js')
-		.then(reg => {
-			log('Service Worker register', reg)
-		})
-		.catch(err => {
-			log('Service Worker error', err)
-		})
-}
+// if ('serviceWorker' in navigator) {
+// 	navigator.serviceWorker
+// 		.register('/sw.js')
+// 		.then(reg => {
+// 			log('Service Worker register', reg)
+// 		})
+// 		.catch(err => {
+// 			log('Service Worker error', err)
+// 		})
+// }

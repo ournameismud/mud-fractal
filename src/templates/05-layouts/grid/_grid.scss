@@ -1,0 +1,68 @@
+@include dev() {
+	[devmode] {
+		& > * {
+			// border: 1px dotted c(base, brand);
+		}
+
+		.l-grid__cell {
+			aspect-ratio: '1:1';
+			background-color: rgba(c(base, brand), 0.5);
+			margin-bottom: gutter(1);
+
+			.box {
+				display: flex;
+				justify-content: center;
+				align-items: center;
+			}
+
+			& > * {
+				outline: none;
+			}
+		}
+	}
+}
+
+.l-grid {
+	display: flex;
+	flex-wrap: wrap;
+	//margin-left: -(susy-gutter($susy-small));
+}
+
+.l-grid__cell {
+	width: susy-span(4, $susy-small);
+	margin-right: susy-gutter($susy-small);
+
+	&:nth-child(2n) {
+		margin-right: 0;
+	}
+
+	@include mq($from: breakpoint('medium')) {
+		width: susy-span(3, $susy-medium);
+
+		/*
+			[1] Overwrite the psuedo selectors
+		*/
+		&:nth-child(1n) {
+			margin-right: susy-gutter($susy-medium); // [1]
+		}
+
+		&:nth-child(4n) {
+			margin-right: 0;
+		}
+	}
+
+	@include mq($from: breakpoint('xlarge')) {
+		width: susy-span(2, $susy-large);
+
+		/*
+					[1] Overwrite the psuedo selectors
+				*/
+		&:nth-child(1n) {
+			margin-right: susy-gutter($susy-large); // [1]
+		}
+
+		&:nth-child(6n) {
+			margin-right: 0;
+		}
+	}
+}

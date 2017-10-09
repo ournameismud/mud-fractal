@@ -1,0 +1,10 @@
+$breakpoints: (min: 280px, small: 480px, large: 800px, max: 1280px) !default;
+
+/*
+	@function breakpoint
+	@param $break: Name of the breakpoint
+	@return value
+*/
+@function breakpoint($break) {
+	@return map-get($breakpoints, $break);
+}
