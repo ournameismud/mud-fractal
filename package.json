@@ -12,17 +12,20 @@
 	"scripts": {
 		"start": "mulp",
 		"cms": "mulp -- --config cms",
-		"build": "mulp -- build -- --env production --config cms",
+		"build": "yarn run mulp -- build -- --env production --config cms",
 		"build:cms": "yarn run build",
-		"build:fractal": "mulp -- build -- --env production --config fractal",
+		"build:fractal":
+			"yarn run mulp -- build -- --env production --config fractal",
 		"prebuild:static": "yarn run build:fractal",
-		"build:static": "mulp -- build:static -- --config static",
-		"update:craft": "mulp -- update:craft -- --config cms --env production",
+		"build:static": "yarn run mulp -- build:static -- --config static",
+		"update:craft":
+			"yarn run mulp -- update:craft -- --config cms --env production",
 		"preinit:craft": "yarn run build:fractal",
 		"init:craft": "yarn run update:craft",
 		"prereference": "yarn run buildfractal",
-		"reference": "mulp -- backstop_reference -- --config fractal --reference",
-		"diff": "mulp -- backstop_reference -- --config fractal --test",
+		"reference":
+			"yarn run mulp -- backstop_reference -- --config fractal --reference",
+		"diff": "yarn run mulp -- backstop_reference -- --config fractal --test",
 		"gen-cert": "node ./cert/cli.js gen-certs"
 	},
 	"dependencies": {
