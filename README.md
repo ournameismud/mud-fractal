@@ -5,7 +5,7 @@
 
 
 ###### Recommended requirements
-- node >= 8.4.0
+- node >= 8.6.0
 - gulp >= 3.91
 - yarn >= 0.27.5
 - webpack >= 3.0.0
