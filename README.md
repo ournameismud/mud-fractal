@@ -22,10 +22,7 @@
 `yarn run build`
 
 ###### Setup fractal/craft build
-`yarn run init:craft`
-
-###### Build for craftcms
-`yarn run build:cms`
+`yarn run build:fractal`
 
 ###### Build for optimised static files
 `yarn run build:static`

@@ -11,17 +11,12 @@
 	"private": true,
 	"scripts": {
 		"start": "mulp",
-		"cms": "mulp -- --config cms",
+		"cms": "yarn run mulp -- -- --config cms",
 		"build": "yarn run mulp -- build -- --env production --config cms",
-		"build:cms": "yarn run build",
 		"build:fractal":
 			"yarn run mulp -- build -- --env production --config fractal",
-		"prebuild:static": "yarn run build:fractal",
-		"build:static": "yarn run mulp -- build:static -- --config static",
-		"update:craft":
-			"yarn run mulp -- update:craft -- --config cms --env production",
-		"preinit:craft": "yarn run build:fractal",
-		"init:craft": "yarn run update:craft",
+		"build:static":
+			"yarn run mulp -- build:static -- --env production --config fractal",
 		"prereference": "yarn run buildfractal",
 		"reference":
 			"yarn run mulp -- backstop_reference -- --config fractal --reference",
@@ -58,6 +53,6 @@
 		"webfontloader": "^1.6.28"
 	},
 	"devDependencies": {
-		"mulp": "^0.0.10"
+		"mulp": "^0.1.2"
 	}
 }

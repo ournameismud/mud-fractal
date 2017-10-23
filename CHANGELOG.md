@@ -3,6 +3,12 @@
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+### 0.4.0
+
+#### Added
+
+- Updated to mulp 0.1.x
+
 ### 0.3.1
 
 #### Added
