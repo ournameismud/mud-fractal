@@ -3,7 +3,6 @@
 
 > Frontend starter kit integrated with [Fractal](http://fractal.build/), inspired by [Blendid](https://github.com/vigetlabs/blendid)
 
-
 ###### Recommended requirements
 - node >= 8.6.0
 - gulp >= 3.91
@@ -18,13 +17,17 @@
 
 `yarn start`
 
+###### cms mode
+
+`yarn run cms`
+
 ###### Build
 `yarn run build`
 
-###### Setup fractal/craft build
+###### Build Fractal
 `yarn run build:fractal`
 
-###### Build for optimised static files
+###### Build Static
 `yarn run build:static`
 
 ###### Take regression test reference
