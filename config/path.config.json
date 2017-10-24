@@ -43,10 +43,6 @@
 				"template": "home.html",
 				"output": "./",
 				"name": "index"
-			},
-			{
-				"template": "thankyou.html",
-				"output": "./"
 			}
 		]
 	}

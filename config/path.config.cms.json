@@ -1,7 +1,7 @@
 {
 	"public": "./deploy/public",
 	"browserSync": {
-		"proxy": "http://local.baku2025.com"
+		"proxy": "http://local.ournameismud.com"
 	},
 
 	"symbols": {
@@ -22,29 +22,11 @@
 		"paths": [
 			{
 				"input": {
-					"url": "http://local.baku2025.com/",
+					"url": "http://local.ournameismud.com/",
 					"source": "home/home.twig"
 				},
 				"output": {
 					"dist": "./home"
-				}
-			},
-			{
-				"input": {
-					"url": "http://local.baku2025.com/baku-and-azerbaijan",
-					"source": "standard/standard.twig"
-				},
-				"output": {
-					"dist": "./standard"
-				}
-			},
-			{
-				"input": {
-					"url": "http://local.baku2025.com/timeline",
-					"source": "timeline/timeline.twig"
-				},
-				"output": {
-					"dist": "./timeline"
 				}
 			}
 		]
