@@ -1,3 +1,33 @@
+# Craft runtime and backups folders
+# ----------------------------------------------------------------------
+deploy/craft/storage/runtime/*
+deploy/craft/storage/backups/*
+
+# Uploaded files
+# ----------------------------------------------------------------------
+deploy/public/assets/*
+
+
+
+# Packages #
+############
+# it's better to unpack these files and commit the raw source
+# git has its own built in compression methods
+*.7z
+*.dmg
+*.gz
+*.iso
+*.jar
+*.rar
+*.tar
+*.zip
+
+# Logs and databases #
+######################
+*.log
+# *.sql
+*.sqlite
+
 # OS generated files #
 ######################
 .DS_Store
@@ -5,36 +35,19 @@
 ._*
 .Spotlight-V100
 .Trashes
-.vscode
-.sass-cache
-*.map
 ehthumbs.db
 Thumbs.db
-npm-debug.log
-#.editorconfig
-private
 
-# Assets #
-######################
-tmp
+
+# NodeJS modules folder
 node_modules
-reports
-deploy
-deploy/library
-deploy/public/imager
-deploy/public/images
-deploy/public/resources
-deploy/public/downloads
-deploy/public/uploads
 
-deploy/public_html/images
-deploy/public_html/resources
-deploy/public_html/downloads
-deploy/public_html/uploads
+# npm debug log
+npm-debug.log
 
-# Craft #
-######################
-# http://buildwithcraft.com/help/craft-storage-gitignore#craft-storage-runtime
-deploy/craft/storage/backups/
-deploy/craft/storage/runtime/
-deploy/craft/storage/userphotos/
+# vs code
+.vscode
+
+# coverage
+
+/coverage
