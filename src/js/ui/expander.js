@@ -1,12 +1,10 @@
 import Concert from 'concert'
 import Delegate from 'dom-delegate'
 import fromTo from 'mud-from-to'
-import {
-	mergeOptions
-} from '@/utils/helpers'
+// import mergeOptions from 'merge-options-from-dom'
 
 /**
- * 
+ *
  * @class Expander
  * @extends  Concert
  * @param  {HTMLElement} el : the form to validate
@@ -32,13 +30,13 @@ export default class Expander extends Concert {
 		contentActiveClass: 'is-expanded',
 		duration: 300,
 		easing: function defaultEasing(t, b, c, d) {
-			if((t /= d / 2) < 1) return c / 2 * t * t + b
+			if ((t /= d / 2) < 1) return c / 2 * t * t + b
 			return -c / 2 * (--t * (t - 2) - 1) + b // eslint-disable-line
 		}
 	}
 
 	/**
-	 * 
+	 *
 	 * @function constructor
 	 * @param  {HTMLElement} el : the form to validate
 	 * @param  {Object} options : Expander options
@@ -46,7 +44,7 @@ export default class Expander extends Concert {
 	 */
 	constructor(el, options = {}) {
 		super()
-		this.options = mergeOptions(this.defaults, options, el, 'accordionOptions')
+		this.options = { ...this.defaults, ...options }
 		this.$el = el
 		this.panes = []
 		this.current
@@ -68,35 +66,34 @@ export default class Expander extends Concert {
 			name
 		} = this.options
 
-		this.panes = [
-			...this.$el.querySelectorAll(this.options.selector)
-		].map(($button, index) => {
-			$button.setAttribute('data-accordion-index', index)
-			const {
-				target
-			} = $button.dataset
-			const $target = this.$el.querySelector(target)
-			const state = open ?
-				true :
-				(!open && index === activeIndex ? true : false) ? true : false
-			$button.setAttribute('aria-expanded', state)
-			$button.setAttribute('aria-selected', state)
-			$button.setAttribute('aria-controls', `${name}-${index}`)
-			if(state) {
-				$button.classList.add(buttonActiveClass)
-				$target.classList.add(contentActiveClass)
+		this.panes = [...this.$el.querySelectorAll(this.options.selector)].map(
+			($button, index) => {
+				$button.setAttribute('data-accordion-index', index)
+				const { target } = $button.dataset
+				const $target = this.$el.querySelector(target)
+				const state = open
+					? true
+					: (!open && index === activeIndex ? true : false) ? true : false
+				$button.setAttribute('aria-expanded', state)
+				$button.setAttribute('aria-selected', state)
+				$button.setAttribute('aria-controls', `${name}-${index}`)
+				if (state) {
+					$button.classList.add(buttonActiveClass)
+					$target.classList.add(contentActiveClass)
+				}
+				$target.setAttribute('data-enhanced', true)
+				$target.setAttribute('aria-labelledby', `${name}-${index}`)
+				$target.setAttribute('aria-hidden', !state)
+				$target.setAttribute('role', 'tabpanel')
+				return {
+					$button,
+					$target,
+					index,
+					open: state,
+					isRunning: false
+				}
 			}
-			$target.setAttribute('aria-labelledby', `${name}-${index}`)
-			$target.setAttribute('aria-hidden', !state)
-			$target.setAttribute('role', 'tabpanel')
-			return {
-				$button,
-				$target,
-				index,
-				open: state,
-				isRunning: false
-			}
-		})
+		)
 	}
 
 	/**
@@ -105,11 +102,7 @@ export default class Expander extends Concert {
 	 * @return {Expander}
 	 */
 	onEnd = pane => {
-		const {
-			$target,
-			$button,
-			open
-		} = pane
+		const { $target, $button, open } = pane
 		$target.style.willChange = ''
 		$target.style.height = ''
 		$target.style.display = ''
@@ -128,9 +121,7 @@ export default class Expander extends Concert {
 	 * @return {Expander}
 	 */
 	addEvents = () => {
-		const {
-			selector
-		} = this.options
+		const { selector } = this.options
 		this.delegate.on('click', selector, this.clickHandle)
 
 		return this
@@ -143,9 +134,7 @@ export default class Expander extends Concert {
 	 * @return {Expander}
 	 */
 	removeEvents = () => {
-		const {
-			selector
-		} = this.options
+		const { selector } = this.options
 		this.delegate.off('click', selector, this.clickHandle)
 
 		return this
@@ -153,7 +142,7 @@ export default class Expander extends Concert {
 
 	/**
 	 * The 'change' event handler
-	 * 
+	 *
 	 * @function clickHandle
 	 * @param  {Object} event : event object
 	 * @param  {HTMLElement} element : the input that's changed
@@ -161,25 +150,19 @@ export default class Expander extends Concert {
 	 */
 	clickHandle = (event, element) => {
 		event.preventDefault()
-		const {
-			closeOthers
-		} = this.options
-		const {
-			accordionIndex
-		} = element.dataset
+		const { closeOthers } = this.options
+		const { accordionIndex } = element.dataset
 		const open = element.getAttribute('aria-expanded') === 'true' ? true : false
-		if(closeOthers && this.current) {
-			const {
-				index
-			} = this.current
-			if(index !== parseInt(accordionIndex)) this.collapse(index)
+		if (closeOthers && this.current) {
+			const { index } = this.current
+			if (index !== parseInt(accordionIndex)) this.collapse(index)
 		}
 		open === true ? this.collapse(accordionIndex) : this.expand(accordionIndex)
 		this.current = this.panes[accordionIndex]
 	}
 
 	/**
-	 * 
+	 *
 	 * @function expand
 	 * @param  {Number} index : the form to validate
 	 * @return {Expander}
@@ -192,23 +175,19 @@ export default class Expander extends Concert {
 			buttonActiveClass,
 			contentActiveClass
 		} = this.options
-		if(!pane.isRunning) {
-			const {
-				$target,
-				$button
-			} = pane
+		if (!pane.isRunning) {
+			const { $target, $button } = pane
 			$target.style.display = 'block'
-			const {
-				height
-			} = $target.getBoundingClientRect()
+			const { height } = $target.getBoundingClientRect()
 			$target.style.height = 0
 			$target.style.willChange = 'height'
 			pane.isRunning = true
 			pane.open = true
 
-			this.trigger('accordion:open')
+			this.trigger('accordion:open', pane)
 
-			fromTo({
+			fromTo(
+				{
 					start: 0,
 					end: Math.round(height),
 					duration: duration,
@@ -219,7 +198,7 @@ export default class Expander extends Concert {
 				this.onEnd(pane)
 				$button.classList.add(buttonActiveClass)
 				$target.classList.add(contentActiveClass)
-				this.trigger('accordion:opened')
+				this.trigger('accordion:opened', pane)
 			})
 		}
 
@@ -227,7 +206,7 @@ export default class Expander extends Concert {
 	}
 
 	/**
-	 * 
+	 *
 	 * @function expand
 	 * @param  {Number} index : the form to validate
 	 * @return {Expander}
@@ -240,22 +219,18 @@ export default class Expander extends Concert {
 			contentActiveClass
 		} = this.options
 		const pane = this.panes[index]
-		if(!pane.isRunning) {
+		if (!pane.isRunning) {
 			pane.open = false
-			const {
-				$target,
-				$button
-			} = pane
-			const {
-				height
-			} = $target.getBoundingClientRect()
+			const { $target, $button } = pane
+			const { height } = $target.getBoundingClientRect()
 			$target.style.height = `${height}px`
 			$target.style.willChange = 'height'
 
-			this.trigger('accordion:collapse')
+			this.trigger('accordion:collapse', pane)
 
 			pane.isRunning = true
-			fromTo({
+			fromTo(
+				{
 					start: Math.round(height),
 					end: 0,
 					duration: duration,
@@ -266,7 +241,7 @@ export default class Expander extends Concert {
 				this.onEnd(pane)
 				$button.classList.remove(buttonActiveClass)
 				$target.classList.remove(contentActiveClass)
-				this.trigger('accordion:collapsed')
+				this.trigger('accordion:collapsed', pane)
 			})
 		}
 
@@ -295,17 +270,11 @@ export default class Expander extends Concert {
 	 * @return {Expander}
 	 */
 	destroy = () => {
-		const {
-			buttonActiveClass,
-			contentActiveClass
-		} = this.options
+		const { buttonActiveClass, contentActiveClass } = this.options
 		this.removeEvents()
 		this.$el.removeAttribute('role')
 		this.$el.removeAttribute('aria-multiselectable')
-		this.panes.forEach(({
-			$button,
-			$target
-		}) => {
+		this.panes.forEach(({ $button, $target }) => {
 			$button.classList.remove(buttonActiveClass)
 			$button.removeAttribute('aria-expanded')
 			$button.removeAttribute('aria-selected')
@@ -314,6 +283,7 @@ export default class Expander extends Concert {
 			$target.removeAttribute('aria-hidden')
 			$target.removeAttribute('aria-labelledby')
 			$target.removeAttribute('role', 'tabpanel')
+			$target.removeAttribute('data-enhanced', true)
 			$target.classList.remove(contentActiveClass)
 			$target.removeAttribute('style')
 		})

@@ -4,15 +4,21 @@
 
 @import '../../node_modules/modularscale-sass/stylesheets/_modularscale.scss';
 @import '../../node_modules/sass-mq/mq.scss';
-@import 'susy';
-@import 'plugins/svg-grid';
-@import 'normalize';
+// @import 'susy';
+// @import 'plugins/svg-grid';
+// @import 'normalize';
 
-@include normalize();
+// @include normalize();
 
 /*
+  Tailwindcss
+  see tailwind.config.js
+  https://tailwindcss.com/docs/what-is-tailwind/
   Utilities and functions
 */
+
+// @tailwind preflight;
+// @tailwind utilities;
 
 @import '_system/core/units';
 @import '_system/core/colors';
@@ -62,41 +68,19 @@
 @import 'framework/base';
 
 /*
-  Base styles
-  Typography, Buttons, Tables, Form elements, Etc
+  third party chuff
 */
-
-@import '../templates/01-base/**/**/*';
+@import 'vendor/plyr/plyr';
 
 /*
-  Object patterns
+  [01] Base Styles
+  [02] Object patterns
+  [03] Global elements patterns
+  [04] Components patterns
+  [05] Pages
 */
 
-@import '../templates/02-objects/**/**/*';
-
-/*
-  Global elements patterns
-*/
-
-@import '../templates/03-global/**/**/*';
-
-/*
-  Components patterns
-*/
-
-@import '../templates/04-components/**/**/*';
-
-/*
-  Grids and macro layouts
-*/
-
-@import '../templates/05-layouts/**/**/*';
-
-/*
-  Pages
-*/
-
-@import '../templates/06-pages/**/**/*';
+@import '../templates/**/**/**/*';
 
 /*
   Utility classes

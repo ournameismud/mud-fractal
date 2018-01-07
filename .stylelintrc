@@ -4,25 +4,10 @@
   ],
 	"ignoreFiles": [
 		"./src/scss/_system/**/*",
-		"./src/scss/_tokens/**/*",
-		"./src/scss/_config/*"
+		"./src/scss/_config/*",
+		"./src/scss/_tokens/*"
 	],
   "rules": {
-    "at-rule-no-unknown": [ true, {
-      "ignoreAtRules": [
-        "extends",
-        "ignores",
-				"function",
-				"include",
-				"each",
-				"mixin",
-				"return",
-				"if",
-				"else",
-				"warn",
-				"for"
-      ]
-    }],
     "color-no-invalid-hex": true,
     "comment-no-empty": true,
     "declaration-block-no-duplicate-properties": [ true, {

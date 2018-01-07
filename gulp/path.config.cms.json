@@ -1,0 +1,54 @@
+{
+	"public": "./deploy/web",
+
+	"browserSync": {
+		"proxy": "http://local.wedf.com"
+	},
+
+	"symbols": {
+		"fileDest": "../deploy/templates/includes"
+	},
+
+	"tags": {
+		"src": "./deploy/templates/wrapper/_layout.twig",
+		"dest": "./deploy/templates/wrapper/",
+		"css": "/dist/css/",
+		"js": "/dist/js/"
+	},
+
+	"critical": {
+		"templates": "./deploy/fractal/05-pages",
+		"urlBase": "./deploy/public/",
+		"outputBase": "./deploy/fractal/05-pages",
+		"paths": [
+			{
+				"input": {
+					"url": "http://local.wedf.com/",
+					"source": "home/home.twig"
+				},
+				"output": {
+					"dist": "./home"
+				}
+			},
+			{
+				"input": {
+					"url": "http://local.wedf.com/",
+					"source": "home/home.twig"
+				},
+				"output": {
+					"dist": "./listing"
+				}
+			},
+			{
+				"input": {
+					"url":
+						"http://local.wedf.com/blog/sound-design-interview-with-jimmy-turrell",
+					"source": "post/post"
+				},
+				"output": {
+					"dist": "./post"
+				}
+			}
+		]
+	}
+}

@@ -3,11 +3,11 @@ import validate from 'validate.js'
 import domify from 'domify'
 import Delegate from 'dom-delegate'
 import axios from 'axios'
-import { mergeOptions } from '@/utils/helpers'
+import mergeOptions from 'merge-options-from-dom'
 import { DomClass, DomClosest } from '@/utils/dom'
 
 /**
- * 
+ *
  * @class Validation
  * @extends  Concert
  * @param  {HTMLElement} el : the form to validate
@@ -53,7 +53,7 @@ export default class Validation extends Concert {
 	}
 
 	/**
-	 * 
+	 *
 	 * @function constructor
 	 * @param  {HTMLElement} el : the form to validate
 	 * @param  {Object} options : validation options
@@ -84,7 +84,7 @@ export default class Validation extends Concert {
 
 	/**
 	 * Update the form to validate, useful when forms are within modals
-	 * 
+	 *
 	 * @function setForm
 	 * @param  {HTMLElement} el : the form to validate
 	 * @return Validation
@@ -102,7 +102,7 @@ export default class Validation extends Concert {
 
 	/**
 	 * Bind events
-	 * 
+	 *
 	 * @function addEvents
 	 * @return Validation
 	 */
@@ -115,7 +115,7 @@ export default class Validation extends Concert {
 
 	/**
 	 * Unbind events
-	 * 
+	 *
 	 * @function removeEvents
 	 * @return Validation
 	 */
@@ -128,7 +128,7 @@ export default class Validation extends Concert {
 
 	/**
 	 * The 'change' event handler
-	 * 
+	 *
 	 * @function onChange
 	 * @param  {Object} event : event object
 	 * @param  {HTMLElement} element : the input that's changed
@@ -140,7 +140,7 @@ export default class Validation extends Concert {
 
 	/**
 	 * Checks the current input value against the constraints
-	 * 
+	 *
 	 * @function showError
 	 * @param  {HTMLElement} element : the input to validate
 	 * @return Void
@@ -164,7 +164,7 @@ export default class Validation extends Concert {
 
 	/**
 	 * The form 'submit' handler
-	 * 
+	 *
 	 * @function showError
 	 * @param  {Object} event : event object
 	 * @return Void
@@ -185,7 +185,7 @@ export default class Validation extends Concert {
 
 	/**
 	 * Post the form via ajax
-	 * 
+	 *
 	 * @function postForm
 	 * @return Void
 	 */
@@ -221,7 +221,7 @@ export default class Validation extends Concert {
 
 	/**
 	 * Add error message
-	 * 
+	 *
 	 * @function renderMessage
 	 * @param  {HTMLElement, HTMLElement, HTMLElement} $message, $parent, $node : deconstructed argument containing all of the relevant html elements
 	 * @param  {Array} message : an array of messages, only the first[0] message is displayed
@@ -241,7 +241,7 @@ export default class Validation extends Concert {
 
 	/**
 	 * Remove the error message
-	 * 
+	 *
 	 * @function renderMessage
 	 * @param  {HTMLElement, HTMLElement, HTMLElement} $message, $parent, $node : deconstructed argument containing all of the relevant html elements
 	 * @return Void
@@ -257,7 +257,7 @@ export default class Validation extends Concert {
 
 	/**
 	 * Set where to delegate the behaviours to, useful when forms are within modals
-	 * 
+	 *
 	 * @function setDelegate
 	 * @param  {HTMLElement} el, html element to delegate events
 	 * @return Validation
@@ -270,7 +270,7 @@ export default class Validation extends Concert {
 
 	/**
 	 * Setup the dom, add error nodes to markup
-	 * 
+	 *
 	 * @function setupDom
 	 * @return Validation
 	 */
@@ -279,20 +279,20 @@ export default class Validation extends Concert {
 
 		const { constraints, group, messageWrapper } = this.options
 		for (let key in constraints) {
-			const nodes = [
-				...this.$form.querySelectorAll(`[name='${key}']`)
-			].map($node => {
-				const $parent = group ? DomClosest($node, group) : $node.parentNode
-				const $message = $parent.appendChild(domify(messageWrapper))
-				$node.setAttribute('data-validate', true)
-				return {
-					$node,
-					$parent,
-					$message,
-					name: key,
-					constraints: constraints[key]
+			const nodes = [...this.$form.querySelectorAll(`[name='${key}']`)].map(
+				$node => {
+					const $parent = group ? DomClosest($node, group) : $node.parentNode
+					const $message = $parent.appendChild(domify(messageWrapper))
+					$node.setAttribute('data-validate', true)
+					return {
+						$node,
+						$parent,
+						$message,
+						name: key,
+						constraints: constraints[key]
+					}
 				}
-			})
+			)
 			this.collection = [...this.collection, ...nodes]
 		}
 
@@ -301,7 +301,7 @@ export default class Validation extends Concert {
 
 	/**
 	 * Enable all the things
-	 * 
+	 *
 	 * @function initalize
 	 * @return Void
 	 */
@@ -314,7 +314,7 @@ export default class Validation extends Concert {
 
 	/**
 	 * Destroy all the things
-	 * 
+	 *
 	 * @function destroy
 	 * @return Void
 	 */

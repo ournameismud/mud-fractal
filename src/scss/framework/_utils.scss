@@ -2,3 +2,60 @@
 	display: none;
 }
 
+.u-mask-text {
+	border: 0;
+	clip: rect(0 0 0 0);
+	height: 1px;
+	margin: -1px;
+	overflow: hidden;
+	padding: 0;
+	position: absolute;
+	width: 1px;
+}
+
+.u-center-vert {
+	top: 50%;
+	transform: translateY(-50%);
+}
+
+.u-center {
+	top: 50%;
+	left: 50%;
+	transform: translate3d(-50%, -50%, 0);
+}
+
+.u-dash-before,
+.u-dash-after {
+	display: inline;
+	position: relative;
+
+	&::before,
+	&::after {
+		content: ' ';
+		position: absolute;
+		background-color: $black;
+	}
+}
+
+.u-dash-before {
+	padding-left: 20px;
+
+	&::before {
+		width: 20px;
+		height: 2px;
+		left: 0;
+		top: 10px;
+	}
+}
+
+.u-dash-after {
+	padding-right: 20px;
+
+	&::after {
+		width: 20px;
+		height: 2px;
+		background-color: $black;
+		right: 0;
+		bottom: 10px;
+	}
+}

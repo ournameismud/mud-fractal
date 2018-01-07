@@ -1,34 +1,56 @@
-export const transitions = [
-	{
-		namespace: 'Homepage',
-		transition: {
-			start: function() {
-				log('start Homepage', this)
-				this.newContainerLoading.then(() => this.done())
-			},
+import { Page1 } from './Page1'
+import { Page2 } from './Page2'
+import { Page3 } from './Page3'
+import { Home } from './Home'
+import { Blog } from './Blog'
+import { Post } from './Post'
+import { Fallback } from './Fallback'
 
-			done: function() {
-				log('end Homepage')
-				this.oldContainer.parentNode.removeChild(this.oldContainer)
-				this.newContainer.style.visibility = 'visible'
-				this.deferred.resolve()
-			}
+export default [
+	{
+		path: '/',
+		view: Home
+	},
+	{
+		path: '/page-1',
+		view: Page1
+	},
+	// {
+	// 	path: '/page-2',
+	// 	view: Page2
+	// },
+	{
+		path: '/blog',
+		view: Blog,
+		children: {
+			path: ':id',
+			view: Post
 		}
 	},
 	{
-		path: '/b',
-		transition: {
-			start: function() {
-				log('start About', this)
-				this.newContainerLoading.then(() => this.done())
+		path: '/test',
+		view: Blog,
+		children: [
+			{
+				path: '/a',
+				view: Page1
 			},
-
-			done: function() {
-				log('end About')
-				this.oldContainer.parentNode.removeChild(this.oldContainer)
-				this.newContainer.style.visibility = 'visible'
-				this.deferred.resolve()
+			{
+				path: '/b',
+				view: Page1
+			},
+			{
+				path: '/list',
+				view: Page3,
+				children: {
+					path: ':id',
+					view: Page2
+				}
 			}
-		}
+		]
+	},
+	{
+		path: '*',
+		view: Fallback
 	}
 ]

@@ -1,5 +1,5 @@
-<article class="c-teaser">
+<article class="c-teaser relative">
 	<h3 class="c-teaser__heading">{{ title }}</h3>
-	<img class="c-teaser__img lazyload" data-src="{{ image.src }}" alt="{{ image.alt }}" width="{{ image.width }}" height="{{ image.height }}" />
-	<p>{{ body }}</p>
+	<img class="c-teaser__img w-full h-full" src="{{ image[0].url }}" alt="{{ image[0].alt }}" width="{{ image[0].width }}" height="{{ image[0].height }}" />
+	<a href="{{ href }}" class="absolute pin-t pin-l block w-full h-full opacity-0">{{ title }}</a>
 </article>

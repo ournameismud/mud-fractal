@@ -1,7 +1,58 @@
-import { transitionEnd, DomCss } from './dom'
 import once from 'lodash.once'
 
-export const transitionSteps = (element, css) => {
+const testElement = document.createElement('div')
+
+const prefix = (function() {
+	const styles = window.getComputedStyle(document.documentElement, '')
+	const pre = (Array.prototype.slice
+		.call(styles)
+		.join('')
+		.match(/-(moz|webkit|ms)-/) ||
+		(styles.OLink === '' && ['', 'o']))[1]
+	const dom = 'WebKit|Moz|MS|O'.match(new RegExp('(' + pre + ')', 'i'))[1]
+	return {
+		dom: dom,
+		lowercase: pre,
+		css: '-' + pre + '-',
+		js: pre[0].toUpperCase() + pre.substr(1)
+	}
+})()
+
+export const transitionEnd = (function() {
+	const transEndEventNames = {
+		WebkitTransition: 'webkitTransitionEnd',
+		MozTransition: 'transitionend',
+		OTransition: 'oTransitionEnd otransitionend',
+		transition: 'transitionend'
+	}
+	for (let name in transEndEventNames) {
+		if (testElement.style[name] !== undefined) {
+			return transEndEventNames[name]
+		}
+	}
+	return false
+})()
+
+/**
+ * Return the prefix css3 property
+ * @param {prop} prop - the un prefix css property (camelCase)
+ * @return {String} the css3 property
+ */
+export function css3(prop) {
+	function capitalize(str) {
+		return str.charAt(0).toUpperCase() + str.slice(1)
+	}
+	const prefixed = prefix.css + capitalize(prop)
+	const test = [prop, prefixed]
+	for (let i = 0; i < test.length; i += 1) {
+		if (testElement && testElement.style[test[i]] !== undefined) {
+			return test[i]
+		}
+	}
+	return false
+}
+
+export const transitionSteps = (element, mutation) => {
 	function onEnd(resolve) {
 		resolve()
 	}
@@ -9,7 +60,7 @@ export const transitionSteps = (element, css) => {
 	return new Promise(resolve => {
 		setTimeout(() => {
 			element.addEventListener(transitionEnd, once(onEnd.bind(null, resolve)))
-			DomCss(element, css)
+			mutation()
 		})
 	})
 }
@@ -60,33 +111,18 @@ export const getJson = (el, name) => {
 
 /**
  * Test against userAgent string, pretty cheap and can't really be trusted
- * @return {Boolean} 
+ * @return {Boolean}
  */
-export const isMobile = () =>
-	/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
-		navigator.userAgent
-	)
+export const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+	navigator.userAgent
+)
 
-/**
- * Helper to merge default options with provided options, and options from a dom node
- * @return {Object/Array} 
- */
-export const mergeOptions = (defaults, opts, el, name) => {
-	// create options object, merge opts from params
-	let options = {
-		...defaults,
-		...opts
-	}
-	// try and merge any json options from the dom
-	try {
-		const o = el.dataset[name]
-		const json = typeof o === 'string' ? JSON.parse(o) : {}
-		options = {
-			...options,
-			...json
-		}
-	} catch (err) {
-		console.error(err)
-	}
-	return options
+export function slugify(text = '') {
+	return text
+		.toString()
+		.toLowerCase()
+		.trim()
+		.replace(/[^\w\s-]/g, '') // remove non-word [a-z0-9_], non-whitespace, non-hyphen characters
+		.replace(/[\s_-]+/g, '_') // swap any length of whitespace, underscore, hyphen characters with a single _
+		.replace(/^-+|-+$/g, '') // remove leading, trailing -
 }

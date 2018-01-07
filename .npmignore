@@ -1,0 +1,40 @@
+# OS generated files #
+######################
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+.vscode
+.sass-cache
+*.map
+ehthumbs.db
+Thumbs.db
+npm-debug.log
+#.editorconfig
+private
+
+# Assets #
+######################
+tmp
+node_modules
+reports
+
+deploy/library
+deploy/public/imager
+deploy/public/images
+deploy/public/resources
+deploy/public/downloads
+deploy/public/uploads
+
+deploy/public_html/images
+deploy/public_html/resources
+deploy/public_html/downloads
+deploy/public_html/uploads
+
+# Craft #
+######################
+# http://buildwithcraft.com/help/craft-storage-gitignore#craft-storage-runtime
+deploy/craft/storage/backups/
+deploy/craft/storage/runtime/
+deploy/craft/storage/userphotos/

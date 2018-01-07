@@ -1,58 +1,51 @@
 {
-	"name": "mud-fractal",
-	"description": "Mudstone 7.1.0 integrated with Fractal",
-	"version": "0.3.1",
+	"name": "mulp",
+	"description": "Gulp tasks and Fractal",
+	"version": "0.1.14",
 	"main": "gulpfile.babel.js",
-	"author": "Dave Stockley @ournameismud",
+	"author": "Dave Stockley",
 	"license": "MIT",
 	"engines": {
 		"node": ">=8.6.0"
 	},
-	"private": true,
+	"bin": {
+		"mulp": "bin/mulp.js"
+	},
+	"bugs": {
+		"url": "https://github.com/ournameismud/mulp/issues"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/ournameismud/mulp.git"
+	},
+	"homepage": "https://github.com/ournameismud/mulp#readme",
 	"scripts": {
-		"start": "mulp",
-		"cms": "yarn run mulp -- -- --config cms",
-		"build": "yarn run mulp -- build -- --env production --config cms",
-		"build:fractal":
-			"yarn run mulp -- build -- --env production --config fractal",
-		"build:static":
-			"yarn run mulp -- build:static -- --env production --config fractal",
-		"prereference": "yarn run buildfractal",
-		"reference":
-			"yarn run mulp -- backstop_reference -- --config fractal --reference",
-		"diff": "yarn run mulp -- backstop_reference -- --config fractal --test",
-		"gen-cert": "node ./cert/cli.js gen-certs"
+		"start": "gulp",
+		"cms": "gulp --config cms",
+		"build": "gulp build --env production --config cms",
+		"build:components": "gulp build:component-map --config cms",
+		"build:fractal": "gulp build -- --env production --config fractal",
+		"build:static": "gulp publish -- --env production --config fractal"
 	},
 	"dependencies": {
-		"axios": "^0.16.2",
+		"axios": "^0.17.1",
 		"barba.js": "^1.0.0",
 		"concert": "^2.1.0",
-		"debug": "^3.0.0",
+		"debug": "^3.1.0",
 		"dom-delegate": "^2.0.3",
-		"domify": "^1.4.0",
-		"fastscroll": "^2.2.0",
-		"fg-loadcss": "^1.3.1",
-		"fg-loadjs": "^1.0.0",
-		"hammerjs": "^2.0.8",
-		"imagesloaded": "^4.1.3",
-		"lazysizes": "^4.0.0-rc3",
-		"lodash.debounce": "^4.0.8",
-		"lodash.isobject": "^3.0.2",
+		"domtastic": "0.15.4",
+		"fontfaceobserver": "^2.0.13",
 		"lodash.once": "^4.1.1",
-		"lodash.throttle": "^4.1.1",
-		"lodash.uniqueid": "^4.0.1",
-		"mud-from-to": "^1.0.0",
-		"normalize-scss": "^7.0.0",
-		"object-fit-images": "^3.1.3",
-		"path-to-regexp": "^1.7.0",
-		"picturefill": "^3.0.2",
-		"raf": "^3.3.0",
-		"susy": "^3.0.0",
-		"validate.js": "^0.11.1",
-		"wallop": "^2.4.1",
-		"webfontloader": "^1.6.28"
+		"path-to-regexp": "^2.1.0",
+		"plyr": "^2.0.18",
+		"purge-from-html": "^1.0.3",
+		"redux": "^3.7.2"
 	},
 	"devDependencies": {
-		"mulp": "^0.1.6"
+		"babel-plugin-syntax-dynamic-import": "^6.18.0",
+		"gulp-purgecss": "^0.16.0",
+		"mulp": "0.1.14",
+		"postcss-uncss": "^0.16.1",
+		"uncss": "^0.16.1"
 	}
 }

@@ -1,16 +1,47 @@
+# dev
+# ----------------------------------------------------------------------
+tmp
+private
+
+
+# cms
+# ----------------------------------------------------------------------
+deploy/vendor
+deploy/.env
+deploy/.env.php
+deploy/storage
+
+deploy/web/assets
+
+
+# fractal
+# ----------------------------------------------------------------------
+comp-templates
+deploy/library
+
+
+# NodeJS modules folder
+# ----------------------------------------------------------------------
+node_modules
+
 # Craft runtime and backups folders
 # ----------------------------------------------------------------------
-deploy/craft/storage/runtime/*
-deploy/craft/storage/backups/*
+craft/storage/runtime/*
+craft/storage/backups/*
 
 # Uploaded files
 # ----------------------------------------------------------------------
-deploy/public/assets/*
+public/resources/*
+public/assets/*
+public/imager/*
 
-
+# Design resources
+# ----------------------------------------------------------------------
+design
+_design
 
 # Packages #
-############
+# ----------------------------------------------------------------------
 # it's better to unpack these files and commit the raw source
 # git has its own built in compression methods
 *.7z
@@ -23,13 +54,13 @@ deploy/public/assets/*
 *.zip
 
 # Logs and databases #
-######################
+# ----------------------------------------------------------------------
 *.log
 # *.sql
 *.sqlite
 
 # OS generated files #
-######################
+# ----------------------------------------------------------------------
 .DS_Store
 .DS_Store?
 ._*
@@ -38,16 +69,18 @@ deploy/public/assets/*
 ehthumbs.db
 Thumbs.db
 
-
 # NodeJS modules folder
 node_modules
 
 # npm debug log
+# ----------------------------------------------------------------------
 npm-debug.log
+yarn-error.log
 
 # vs code
+# ----------------------------------------------------------------------
 .vscode
 
 # coverage
-
+# ----------------------------------------------------------------------
 /coverage

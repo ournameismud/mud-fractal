@@ -1,43 +1,37 @@
-# Mudstone + Fractal
+# Gulp + Fractal
 ![Mud](http://ournameismud.co.uk/css/images/maps-icon.png)
 
 > Frontend starter kit integrated with [Fractal](http://fractal.build/), inspired by [Blendid](https://github.com/vigetlabs/blendid)
 
-###### Recommended requirements
+
+###### Requirements
 - node >= 8.6.0
 - gulp >= 3.91
-- yarn >= 0.27.5
+- yarn/npm
 - webpack >= 3.0.0
 
 ###### Installation
 
-`yarn`
+`yarn add mulp`
 
-###### Development mode
+###### Gettings Start
 
-`yarn start`
+Create project config files and folder structure (fractal mode)
 
-###### cms mode
+`yarn run mulp -- init:fractal`
 
-`yarn run cms`
+Create project config files and folder structure (html mode)
 
-###### Build
-`yarn run build`
+`yarn run mulp -- init:html`
 
-###### Build Fractal
-`yarn run build:fractal`
+Start development server
 
-###### Build Static
-`yarn run build:static`
+`yarn run mulp`
 
-###### Take regression test reference
-`yarn run reference`
+Use a custom path config file: `path.config.cms.json`
 
-###### Regression test diff 
-`yarn run diff`
+`yarn run mulp -- -- --config cms`
 
-###### Generate SSL certs
-`yarn run gen-cert`
+Create a production build
 
-###### Run tests
-`yarn run test`
+`yarn run mulp -- build -- --env production --config cms`

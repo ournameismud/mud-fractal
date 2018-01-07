@@ -76,6 +76,12 @@ export default class Viewport extends Concert {
 		this.on('resize', () => this.match(breakpoint, success, reject))
 	}
 
+	reset = () => {
+		this.change = false
+
+		return this
+	}
+
 	destroy() {
 		window.removeEventListener('resize', this.dispatch)
 	}

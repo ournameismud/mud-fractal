@@ -1,26 +1,24 @@
 import '@/plugins/logger'
 import WebFontLoader from '@/plugins/webfontloader'
-import App from '@/core/loader'
-import * as behaviours from '@/behaviours'
-import 'lazysizes'
+import App from '@/core/App'
+import Router from '@/core/Router'
+import routes from '@/views'
 
 if (module.hot) {
 	module.hot.accept()
 }
 
-new WebFontLoader()
-new App(document, behaviours).start()
+WebFontLoader()
 
-/*
-* Register Service Worker
-*/
-// if ('serviceWorker' in navigator) {
-// 	navigator.serviceWorker
-// 		.register('/sw.js')
-// 		.then(reg => {
-// 			log('Service Worker register', reg)
-// 		})
-// 		.catch(err => {
-// 			log('Service Worker error', err)
-// 		})
-// }
+new App(document).mount()
+
+document.getElementById('barba-container') &&
+	new Router({
+		routes,
+		onChange: [],
+		onReady: [],
+		onComplete: [],
+		navigation: ['header > ul', 'footer > ul'],
+		activeClass: 'is-current',
+		activeParentClass: 'is-current-child'
+	}).start()

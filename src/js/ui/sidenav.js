@@ -1,7 +1,5 @@
 import Concert from 'concert'
-import { transitionEnd } from '@/utils/dom'
-import { lock } from '@/utils/helpers'
-import { mergeOptions } from '@/utils/helpers'
+import { lock, transitionEnd } from '@/utils/helpers'
 
 /**
  * @class SideNav
@@ -24,71 +22,68 @@ export default class SideNav extends Concert {
 
 	/**
 	 * The constructor
-	 * 
+	 *
 	 * @function constructor
 	 * @param {HTMLElement} button
 	 * @param {Object} options
 	 * @return SideNav
 	 */
-	constructor(button, options = {}) {
+	constructor(options = {}) {
 		super()
 		this.$body = document.querySelector('body')
 		this.$html = document.querySelector('html')
-		this.options = mergeOptions(
-			this.defaults,
-			options,
-			button,
-			'sidenavOptions'
-		)
+		this.options = { ...this.defaults, ...options }
 		this.isVisible = false
-		this.$inner = this.options.inner
-		this.$canvas = this.options.canvas
-		this.$closer = this.options.closer
-		this.$button = button
 		this.events = ['before:open', 'after:open', 'before:close', 'after:close']
 		this.options.init && this.initialize()
 		this.enabled = false
+		this.open = false
 		if (this.options.lock) this.lock = lock()
+	}
+
+	setOptions = o => {
+		this.options = { ...this.options, ...o }
+
+		return this
 	}
 
 	/**
 	 * Bind Events
-	 * 
+	 *
 	 * @function addEvents
 	 * @return SideNav
 	 */
 	addEvents = () => {
-		const { clickOutside } = this.options
-		if (clickOutside && this.$inner) {
-			this.$canvas.addEventListener('click', this.hideSideNav)
-			this.$inner.addEventListener('click', this.blockClicks)
+		const { clickOutside, inner, canvas, closer, button } = this.options
+		if (clickOutside && inner) {
+			canvas.addEventListener('click', this.hideSideNav)
+			inner.addEventListener('click', this.blockClicks)
 		}
-		if (this.$closer) this.$closer.addEventListener('click', this.hideSideNav)
-		this.$button.addEventListener('click', this.onButtonClick)
+		if (closer) closer.addEventListener('click', this.hideSideNav)
+		button.addEventListener('click', this.onButtonClick)
 		return this
 	}
 
 	/**
 	 * Remove Events
-	 * 
+	 *
 	 * @function addEvents
 	 * @return SideNav
 	 */
 	removeEvents = () => {
-		const { clickOutside } = this.options
-		if (clickOutside && this.$inner) {
-			this.$canvas.removeEventListener('click', this.hideSideNav)
-			this.$inner.removeEventListener('click', this.blockClicks)
+		const { clickOutside, inner, canvas, closer, button } = this.options
+		if (clickOutside && inner) {
+			canvas.removeEventListener('click', this.hideSideNav)
+			inner.removeEventListener('click', this.blockClicks)
 		}
-		if (this.$closer)
-			this.$closer.removeEventListener('click', this.hideSideNav)
-		this.$button.removeEventListener('click', this.onButtonClick)
+		if (closer) closer.removeEventListener('click', this.hideSideNav)
+		button.removeEventListener('click', this.onButtonClick)
 		return this
 	}
 
 	/**
 	 * Button click handle
-	 * 
+	 *
 	 * @function onButtonClick
 	 * @param {Object} e - click event object
 	 * @return void
@@ -99,8 +94,8 @@ export default class SideNav extends Concert {
 	}
 
 	/**
-	 * Prevent clicks from propogating 
-	 * 
+	 * Prevent clicks from propogating
+	 *
 	 * @function {Object} e - click event object
 	 * @return void
 	 */
@@ -110,65 +105,79 @@ export default class SideNav extends Concert {
 
 	/**
 	 * Animate in the canvas
-	 * 
+	 *
 	 * @function showSideNav
-	 * @return void
+	 * @return SideNav
 	 */
 	showSideNav = () => {
+		if (this.open) return this
+		this.open = true
 		const {
 			buttonActiveClass,
 			canvasActiveClass,
 			canvasAnimatingClass,
-			lock
+			lock,
+			canvas,
+			button
 		} = this.options
 
 		if (lock) this.lock.capture()
 
 		this.trigger('before:open')
-		this.$button.classList.add(buttonActiveClass)
-		this.$canvas.classList.add(canvasAnimatingClass)
-		this.$canvas.classList.add(canvasActiveClass)
-		this.$canvas.addEventListener(transitionEnd, this.onTransitionEnd)
+		button.classList.add(buttonActiveClass)
+		canvas.classList.add(canvasAnimatingClass)
+		canvas.classList.add(canvasActiveClass)
+		canvas.addEventListener(transitionEnd, this.onTransitionEnd)
+
+		return this
 	}
 
 	/**
 	 * Animate out the canvas
-	 * 
+	 *
 	 * @function showSideNav
-	 * @return void
+	 * @return SideNav
 	 */
-	hideSideNav = () => {
+	hideSideNav = e => {
+		if (!this.open) return this
+		this.open = false
+
+		if (e && e.preventDefault) e.preventDefault()
 		const {
 			buttonActiveClass,
 			canvasActiveClass,
 			canvasAnimatingClass,
-			lock
+			lock,
+			canvas,
+			button
 		} = this.options
 		if (lock) this.lock.release()
 		this.trigger('before:close')
-		this.$button.classList.remove(buttonActiveClass)
-		this.$canvas.classList.add(canvasAnimatingClass)
-		this.$canvas.classList.remove(canvasActiveClass)
-		this.$canvas.addEventListener(transitionEnd, this.onTransitionEnd)
+		button.classList.remove(buttonActiveClass)
+		canvas.classList.add(canvasAnimatingClass)
+		canvas.classList.remove(canvasActiveClass)
+		canvas.addEventListener(transitionEnd, this.onTransitionEnd)
+
+		return this
 	}
 
 	/**
 	 * Transition end event
-	 * 
+	 *
 	 * @function showSideNav
 	 * @return void
 	 */
 	onTransitionEnd = () => {
-		const { canvasAnimatingClass } = this.options
+		const { canvasAnimatingClass, canvas } = this.options
 		this.isVisible = !this.isVisible
 		this.trigger(this.isVisible ? 'after:open' : 'after:close')
-		this.$canvas.classList.remove(canvasAnimatingClass)
-		this.$canvas.removeEventListener(transitionEnd, this.onTransitionEnd)
+		canvas.classList.remove(canvasAnimatingClass)
+		canvas.removeEventListener(transitionEnd, this.onTransitionEnd)
 	}
 
 	/**
 	 * Unbind events, remove classes, disable
-	 * 
+	 *
 	 * @function destroy
 	 * @return SideNav
 	 */
@@ -179,12 +188,14 @@ export default class SideNav extends Concert {
 		const {
 			buttonActiveClass,
 			canvasActiveClass,
-			canvasAnimatingClass
+			canvasAnimatingClass,
+			canvas,
+			button
 		} = this.options
 		this.enabled = false
-		this.$button.classList.remove(buttonActiveClass)
-		this.$canvas.classList.remove(canvasAnimatingClass)
-		this.$canvas.classList.remove(canvasActiveClass)
+		button.classList.remove(buttonActiveClass)
+		canvas.classList.remove(canvasAnimatingClass)
+		canvas.classList.remove(canvasActiveClass)
 		this.events.forEach(event => this.off(event))
 		this.removeEvents()
 		return this
@@ -192,14 +203,11 @@ export default class SideNav extends Concert {
 
 	/**
 	 * Bind events, enable
-	 * 
+	 *
 	 * @function destroy
 	 * @return SideNav
 	 */
 	initialize = () => {
-		if (this.enabled) return this
-
-		this.enabled = true
 		this.addEvents()
 		return this
 	}
