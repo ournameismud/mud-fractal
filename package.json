@@ -24,8 +24,8 @@
 		"cms": "gulp --config cms",
 		"build": "gulp build --env production --config cms",
 		"build:components": "gulp build:component-map --config cms",
-		"build:fractal": "gulp build -- --env production --config fractal",
-		"build:static": "gulp publish -- --env production --config fractal"
+		"build:fractal": "gulp build --env production --config fractal",
+		"build:static": "gulp publish --env production --config fractal"
 	},
 	"dependencies": {
 		"axios": "^0.17.1",
