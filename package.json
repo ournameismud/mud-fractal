@@ -38,14 +38,10 @@
 		"lodash.once": "^4.1.1",
 		"path-to-regexp": "^2.1.0",
 		"plyr": "^2.0.18",
-		"purge-from-html": "^1.0.3",
 		"redux": "^3.7.2"
 	},
 	"devDependencies": {
 		"babel-plugin-syntax-dynamic-import": "^6.18.0",
-		"gulp-purgecss": "^0.16.0",
-		"mulp": "0.1.14",
-		"postcss-uncss": "^0.16.1",
-		"uncss": "^0.16.1"
+		"mulp": "1.0.0"
 	}
 }
