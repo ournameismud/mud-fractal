@@ -1,5 +1,4 @@
 import Events from './Events'
-import $ from '@/core/dom'
 
 export default class {
 	constructor(context = document) {
@@ -12,14 +11,16 @@ export default class {
 
 	fetch = (context = document) => {
 		return Promise.all(
-			[...$('*[data-behaviour]', context)]
+			[...context.querySelectorAll('*[data-behaviour]')]
 				.map(node => {
-					node.classList.add('is-loading')
-					const behaviours = node.getAttribute('data-behaviour').split(' ')
+					const behaviours = node
+						.getAttribute('data-behaviour')
+						.replace(/^\s+|\s+$|\s+(?=\s)/g, '')
+						.split(' ')
 					return behaviours.map(behaviourName => ({
 						behaviourName,
 						node: node,
-						willDestroy: !!$(node).closest(this.$wrapper).length
+						willDestroy: !!node.closest(this.$wrapper)
 					}))
 				})
 				.reduce((acc, curr) => [...acc, ...curr], [])
@@ -27,7 +28,6 @@ export default class {
 					return new Promise((resolve, reject) => {
 						import(`@/behaviours/${behaviourName}`)
 							.then(resp => {
-								node.classList.remove('is-loading')
 								return {
 									behaviour: resp.default,
 									node,
