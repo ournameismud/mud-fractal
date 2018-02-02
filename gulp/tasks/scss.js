@@ -1,5 +1,3 @@
-import { plugin } from 'gulp-postcss/node_modules/postcss'
-
 const gulp = require('gulp')
 const rename = require('gulp-rename')
 const sass = require('gulp-sass')
@@ -21,7 +19,6 @@ const sassVariables = require('gulp-sass-variables')
 const browserSync = require('browser-sync')
 const { handleErrors } = require('../utils/logs')
 const tailwindcss = require('tailwindcss')
-const uncss = require('postcss-uncss')
 const path = require('path')
 const util = require('gulp-util')
 
@@ -72,14 +69,6 @@ function scss() {
 		tailwindcss(`${base}/tailwind.config.js`),
 		autoprefixer(TASK_CONFIG.scss.autoprefixer)
 	]
-
-	// if(PRODUCTION) {
-	// 	plugins.push(
-	// 		postcss({
-
-	// 		})
-	// 	)
-	// }
 
 	return gulp
 		.src([paths.src, paths.components])

@@ -176,13 +176,6 @@ module.exports = {
 		extensions: ['svg']
 	},
 
-	tokens: {
-		task: 'asset',
-		watch: true,
-		prefix: '$tokens: ',
-		extensions: ['json']
-	},
-
 	watch: {
 		gulpWatch: {
 			usePolling: false
