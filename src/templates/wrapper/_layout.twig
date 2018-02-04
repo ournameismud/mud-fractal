@@ -1,9 +1,6 @@
-<div class="flex [ lg:justify-end ]">
-  {% include craft.app.config.general.custom.global ~ 'header/header.twig' %}
-  <main id="barba-wrapper" class="w-full [ lg:w-6/10 ]">
-		<div class="barba-container" data-namespace="{% block namespace %}{% endblock %}">
-			{% block content %}
-			{% endblock %}
-		</div>
-  </main>
-</div>
+<main id="barba-wrapper">
+	<div class="barba-container">
+		{% block content %}
+		{% endblock %}
+	</div>
+</main>

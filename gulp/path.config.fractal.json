@@ -1,0 +1,10 @@
+{
+	"public": "./deploy/library",
+
+	"browserSync": {
+		"server": {
+			"baseDir": "deploy/library",
+			"index": "index.html"
+		}
+	}
+}
