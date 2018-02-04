@@ -1,8 +1,22 @@
 import ms from 'modularscale-js'
 
+export const percentage = (x, y) => `${(x / y * 100).toFixed(4)}%`
+
+export const widths = y => {
+	return Array.from({ length: y - 1 }).reduce((a, c, i) => {
+		a[`${i + 1}/${y}`] = percentage(i + 1, y)
+		return a
+	}, {})
+}
+
 export function rem(input, base = 16) {
 	const regExVal = new RegExp(/\d+/, 'g')
 	return regExVal.exec(input) / base + 'rem'
+}
+
+export function em(input, base = 16) {
+	const regExVal = new RegExp(/\d+/, 'g')
+	return regExVal.exec(input) / base + 'em'
 }
 
 export function calc(min, max, start, stop) {
