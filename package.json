@@ -1,5 +1,5 @@
 {
-	"name": "mulp",
+	"name": "mud-fractal",
 	"description": "Gulp tasks and Fractal",
 	"version": "0.1.14",
 	"main": "gulpfile.babel.js",
