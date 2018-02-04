@@ -22,7 +22,12 @@
 		"build": "gulp build --env production --config cms",
 		"build:components": "gulp build:component-map --config cms",
 		"build:fractal": "gulp build --env production --config fractal",
-		"build:static": "gulp publish --env production --config fractal"
+		"build:static": "gulp publish --env production --config fractal",
+		"prereference": "npm run build:fractal",
+		"reference": "gulp backstop_reference --config fractal --reference",
+		"diff": "gulp backstop_reference --config fractal --test",
+		"predeploy": "gulp build --env production --config fractal",
+		"deploy": "netlify deploy"
 	},
 	"dependencies": {
 		"axios": "^0.17.1",
