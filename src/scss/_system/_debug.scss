@@ -16,11 +16,11 @@
 		}
 	}
 
-	@each $break, $key in $breakpoints {
-		@include mq($from: breakpoint($break)) {
-			body::after {
-				content: '#{$break} => (#{$key} | #{mq-px2em($key)})';
-			}
-		}
-	}
+	// @each $break, $key in $breakpoints {
+	// 	@include mq($from: breakpoint($break)) {
+	// 		body::after {
+	// 			content: '#{$break} => (#{$key} | #{mq-px2em($key)})';
+	// 		}
+	// 	}
+	// }
 }

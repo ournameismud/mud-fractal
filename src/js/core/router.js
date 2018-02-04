@@ -1,20 +1,20 @@
-import Behaviour, { mix, DomEvents } from "@/core"
+import Behaviour, { mix, DomEvents } from '@/core'
 import {
 	flattenRoutes,
 	routePattern,
 	tryFn,
 	explodeSegments,
 	numSegments
-} from "./utils"
-import { Pjax, Dispatcher, BaseTransition, Prefetch } from "barba.js"
-import Events from "./Events"
+} from './utils'
+import { Pjax, Dispatcher, BaseTransition, Prefetch } from 'barba.js'
+import Events from './Events'
 
 export default class Router extends mix(Behaviour).with(DomEvents) {
 	constructor({
 		routes,
 		navigation,
-		activeClass = "is-current",
-		activeParentClass = "is-current-parent",
+		activeClass = 'is-current',
+		activeParentClass = 'is-current-parent',
 		prefetch = true,
 		onChange = [],
 		onReady = [],
@@ -29,7 +29,7 @@ export default class Router extends mix(Behaviour).with(DomEvents) {
 		this.onCompleteEvents = onComplete
 		this.currentRoute = this.matchUrl(window.location.pathname)
 		this.linkClicked = false
-		this.$html = document.getElementsByTagName("html")[0]
+		this.$html = document.getElementsByTagName('html')[0]
 		this.navigation = navigation.reduce((acc, selector) => {
 			return [...acc, ...document.querySelectorAll(`${selector} a`)]
 		}, [])
@@ -41,10 +41,10 @@ export default class Router extends mix(Behaviour).with(DomEvents) {
 	start = () => {
 		const _this = this
 		this.addDomEvents()
-		Dispatcher.on("linkClicked", this.barbaLinkClicked)
-		Dispatcher.on("initStateChange", this.barbaStateChange)
-		Dispatcher.on("newPageReady", this.barbaNewPageReady)
-		Dispatcher.on("transitionCompleted", this.barbaTransitionCompleted)
+		Dispatcher.on('linkClicked', this.barbaLinkClicked)
+		Dispatcher.on('initStateChange', this.barbaStateChange)
+		Dispatcher.on('newPageReady', this.barbaNewPageReady)
+		Dispatcher.on('transitionCompleted', this.barbaTransitionCompleted)
 
 		Pjax.getTransition = function() {
 			return BaseTransition.extend({
@@ -94,7 +94,7 @@ export default class Router extends mix(Behaviour).with(DomEvents) {
 							from,
 							to,
 							next: () => {
-								Events.trigger("DESTROY:BEHAVIOURS")
+								Events.trigger('DESTROY:BEHAVIOURS')
 								Promise.resolve(resolve()).then(() => {
 									tryFn(_this.currentRoute.view.onAfterLeave)({
 										from,
@@ -122,9 +122,9 @@ export default class Router extends mix(Behaviour).with(DomEvents) {
 					_this.currentRoute = _this.matchUrl(window.location.pathname)
 					_this.linkClicked = false
 					this.oldContainer.parentNode.removeChild(this.oldContainer)
-					this.newContainer.style.visibility = "visible"
+					this.newContainer.style.visibility = 'visible'
 
-					Events.trigger("route:changed", { from, to })
+					Events.trigger('route:changed', { from, to })
 
 					Promise.resolve(this.deferred.resolve()).then(() => {
 						window.scrollTo(0, 0)
@@ -134,7 +134,7 @@ export default class Router extends mix(Behaviour).with(DomEvents) {
 							to
 						})
 					})
-					Events.trigger("INIT:BEHAVIOURS", this.newContainer)
+					Events.trigger('INIT:BEHAVIOURS', this.newContainer)
 				}
 			})
 		}
@@ -154,13 +154,13 @@ export default class Router extends mix(Behaviour).with(DomEvents) {
 				(acc, curr) => (curr.path.length > acc.path.length ? curr : acc)
 			)
 		} else {
-			match = this.routes.find(({ path }) => path === "*")
+			match = this.routes.find(({ path }) => path === '*')
 		}
 
 		const { path } = match
 
-		if (url !== "/" && path === "/") {
-			match = this.routes.find(({ path }) => path === "*")
+		if (url !== '/' && path === '/') {
+			match = this.routes.find(({ path }) => path === '*')
 		}
 
 		const params = routePattern(match.path)(url)
@@ -209,12 +209,12 @@ export default class Router extends mix(Behaviour).with(DomEvents) {
 			})
 		}
 
-		Events.trigger("route:change", {
+		Events.trigger('route:change', {
 			match: this.match,
 			currentRoute: this.currentRoute
 		})
 
-		this.$html.classList.add("is-loading")
+		this.$html.classList.add('is-loading')
 
 		this.onChangeEvents.forEach(fn => {
 			tryFn(fn)({
@@ -249,7 +249,7 @@ export default class Router extends mix(Behaviour).with(DomEvents) {
 			.filter($anchor => {
 				let { pathname } = $anchor
 				const length = pathname.length - 1
-				if (pathname.length > 1 && pathname.charAt(length) === "/") {
+				if (pathname.length > 1 && pathname.charAt(length) === '/') {
 					pathname = pathname.substring(0, length)
 				}
 				$anchor.classList.remove(this.activeClass, this.activeParentClass)
@@ -273,17 +273,17 @@ export default class Router extends mix(Behaviour).with(DomEvents) {
 		})
 
 		setTimeout(() => {
-			Events.trigger("route:complete", {
+			Events.trigger('route:complete', {
 				to: this.match,
 				from: this.currentRoute
 			})
 		})
 
-		this.$html.classList.remove("is-loading")
+		this.$html.classList.remove('is-loading')
 	}
 
 	events = {
-		"click a": "onClickPrevent"
+		'click a': 'onClickPrevent'
 	}
 
 	onClickPrevent = (e, elm) => {

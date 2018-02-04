@@ -12,35 +12,33 @@ module.exports = {
 gulp.task('tokens', tokens)
 
 function tokens() {
-	const paths = {
-		src: path.resolve(process.env.PWD, PATH_CONFIG.src, PATH_CONFIG.tokens.src),
-		dest: path.resolve(
-			process.env.PWD,
-			PATH_CONFIG.src,
-			PATH_CONFIG.tokens.dest
-		)
-	}
+	const config = require(path.resolve(
+		process.env.PWD,
+		'src/scss/tailwind.config.js'
+	))
 
-	PATH_CONFIG.tokens.files
-		.map(token => {
-			const name = token.split('.').shift()
+	const { colors, screens: breakpoints, fonts } = config
+	;[
+		{ src: colors, name: 'colors' },
+		{ src: fonts, name: 'fonts' },
+		{ src: breakpoints, name: 'breakpoints' }
+	]
+		.map(({ src, name }) => {
 			return {
-				src: path.resolve(process.env.PWD, PATH_CONFIG.src, paths.src, token),
-				json: token,
-				prefix: `$${name}: `,
+				json: JSON.stringify(src, null, 2),
+				prefix: `$${name}:`,
 				output: `_${name}.scss`
 			}
 		})
-		.forEach(token => {
-			return fs
-				.createReadStream(token.src)
-				.pipe(
-					jsonSass({
-						prefix: token.prefix
-					})
-				)
-				.pipe(source(token.json))
-				.pipe(rename(token.output))
-				.pipe(gulp.dest(paths.dest))
+		.forEach(({ output, json, prefix }) => {
+			return fs.writeFile(
+				path.resolve(process.env.PWD, 'src/scss/_tokens', output),
+				`${prefix} ${json
+					.replace(/{/g, '(')
+					.replace(/}/g, ')')
+					.replace(/\[/g, '(')
+					.replace(/]/g, ')') + ';'}`,
+				() => {}
+			)
 		})
 }

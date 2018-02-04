@@ -40,6 +40,18 @@ function devServer() {
 
 	browserSync.init({
 		...SERVER,
+		logFileChanges: true,
+		watchOptions: {
+			ignoreInitial: true,
+			ignored: ['**/*.js', '**/*.scss', '!**/*.config.js', '**/*.json']
+		},
+		files: [
+			{
+				match: [
+					path.resolve(process.env.PWD, 'deploy/craft/templates/**/*.twig')
+				]
+			}
+		],
 		...TASK_CONFIG.server
 	})
 }

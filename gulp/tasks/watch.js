@@ -55,7 +55,6 @@ function watchTasks() {
 					: path.join(srcPath, globPattern)
 
 			watch(files, watchConfig, function() {
-				log(taskName)
 				tasks[`${taskName}`]()
 			})
 		}

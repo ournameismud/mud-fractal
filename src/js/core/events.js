@@ -1,5 +1,5 @@
 import mitt from 'mitt'
 
-const _emit = mitt()
+const Events = mitt()
 
-export const Events = _emit
+export default Events

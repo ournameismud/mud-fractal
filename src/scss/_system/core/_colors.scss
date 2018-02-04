@@ -25,5 +25,5 @@
 	@return hex
 */
 @function c($palette, $tone: 'base') {
-	@return map-get(map-get($colors, $palette), $tone);
+	@return map-get($colors, $tone);
 }

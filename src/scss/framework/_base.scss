@@ -14,34 +14,6 @@ img {
 }
 
 /*
-	Reset fieldset styles
-*/
-fieldset {
-	border: 0;
-	padding: 0;
-	margin: 0;
-}
-
-/*
-	Reset button styles
-*/
-button {
-	appearance: none;
-	background: none;
-	padding: 0;
-	border: 0;
-}
-
-/*
-	Reset for ul/ol elements
-*/
-.r-list {
-	list-style: none;
-	padding: 0;
-	margin: 0;
-}
-
-/*
 	class used for lazyloading images, combined with data-src
 */
 .lazyload {

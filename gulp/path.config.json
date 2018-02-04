@@ -24,12 +24,6 @@
 		"dest": "./deploy/templates/_partials"
 	},
 
-	"tokens": {
-		"src": "tokens",
-		"files": ["fonts.json", "colors.json", "breakpoints.json"],
-		"dest": "scss/_tokens"
-	},
-
 	"critical": {
 		"templates": "./deploy/library/components/preview",
 		"urlBase": "./deploy/library",
@@ -138,7 +132,7 @@
 		"fileName": "_symbols.twig",
 		"fileDest": "templates/wrapper",
 		"json": "symbols.json",
-		"docs": "tokens"
+		"docs": "images/svg-symbols"
 	},
 
 	"favicons": {

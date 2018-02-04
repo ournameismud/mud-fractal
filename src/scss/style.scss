@@ -4,21 +4,11 @@
 
 @import '../../node_modules/modularscale-sass/stylesheets/_modularscale.scss';
 @import '../../node_modules/sass-mq/mq.scss';
-// @import 'susy';
+@import 'susy';
 // @import 'plugins/svg-grid';
 // @import 'normalize';
 
 // @include normalize();
-
-/*
-  Tailwindcss
-  see tailwind.config.js
-  https://tailwindcss.com/docs/what-is-tailwind/
-  Utilities and functions
-*/
-
-// @tailwind preflight;
-// @tailwind utilities;
 
 @import '_system/core/units';
 @import '_system/core/colors';
@@ -28,19 +18,19 @@
 @import '_system/core/misc';
 
 /*
+  JSON Output
+*/
+@import '_tokens/fonts';
+@import '_tokens/colors';
+@import '_tokens/breakpoints';
+
+/*
   Settings
 */
 
 @import '_config/base';
 @import '_config/dimensions';
 @import '_config/type-config';
-
-/*
-  JSON Output
-*/
-@import '_tokens/fonts';
-@import '_tokens/colors';
-@import '_tokens/breakpoints';
 
 /*
   Media query debugger
@@ -65,6 +55,8 @@
   Resets, and globals
 */
 
+@tailwind preflight;
+
 @import 'framework/base';
 
 /*
@@ -83,10 +75,15 @@
 @import '../templates/**/**/**/*';
 
 /*
-  Utility classes
+  Tailwindcss
+  see tailwind.config.js
+  https://tailwindcss.com/docs/what-is-tailwind/
+  Utilities and functions
 */
 
-@import 'framework/utils';
+@tailwind utilities;
+
+@import 'framework/custom';
 
 /*
   Print styles

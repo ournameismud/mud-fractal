@@ -1,13 +1,22 @@
 const path = require('path')
+const config = require(path.resolve(
+	process.env.PWD,
+	'src/scss/tailwind.config.js'
+))
+
 module.exports = {
 	context: {
-		colors: require(path.resolve(process.env.PWD, 'src/tokens/colors.json')),
-		fonts: require(path.resolve(process.env.PWD, 'src/tokens/fonts.json')),
-		breakpoints: require(path.resolve(
+		colors: config.colors,
+		fonts: config.fonts,
+		breakpoints: config.screens,
+		widths: config.width,
+		padding: config.padding,
+		margin: config.margin,
+		textSizes: config.textSizes,
+		symbols: require(path.resolve(
 			process.env.PWD,
-			'src/tokens/breakpoints.json'
-		)),
-		symbols: require(path.resolve(process.env.PWD, 'src/tokens/symbols.json'))
+			'src/images/svg-symbols/symbols.json'
+		))
 	}
 }
 

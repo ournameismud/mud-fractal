@@ -1,7 +1,7 @@
 import '@/plugins/logger'
 import WebFontLoader from '@/plugins/webfontloader'
-import App from '@/core/App'
-import Router from '@/core/Router'
+import Loader from '@/core/loader'
+import Router from '@/core/router'
 import routes from '@/views'
 
 if (module.hot) {
@@ -10,7 +10,7 @@ if (module.hot) {
 
 WebFontLoader()
 
-new App(document).mount()
+new Loader(document).mount()
 
 document.getElementById('barba-container') &&
 	new Router({
@@ -18,7 +18,7 @@ document.getElementById('barba-container') &&
 		onChange: [],
 		onReady: [],
 		onComplete: [],
-		navigation: ['header > ul', 'footer > ul'],
+		navigation: ['header ul', 'footer ul'],
 		activeClass: 'is-current',
 		activeParentClass: 'is-current-child'
 	}).start()
