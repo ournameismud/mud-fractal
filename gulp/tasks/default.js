@@ -12,5 +12,13 @@ function defaultTask(cb) {
 	const { assetTasks, codeTasks } = getTasks()
 	assetTasks.push('move-scripts')
 	assetTasks.push('inline-scripts')
-	gulpSequence('clean', assetTasks, codeTasks, 'cacheBuster', 'watch', cb)
+	gulpSequence(
+		'clean',
+		assetTasks,
+		codeTasks,
+		'tokens',
+		'cacheBuster',
+		'watch',
+		cb
+	)
 }
