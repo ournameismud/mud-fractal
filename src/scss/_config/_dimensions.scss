@@ -1,3 +1,11 @@
+/*
+	Site dimensions...
+
+	Grid settings
+	Gutters
+	Wrapper widths et al
+*/
+
 $wrapper-width: 1380px;
 
 $base-padding: 20px;
@@ -10,7 +18,28 @@ $grid-gutters: (mobile: 15px, tablet: 30px, desktop: 60px);
 // containers span 1 less gutter as well
 $susy: (
 	'columns': susy-repeat(16),
-	'gutters': 60px,
+	'gutters': 20px,
+	'spread': 'narrow',
+	'container-spread': 'narrow'
+);
+
+$susy-small: (
+	'columns': susy-repeat(8),
+	'gutters': 10px,
+	'spread': 'narrow',
+	'container-spread': 'narrow'
+);
+
+$susy-medium: (
+	'columns': susy-repeat(12),
+	'gutters': 20px,
+	'spread': 'narrow',
+	'container-spread': 'narrow'
+);
+
+$susy-large: (
+	'columns': susy-repeat(12),
+	'gutters': 20px,
 	'spread': 'narrow',
 	'container-spread': 'narrow'
 );

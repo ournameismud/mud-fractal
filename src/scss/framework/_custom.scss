@@ -1,0 +1,24 @@
+$susy: (
+	'columns': susy-repeat(12),
+	'gutters': 40px,
+	'spread': 'narrow',
+	'container-spread': 'narrow'
+);
+
+@responsive {
+	.m-su {
+		margin-right: susy-gutter(1, $susy);
+	}
+
+	@for $i from 1 through 12 {
+		.w-su-#{$i}\/12 {
+			width: susy-span($i of 12, $susy);
+		}
+	}
+
+	@for $i from 1 through 12 {
+		.m-su-offset-#{$i}\/12 {
+			margin-left: susy-span($i of 12, $susy);
+		}
+	}
+}

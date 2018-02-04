@@ -1,33 +1,42 @@
+/*
+  Third party dependencies
+*/
+
 @import '../../node_modules/modularscale-sass/stylesheets/_modularscale.scss';
 @import '../../node_modules/sass-mq/mq.scss';
 @import 'susy';
-@import 'plugins/svg-grid';
-@import 'normalize';
+// @import 'plugins/svg-grid';
+// @import 'normalize';
 
-@include normalize();
+// @include normalize();
+
+@import '_system/core/units';
+@import '_system/core/colors';
+@import '_system/core/type';
+@import '_system/core/spaces';
+@import '_system/core/mq';
+@import '_system/core/misc';
+
+/*
+  JSON Output
+*/
+@import '_tokens/fonts';
+@import '_tokens/colors';
+@import '_tokens/breakpoints';
 
 /*
   Settings
 */
 
-@import '_config/breakpoints';
 @import '_config/base';
-@import '_config/fonts';
-@import '_config/colors';
 @import '_config/dimensions';
 @import '_config/type-config';
-
-/*
-  Utility functions
-*/
-
-@import '_system/core/utilities';
 
 /*
   Media query debugger
 */
 
-@import '_config/debug';
+@import '_system/debug';
 
 /*
   Custom, site specific mixins
@@ -40,76 +49,44 @@
 */
 
 @import '_system/gulp-output/svg-symbols';
-@import '_system/gulp-output/svg-sprites';
+// @import '_system/gulp-output/svg-sprites';
 
 /*
   Resets, and globals
 */
 
-@import 'framework/index';
-@import 'framework/grid';
+@tailwind preflight;
+
+@import 'framework/base';
 
 /*
-  Base styles
-  Typography, Buttons, Tables, Form elements, Etc
+  third party chuff
 */
-
-@import '../templates/01-base/**/**/*';
+@import 'vendor/plyr/plyr';
 
 /*
-  Object patterns
+  [01] Base Styles
+  [02] Object patterns
+  [03] Global elements patterns
+  [04] Components patterns
+  [05] Pages
 */
 
-@import '../templates/02-objects/**/**/*';
+@import '../templates/**/**/**/*';
 
 /*
-  Global elements patterns
+  Tailwindcss
+  see tailwind.config.js
+  https://tailwindcss.com/docs/what-is-tailwind/
+  Utilities and functions
 */
 
-@import '../templates/03-global/**/**/*';
+@tailwind utilities;
 
-/*
-  Components patterns
-*/
-
-@import '../templates/04-components/**/**/*';
-
-/*
-  Layouts
-*/
-
-@import '../templates/05-layouts/**/**/*';
-
-/*
-  Pages
-*/
-
-@import '../templates/06-pages/**/**/*';
-
-/*
-  Utilities
-*/
-
-@import 'framework/utils';
+@import 'framework/custom';
 
 /*
   Print styles
 */
 
 @import 'print';
-
-.whatever {
-	transition: opacity 300ms ease, transform 200ms 300ms ease, height 200ms ease;
-	background-image: radial-gradient(
-		circle at center,
-		rgba($black, 0.9),
-		$black 40%
-	);
-	height: 10px;
-	top: 0.2px;
-
-	&::after {
-		transition: opacity 800ms ease-in-out 200ms,
-			transform 400ms ease-in-out 200ms;
-	}
-}

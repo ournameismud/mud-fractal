@@ -1,34 +1,13 @@
-export const transitions = [
-	{
-		namespace: 'Homepage',
-		transition: {
-			start: function() {
-				log('start Homepage', this)
-				this.newContainerLoading.then(() => this.done())
-			},
+import { Home } from './Home'
+import { Fallback } from './Fallback'
 
-			done: function() {
-				log('end Homepage')
-				this.oldContainer.parentNode.removeChild(this.oldContainer)
-				this.newContainer.style.visibility = 'visible'
-				this.deferred.resolve()
-			}
-		}
+export default [
+	{
+		path: '/',
+		view: Home
 	},
 	{
-		path: '/b',
-		transition: {
-			start: function() {
-				log('start About', this)
-				this.newContainerLoading.then(() => this.done())
-			},
-
-			done: function() {
-				log('end About')
-				this.oldContainer.parentNode.removeChild(this.oldContainer)
-				this.newContainer.style.visibility = 'visible'
-				this.deferred.resolve()
-			}
-		}
+		path: '*',
+		view: Fallback
 	}
 ]

@@ -1,0 +1,27 @@
+$current-rootsize: 16px !default;
+
+@function rem-to-px($value, $context: $current-rootsize) {
+	@if unit($value) == 'rem' {
+		$value: strip-units($value) * strip-units($current-rootsize);
+		$value: $value * 1px;
+	}
+	@return $value;
+}
+
+@function rem($value, $context: $current-rootsize, $report: false) {
+	@if $report == true {
+		@debug $value $context;
+	}
+	@if unit($context) == 'rem' {
+		$context: rem-to-px($context);
+	}
+	@if unit($value) == 'px' {
+		$value: strip-units($value) / strip-units($context);
+		$value: $value * 1rem;
+	}
+	@return $value;
+}
+
+@function strip-units($value) {
+	@return $value / ($value * 0 + 1);
+}

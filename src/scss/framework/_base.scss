@@ -1,0 +1,36 @@
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+}
+
+/*
+	image defaults
+*/
+img {
+	display: block;
+	max-width: 100%;
+	height: auto;
+}
+
+/*
+	class used for lazyloading images, combined with data-src
+*/
+.lazyload {
+	opacity: 0;
+	transition: opacity 300ms ease-in-out;
+}
+
+/*
+	base wrapper class
+*/
+.wrapper {
+	width: 100%;
+	max-width: rem($wrapper-width);
+	margin: auto;
+	padding: 0 gutter(1);
+
+	@include mq($from: breakpoint('medium')) {
+		padding: 0 gutter(2);
+	}
+}

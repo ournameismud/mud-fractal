@@ -1,44 +1,10 @@
-// Use to convert px to rem
-$current-rootsize: 16px !default;
+/*
+	Type config
+*/
 
-// Root font size, set on the html element, required by the fluid type mixins
-$min-type-size: 15px !default;
+$base-font-size: 16px;
+$base-line-height: 24px;
 
-// Max font, set on the html element, required by the fluid type mixins
-$max-type-size: 18px !default;
-
-$base-line-grid: 6px;
-
-$base-line-multiple: 4;
-
-// Base line-height
-$base-type-leading: 1.7777777778 !default;
-$line-height-ratio: 1.7777777778 !default;
-
-// Breakpoint to initalize the fluid type
-$start-fluid-width: 280px;
-
-// The breakpoint to stop the fluid type inceading
-$stop-fluid-width: map-get($breakpoints, xlarge);
-
-// link offset from baseline
-$link-color: palette(blue) !default;
-
-// link offset from baseline
-$link-offset: 6px !default;
-
-// link thickness
-$link-width: 6px !default;
-
-// link underline opacity
-$link-underline-opacity: 1 !default;
-
-// link underline hover opacity
-$link-underline-hover-opacity: 1 !default;
-
-$base-font-size: 18px !default;
-
-// Ratios
 $double-octave: 4;
 $pi: 3.14159265359;
 $major-twelfth: 3;
@@ -59,9 +25,7 @@ $minor-third: 1.2;
 $major-second: 1.125;
 $minor-second: 1.066666667;
 
-// Base config
-
-$modularscale: (base: 1rem, ratio: $major-second);
+$modularscale: (base: rem($base-font-size), ratio: $major-second);
 
 // @for $i from -2 through 16 {
 // 	$modularscale: (

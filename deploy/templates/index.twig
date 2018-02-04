@@ -1,0 +1,14 @@
+
+{% set events = craft.entries.section('hosts').limit(1) %}
+{% set blog = craft.entries.section('blog').limit(1) %}
+
+{% set quote = {
+  body: entry.quote[0].body,
+  cite: entry.quote[0].cite
+} %}
+
+{% include craft.app.config.general.custom.pages ~ 'home/home.twig' with { 
+  event : events[0], 
+  blog: blog[0],
+  quote: quote 
+}  %}

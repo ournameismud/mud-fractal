@@ -1,9 +1,5 @@
 /* stylelint-disable */
 
-@mixin font-type($font: 'base') {
-	@warn 'This mixin is no longer available, please use font function instead'
-}
-
 @mixin menu-icon-rotate($width: 30px, $height: 6px, $color: $white, $curve: true, $active_class: '.is-active', $gap: 2) {
 	$exit_lenght: $height * 2;
 	$bar_gaps: ($height * $gap) + 1;
@@ -33,7 +29,7 @@
 		&:before,
 		&:after {
 			transition: transform 300ms;
-			content: " ";
+			content: ' ';
 		}
 		&:before {
 			transform: translateY(-$bar_gaps);
@@ -53,4 +49,3 @@
 		}
 	}
 }
-

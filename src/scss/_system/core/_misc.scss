@@ -1,0 +1,26 @@
+/*
+	@mixin svg
+	@param $sprite: Name of the sprite
+	SVG sprite mixin
+	@return background, width, height
+*/
+
+@mixin svg($sprite) {
+	$map: map-get($sprites, $sprite);
+	background: url('../images/svg-sprite.svg') map-get($map, backgroundX)
+		map-get($map, backgroundY) no-repeat;
+	width: map-get($map, width);
+	height: map-get($map, height);
+}
+
+/*
+	@mixin dev
+	Mixin content will only be generated in dev mode
+	@return content
+*/
+
+@mixin dev() {
+	@if $env == 'development' {
+		@content;
+	}
+}

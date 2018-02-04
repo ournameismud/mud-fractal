@@ -1,0 +1,37 @@
+$base-line-grid: 6px !default;
+$base-line-multiple: 4 !default;
+$base-font-size: 16px !default;
+$base-padding: 20px !default;
+
+/*
+	@function gutter
+	@param $lines: Grid multiplier
+	@param $gutter: pixel value of the gutter
+	@return rems
+*/
+@function gutter($lines: 1, $gutter: $base-padding) {
+	$gutter: strip-units($gutter);
+	@if length($lines) ==1 {
+		@return rem(floor(($gutter * $lines) * 1px));
+	} @else {
+		@warn 'To many values used in gutter function';
+		@return null;
+	}
+}
+
+/*
+	@function gutter
+	@param $lines: Line multiplier
+	@param $grid: pixel value of the base line grid
+	@param $font-size: pixel value of the base font-size line grid
+	@param $units: Boolean, return value with or withour units
+	@return rems/value
+*/
+@function vr($lines: $base-line-multiple, $grid: $base-line-grid, $font-size: $base-font-size, $units: false) {
+	$output: ($lines * $grid) / $font-size;
+	@if $units {
+		@return rem($output * 1rem);
+	} @else {
+		@return $output;
+	}
+}

@@ -1,47 +1,45 @@
 {
-	"name": "mud-fractal",
-	"description": "Mudstone 7.1.0 integrated with Fractal",
-	"version": "0.2.0",
+	"name": "mulp",
+	"description": "Gulp tasks and Fractal",
+	"version": "0.1.14",
 	"main": "gulpfile.babel.js",
-	"author": "Dave Stockley @ournameismud",
+	"author": "Dave Stockley",
 	"license": "MIT",
 	"engines": {
-		"node": ">=7.1.0"
+		"node": ">=8.6.0"
 	},
-	"private": true,
+	"bugs": {
+		"url": "https://github.com/ournameismud/mulp/issues"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/ournameismud/mulp.git"
+	},
+	"homepage": "https://github.com/ournameismud/mulp#readme",
 	"scripts": {
-		"start": "mulp"
+		"start": "gulp",
+		"cms": "gulp --config cms",
+		"build": "gulp build --env production --config cms",
+		"build:components": "gulp build:component-map --config cms",
+		"build:fractal": "gulp build --env production --config fractal",
+		"build:static": "gulp publish --env production --config fractal"
 	},
 	"dependencies": {
-		"axios": "^0.16.2",
+		"axios": "^0.17.1",
 		"barba.js": "^1.0.0",
-		"concert": "^2.1.0",
-		"debug": "^3.0.0",
+		"debug": "^3.1.0",
 		"dom-delegate": "^2.0.3",
-		"domify": "^1.4.0",
-		"fastscroll": "^2.2.0",
-		"fg-loadcss": "^1.3.1",
-		"fg-loadjs": "^1.0.0",
-		"hammerjs": "^2.0.8",
-		"imagesloaded": "^4.1.3",
-		"lazysizes": "^4.0.0-rc3",
-		"lodash.debounce": "^4.0.8",
-		"lodash.isobject": "^3.0.2",
-		"lodash.once": "^4.1.1",
-		"lodash.throttle": "^4.1.1",
-		"lodash.uniqueid": "^4.0.1",
-		"mud-from-to": "^1.0.0",
-		"normalize-scss": "^7.0.0",
-		"object-fit-images": "^3.1.3",
-		"path-to-regexp": "^1.7.0",
-		"picturefill": "^3.0.2",
-		"raf": "^3.3.0",
-		"susy": "^3.0.0",
-		"validate.js": "^0.11.1",
-		"wallop": "^2.4.1",
-		"webfontloader": "^1.6.28"
+		"domtastic": "0.15.4",
+		"fontfaceobserver": "^2.0.13",
+		"mitt": "^1.1.3",
+		"path-to-regexp": "^2.1.0",
+		"spon-draw": "^0.0.3",
+		"spon-resize": "^0.1.1",
+		"spon-slide": "^1.0.4"
 	},
 	"devDependencies": {
-		"mulp": "0.0.2"
+		"babel-plugin-syntax-dynamic-import": "^6.18.0",
+		"modularscale-js": "^3.0.1",
+		"mulp": "1.0.0"
 	}
 }

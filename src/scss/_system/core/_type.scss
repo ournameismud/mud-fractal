@@ -1,0 +1,83 @@
+$base-font-size: 16px !default;
+$base-type-leading: 24px !default;
+$browser-default-font-size: 16px !default;
+
+// Root font size, set on the html element, required by the fluid type mixins
+$min-type-size: 15px !default;
+
+// Max font, set on the html element, required by the fluid type mixins
+$max-type-size: 18px !default;
+
+// Breakpoint to initalize the fluid type
+$start-fluid-width: 280px !default;
+
+// The breakpoint to stop the fluid type inceading
+$stop-fluid-width: 1280px !default;
+
+/*
+	@function calcfluid
+	@param $min-type-size: value for the minimum font size 
+	@param $max-type-size: value for the maximum font size
+	@param $start-fluid-width: width at which the font should be set at the min
+	@param $stop-fluid-width: width at which the font should be set at the max
+	@return value (calc)
+*/
+@function calcfluid($min-type-size, $max-type-size, $start-fluid-width: $start-fluid-width, $stop-fluid-width: $stop-fluid-width) {
+	@return calc( #{$min-type-size} + (#{strip-units($max-type-size)} - #{strip-units($min-type-size)}) * ((100vw - #{$start-fluid-width}) / (#{strip-units($stop-fluid-width)} - #{strip-units($start-fluid-width)})) );
+}
+
+/*
+	@function leading
+	@param $font-size: size of the font
+	@param $computed: pixel value of the desired line-height
+	@return number
+*/
+@function leading($font-size, $computed) {
+	$fs: strip-units($font-size);
+	@return $computed / $fs;
+}
+
+/*
+	@function font
+	@param $font: name of the font from the fonts map
+	@return font-family
+*/
+@function font($font: body) {
+	@return map-get(map-get($fonts, $font), 'font-family');
+}
+
+/*
+	@function weight
+	@param $weight: name of the font from the fonts map
+	@return font-weight
+*/
+@function weight($font: body) {
+	@return map-get(map-get($fonts, $font), 'weight');
+}
+
+/*
+	@function line-height
+	@param $font: name of the font from the fonts map
+	@return line-height
+*/
+@function line-height($font: body) {
+	@return map-get(map-get($fonts, $font), 'line-height');
+}
+
+/*
+	@mixin font-baseline
+	Used to set the base font size on the html element
+	@param $font-size: pixel value
+	@param $line-height: pixel value
+	@param $browser-default-font-size: pixel value
+	@return font-size, line-height
+*/
+@mixin font-baseline(
+	$font-size: $base-font-size, 
+	$line-height:  $base-type-leading, 
+	$browser-default-font-size: $current-rootsize
+) {
+	font-size: strip-units($base-font-size) /
+		strip-units($browser-default-font-size) + em;
+	line-height: $base-line-height / $base-font-size;
+}

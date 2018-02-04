@@ -1,0 +1,38 @@
+/* stylelint-disable */
+
+.icon {
+	position: relative;
+	display: block;
+	max-width: 100%;
+
+  > svg {
+    position: absolute;
+		width: 100%;
+		max-width: 100%;
+    height: 100%;
+    display: block;
+    fill: currentColor;
+  }
+
+  &:after {
+    content: "";
+    display: block;
+    height: 0; 
+    width: auto;
+  }
+}
+
+<% _.forEach( icons, function( icon ){ %><%= icon.className %> {
+  width: <%= 'rem(' + icon.width + ')' %>;
+  &:after {
+    padding-bottom: <%= ((parseInt(icon.height) / parseInt(icon.width)) * 100) + '%' %>;
+  }
+}
+<% }); %>
+
+
+<% _.forEach( icons, function( icon ){ %>
+<%= '$' + icon.className.split('.')[1] + '-width' %>: <%=  parseInt(icon.width) + 'px' %>;
+<%= '$' + icon.className.split('.')[1] + '-height' %>: <%=  parseInt(icon.height) + 'px' %>;
+<%= '$' + icon.className.split('.')[1] + '-ratio' %>: <%=  parseInt(icon.height) / parseInt(icon.width) %>;
+<% }); %>
