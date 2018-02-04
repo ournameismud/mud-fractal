@@ -195,35 +195,36 @@ module.exports = {
 			selector: ['body']
 		},
 		config: {
-			id: 'backstop_prod_test',
-			vieoutputorts: [
+			id: 'backstop_default',
+			viewports: [
 				{
-					name: 'phone',
+					label: 'phone',
 					width: 320,
 					height: 480
 				},
 				{
-					name: 'tablet',
-					width: 780,
-					height: 1024
-				},
-				{
-					name: 'desktop',
-					width: 1120,
-					height: 700
+					label: 'tablet',
+					width: 1024,
+					height: 768
 				}
 			],
+			onBeforeScript: 'chromy/onBefore.js',
+			onReadyScript: 'chromy/onReady.js',
+			scenarios: [],
 			paths: {
 				bitmaps_reference: '__snapshots/bitmaps_reference',
 				bitmaps_test: '__snapshots/bitmaps_test',
-				casper_scripts: '__snapshots/casper_scripts',
+				engine_scripts: '__snapshots/engine_scripts',
 				html_report: '__snapshots/html_report',
 				ci_report: '__snapshots/ci_report'
 			},
-			casperFlags: [],
-			engine: 'phantomjs',
 			report: ['browser'],
-			debug: false
+			engine: 'chrome',
+			engineFlags: [],
+			asyncCaptureLimit: 5,
+			asyncCompareLimit: 50,
+			debug: false,
+			debugWindow: false
 		}
 	}
 }

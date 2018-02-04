@@ -4,7 +4,7 @@ const path = require('path')
 const backstopjs = require('backstopjs')
 const util = require('gulp-util')
 const requireGlob = require('require-glob')
-const { resolvePath } = require('../utils/paths')
+// const { resolvePath } = require('../utils/paths')
 module.exports = {
 	test
 }
@@ -15,30 +15,46 @@ function test() {
 	const { url, defaults } = TASK_CONFIG.backstop
 	const proxyConfig = SERVER.proxy || null
 	const task = util.env.reference ? 'reference' : 'test'
-	const test = task === 'reference' ? 'ready' : 'test'
 
 	requireGlob(
-		resolvePath(
+		path.resolve(
+			process.env.PWD,
 			PATH_CONFIG.src,
 			PATH_CONFIG.fractal.src,
-			'**/**/*.test.config.js'
+			'**/**/*.config.js'
 		)
-	).then(function(modules) {
+	).then(function (modules) {
 		const scenarios = []
 
 		for (let key in modules) {
 			for (let row in modules[key]) {
-				const config = modules[key][row][`${row}TestConfig`].default
-					.filter(({ status }) => status === test)
-					.map(conf => {
-						return {
-							...defaults,
-							...conf.options,
-							label: conf.label,
-							url: `${url}${conf.label}.html`
+				let config = modules[key][row][`${row}Config`]
+
+				const title = row
+				if (title !== 'context') {
+					const { selector = 'body', variants = [], status } = config
+
+					if (status === 'test') {
+						if (variants.length > 0) {
+							config = variants.map(({ name }) => {
+								return {
+									...defaults,
+									selectors: [`${selector}`],
+									label: name,
+									url: `${url}${title}--${name}.html`
+								}
+							})
+							scenarios.push(...config)
+						} else {
+							scenarios.push({
+								...defaults,
+								selectors: [`${selector}`],
+								label: title,
+								url: `${url}${title}.html`
+							})
 						}
-					})
-				scenarios.push(...config)
+					}
+				}
 			}
 		}
 
@@ -58,7 +74,7 @@ function test() {
 
 		// Resolve files from PWD
 		if (SERVER.files) {
-			SERVER.files = SERVER.files.map(function(glob) {
+			SERVER.files = SERVER.files.map(function (glob) {
 				return path.resolve(process.env.PWD, glob)
 			})
 		}
@@ -77,7 +93,8 @@ function test() {
 				.then(() => {
 					browserSync.exit()
 				})
-				.catch(() => {
+				.catch(e => {
+					console.error(e)
 					browserSync.exit()
 				})
 		})
