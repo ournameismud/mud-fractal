@@ -7675,6 +7675,10 @@ mississippi@^1.3.0:
     stream-each "^1.1.0"
     through2 "^2.0.0"
 
+mitt@^1.1.3:
+  version "1.1.3"
+  resolved "https://registry.yarnpkg.com/mitt/-/mitt-1.1.3.tgz#528c506238a05dce11cd914a741ea2cc332da9b8"
+
 mixwith@^0.1.1:
   version "0.1.1"
   resolved "https://registry.yarnpkg.com/mixwith/-/mixwith-0.1.1.tgz#c8995918c5b61fbfda9ad377a857cd47750541c0"
@@ -9606,6 +9610,10 @@ quote@^0.4.0:
   version "0.4.0"
   resolved "https://registry.yarnpkg.com/quote/-/quote-0.4.0.tgz#10839217f6c1362b89194044d29b233fd7f32f01"
 
+raf-throttle@^2.0.3:
+  version "2.0.3"
+  resolved "https://registry.yarnpkg.com/raf-throttle/-/raf-throttle-2.0.3.tgz#d10259094e2c6d77df225622fb847c5ea6d5a313"
+
 randomatic@^1.1.3:
   version "1.1.7"
   resolved "https://registry.yarnpkg.com/randomatic/-/randomatic-1.1.7.tgz#c7abe9cc8b87c0baa876b19fde83fd464797e38c"
@@ -10744,6 +10752,25 @@ split@0.3:
   resolved "https://registry.yarnpkg.com/split/-/split-0.3.3.tgz#cd0eea5e63a211dfff7eb0f091c4133e2d0dd28f"
   dependencies:
     through "2"
+
+spon-draw@^0.0.3:
+  version "0.0.3"
+  resolved "https://registry.yarnpkg.com/spon-draw/-/spon-draw-0.0.3.tgz#7a6f2a31fa5d4ff6899e330a4d603c35639de045"
+  dependencies:
+    mitt "^1.1.3"
+
+spon-resize@^0.1.1:
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/spon-resize/-/spon-resize-0.1.1.tgz#b32c69b8eb9892491f2fe10ee9e50d23ee010be0"
+  dependencies:
+    mitt "^1.1.3"
+    raf-throttle "^2.0.3"
+
+spon-slide@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/spon-slide/-/spon-slide-1.0.0.tgz#a8ae25b405a147e950ab18dbca0e39044921e47d"
+  dependencies:
+    mitt "^1.1.3"
 
 sprintf-js@~1.0.2:
   version "1.0.3"

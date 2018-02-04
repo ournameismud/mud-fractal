@@ -1,19 +1,5 @@
-import Concert from 'concert'
-/*
-	Global Event Bus
-	Returns a single instance
-*/
-let _listenerInstance = null
-class Listener extends Concert {
-	constructor() {
-		super()
-		if (!_listenerInstance) {
-			_listenerInstance = this
-		}
-		return _listenerInstance
-	}
-}
+import mitt from 'mitt'
 
-const Events = new Listener()
+const _emit = mitt()
 
-export default Events
+export const Events = _emit
