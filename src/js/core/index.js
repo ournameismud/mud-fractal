@@ -1,6 +1,6 @@
 import { isFn, MixinBuilder } from './utils'
 
-export { DomEvents } from './DomEvents'
+export { DomEvents } from './domEvents'
 
 export const mix = superclass => new MixinBuilder(superclass)
 
