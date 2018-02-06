@@ -67,6 +67,8 @@ export default class Router {
 		}
 		const { from, to } = this.getData()
 
+		Events.emit('route:change', { from, to })
+
 		if (this.playOnLoad) {
 			this.playOnLoad = false
 			const { route: { view } } = this.history.current
@@ -84,6 +86,8 @@ export default class Router {
 	) => {
 		const { from, to } = this.getData()
 
+		Events.emit('route:ready', { from, to })
+
 		this.onReady.forEach(fn =>
 			fn({
 				from,
@@ -100,6 +104,8 @@ export default class Router {
 		this.linkClicked = false
 
 		const { from, to } = this.getData()
+
+		Events.emit('route:complete', { from, to })
 
 		this.navLinks(to.source)
 
