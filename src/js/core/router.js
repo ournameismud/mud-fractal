@@ -1,7 +1,6 @@
 import { flattenRoutes, findRoute, navLinks } from './utils/router.utils'
-import Barba, { Pjax, Dispatcher, BaseTransition, Prefetch } from 'barba.js'
-
-export { Barba, Pjax }
+import { Pjax, Dispatcher, BaseTransition, Prefetch } from 'barba.js'
+import Events from './events'
 
 export default class Router {
 	constructor({
@@ -125,6 +124,7 @@ export default class Router {
 
 				pageExit() {
 					return new Promise(resolve => {
+						Events.emit('DESTROY:BEHAVIOURS')
 						const { route: { view } } = _this.history.previous
 						const { from, to } = _this.getData()
 						view.onLeave({ from, to, next: resolve })
@@ -142,6 +142,8 @@ export default class Router {
 					this.newContainer.style.visibility = 'visible'
 
 					Promise.resolve(this.deferred.resolve()).then(cb)
+
+					Events.emit('INIT:BEHAVIOURS', this.newContainer)
 				}
 			})
 		}

@@ -34,6 +34,7 @@ function tokens() {
 			return fs.writeFile(
 				path.resolve(process.env.PWD, 'src/scss/_tokens', output),
 				`${prefix} ${json
+					.replace(/['"]+/g, '')
 					.replace(/{/g, '(')
 					.replace(/}/g, ')')
 					.replace(/\[/g, '(')
