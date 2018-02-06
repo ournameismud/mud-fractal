@@ -13,6 +13,6 @@ export default (event, element, callback) => {
 
 	return new Promise(resolve => {
 		callback && callback()
-		element.addEventListener(event, done.bind(null, resolve), false)
+		element.addEventListener(event, done.bind(null, resolve))
 	})
 }
