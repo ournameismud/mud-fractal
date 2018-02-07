@@ -87,7 +87,7 @@ export const matchRoute = pathx({
 })
 
 export const parseUrl = href => {
-	const { anchor: hash, host, path, query, source } = parseUri(href)
+	const { anchor: hash, host, path, queryKey, source } = parseUri(href)
 
 	const segments = path.split('/').filter(p => p.length)
 	const slug = segments[segments.length - 1]
@@ -97,10 +97,10 @@ export const parseUrl = href => {
 		hash,
 		host,
 		path,
-		query,
 		segments,
 		slug,
 		source,
+		query: queryKey,
 		length: segments.length
 	}
 }
@@ -175,8 +175,7 @@ export const navLinks = (
 				$anchor,
 				segments,
 				slug,
-				path,
-				length
+				path
 			}
 		})
 
