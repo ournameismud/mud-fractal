@@ -39,6 +39,7 @@
 		"mitt": "^1.1.3",
 		"path-to-regexp": "^2.1.0",
 		"spon-draw": "^0.0.3",
+		"spon-expander": "^0.0.5",
 		"spon-resize": "^0.1.1",
 		"spon-slide": "^1.0.4"
 	},

@@ -1,0 +1,39 @@
+
+
+{% set entries = [
+	{
+		title: 'Things',
+		slug: '#0'
+	},
+	{
+		title: 'Other',
+		slug: '#0'
+	},
+	{
+		title: 'Near',
+		slug: '#0'
+	},
+	{
+		title: 'That',
+		slug: '#0'
+	},
+	{
+		title: 'Ready',
+		slug: '#0'
+	},
+	{
+		title: 'Chester',
+		slug: '#0'
+	}
+] %}
+
+<footer class="c-footer bg-black-5 py-12">
+  <ul class="hidden list-reset md:flex md:justify-center mb-2 text-body">
+    {% for entry in entries %}
+      <li class="text-center text-white md:mx-2">
+        <a class="block text-black no-underline text-sm" href="{{ entry.slug }}">{{ entry.title }}</a>
+      </li>
+    {% endfor %}
+  </ul>
+  <p class="text-sm text-center">blah!</p>
+</footer>

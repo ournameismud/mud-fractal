@@ -1,5 +1,5 @@
 import '@/plugins/logger'
-import WebFontLoader from '@/plugins/webfontloader'
+// import WebFontLoader from '@/plugins/webfontloader'
 import Loader from '@/core/loader'
 import Router from '@/core/router'
 import routes from '@/views'
@@ -8,7 +8,7 @@ if (module.hot) {
 	module.hot.accept()
 }
 
-WebFontLoader()
+// WebFontLoader()
 
 new Loader(document).mount()
 

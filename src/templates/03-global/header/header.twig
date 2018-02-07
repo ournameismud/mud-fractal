@@ -1,0 +1,52 @@
+{% import '@helpers' as h %}
+
+
+{#
+	mock menu items... move to config post cms
+#}
+{% set entries = [
+	{
+		title: 'Things',
+		slug: '#0'
+	},
+	{
+		title: 'Other',
+		slug: '#0'
+	},
+	{
+		title: 'Near',
+		slug: '#0'
+	},
+	{
+		title: 'That',
+		slug: '#0'
+	},
+	{
+		title: 'Ready',
+		slug: '#0'
+	},
+	{
+		title: 'Chester',
+		slug: '#0'
+	}
+] %}
+
+
+<header class="c-header z-50 relative pin-t pin-l w-full flex justify-between p-6" data-bg-item>
+
+	<a href="/" class="c-header__logo text-black">
+		Logo
+	</a>
+
+	<nav id="site-menu" role="navigation" aria-label="Main menu" data-menu-closer class="invisible absolute md:relative md:visible">
+		<div id="site-menu-inner" class="w-full pb-12 flex flex-col items-center md:flex-row md:p-0 md:justify-end">
+			<ul class="c-nav__list list-reset md:flex relative text-body md:m-0 md:p-0">
+				{% for entry in entries %}
+					<li role="menuitem" class="c-nav__item text-center mb-4 md:mb-0 md:mx-2">
+						<a class="block text-black no-underline md:py-1 md:px-2 md:relative" href="{{ entry.slug }}">{{ entry.title }}</a>
+					</li>
+				{% endfor %}
+			</ul>
+		</div>
+	</nav>
+</header>

@@ -1,22 +1,27 @@
 $fonts: (
-  san-b: (
-    FS Albert Bold,
+  bold: (
+    Roboto,
     Helvetica Neue,
     sans-serif
   ),
-  serif: (
-    MessinaSerifWeb-Regular,
-    Georgia,
-    serif
+  italic: (
+    Roboto,
+    Helvetica Neue,
+    sans-serif
   ),
-  serif-b: (
-    MessinaSerifWeb-Bold,
-    Georgia,
-    serif
+  light: (
+    Roboto,
+    Helvetica Neue,
+    sans-serif
   ),
-  serif-i: (
-    MessinaSerifWeb-RegularItalic,
-    Georgia,
-    serif
+  light-italic: (
+    Roboto,
+    Helvetica Neue,
+    sans-serif
+  ),
+  regular: (
+    Roboto,
+    Helvetica Neue,
+    sans-serif
   )
 );

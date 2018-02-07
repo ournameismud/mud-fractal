@@ -2,7 +2,7 @@
 	"public": "./deploy/web",
 
 	"browserSync": {
-		"proxy": "http://local.wedf.com"
+		"proxy": "http://local.mudfractal.com"
 	},
 
 	"symbols": {
@@ -23,7 +23,7 @@
 		"paths": [
 			{
 				"input": {
-					"url": "http://local.wedf.com/",
+					"url": "http://local.mudfractal.com/",
 					"source": "home/home.twig"
 				},
 				"output": {
@@ -32,21 +32,11 @@
 			},
 			{
 				"input": {
-					"url": "http://local.wedf.com/",
+					"url": "http://local.mudfractal.com/",
 					"source": "home/home.twig"
 				},
 				"output": {
 					"dist": "./listing"
-				}
-			},
-			{
-				"input": {
-					"url":
-						"http://local.wedf.com/blog/sound-design-interview-with-jimmy-turrell",
-					"source": "post/post"
-				},
-				"output": {
-					"dist": "./post"
 				}
 			}
 		]

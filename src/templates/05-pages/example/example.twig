@@ -1,0 +1,19 @@
+
+{% set extend = craft.app.config.general.custom.wrapper ~ '_layout.twig' %}
+{% extends extend %}
+{% block critical_css %}
+	<!-- build:critical-->
+	<!-- endbuild -->
+{% endblock %}
+
+{% block content %}
+
+  <div class="wrapper flex flex-col items-center justify-center md:flex-row flex-wrap md:justify-around">
+    {% for i in range(0, 4) %}
+      <div class="md:w-5/12 mb-4">
+        {% include '@card' %}
+      </div>
+    {% endfor %}
+  </div>
+
+{% endblock %}

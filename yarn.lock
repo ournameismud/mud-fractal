@@ -7913,6 +7913,10 @@ ms@2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/ms/-/ms-2.0.0.tgz#5608aeadfc00be6c2901df5f9861788de0d597c8"
 
+mud-from-to@^1.0.4:
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/mud-from-to/-/mud-from-to-1.0.4.tgz#e75075a850c0b79f608a4015b8fe94ad10b94eb5"
+
 mulp@1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/mulp/-/mulp-1.0.0.tgz#e0fa8aaf7ac4e5f949a90edb300886e70a8fe16a"
@@ -10975,6 +10979,13 @@ spon-draw@^0.0.3:
   resolved "https://registry.yarnpkg.com/spon-draw/-/spon-draw-0.0.3.tgz#7a6f2a31fa5d4ff6899e330a4d603c35639de045"
   dependencies:
     mitt "^1.1.3"
+
+spon-expander@^0.0.5:
+  version "0.0.5"
+  resolved "https://registry.yarnpkg.com/spon-expander/-/spon-expander-0.0.5.tgz#740622dae13f28c2c2d8e1709264ea5f62398363"
+  dependencies:
+    mitt "^1.1.3"
+    mud-from-to "^1.0.4"
 
 spon-resize@^0.1.1:
   version "0.1.1"
