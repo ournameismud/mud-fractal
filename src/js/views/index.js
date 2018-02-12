@@ -17,7 +17,11 @@ const example = {
 export default [
 	{
 		path: '/',
-		view: example
+		view: example,
+		children: {
+			path: ':id',
+			view: example
+		}
 	},
 	{
 		path: '*',
