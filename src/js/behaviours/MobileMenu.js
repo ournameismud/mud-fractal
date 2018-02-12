@@ -1,5 +1,7 @@
 import Behaviour from '@/core'
+// https://github.com/magicspon/spon-draw
 import SponDraw from 'spon-draw'
+// https://github.com/magicspon/spon-resize
 import resizer from 'spon-resize'
 
 export default class MobileMenu extends Behaviour {

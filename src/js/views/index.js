@@ -1,13 +1,26 @@
-import { Home } from './Home'
-import { Fallback } from './Fallback'
+const example = {
+	onEnter({ wrapper, next }) {
+		wrapper.style.opacity = 1
+		next()
+	},
+
+	onEnterComplete() {},
+
+	onLeave({ wrapper, next }) {
+		wrapper.style.opacity = 0
+		next()
+	},
+
+	onLeaveComplete() {}
+}
 
 export default [
 	{
 		path: '/',
-		view: Home
+		view: example
 	},
 	{
 		path: '*',
-		view: Fallback
+		view: example
 	}
 ]

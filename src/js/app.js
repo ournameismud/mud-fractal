@@ -10,15 +10,27 @@ if (module.hot) {
 
 // WebFontLoader()
 
-new Loader(document).mount()
+const app = new Loader(document)
+const $container = document.getElementById('barba-wrapper')
+// document for first mount call
+let root = document
 
-document.getElementById('barba-container') &&
+if ($container) {
 	new Router({
 		routes,
-		onChange: [],
-		onReady: [],
+		transitionOnLoad: true,
+		onChange: [app.unmount],
+		onReady: [
+			() => {
+				app.mount(root)
+				root = $container
+			}
+		],
 		onComplete: [],
-		navigation: ['header ul', 'footer ul'],
-		activeClass: 'is-current',
-		activeParentClass: 'is-current-child'
+		navigation: ['header nav', 'footer > ul'],
+		currentClass: 'is-current',
+		currentParentClass: 'is-current-child'
 	}).start()
+} else {
+	app.mount()
+}

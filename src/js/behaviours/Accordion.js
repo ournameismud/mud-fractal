@@ -1,4 +1,5 @@
 import Behaviour from '@/core'
+// https://github.com/magicspon/spon-expander
 import SponExpander from 'spon-expander'
 
 export default class Accordion extends Behaviour {

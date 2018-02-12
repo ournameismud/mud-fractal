@@ -75,7 +75,7 @@ function decodeParam(param) {
 	try {
 		return decodeURIComponent(param)
 	} catch (_) {
-		log('decodeParam error')
+		console.error('decodeParam error')
 	}
 }
 
@@ -113,23 +113,16 @@ export const flattenRoutes = routes =>
 		tmp.push({ path: path, view: view, name })
 
 		if (children) {
-			if (Array.isArray(children)) {
-				tmp.push(
-					...flattenRoutes(children).map(item => {
-						return {
-							...item,
-							path: base + item.path
-						}
-					})
-				)
-			} else {
-				const slash = base === '/' ? '' : '/'
-				const path = `${base}${slash}${children.path}`
-				tmp.push({
-					...children,
-					path
+			const items = Array.isArray(children) ? children : [children]
+			const slash = base === '/' ? '' : '/'
+			tmp.push(
+				...flattenRoutes(items).map(item => {
+					return {
+						...item,
+						path: base + slash + item.path
+					}
 				})
-			}
+			)
 		}
 
 		acc.push(...tmp)
@@ -139,20 +132,18 @@ export const flattenRoutes = routes =>
 
 export const findRoute = routes => {
 	return url => {
-		const parsed = parseUrl(url)
-		const slug = parsed.path
-		const route = routes.filter(({ path }) => matchRoute(path)(slug))
+		const data = parseUrl(url)
+		const slug = data.path
+		const list = routes.filter(({ path }) => matchRoute(path)(slug))
 
-		if (route.length === 1 && slug !== '/') {
-			return {
-				route: routes.find(({ path }) => path === '*'),
-				data: parsed
-			}
-		} else {
-			return {
-				route: route[route.length - 1],
-				data: parsed
-			}
+		const route =
+			list.length === 1 && slug !== '/'
+				? routes.find(({ path }) => path === '*')
+				: list[list.length - 1]
+
+		return {
+			route,
+			data
 		}
 	}
 }
@@ -186,9 +177,13 @@ export const navLinks = (
 			.filter(({ $anchor, path, segments }) => {
 				$anchor.classList.remove(currentClass, currentParentClass)
 
-				const s = inputSegments.slice(0, length - 1)
-				const a = segments.find((segment, index) => segment === s[index])
-				return path === inputPath || a
+				return (
+					path === inputPath ||
+					segments.find(
+						(segment, index) =>
+							segment === inputSegments.slice(0, length - 1)[index]
+					)
+				)
 			})
 			.map(({ $anchor }) => {
 				const className =

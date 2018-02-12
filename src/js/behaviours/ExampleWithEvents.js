@@ -1,4 +1,5 @@
 import Behaviour, { mix, DomEvents } from '@/core'
+import Events from '@/core/events'
 
 export default class ExampleWidthEvents extends mix(Behaviour).with(DomEvents) {
 	constructor(el) {
@@ -18,5 +19,7 @@ export default class ExampleWidthEvents extends mix(Behaviour).with(DomEvents) {
 		e.preventDefault()
 
 		log('I\'m the element clicked:', $hode)
+
+		Events.emit('custom:event', { test: 10 })
 	}
 }
