@@ -227,7 +227,7 @@ export default class Router {
 				},
 
 				pageEnterComplete() {
-					const { route: { view } } = _this.history.previous
+					const { route: { view } } = _this.history.current
 
 					this.deferred.resolve()
 
