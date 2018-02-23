@@ -12,7 +12,16 @@ module.exports = {
 
 gulp.task('fractalTemplates', fractalTemplates)
 
-function fractalTemplates(map) {
+function fractalTemplates(input) {
+	const map = input
+		? input
+		: require(path.resolve(
+			process.env.PWD,
+			PATH_CONFIG.src,
+			PATH_CONFIG.fractal.src,
+			'components-map.json'
+		))
+
 	const fracts = []
 	const craftSrc = {}
 
@@ -74,6 +83,19 @@ function exportPaths(fractal) {
 					}
 				}
 			}
+
+			fs.writeFile(
+				path.resolve(
+					process.env.PWD,
+					PATH_CONFIG.src,
+					PATH_CONFIG.fractal.src,
+					'components-map.json'
+				),
+				JSON.stringify(map, null, 2),
+				err => {
+					err && console.error('something has gone awfully wrong', err)
+				}
+			)
 
 			resolve(map)
 		})
