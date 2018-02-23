@@ -1,6 +1,7 @@
 const gulp = require('gulp')
 const purgecss = require('gulp-purgecss')
 const purgeHtml = require('purge-from-html')
+const purgeJs = require('purgecss-from-js')
 const path = require('path')
 
 module.exports = {
@@ -35,11 +36,13 @@ function purge() {
 							extensions: ['twig']
 						}
 					],
-					whitelistPatterns: [/plyr/, /is-/, /has-/, /no-/]
+					whitelistPatterns: [/plyr/, /is-/, /has-/, /no-/, /icon--/]
 				})
 			)
 			.on('error', reject)
 			.pipe(gulp.dest(`${build}/css`))
-			.on('end', resolve)
+			.on('end', () => {
+				resolve()
+			})
 	})
 }

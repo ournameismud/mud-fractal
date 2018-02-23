@@ -30,9 +30,10 @@ export const Route = superclass =>
 export default class Router {
 	constructor({
 		routes,
-		onChange = [],
-		onReady = [],
-		onComplete = [],
+		onInit = [],
+		onRouteChange = [],
+		onRouteReady = [],
+		onRouteComplete = [],
 		navigation = ['body'],
 		transitionOnLoad = true,
 		currentClass,
@@ -43,17 +44,20 @@ export default class Router {
 		this.navLinks = navLinks(navigation, { currentClass, currentParentClass })
 
 		this.playOnLoad = transitionOnLoad
-		this.onChange = onChange
-		this.onReady = onReady
-		this.onComplete = onComplete
+
+		this.onInit = onInit
+		this.onChange = onRouteChange
+		this.onReady = onRouteReady
+		this.onComplete = onRouteComplete
+
 		this.$wrapper = Pjax.Dom.getWrapper()
 	}
 
 	syncEvents = () => {
-		Dispatcher.on('linkClicked', this.routeRequest)
-		Dispatcher.on('initStateChange', this.routeChange)
-		Dispatcher.on('newPageReady', this.routeReady)
-		Dispatcher.on('transitionCompleted', this.routeComplete)
+		Dispatcher.on('linkClicked', this.onRouteRequest)
+		Dispatcher.on('initStateChange', this.onRouteChange)
+		Dispatcher.on('newPageReady', this.onRouteReady)
+		Dispatcher.on('transitionCompleted', this.onRouteComplete)
 	}
 
 	linkClicked = true
@@ -67,13 +71,6 @@ export default class Router {
 		previous: null,
 		current: null
 	}
-
-	routeRequest = el => {
-		const { href } = el
-		this.linkClicked = true
-		this.matchRoute(href)
-	}
-
 	getData = () => {
 		const { current: { data, route } } = this.history
 
@@ -87,7 +84,13 @@ export default class Router {
 		return { from, to: { ...data, name: route.name } }
 	}
 
-	routeChange = () => {
+	onRouteRequest = el => {
+		const { href } = el
+		this.linkClicked = true
+		this.matchRoute(href)
+	}
+
+	onRouteChange = () => {
 		if (!this.linkClicked) {
 			this.matchRoute(window.location.href)
 		}
@@ -122,7 +125,7 @@ export default class Router {
 		this.onChange.forEach(fn => fn({ from, to }))
 	}
 
-	routeReady = (
+	onRouteReady = (
 		currentStatus,
 		prevStatus,
 		HTMLElementContainer,
@@ -151,7 +154,7 @@ export default class Router {
 		)
 	}
 
-	routeComplete = () => {
+	onRouteComplete = () => {
 		this.linkClicked = false
 
 		const { from, to } = this.getData()
@@ -253,5 +256,14 @@ export default class Router {
 
 		Pjax.start()
 		Prefetch.init()
+
+		const { from, to } = this.getData()
+
+		this.onInit.forEach(fn =>
+			fn({
+				from,
+				to
+			})
+		)
 	}
 }

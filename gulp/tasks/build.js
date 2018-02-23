@@ -18,24 +18,34 @@ function build(cb) {
 	if (TASK_CONFIG.mode === 'fractal') {
 		if (util.env.config === 'cms') {
 			return buildCode(cb)
-				.then(() => {
-					return fractalTemplates()
-				})
-				.then(purge)
-				.then(() => {
-					if (TASK_CONFIG.critical) return critialCss()
-					return
-				})
+				.then(fractalTemplates)
 				.then(sizeReport)
 		} else {
 			return buildFractal()
-				.then(() => {
-					return buildCode(cb)
-				})
-				.then(() => {
-					if (TASK_CONFIG.critical) return critialCss()
-					return
-				})
+				.then(buildCode)
+				.then(sizeReport)
+		}
+	} else {
+		return buildCode(cb)
+	}
+}
+
+function production(cb) {
+	if (TASK_CONFIG.mode === 'fractal') {
+		if (util.env.config === 'cms') {
+			return buildCode(cb)
+				.then(fractalTemplates)
+				.then(purge)
+				.then(critialCss)
+				.then(sizeReport)
+		} else {
+			return (
+				buildFractal()
+					.then(buildCode)
+					.then(purge)
+					//.then(critialCss)
+					.then(sizeReport)
+			)
 		}
 	} else {
 		return buildCode(cb)
@@ -105,8 +115,8 @@ function publish(cb) {
 
 function buildCode(cb) {
 	const { assetTasks, codeTasks } = getTasks()
-	assetTasks.push('move-scripts')
 	codeTasks.push('bundle-script')
+	codeTasks.push('move-scripts')
 	return new Promise(resolve => {
 		gulpSequence('clean:dist', assetTasks, codeTasks, 'cacheBuster', resolve)
 	})
@@ -129,6 +139,7 @@ function cleanFractal() {
 }
 
 gulp.task('build', build)
+gulp.task('production', production)
 gulp.task('publish', publish)
 
 gulp.task('build:component-map', () => {

@@ -4,6 +4,10 @@ tmp
 private
 .netlify
 
+# test output
+# ---------------------------------------------------------------------
+__snapshots/bitmaps_test
+
 # cms
 # ----------------------------------------------------------------------
 deploy/vendor
@@ -11,7 +15,8 @@ deploy/.env
 deploy/.env.php
 deploy/storage
 
-deploy/web/assets
+deploy/public/assets
+deploy/public/resources
 
 
 # fractal

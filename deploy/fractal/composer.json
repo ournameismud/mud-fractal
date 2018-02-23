@@ -1,0 +1,40 @@
+{
+    "name": "ournameismud/fractal",
+    "description": "Custom Fractal plugin",
+    "type": "craft-plugin",
+    "version": "1.0.0",
+    "keywords": [
+        "craft",
+        "cms",
+        "craftcms",
+        "craft-plugin",
+        "fractal"
+    ],
+    "support": {
+        "docs": "https://github.com/rjgux/fractal/blob/master/README.md",
+        "issues": "https://github.com/rjgux/fractal/issues"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Rich @ Mud",
+            "homepage": "http://ournameismud.co.uk/"
+        }
+    ],
+    "require": {
+        "craftcms/cms": "^3.0.0-RC1"
+    },
+    "autoload": {
+        "psr-4": {
+          "ournameismud\\fractal\\": "src/"
+        }
+    },
+    "extra": {
+        "name": "Fractal",
+        "handle": "fractal",
+        "hasCpSettings": false,
+        "hasCpSection": false,
+        "changelogUrl": "https://raw.githubusercontent.com/rjgux/fractal/master/CHANGELOG.md",
+        "class": "ournameismud\\fractal\\Fractal"
+    }
+}

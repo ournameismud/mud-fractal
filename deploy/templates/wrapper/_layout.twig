@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <!-- build:cms-->
-{% set stamp = "" %}
+{% set stamp = ".1519349944037" %}
 <!-- endbuild-->
 
 <html lang="en-gb" dir="ltr" class="no-js">
@@ -52,6 +52,11 @@
 
 		{% include 'includes/_symbols.twig' %}
     <script src="/dist/js/common.bundle{{ stamp }}.js"></script>
-    <script async defer src="/dist/js/app.bundle{{ stamp }}.js"></script>
+
+		{# 
+			the backend throws an error if babel-polyfill is included, so we use a different bundle in preview mode
+			note. this will note include array/object polyfills which are commonly used through out our codebase
+		#}
+		<script src="/dist/js/{{ craft.request.isLivePreview() ? 'preview' : 'app' }}.bundle{{ stamp }}.js"></script>
   </body>
 </html>

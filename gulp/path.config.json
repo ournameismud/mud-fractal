@@ -16,7 +16,7 @@
 		"build": "./deploy/library",
 		"base": "./deploy/templates/",
 		"output": "_partials",
-		"map": "_partials/components-map.json"
+		"map": "./deploy/components-map.json"
 	},
 
 	"cms": {
@@ -24,22 +24,7 @@
 		"dest": "./deploy/templates/_partials"
 	},
 
-	"critical": {
-		"templates": "./deploy/library/components/preview",
-		"urlBase": "./deploy/library",
-		"outputBase": "./deploy/library/components/preview",
-		"paths": [
-			{
-				"input": {
-					"url": "components/preview/home.html",
-					"source": "home.html"
-				},
-				"output": {
-					"dist": "./"
-				}
-			}
-		]
-	},
+	"critical": {},
 
 	"publish": {
 		"src": "./deploy/library/components/preview",

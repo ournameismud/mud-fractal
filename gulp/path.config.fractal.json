@@ -6,5 +6,15 @@
 			"baseDir": "deploy/library",
 			"index": "index.html"
 		}
+	},
+
+	"critical": {
+		"urlBase": "./deploy/library/",
+		"paths": [
+			{
+				"url": "./deploy/library/components/preview/home.html",
+				"source": "src/templates/05-pages/home/home.twig"
+			}
+		]
 	}
 }

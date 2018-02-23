@@ -12,52 +12,47 @@ module.exports = {
 
 gulp.task('fractalTemplates', fractalTemplates)
 
-function fractalTemplates(cb) {
-	const map = path.resolve(
-		process.env.PWD,
-		PATH_CONFIG.fractal.base,
-		PATH_CONFIG.fractal.map
-	)
+function fractalTemplates(map) {
 	const fracts = []
+	const craftSrc = {}
 
-	if (fs.existsSync(map)) {
-		const resp = require(map)
+	for (const key in map) {
+		const { src, dest, handle, target } = map[key]
+		fracts.push({ src, dest, handle })
 
-		for (const key in resp) {
-			const { src, dest, handle } = resp[key]
-			fracts.push({ src, dest, handle })
-		}
-
-		return Promise.all(
-			fracts.map(({ src, dest, handle }) => {
-				return new Promise(resolve => {
-					const d = path.resolve(
-						process.env.PWD,
-						PATH_CONFIG.fractal.base,
-						dest
-					)
-
-					gulp
-						.src(path.resolve(process.env.PWD, src))
-						.pipe(changed(d))
-						.pipe(
-							rename({
-								basename: handle
-							})
-						)
-						.pipe(gulp.dest(d))
-						.on('end', resolve)
-				})
-			})
-		)
-	} else {
-		return Promise.resolve()
+		craftSrc[key] = target
 	}
+	fs.writeFile(
+		path.resolve(process.env.PWD, PATH_CONFIG.fractal.map),
+		JSON.stringify(craftSrc, null, 2),
+		err => {
+			err && console.error('something has gone awfully wrong', err)
+		}
+	)
+
+	return Promise.all(
+		fracts.map(({ src, dest, handle }) => {
+			return new Promise(resolve => {
+				const d = path.resolve(process.env.PWD, PATH_CONFIG.fractal.base, dest)
+
+				gulp
+					.src(path.resolve(process.env.PWD, src))
+					.pipe(changed(d))
+					.pipe(
+						rename({
+							basename: handle
+						})
+					)
+					.pipe(gulp.dest(d))
+					.on('end', resolve)
+			})
+		})
+	)
 }
 
 function exportPaths(fractal) {
 	if (TASK_CONFIG.mode === 'fractal' && util.env.config === 'cms') {
-		return new Promise((resolve, reject) => {
+		return new Promise(resolve => {
 			const map = {}
 			for (let item of fractal.components.flattenDeep()) {
 				if (
@@ -80,22 +75,7 @@ function exportPaths(fractal) {
 				}
 			}
 
-			fs.writeFile(
-				path.resolve(
-					process.env.PWD,
-					PATH_CONFIG.fractal.base,
-					PATH_CONFIG.fractal.map
-				),
-				JSON.stringify(map, null, 2),
-				'utf8',
-				err => {
-					if (err) {
-						reject('ERROR', err)
-						return
-					}
-					resolve(map)
-				}
-			)
+			resolve(map)
 		})
 	} else {
 		return Promise.resolve()

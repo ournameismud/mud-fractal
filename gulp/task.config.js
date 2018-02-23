@@ -11,7 +11,11 @@ module.exports = {
 		extensions: ['twig']
 	},
 
-	critical: false,
+	critical: {
+		minify: true,
+		width: 1024,
+		height: 768
+	},
 
 	fractal: {
 		layout: 'wrapper/_base.twig',
@@ -63,6 +67,7 @@ module.exports = {
 	js: {
 		entries: {
 			common: ['axios'],
+			preview: ['./app.js'], // for craftcms, babel-polyfill has a hissy fit
 			app: ['./app.js']
 		},
 		hot: {

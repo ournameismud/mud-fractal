@@ -1,5 +1,5 @@
 {
-	"public": "./deploy/web",
+	"public": "./deploy/public",
 
 	"browserSync": {
 		"proxy": "http://local.mudfractal.com"
@@ -17,27 +17,11 @@
 	},
 
 	"critical": {
-		"templates": "./deploy/fractal/05-pages",
-		"urlBase": "./deploy/public/",
-		"outputBase": "./deploy/fractal/05-pages",
+		"urlBase": "./deploy/library/",
 		"paths": [
 			{
-				"input": {
-					"url": "http://local.mudfractal.com/",
-					"source": "home/home.twig"
-				},
-				"output": {
-					"dist": "./home"
-				}
-			},
-			{
-				"input": {
-					"url": "http://local.mudfractal.com/",
-					"source": "home/home.twig"
-				},
-				"output": {
-					"dist": "./listing"
-				}
+				"url": "./deploy/library/components/preview/home.html",
+				"source": "src/templates/05-pages/home/home.twig"
 			}
 		]
 	}
