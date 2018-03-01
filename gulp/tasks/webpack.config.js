@@ -36,7 +36,12 @@ module.exports = env => {
 		},
 		resolve: {
 			alias: {
-				'@': context
+				'@': context,
+				'~': path.resolve(
+					process.env.PWD,
+					PATH_CONFIG.src,
+					'templates/04-components/'
+				)
 			}
 		},
 		devtool:
