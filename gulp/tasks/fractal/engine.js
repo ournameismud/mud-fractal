@@ -61,6 +61,21 @@ function templateEngine(stamp) {
 			img(str, size = '800x600') {
 				if (str) return
 				return `https://source.unsplash.com/random/${size}`
+			},
+
+			with(src, test) {
+				const t = test[0]
+				const keys = t._keys
+
+				return src.filter(item => {
+					return keys.filter(key => {
+						return item[key] === t[key]
+					}).length
+				})
+			},
+
+			without(input, o) {
+				return input.filter(item => !o.includes(item))
 			}
 		},
 		functions: {
@@ -68,6 +83,12 @@ function templateEngine(stamp) {
 				return {
 					stamp
 				}
+			},
+
+			ratio(arg) {
+				const [x, y] = arg.split(':')
+
+				return y / x
 			}
 		}
 	}
