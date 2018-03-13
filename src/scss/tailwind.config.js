@@ -505,22 +505,22 @@ module.exports = {
 	padding: {
 		px: rem(1),
 		'0': 0,
-		'1': gutter(0.25),
-		'2': gutter(0.5),
-		'3': gutter(0.75),
-		'4': gutter(1),
-		'5': gutter(1.25),
-		'6': gutter(1.5),
-		'7': gutter(1.75),
-		'8': gutter(2),
-		'9': gutter(2.25),
-		'10': gutter(2.5),
-		'11': gutter(2.75),
-		'12': gutter(3), // 60
-		'13': gutter(3.5), // 70
-		'14': gutter(4), // 80
-		'15': gutter(4.5), // 90
-		'16': gutter(5) // 100
+		'0-25': gutter(0.25),
+		'0-5': gutter(0.5),
+		'0-75': gutter(0.75),
+		'1': gutter(1),
+		'1-25': gutter(1.25),
+		'1-5': gutter(1.5),
+		'1-75': gutter(1.75),
+		'2': gutter(2),
+		'2-25': gutter(2.25),
+		'2-5': gutter(2.5),
+		'2-75': gutter(2.75),
+		'3': gutter(3), // 60
+		'3-5': gutter(3.5), // 70
+		'4': gutter(4), // 80
+		'4-5': gutter(4.5), // 90
+		'5': gutter(5) // 100
 	},
 
 	/*
@@ -542,22 +542,22 @@ module.exports = {
 		auto: 'auto',
 		px: rem(1),
 		'0': 0,
-		'1': gutter(0.25),
-		'2': gutter(0.5),
-		'3': gutter(0.75),
-		'4': gutter(1),
-		'5': gutter(1.25),
-		'6': gutter(1.5),
-		'7': gutter(1.75),
-		'8': gutter(2),
-		'9': gutter(2.25),
-		'10': gutter(2.5),
-		'11': gutter(2.75),
-		'12': gutter(3), // 60
-		'13': gutter(3.5), // 70
-		'14': gutter(4), // 80
-		'15': gutter(4.5), // 90
-		'16': gutter(5) // 100
+		'0-25': gutter(0.25),
+		'0-5': gutter(0.5),
+		'0-75': gutter(0.75),
+		'1': gutter(1),
+		'1-25': gutter(1.25),
+		'1-5': gutter(1.5),
+		'1-75': gutter(1.75),
+		'2': gutter(2),
+		'2-25': gutter(2.25),
+		'2-5': gutter(2.5),
+		'2-75': gutter(2.75),
+		'3': gutter(3), // 60
+		'3-5': gutter(3.5), // 70
+		'4': gutter(4), // 80
+		'4-5': gutter(4.5), // 90
+		'5': gutter(5) // 100
 	},
 
 	/*
@@ -578,22 +578,22 @@ module.exports = {
 	negativeMargin: {
 		px: '1px',
 		'0': '0',
-		'1': gutter(0.25),
-		'2': gutter(0.5),
-		'3': gutter(0.75),
-		'4': gutter(1),
-		'5': gutter(1.25),
-		'6': gutter(1.5),
-		'7': gutter(1.75),
-		'8': gutter(2),
-		'9': gutter(2.25),
-		'10': gutter(2.5),
-		'11': gutter(2.75),
-		'12': gutter(3), // 60
-		'13': gutter(3.5), // 70
-		'14': gutter(4), // 80
-		'15': gutter(4.5), // 90
-		'16': gutter(5) // 100
+		'0-25': gutter(-0.25),
+		'0-5': gutter(-0.5),
+		'0-75': gutter(-0.75),
+		'1': gutter(-1),
+		'1-25': gutter(-1.25),
+		'1-5': gutter(-1.5),
+		'1-75': gutter(-1.75),
+		'2': gutter(-2),
+		'2-25': gutter(-2.25),
+		'2-5': gutter(-2.5),
+		'2-75': gutter(-2.75),
+		'3': gutter(-3), // 60
+		'3-5': gutter(-3.5), // 70
+		'4': gutter(-4), // 80
+		'4-5': gutter(-4.5), // 90
+		'5': gutter(-5) // 100
 	},
 
 	/*
