@@ -36,7 +36,7 @@ function purge() {
 							extensions: ['twig']
 						}
 					],
-					whitelistPatterns: [/plyr/, /is-/, /has-/, /no-/, /icon--/]
+					whitelistPatterns: TASK_CONFIG.purge.whitelistPatterns
 				})
 			)
 			.on('error', reject)
