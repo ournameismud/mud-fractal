@@ -9,13 +9,20 @@
 		"node": ">=8.6.0"
 	},
 	"bugs": {
-		"url": "https://github.com/ournameismud/mulp/issues"
+		"url": "https://github.com/ournameismud/mud-fractal/issues"
 	},
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/ournameismud/mulp.git"
+		"url": "git+https://github.com/ournameismud/mud-fractal.git"
 	},
-	"homepage": "https://github.com/ournameismud/mulp#readme",
+	"browser": true,
+	"jest": {
+		"setupFiles": ["<rootDir>/setup-jest.js"],
+		"mapCoverage": true,
+		"collectCoverageFrom": ["src/**/*.{js,jsx,ts,tsx}"],
+		"testMatch": ["**/?(*.)(spec|test).js?(x)"]
+	},
+	"homepage": "https://github.com/ournameismud/mud-fractal#readme",
 	"scripts": {
 		"start": "gulp",
 		"cms": "gulp --config cms",
@@ -29,10 +36,14 @@
 		"prediff": "gulp production --env production --config fractal",
 		"diff": "gulp backstop_reference --config fractal --test",
 		"predeploy": "gulp build --env production --config fractal",
-		"deploy": "netlify deploy"
+		"deploy": "netlify deploy",
+		"test": "jest",
+		"test:watch": "jest --watch",
+		"coverage": "jest --coverage"
 	},
 	"dependencies": {
 		"axios": "^0.17.1",
+		"babel-polyfill": "^6.26.0",
 		"barba.js": "^1.0.0",
 		"debug": "^3.1.0",
 		"dom-delegate": "^2.0.3",
@@ -47,6 +58,7 @@
 		"spon-slide": "^1.0.4"
 	},
 	"devDependencies": {
+		"babel-plugin-dynamic-import-node": "^1.2.0",
 		"mulp": "1.0.3"
 	}
 }
