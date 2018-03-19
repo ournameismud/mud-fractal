@@ -1,5 +1,29 @@
 /* stylelint-disable */
 
+@mixin sm() {
+	@include mq($from: breakpoint('sm')) {
+		@content;
+	}
+}
+
+@mixin md() {
+	@include mq($from: breakpoint('md')) {
+		@content;
+	}
+}
+
+@mixin lg() {
+	@include mq($from: breakpoint('lg')) {
+		@content;
+	}
+}
+
+@mixin xl() {
+	@include mq($from: breakpoint('xl')) {
+		@content;
+	}
+}
+
 @mixin menu-icon-rotate($width: 30px, $height: 6px, $color: $white, $curve: true, $active_class: '.is-active', $gap: 2) {
 	$exit_lenght: $height * 2;
 	$bar_gaps: ($height * $gap) + 1;

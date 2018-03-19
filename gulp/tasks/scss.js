@@ -15,6 +15,7 @@ const postcssTriangle = require('postcss-triangle')
 const objectFitImages = require('postcss-object-fit-images')
 const styleLint = require('gulp-stylelint')
 const rucksack = require('rucksack-css')
+const gradients = require('postcss-easing-gradients')
 const sassVariables = require('gulp-sass-variables')
 const browserSync = require('browser-sync')
 const { handleErrors } = require('../utils/logs')
@@ -66,6 +67,7 @@ function scss() {
 		writeSVG({
 			encoding: 'base64'
 		}),
+		gradients(),
 		tailwindcss(`${base}/tailwind.config.js`),
 		autoprefixer(TASK_CONFIG.scss.autoprefixer)
 	]
