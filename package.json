@@ -22,6 +22,11 @@
 		"collectCoverageFrom": ["src/**/*.{js,jsx,ts,tsx}"],
 		"testMatch": ["**/?(*.)(spec|test).js?(x)"]
 	},
+	"quokka": {
+		"babel": true,
+		"installPackageCommand": "yarn add {packageName}",
+		"plugins": ["jsdom-quokka-plugin"]
+	},
 	"homepage": "https://github.com/ournameismud/mud-fractal#readme",
 	"scripts": {
 		"start": "gulp",
@@ -59,6 +64,8 @@
 	},
 	"devDependencies": {
 		"babel-plugin-dynamic-import-node": "^1.2.0",
+		"babel-plugin-module-resolver": "^3.1.0",
+		"jsdom-quokka-plugin": "^1.0.11",
 		"mulp": "1.0.3"
 	}
 }

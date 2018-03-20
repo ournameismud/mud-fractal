@@ -12,7 +12,16 @@
 	"plugins": [
 		"transform-object-rest-spread",
 		"transform-class-properties",
-		"syntax-dynamic-import"
+		"syntax-dynamic-import",
+
+		[
+			"module-resolver",
+			{
+				"alias": {
+					"@": "./src/js/"
+				}
+			}
+		]
 	],
 
 	"env": {
