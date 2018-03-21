@@ -1,37 +1,34 @@
 import Delegate from 'dom-delegate'
 
-const transform = (events, obj) => {
+const transform = context => {
 	const output = []
-	for (let key in events) {
-		const eventKey = events[key]
-		const method = typeof eventKey === 'function' ? eventKey : obj[eventKey]
+	for (let key in context.events) {
+		const eventKey = context.events[key]
+		const method = typeof eventKey === 'function' ? eventKey : context[eventKey]
 		const parts = key.split(' ')
 		const capture = parts[0].includes('mouse') ? true : false
-		output.push([parts[0], parts[1], method, capture])
+		output.push([parts[0], parts[1], method.bind(context), capture])
 	}
 	return output
 }
 
-/*
-	Base Class, 
-*/
-export const bindDomEvents = (el = document, events = {}, behaviour) => {
-	const $delegate = new Delegate(el)
+const bindDomEvents = context => {
+	const $delegate = new Delegate(context.$el)
 	let enabled = false
 
 	return {
 		addEvents: () => {
 			if (enabled) return
 			enabled = true
-			if (!events) return this
-			transform(events, behaviour).forEach(event => $delegate.on(...event))
+			if (!context.events) return this
+			transform(context).forEach(event => $delegate.on(...event))
 			return this
 		},
 
 		removeEvents: () => {
-			if (!enabled && !events) return
+			if (!enabled && !context.events) return
 			enabled = false
-			transform(events, behaviour).forEach(event => $delegate.off(...event))
+			transform(context).forEach(event => $delegate.off(...event))
 			return this
 		}
 	}
@@ -40,7 +37,7 @@ export const bindDomEvents = (el = document, events = {}, behaviour) => {
 export const DomEvents = superclass =>
 	class extends superclass {
 		addDomEvents = () => {
-			this._domEvents = bindDomEvents(this.$el, this.events, this)
+			this._domEvents = bindDomEvents(this)
 			this._domEvents.addEvents()
 			return this
 		}

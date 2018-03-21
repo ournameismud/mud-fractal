@@ -1,6 +1,6 @@
-import Events from './Events'
+import Events from './events'
 
-export default class {
+export default class Loader {
 	constructor(context = document) {
 		this.context = context
 		this.$wrapper = '.barba-container'

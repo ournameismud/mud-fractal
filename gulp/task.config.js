@@ -111,6 +111,10 @@ module.exports = {
 		filename: 'style' // no extension
 	},
 
+	purge: {
+		whitelistPatterns: [/plyr/, /is-/, /has-/, /no-/, /icon--/]
+	},
+
 	images: {
 		task: 'asset',
 		watch: true,

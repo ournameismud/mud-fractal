@@ -30,10 +30,9 @@ export const Route = superclass =>
 export default class Router {
 	constructor({
 		routes,
-		onInit = [],
-		onRouteChange = [],
-		onRouteReady = [],
-		onRouteComplete = [],
+		onChange = [],
+		onReady = [],
+		onComplete = [],
 		navigation = ['body'],
 		transitionOnLoad = true,
 		currentClass,
@@ -45,10 +44,9 @@ export default class Router {
 
 		this.playOnLoad = transitionOnLoad
 
-		this.onInit = onInit
-		this.onChange = onRouteChange
-		this.onReady = onRouteReady
-		this.onComplete = onRouteComplete
+		this.onChange = onChange
+		this.onReady = onReady
+		this.onComplete = onComplete
 
 		this.$wrapper = Pjax.Dom.getWrapper()
 	}
@@ -133,6 +131,8 @@ export default class Router {
 	) => {
 		const { from, to } = this.getData()
 
+		log('heyo')
+
 		Events.emit('route:ready', {
 			from,
 			to,
@@ -141,6 +141,8 @@ export default class Router {
 			HTMLElementContainer,
 			newPageRawHTML
 		})
+
+		log(this.onReady)
 
 		this.onReady.forEach(fn =>
 			fn({
@@ -256,14 +258,5 @@ export default class Router {
 
 		Pjax.start()
 		Prefetch.init()
-
-		const { from, to } = this.getData()
-
-		this.onInit.forEach(fn =>
-			fn({
-				from,
-				to
-			})
-		)
 	}
 }

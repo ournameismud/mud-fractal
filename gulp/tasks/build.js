@@ -14,6 +14,31 @@ const { critialCss } = require('./critical')
 const { fractal } = require('./fractal')
 const { purge } = require('./purge')
 
+const sizeReport = () =>
+	gulp
+		.src([
+			path.resolve(
+				process.env.PWD,
+				PATH_CONFIG.public,
+				PATH_CONFIG.dist,
+				'**/*.css'
+			),
+			path.resolve(
+				process.env.PWD,
+				PATH_CONFIG.public,
+				PATH_CONFIG.dist,
+				'**/*.js'
+			),
+			'*!rev-manifest.json'
+		])
+		.pipe(
+			sizereport({
+				gzip: true
+			})
+		)
+
+gulp.task('size-report', sizeReport)
+
 function build(cb) {
 	if (TASK_CONFIG.mode === 'fractal') {
 		if (util.env.config === 'cms') {
@@ -186,28 +211,3 @@ gulp.task('clean:dist', () => {
 		}
 	)
 })
-
-gulp.task('size-report', sizeReport)
-
-const sizeReport = () =>
-	gulp
-		.src([
-			path.resolve(
-				process.env.PWD,
-				PATH_CONFIG.public,
-				PATH_CONFIG.dist,
-				'**/*.css'
-			),
-			path.resolve(
-				process.env.PWD,
-				PATH_CONFIG.public,
-				PATH_CONFIG.dist,
-				'**/*.js'
-			),
-			'*!rev-manifest.json'
-		])
-		.pipe(
-			sizereport({
-				gzip: true
-			})
-		)
