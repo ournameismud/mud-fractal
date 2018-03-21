@@ -47,6 +47,6 @@
 		"spon-slide": "^1.0.4"
 	},
 	"devDependencies": {
-		"mulp": "1.0.3"
+		"mulp": "1.0.4"
 	}
 }
