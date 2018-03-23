@@ -11,7 +11,7 @@ module.exports = function(wallaby) {
 			{ pattern: 'src/js/**/*.js' }
 		],
 
-		tests: [{ pattern: 'tests/*.test.js' }],
+		tests: [{ pattern: '__tests__/**/*.test.js' }],
 
 		env: {
 			type: 'node',
