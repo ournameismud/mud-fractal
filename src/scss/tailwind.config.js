@@ -1,12 +1,15 @@
-import {
+const {
 	gutter,
 	rem,
 	em,
-	ms2rem,
+	ms,
+	msRange,
 	rgba,
 	rgbaRange,
-	widths
-} from './tailwind.utils' // eslint-disable-line
+	calc,
+	widths,
+	lines
+} = require('./tailwind.utils') 
 
 let colors = {
 	transparent: 'transparent',
