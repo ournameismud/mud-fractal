@@ -5,43 +5,43 @@
 .slider {
 	width: 100%;
 	overflow: hidden;
-}
 
-.frame {
-	/**
+	.frame {
+		/**
       * (optional) wrapper width, specifies width of the slider frame.
       */
-	position: relative;
-	font-size: 0;
-	line-height: 0;
-	overflow: visible;
-	white-space: nowrap;
-	width: 60%;
-	margin: auto;
-}
+		position: relative;
+		font-size: 0;
+		line-height: 0;
+		overflow: visible;
+		white-space: nowrap;
+		width: 60%;
+		margin: auto;
+	}
 
-.slides {
-	//	display: inline-block;
-	text-align: center;
-	display: flex;
-}
+	.slides {
+		//	display: inline-block;
+		text-align: center;
+		display: flex;
+	}
 
-li {
-	position: relative;
-	height: 200px;
-	display: inline-block;
-	text-align: center;
+	li {
+		position: relative;
+		height: 200px;
+		display: inline-block;
+		text-align: center;
 
-	/**
+		/**
       * (optional) if the content inside the slide element has a defined size.
 			*/
-	flex: 1 0 100%;
-	margin: 0 40px;
-	transform: scale(0.8);
-	transition: transform 1200ms ease;
+		flex: 1 0 100%;
+		margin: 0 40px;
+		transform: scale(0.8);
+		transition: transform 1200ms ease;
 
-	&.active,
-	&.is-expanded {
-		transform: scale(1);
+		&.active,
+		&.is-expanded {
+			transform: scale(1);
+		}
 	}
 }

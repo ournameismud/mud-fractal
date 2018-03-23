@@ -1,4 +1,6 @@
 /* eslint-disable no-unused-vars */
+const gulp = require('gulp')
+const sizereport = require('gulp-sizereport')
 const path = require('path')
 const notify = require('gulp-notify')
 const gutil = require('gulp-util')
@@ -7,8 +9,35 @@ const fs = require('fs')
 module.exports = {
 	handleErrors,
 	prettyTime,
-	logger
+	logger,
+	sizeReport
 }
+
+function sizeReport() {
+	return gulp
+		.src([
+			path.resolve(
+				process.env.PWD,
+				PATH_CONFIG.public,
+				PATH_CONFIG.dist,
+				'**/*.css'
+			),
+			path.resolve(
+				process.env.PWD,
+				PATH_CONFIG.public,
+				PATH_CONFIG.dist,
+				'**/*.js'
+			),
+			'*!rev-manifest.json'
+		])
+		.pipe(
+			sizereport({
+				gzip: true
+			})
+		)
+}
+
+gulp.task('size-report', sizeReport)
 
 function handleErrors(errorObject, callback) {
 	notify

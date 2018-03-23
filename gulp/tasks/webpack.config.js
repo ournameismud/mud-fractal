@@ -51,26 +51,7 @@ module.exports = env => {
 				{
 					test: /\.js?$/,
 					loader: 'babel-loader',
-					exclude: /node_modules/,
-					query: {
-						presets: [
-							[
-								'env',
-								{
-									targets: {
-										browsers: ['last 2 versions', 'safari >= 7']
-									}
-								}
-							]
-						],
-						plugins: [
-							'transform-object-rest-spread',
-							'transform-class-properties',
-							'syntax-dynamic-import'
-						],
-						babelrc: false,
-						cacheDirectory: false
-					}
+					exclude: /node_modules/
 				},
 				{
 					test: /\.js$/,

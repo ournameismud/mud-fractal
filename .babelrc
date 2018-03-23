@@ -13,20 +13,31 @@
 		"transform-object-rest-spread",
 		"transform-class-properties",
 		"syntax-dynamic-import",
+		"transform-async-to-generator",
 
 		[
-			"module-resolver",
+			"transform-regenerator",
 			{
-				"alias": {
-					"@": "./src/js/"
-				}
+				"asyncGenerators": true,
+				"generators": true,
+				"async": true
 			}
 		]
 	],
 
 	"env": {
 		"test": {
-			"plugins": ["dynamic-import-node"]
+			"plugins": [
+				"dynamic-import-node",
+				[
+					"module-resolver",
+					{
+						"alias": {
+							"@": "./src/js/"
+						}
+					}
+				]
+			]
 		}
 	}
 }
