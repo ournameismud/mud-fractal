@@ -137,12 +137,11 @@ module.exports = {
   | Class name: .{screen}:{utility}
   |
   */
-
 	screens: {
-		sm: em('576px'),
-		md: em('768px'),
-		lg: em('992px'),
-		xl: em('1200px')
+		sm: em(576),
+		md: em(768),
+		lg: em(992),
+		xl: em(1200)
 	},
 
 	/*
