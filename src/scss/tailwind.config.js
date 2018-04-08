@@ -9,7 +9,7 @@ const {
 	calc,
 	widths,
 	lines
-} = require('./tailwind.utils') 
+} = require('./tailwind.utils')
 
 let colors = {
 	transparent: 'transparent',
@@ -98,6 +98,26 @@ let colors = {
 }
 
 module.exports = {
+	plugins: [
+		require('tailwindcss-visuallyhidden')({
+			variants: ['responsive']
+		}),
+
+		require('tailwindcss-aspect-ratio')({
+			ratios: {
+				square: [1, 1],
+				'16/9': [16, 9],
+				'4/3': [4, 3],
+				'21/9': [21, 9]
+			},
+			variants: ['responsive']
+		}),
+
+		require('tailwindcss-fluid')({
+			textSizes: true,
+			suffix: 'fl'
+		})
+	],
 	/*
   |-----------------------------------------------------------------------------
   | Colors                                  https://tailwindcss.com/docs/colors

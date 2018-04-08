@@ -72,6 +72,9 @@
 		"spon-slide": "^1.0.4"
 	},
 	"devDependencies": {
-		"mulp": "1.0.5"
+		"mulp": "1.0.6",
+		"tailwindcss-aspect-ratio": "^1.0.0",
+		"tailwindcss-fluid": "^0.1.0",
+		"tailwindcss-visuallyhidden": "^1.0.1"
 	}
 }
