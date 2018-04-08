@@ -19,9 +19,9 @@ function purge() {
 
 	const html = path.resolve(
 		process.env.PWD,
-		PATH_CONFIG.src,
-		PATH_CONFIG.fractal.src,
-		'**/**/*.twig'
+		PATH_CONFIG.fractal.build,
+		'components/preview/',
+		'*.html'
 	)
 
 	return new Promise((resolve, reject) => {
