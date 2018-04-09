@@ -1,6 +1,7 @@
 import '@/plugins/logger'
 // import WebFontLoader from '@/plugins/webfontloader'
 import Loader from '@/core/loader'
+
 import Router from '@/core/router'
 import routes from '@/views'
 

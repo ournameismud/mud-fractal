@@ -44,6 +44,7 @@
   <body>
     {{ yield }}
 		{% include 'wrapper/_symbols.twig' %}
+    <script src="/dist/js/vendor.bundle{{ stamp }}.js"></script>
     <script async defer src="/dist/js/app.bundle{{ stamp }}.js"></script>
   </body>
 </html>
