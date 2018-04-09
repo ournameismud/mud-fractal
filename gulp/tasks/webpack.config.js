@@ -1,4 +1,3 @@
-/* global  */
 const webpack = require('webpack')
 const path = require('path')
 // const ProgressBarPlugin = require('progress-bar-webpack-plugin')
@@ -33,8 +32,20 @@ module.exports = env => {
 				env === 'production'
 					? `[name].${filename}.${TASK_CONFIG.stamp}.js`
 					: `[name].${filename}.js`
-			//chunkFilename: '[name].[chunkhash].js'
 		},
+
+		optimization: {
+			splitChunks: {
+				cacheGroups: {
+					commons: {
+						test: /[\\/]node_modules[\\/]/,
+						name: 'vendor',
+						chunks: 'all'
+					}
+				}
+			}
+		},
+
 		resolve: {
 			alias: {
 				'@': context,
@@ -65,15 +76,11 @@ module.exports = env => {
 		},
 
 		plugins: removeEmpty([
-			//	new ProgressBarPlugin(),
 			new webpack.DefinePlugin({
 				'process.env': {
 					NODE_ENV: env === 'production' ? '"production"' : '"development"'
 				}
 			})
-			// new webpack.optimize.CommonsChunkPlugin({
-			// 	name: 'common'
-			// })
 		])
 	}
 
@@ -97,10 +104,7 @@ module.exports = env => {
 	}
 
 	if (env === 'production') {
-		config.plugins.push(
-			new UglifyJsPlugin(),
-			new webpack.NoEmitOnErrorsPlugin()
-		)
+		config.plugins.push(new webpack.NoEmitOnErrorsPlugin())
 	}
 
 	return config
