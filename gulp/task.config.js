@@ -66,7 +66,6 @@ module.exports = {
 
 	js: {
 		entries: {
-			common: ['axios'],
 			preview: ['./app.js'], // for craftcms, babel-polyfill has a hissy fit
 			app: ['./app.js']
 		},

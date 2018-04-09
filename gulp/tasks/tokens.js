@@ -1,7 +1,4 @@
 const gulp = require('gulp')
-const jsonSass = require('json-sass')
-const source = require('vinyl-source-stream')
-const rename = require('gulp-rename')
 const fs = require('fs')
 const path = require('path')
 

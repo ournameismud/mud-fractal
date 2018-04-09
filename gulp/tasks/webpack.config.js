@@ -1,7 +1,7 @@
 /* global  */
 const webpack = require('webpack')
 const path = require('path')
-const ProgressBarPlugin = require('progress-bar-webpack-plugin')
+// const ProgressBarPlugin = require('progress-bar-webpack-plugin')
 const querystring = require('querystring')
 const { removeEmpty } = require('webpack-config-utils')
 // const { pathToUrl } = require('../utils/paths')
@@ -21,6 +21,7 @@ module.exports = env => {
 	const { filename, entries, hot } = TASK_CONFIG.js
 
 	const config = {
+		mode: env,
 		entry: entries,
 		cache: true,
 		context: context,
@@ -31,8 +32,8 @@ module.exports = env => {
 			filename:
 				env === 'production'
 					? `[name].${filename}.${TASK_CONFIG.stamp}.js`
-					: `[name].${filename}.js`,
-			chunkFilename: '[name].[chunkhash].js'
+					: `[name].${filename}.js`
+			//chunkFilename: '[name].[chunkhash].js'
 		},
 		resolve: {
 			alias: {
@@ -44,10 +45,12 @@ module.exports = env => {
 				)
 			}
 		},
+
 		devtool:
 			env === 'production' ? 'source-map' : 'eval-cheap-module-source-map',
+
 		module: {
-			loaders: [
+			rules: [
 				{
 					test: /\.js?$/,
 					loader: 'babel-loader',
@@ -60,16 +63,17 @@ module.exports = env => {
 				}
 			]
 		},
+
 		plugins: removeEmpty([
-			new ProgressBarPlugin(),
+			//	new ProgressBarPlugin(),
 			new webpack.DefinePlugin({
 				'process.env': {
 					NODE_ENV: env === 'production' ? '"production"' : '"development"'
 				}
-			}),
-			new webpack.optimize.CommonsChunkPlugin({
-				name: 'common'
 			})
+			// new webpack.optimize.CommonsChunkPlugin({
+			// 	name: 'common'
+			// })
 		])
 	}
 
