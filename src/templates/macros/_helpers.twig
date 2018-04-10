@@ -5,7 +5,7 @@
 {% macro symbol(name) %}
 	<i class="icon icon--{{ name }}">
 		<svg>
-			<use class="no-barba" xlink:href="#{{ name }}"></use>
+			<use class="no-barba pointer-events-none" xlink:href="#{{ name }}"></use>
 		</svg>
 	</i>
 {% endmacro %}
@@ -29,5 +29,38 @@
 
 
 {% macro image(image) %}
-	<img src="{{ image.url }}" width="{{ image.width }}" height="{{ image.height }}" alt="{{ image.title }}" />
+	{% set base64 = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7' %}
+	{% set ratio = (image.height / image.width) * 100 ~ '%' %}
+	<div class="w-full relative" style="padding-top: {{ ratio }}">
+		<noscript>
+			<img class="absolute pin object-fit w-full h-full" src="{{ image.url }}"  width="{{ image.width }}" height="{{ image.height }}" alt="{{ image.alt }}" />
+		</noscript>
+		<img class="lazyload absolute pin object-fit w-full h-full" src="{{ base64 }}" data-src="{{ image.url }}"   width="{{ image.width }}" height="{{ image.height }}" alt="{{ image.alt }}" />
+	</div>
+{% endmacro %}
+
+
+{% macro srcset(image, className) %}
+	{% set base64 = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7' %}
+	<div class="w-full relative" style="padding-top: {{ image.aspect ~ '%' }}">
+		<noscript>
+			<img class="absolute pin object-fit w-full h-full" src="{{ image.url }}" srcset="{{ image.srcset }}" alt="{{ image.alt }}" />
+		</noscript>
+		<img class="lazyload absolute pin object-fit w-full h-full {{ className }}" src="{{ base64 }}" data-src="{{ image.url }}" data-srcset="{{ image.srcset }}" alt="{{ image.alt }}" />
+	</div>
+{% endmacro %}
+
+{% macro maybeLink(content, link, options) %}
+
+
+	{% set className = options is defined and options.className is defined ? options.className : '' %}
+	{% set key = options is defined and options.key is defined ? options.key : 'url' %}
+
+	{% if link is defined and link[key]|length %}
+		<a href="{{ link[key] }}" {% if className|length %}class="{{ className }}"{% endif %}>
+			{{ content|raw }}
+		</a>
+	{% else %}
+		{{ content }}
+	{% endif %}
 {% endmacro %}
