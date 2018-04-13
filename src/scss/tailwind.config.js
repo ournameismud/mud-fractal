@@ -98,26 +98,38 @@ let colors = {
 }
 
 module.exports = {
-	// plugins: [
-	// 	require('tailwindcss-visuallyhidden')({
-	// 		variants: ['responsive']
-	// 	}),
-
-	// 	require('tailwindcss-aspect-ratio')({
-	// 		ratios: {
-	// 			square: [1, 1],
-	// 			'16/9': [16, 9],
-	// 			'4/3': [4, 3],
-	// 			'21/9': [21, 9]
-	// 		},
-	// 		variants: ['responsive']
-	// 	}),
-
-	// 	require('tailwindcss-fluid')({
-	// 		textSizes: true,
-	// 		suffix: 'fl'
-	// 	})
-	// ],
+	plugins: [
+		// require('tailwindcss-visuallyhidden')({
+		// 	variants: ['responsive']
+		// }),
+		// require('tailwindcss-aspect-ratio')({
+		// 	ratios: {
+		// 		square: [1, 1],
+		// 		'16/9': [16, 9],
+		// 		'4/3': [4, 3],
+		// 		'21/9': [21, 9]
+		// 	},
+		// 	variants: ['responsive']
+		// }),
+		// require('tailwindcss-fluid')({
+		// 	textSizes: true,
+		// 	suffix: 'fl'
+		// }),
+		// function({ addUtilities }) {
+		// 	const newUtilities = {
+		// 		':root': {
+		// 			'--padding': rem(30)
+		// 		},
+		// 		'.test': {
+		// 			'@supports (--css: variables)': {
+		// 				'padding-left': 'var(--padding)',
+		// 				'padding-right': 'var(--padding)'
+		// 			}
+		// 		}
+		// 	}
+		// 	addUtilities(newUtilities)
+		// }
+	],
 	/*
   |-----------------------------------------------------------------------------
   | Colors                                  https://tailwindcss.com/docs/colors
