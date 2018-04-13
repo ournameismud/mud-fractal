@@ -44,7 +44,8 @@
 		"deploy": "netlify deploy",
 		"test": "jest",
 		"test:watch": "jest --watch",
-		"coverage": "jest --coverage"
+		"coverage": "jest --coverage",
+		"gen-cert": "node ./cert/cli.js gen-certs"
 	},
 	"dependencies": {
 		"axios": "^0.17.1",
