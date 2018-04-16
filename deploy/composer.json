@@ -28,7 +28,8 @@
 		"aelvan/imager": "2.0.0",
 		"craftcms/redactor": "1.1.0",
 		"nystudio107/craft-fastcgicachebust": "^1.0",
-		"aelvan/preparse-field": "^1.0"
+		"aelvan/preparse-field": "^1.0",
+		"craftcms/element-api": "^2.5"
 	},
 	"autoload": {
 		"psr-4": {
