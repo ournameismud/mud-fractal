@@ -27,7 +27,8 @@
 		"ournameismud/fractal": "^1.0",
 		"aelvan/imager": "2.0.0",
 		"craftcms/redactor": "1.1.0",
-		"nystudio107/craft-fastcgicachebust": "^1.0"
+		"nystudio107/craft-fastcgicachebust": "^1.0",
+		"aelvan/preparse-field": "^1.0"
 	},
 	"autoload": {
 		"psr-4": {
