@@ -1,13 +1,11 @@
-# Mud-Fractal
+# Mud-Fractal Workflow
 [Overview | Mud-Fractal](http://pensive-williams-a0c767.netlify.com/)
-
-## Workflow
 
 Clone/Download [GitHub - ournameismud/mud-fractal: Fractal/Mudstone Frontend Boilerplate](https://github.com/ournameismud/mud-fractal)  and install all the dependencies.
 
 `yarn install`
 
-### Tailwind config
+## Tailwind config
 The official documentation is top notch so we don’t need to explain much here.
 
 [Configuration - Tailwind CSS](https://tailwindcss.com/docs/configuration)
@@ -29,24 +27,6 @@ Or
 }
 ```
 
-### Immutable css
-
-  `.text-red`  is never going to change… ever... it will always make the element it’s applied to red*
-
-When debugging, editing, changing components, you have absolute certainty the impact of your change.
-
-If I removed the  `text-red` class from the button, I can be certain that I have not changed any other component… whereas if I removed `.text-red` from the second version, I can’t be sure how many things I’ve changed.
-
-BEM isn’t going anywhere… It will happily play alongside `functional` css, there will just be much less of it, no more: 
-
-```
-.card__profile--small-with-little-extra-nudge {
-	.padding-left: 2px // bloody designers
-}
-```
-
-
-*it’s css so… you know
 
 ## Fractal
 Start the fractal server
@@ -58,11 +38,194 @@ Make a component, object, global or page template,
 Absolute minimum is a twig file
 `/src/templates/04-components/demo/demo.twig`
 
-Add some css
+```
+<div class="c-demo">
+	<h1>{{ heading }}</h1>
+	{{ body }}
+	<img src="{{ image.url }}" width="{{ image.width }}" height="{{ image.height }}" alt="{{ image.alt }}" />
+	<a href="{{ link.url }}">{{ link.text }}</a>
+</div>
+```
+
+Add some scss
 
 `/src/templates/04-components/demo/_demo.scss`
 
-The main style is setup to fetch files from the templates directory.
+Add a config file
+
+`/src/templates/04-components/demo/demo.config.js`
+
+```
+module.exports = {
+	status: 'test', // required for regression testing
+
+	context: {
+		heading: 'I am the heading, hear me roar',
+		body: '<p>bla bla bla</p>'
+		link: {
+			url: '#0',
+			text: 'Read more'
+		},
+		image: {
+			url: 'test.jpg',
+			width: '300',
+			height: '200',
+			alt: 'A picture of a tree, with an owl'
+		}
+	}
+}
+```
 
 
+Almost every component/object that is created in fractal will have each of these three files.
 
+There should be no hardcoded content in the twig files.
+
+When you want to assemble a page template, import all of the required components  into the file.  
+
+`/src/templates/05-pages/example/example.twig`
+
+`/src/templates/05-pages/example/example.config.js`
+
+
+```
+{% import '@helpers' as h %}
+
+{% extends craft.app.config.general.custom.wrapper ~ '_layout.twig' %}
+
+{% block critical_css %}
+	<!-- build:critical-->
+	<!-- endbuild -->
+{% endblock %}
+
+{% block pageTheme %}float-header{% endblock %}
+
+{% block content %}
+<div class="barba-container">
+	{% include '@demo' with { demo: demo } %}
+	
+	<div class="wrapper">	
+		{% include '@panel' with { panel: panel } %}
+	</div>
+</div>
+
+{% endblock %}
+```
+
+
+You will need to copy the config data from the component into the page config.
+
+```
+
+module.exports = {
+	status: 'test', // required for regression testing
+
+	context: {
+		demo: {
+			heading: 'I am the heading, hear me roar',
+			body: '<p>bla bla bla</p>'
+			link: {
+				url: '#0',
+				text: 'Read more'
+			},
+			image: {
+				url: 'test.jpg',
+				width: '300',
+				height: '200',
+				alt: 'A picture of a tree, with an owl'
+			}
+	}
+}
+```
+
+The page config will be used by the backend team
+
+## Craft CMS
+
+To convert the fractal components into craft components run `npm run build:components` 
+
+This will move all of the twig files to `deploy/craft/templates/_partials` and create a json file that is imported into craft via the  [Fractal plugin port for Craft 3](https://github.com/ournameismud/fractal)
+
+The backend team shouldn’t have to touch any of the generated html.  Any changes that are made must be made in the src folder.  Running `npm run cms` will update and live reload any changes made in the src directory.
+
+Any twig files within the normal craft setup will only be responsible for providing the fractal files with data.
+
+Example: 
+
+```
+{% set data = {
+		hero: homeHero,
+		slides: homeSlides,
+		dropDown: {
+		 	label: homeDropdownLabel,
+		 	items: homeDropdown
+		},
+		cards: homeCard
+	}
+%}
+
+{% include '@home' with data %}
+```
+
+## Production
+#### Critical CSS
+
+Each page template should have the following block:
+
+```
+{% block critical_css %}
+	<!-- build:critical-->
+	<!-- endbuild -->
+{% endblock %}
+```
+
+Before we can critically inline the css we should first build the fractal library
+`npm run build:fractal`
+
+This will build the fractal library to `deploy/library`
+
+Now we need to setup the config to import the right files
+
+Example: `path.config.cms.json`
+
+```
+"critical": {
+		"urlBase": "./deploy/library/",
+		"paths": [
+			{
+				"url": "./deploy/library/components/preview/home.html",
+				"source": "src/templates/05-pages/home/home.twig"
+			}
+		]
+	}
+```
+
+#### Purge CSS
+Before pushing to production we need to remove any unused css.
+
+Any css that is added via javascript will need to be added to the purge whitelist.
+
+`gulp/task.config.js`
+
+```
+purge: {
+		whitelistPatterns: [/plyr/, /is-/, /has-/, /no-/, /icon--/]
+	},
+```
+
+See [GitHub - FullHuman/purgecss: Remove unused css](https://github.com/FullHuman/purgecss) for more information
+
+But first, before we remove any unused css we should take a snapshot of each component so we can test to make sure we don’t remove any ‘used’ css!
+
+Each component should have a config file (see fractal notes above) with a status of ‘test’
+
+To take a snapshot run `npm run reference`
+This will build all of the components, then take a snap shot of each component at various breakpoints
+
+Now run `npm run diff` 
+
+This will rebuild again, but this it will remove any unused css. It will then take another snapshot of each component and then compare against the previous snapshots.
+
+Once complete the results will be displayed in the browser.
+
+If everything has passed… We’re good to go live… Now you should run `npm run build:production`
