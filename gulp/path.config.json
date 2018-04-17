@@ -34,10 +34,6 @@
 				"template": "home.html",
 				"output": "./",
 				"name": "index"
-			},
-			{
-				"template": "thankyou.html",
-				"output": "./"
 			}
 		]
 	},
@@ -51,11 +47,6 @@
 		"src": "js",
 		"dest": "dist/js",
 		"libs": ["./node_modules/picturefill/dist/picturefill.min.js"]
-	},
-
-	"serviceWorker": {
-		"src": "js",
-		"dest": "./"
 	},
 
 	"inline": {

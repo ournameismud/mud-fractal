@@ -35,3 +35,23 @@ if ($container) {
 } else {
 	app.mount()
 }
+
+/*
+	Service worker chuff... 
+	
+	(function() {
+		if ('serviceWorker' in navigator) {
+			window.addEventListener('load', () => {
+				navigator.serviceWorker
+					.register('/sw.js')
+					.then(registration => {
+						log('SW registered: ', registration)
+					})
+					.catch(registrationError => {
+						console.warn('SW registration failed: ', registrationError)
+					})
+			})
+		}
+	})()
+
+*/
