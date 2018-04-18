@@ -1,5 +1,4 @@
 const path = require('path')
-const $pkg = require(path.resolve(process.env.PWD, 'package.json'))
 
 module.exports = {
 	title: 'Mud-Fractal',
@@ -78,12 +77,6 @@ module.exports = {
 		extensions: ['js', 'json'],
 		extractSharedJs: false,
 		filename: 'bundle' // no extension
-	},
-
-	serviceWorker: {
-		watch: true,
-		task: 'code',
-		extensions: ['js']
 	},
 
 	json: {

@@ -24,13 +24,13 @@ Create a production build
 
 Create an optimised build with critical/purge css
 
-`yarn run production`
+`yarn run build:production`
 
 Build fractal components
 
 `yarn run build:components`
 
-Create a static build, uses the publish config
+Create a static build (see publish settings in gulp/path.config.json)
 
 `yarn run build:static`
 

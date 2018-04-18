@@ -12,17 +12,7 @@
 	"plugins": [
 		"transform-object-rest-spread",
 		"transform-class-properties",
-		"syntax-dynamic-import",
-		"transform-async-to-generator",
-
-		[
-			"transform-regenerator",
-			{
-				"asyncGenerators": true,
-				"generators": true,
-				"async": true
-			}
-		]
+		"syntax-dynamic-import"
 	],
 
 	"env": {

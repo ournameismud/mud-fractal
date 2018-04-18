@@ -1,10 +1,9 @@
 const webpack = require('webpack')
 const path = require('path')
-// const ProgressBarPlugin = require('progress-bar-webpack-plugin')
 const querystring = require('querystring')
 const { removeEmpty } = require('webpack-config-utils')
-// const { pathToUrl } = require('../utils/paths')
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
+const ProgressBarPlugin = require('progress-bar-webpack-plugin')
+const { InjectManifest } = require('workbox-webpack-plugin')
 
 module.exports = env => {
 	const context = path.resolve(
@@ -17,6 +16,7 @@ module.exports = env => {
 		PATH_CONFIG.public,
 		PATH_CONFIG.js.dest
 	)
+
 	const { filename, entries, hot } = TASK_CONFIG.js
 
 	const config = {
@@ -76,9 +76,34 @@ module.exports = env => {
 		},
 
 		plugins: removeEmpty([
+			new ProgressBarPlugin(),
+
 			new webpack.DefinePlugin({
 				'process.env': {
 					NODE_ENV: env === 'production' ? '"production"' : '"development"'
+				}
+			}),
+
+			new InjectManifest({
+				globDirectory: path.resolve(
+					process.env.PWD,
+					PATH_CONFIG.public,
+					'dist'
+				),
+				globPatterns: ['**/*.{html,js,css,svg,png}'],
+				globIgnores: ['theme.*.css'],
+				swDest: path.resolve(process.env.PWD, PATH_CONFIG.public, 'sw.js'),
+				swSrc: path.resolve(
+					process.env.PWD,
+					PATH_CONFIG.src,
+					PATH_CONFIG.js.src,
+					'service-worker.js'
+				),
+				modifyUrlPrefix: {
+					// Remove a '/dist' prefix from the URLs:
+					'css/': '/dist/css/',
+					'js/': '/dist/js/',
+					'images/': '/dist/images/'
 				}
 			})
 		])
