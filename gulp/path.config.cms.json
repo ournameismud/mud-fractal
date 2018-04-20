@@ -9,6 +9,11 @@
 		"fileDest": "../deploy/templates/includes"
 	},
 
+	"inline": {
+		"output": "_layout.twig",
+		"path": "./deploy/templates/wrapper/"
+	},
+
 	"tags": {
 		"src": "./deploy/templates/wrapper/_layout.twig",
 		"dest": "./deploy/templates/wrapper/",

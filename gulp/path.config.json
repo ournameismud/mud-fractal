@@ -51,11 +51,11 @@
 
 	"inline": {
 		"src": [
-			"./node_modules/fg-loadjs/loadJS.js",
+			"./node_modules/loadjs/dist/loadjs.min.js",
 			"./node_modules/fg-loadcss/src/loadCSS.js",
 			"./node_modules/fg-loadcss/src/cssrelpreload.js"
 		],
-		"output": "_layout.twig",
+		"output": "_base.twig",
 		"path": "./src/templates/wrapper/"
 	},
 

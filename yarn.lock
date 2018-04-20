@@ -7473,6 +7473,10 @@ loader-utils@^1.0.2, loader-utils@^1.1.0:
     emojis-list "^2.0.0"
     json5 "^0.5.0"
 
+loadjs@^3.5.4:
+  version "3.5.4"
+  resolved "https://registry.yarnpkg.com/loadjs/-/loadjs-3.5.4.tgz#ef0f4eb5a6ac2b86c7597a3d4de97b83816e36b8"
+
 local-links@^1.4.1:
   version "1.4.1"
   resolved "https://registry.yarnpkg.com/local-links/-/local-links-1.4.1.tgz#bfc94f3d09cc444f0d14408f80f9c59292c57e35"

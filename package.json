@@ -1,7 +1,7 @@
 {
 	"name": "mud-fractal",
 	"description": "Gulp tasks and Fractal",
-	"version": "1.0.1",
+	"version": "1.0.2",
 	"main": "gulpfile.babel.js",
 	"author": "Dave Stockley",
 	"license": "MIT",
@@ -17,23 +17,15 @@
 	},
 	"browser": true,
 	"jest": {
-		"setupFiles": [
-			"<rootDir>/setup-jest.js"
-		],
+		"setupFiles": ["<rootDir>/setup-jest.js"],
 		"mapCoverage": true,
-		"collectCoverageFrom": [
-			"src/**/*.{js,jsx,ts,tsx}"
-		],
-		"testMatch": [
-			"**/?(*.)(spec|test).js?(x)"
-		]
+		"collectCoverageFrom": ["src/**/*.{js,jsx,ts,tsx}"],
+		"testMatch": ["**/?(*.)(spec|test).js?(x)"]
 	},
 	"quokka": {
 		"babel": true,
 		"installPackageCommand": "yarn add {packageName}",
-		"plugins": [
-			"jsdom-quokka-plugin"
-		]
+		"plugins": ["jsdom-quokka-plugin"]
 	},
 	"homepage": "https://github.com/ournameismud/mud-fractal#readme",
 	"scripts": {
@@ -60,9 +52,9 @@
 		"debug": "^3.1.0",
 		"dom-delegate": "^2.0.3",
 		"fg-loadcss": "^2.0.1",
-		"fg-loadjs": "^1.0.0",
 		"fontfaceobserver": "^2.0.13",
 		"lazysizes": "^4.0.2",
+		"loadjs": "^3.5.4",
 		"local-links": "^1.4.1",
 		"mitt": "^1.1.3",
 		"path-to-regexp": "^2.1.0",
@@ -72,8 +64,7 @@
 		"spon-draw": "0.1.2",
 		"spon-expander": "^0.1.0",
 		"spon-resize": "^0.1.1",
-		"sponlax": "2.0.1",
-		"tailwindcss-writing-mode": "^1.0.0"
+		"sponlax": "2.0.2"
 	},
 	"devDependencies": {
 		"mulp": "2.0.0",
@@ -81,6 +72,7 @@
 		"tailwindcss-aspect-ratio": "^1.0.0",
 		"tailwindcss-fluid": "^0.1.0",
 		"tailwindcss-visuallyhidden": "^1.0.1",
+		"tailwindcss-writing-mode": "^1.0.0",
 		"workbox-webpack-plugin": "^3.1.0"
 	}
 }
