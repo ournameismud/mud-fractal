@@ -14,6 +14,8 @@ gulp.task('critical', critialCss)
 
 function critialCss() {
     const { paths, urlBase } = PATH_CONFIG.critical
+		
+		require('events').EventEmitter.defaultMaxListeners = 15
     util.log('starting critical css')
 
     return Promise.all(
