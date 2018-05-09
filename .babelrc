@@ -5,19 +5,31 @@
 			{
 				"targets": {
 					"browsers": ["last 2 versions", "safari >= 7"]
-				}
+				},
+				"modules": false
 			}
 		]
 	],
 	"plugins": [
 		"transform-object-rest-spread",
 		"transform-class-properties",
-		"syntax-dynamic-import"
+		"syntax-dynamic-import",
+		"transform-async-to-generator",
+
+		[
+			"transform-regenerator",
+			{
+				"asyncGenerators": true,
+				"generators": true,
+				"async": true
+			}
+		]
 	],
 
 	"env": {
 		"test": {
 			"plugins": [
+				"transform-es2015-modules-commonjs",
 				"dynamic-import-node",
 				[
 					"module-resolver",
