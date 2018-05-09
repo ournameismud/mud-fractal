@@ -1,0 +1,8 @@
+{
+  "@button": "_partials/02-objects/button/button.twig",
+  "@footer": "_partials/03-global/footer/footer.twig",
+  "@header": "_partials/03-global/header/header.twig",
+  "@card": "_partials/04-components/card/card.twig",
+  "@example": "_partials/05-pages/example/example.twig",
+  "@helpers": "_partials/macros/helpers.twig"
+}

@@ -9,6 +9,9 @@ const md = require('markdown-it')({
 	.use(mdAbbr)
 	.use(mdFootnote)
 
+const fs = require('fs')
+const path = require('path')
+
 function _titleCase(str) {
 	return str
 		.toLowerCase()
@@ -23,6 +26,12 @@ module.exports = {
 	templateEngine,
 	docsEngine
 }
+
+const dir = path.resolve(
+	process.env.PWD,
+	PATH_CONFIG.src,
+	PATH_CONFIG.fractal.src
+)
 
 function templateEngine(stamp) {
 	return {
@@ -83,6 +92,10 @@ function templateEngine(stamp) {
 				return {
 					stamp
 				}
+			},
+
+			source(src) {
+				return fs.readFileSync(dir + src, 'utf8')
 			},
 
 			ratio(arg) {

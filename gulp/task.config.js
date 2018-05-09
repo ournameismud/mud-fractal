@@ -119,6 +119,12 @@ module.exports = {
 		extensions: ['svg']
 	},
 
+	inlineSvgs: {
+		task: 'asset',
+		watch: true,
+		extensions: ['svg']
+	},
+
 	staticAssets: {
 		task: 'asset',
 		watch: true,

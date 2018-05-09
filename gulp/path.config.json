@@ -102,6 +102,11 @@
 		"dest": "dist/images"
 	},
 
+	"inlineSvgs": {
+		"src": "images/svg-inline",
+		"dest": "./src/templates/svgs"
+	},
+
 	"symbols": {
 		"src": "images/svg-symbols",
 		"dest": "dist/images",

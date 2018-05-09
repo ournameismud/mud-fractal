@@ -1,6 +1,6 @@
 const { scss } = require('./scss')
 const { images } = require('./images')
-const { svgs } = require('./svgs')
+const { svgs, inlineSvgs } = require('./svgs')
 const { symbols } = require('./symbols')
 const { favicons, json, cssFonts, fonts, staticAssets } = require('./assets')
 const { html } = require('./html/index')
@@ -10,6 +10,7 @@ module.exports = {
 	scss,
 	images,
 	svgs,
+	inlineSvgs,
 	symbols,
 	favicons,
 	json,

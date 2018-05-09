@@ -5,13 +5,14 @@
 		"proxy": "http://local.mudfractal.com"
 	},
 
-	"symbols": {
-		"fileDest": "../deploy/templates/includes"
-	},
-
 	"inline": {
 		"output": "_layout.twig",
 		"path": "./deploy/templates/wrapper/"
+	},
+
+	"inlineSvgs": {
+		"src": "images/svg-inline",
+		"dest": "./deploy/templates/svgs"
 	},
 
 	"tags": {

@@ -1,7 +1,7 @@
 {
 	"name": "mud-fractal",
 	"description": "Gulp tasks and Fractal",
-	"version": "1.0.2",
+	"version": "1.0.3",
 	"main": "gulpfile.babel.js",
 	"author": "Dave Stockley",
 	"license": "MIT",

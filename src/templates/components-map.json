@@ -1,0 +1,38 @@
+{
+  "@button": {
+    "src": "/Users/magicspon/websites/_mud/mud-fractal/src/templates/02-objects/button/button.twig",
+    "dest": "_partials/02-objects/button",
+    "handle": "button",
+    "target": "_partials/02-objects/button/button.twig"
+  },
+  "@footer": {
+    "src": "/Users/magicspon/websites/_mud/mud-fractal/src/templates/03-global/footer/footer.twig",
+    "dest": "_partials/03-global/footer",
+    "handle": "footer",
+    "target": "_partials/03-global/footer/footer.twig"
+  },
+  "@header": {
+    "src": "/Users/magicspon/websites/_mud/mud-fractal/src/templates/03-global/header/header.twig",
+    "dest": "_partials/03-global/header",
+    "handle": "header",
+    "target": "_partials/03-global/header/header.twig"
+  },
+  "@card": {
+    "src": "/Users/magicspon/websites/_mud/mud-fractal/src/templates/04-components/card/card.twig",
+    "dest": "_partials/04-components/card",
+    "handle": "card",
+    "target": "_partials/04-components/card/card.twig"
+  },
+  "@example": {
+    "src": "/Users/magicspon/websites/_mud/mud-fractal/src/templates/05-pages/example/example.twig",
+    "dest": "_partials/05-pages/example",
+    "handle": "example",
+    "target": "_partials/05-pages/example/example.twig"
+  },
+  "@helpers": {
+    "src": "/Users/magicspon/websites/_mud/mud-fractal/src/templates/macros/_helpers.twig",
+    "dest": "_partials/macros",
+    "handle": "helpers",
+    "target": "_partials/macros/helpers.twig"
+  }
+}

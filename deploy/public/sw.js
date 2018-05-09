@@ -1,1 +1,74 @@
-"use strict";var CACHE_NAME="mudstone-sw",urlsToCache=["/","/app/themes/wbsl/dist/css/style.1519349944037.css","/app/themes/wbsl/dist/js/bundle.1519349944037.js"];function addToCache(e,n){if(n.ok){var t=n.clone();return caches.open(CACHE_NAME).then(function(n){n.put(e,t)}),n}}function fetchFromCache(e){return caches.match(e.request).then(function(e){if(!e)throw Error("${event.request.url} not found in cache");return e})}function offlineResponse(){return new Response("Sorry, the application is offline.")}function respondFromNetworkThenCache(e){var n=e.request;e.respondWith(fetch(n).then(function(e){return addToCache(n,e)}).catch(function(){return fetchFromCache(e)}).catch(function(){return offlineResponse()}))}function respondFromCacheThenNetwork(e){var n=e.request;e.respondWith(fetchFromCache(e).catch(function(){return fetch(n)}).then(function(e){return addToCache(n,e)}).catch(function(){return offlineResponse()}))}function shouldHandleFetch(e){return"get"===e.request.method.toLowerCase()&&-1===e.request.url.indexOf("/icons/")&&-1===e.request.url.indexOf("/browser-sync/")&&-1===e.request.url.indexOf("google-analytics.com")}self.addEventListener("install",function(e){e.waitUntil(caches.open(CACHE_NAME).then(function(e){return e.addAll(urlsToCache)}))}),self.addEventListener("fetch",function(e){shouldHandleFetch(e)&&(e.request.headers.get("Accept").indexOf("text/html")>=0?respondFromNetworkThenCache(e):respondFromCacheThenNetwork(e))}),self.addEventListener("activate",function(e){var n=[CACHE_NAME];e.waitUntil(caches.keys().then(function(e){return Promise.all(e.map(function(e){if(-1===n.indexOf(e))return caches.delete(e)}))}))});
+importScripts("/dist/js/precache-manifest.b6c2a6f3b87a4f4945a675566ff5dba5.js", "https://storage.googleapis.com/workbox-cdn/releases/3.1.0/workbox-sw.js");
+
+workbox.skipWaiting()
+workbox.clientsClaim()
+
+/*
+workbox.routing.registerRoute(
+	new RegExp('https://local.ournameismud.co.uk'),
+	workbox.strategies.staleWhileRevalidate()
+)
+
+workbox.routing.registerRoute(
+	new RegExp('https://use.typekit.net/(.*)'),
+	workbox.strategies.cacheFirst({
+		cacheName: 'typekit',
+		plugins: [
+			new workbox.expiration.Plugin({
+				maxEntries: 30,
+				maxAgeSeconds: 365 * 1000 * 24 * 60 * 60 // 1000 years
+			})
+		]
+	})
+)
+
+workbox.routing.registerRoute(
+	new RegExp('https://mud-assets.imgix.net/(.*)'),
+	workbox.strategies.cacheFirst({
+		cacheName: 'typekit',
+		plugins: [
+			new workbox.expiration.Plugin({
+				maxEntries: 30,
+				maxAgeSeconds: 365 * 1000 * 24 * 60 * 60 // 1000 years
+			})
+		]
+	})
+)
+*/
+
+
+workbox.routing.registerRoute(
+	/\.(?:png|gif|jpg|jpeg|svg|webp)$/,
+	workbox.strategies.cacheFirst({
+		cacheName: 'images',
+		plugins: [
+			new workbox.expiration.Plugin({
+				maxEntries: 60,
+				maxAgeSeconds: 365 * 1000 * 24 * 60 * 60 // 1000 years
+			})
+		]
+	})
+)
+
+let networkFirstHandler = workbox.strategies.networkFirst({
+	cacheName: 'default',
+	plugins: [
+		new workbox.expiration.Plugin({
+			maxEntries: 20
+		}),
+		new workbox.cacheableResponse.Plugin({
+			statuses: [200]
+		})
+	]
+})
+
+let matcher = ({ event }) => event.request.mode === 'navigate'
+let handler = args =>
+	networkFirstHandler
+		.handle(args)
+		.then(response => (!response ? caches.match('/offline.html') : response))
+
+workbox.routing.registerRoute(matcher, handler)
+
+workbox.precaching.precacheAndRoute(self.__precacheManifest)
+
