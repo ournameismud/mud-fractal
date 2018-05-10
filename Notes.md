@@ -3,6 +3,19 @@
 
 Clone/Download [GitHub - ournameismud/mud-fractal: Fractal/Mudstone Frontend Boilerplate](https://github.com/ournameismud/mud-fractal)  and install all the dependencies.
 
+## TLDR
+
+When going live... 
+`npm run reference` 
+`npm run diff` 
+
+If everything is good
+
+`npm run build:production`
+
+If you've made some changes to the markup, you will need to run `npm run build:fractal` before running `npm run build:production` as the purge/critical css is based on the fractal build
+
+
 `yarn install`
 
 ## Tailwind config
