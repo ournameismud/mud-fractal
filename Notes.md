@@ -211,7 +211,7 @@ Example: `path.config.cms.json`
 		"paths": [
 			{
 				"url": "./deploy/library/components/preview/home.html",
-				"source": "src/templates/05-pages/home/home.twig"
+				"source": "deploy/templates/_partials/05-pages/home/home.twig"
 			}
 		]
 	}
