@@ -30,6 +30,7 @@
 	"homepage": "https://github.com/ournameismud/mud-fractal#readme",
 	"scripts": {
 		"start": "gulp",
+		"precms": "npm run build:components",
 		"cms": "gulp --config cms",
 		"build": "gulp build --env production --config cms",
 		"build:production": "gulp production --env production --config cms",
