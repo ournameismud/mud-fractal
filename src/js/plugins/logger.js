@@ -1,6 +1,6 @@
 import debug from 'debug'
 
-window.log = debug('app:log')
+window.log = global.log = debug('app:log')
 
 process.env.NODE_ENV === 'development'
 	? debug.enable('app:log')

@@ -1,85 +1,84 @@
-import Events from './events'
+;({
+	plugins: 'jsdom-quokka-plugin',
+	jsdom: {
+		html: `<div id="test">
+            <b data-behaviour="ModuleA"></b>
+            <div id="wrapper">
+							<b class="fake" data-behaviour="ModuleB"></b>
+						</div>
+					</div>`
+	}
+})
 
-export default class Loader {
-	constructor(context = document) {
-		this.context = context
-		this.$wrapper = '.barba-container'
-		this.behaviours = []
-		Events.on('INIT:BEHAVIOURS', this.mount)
-		Events.on('DESTROY:BEHAVIOURS', this.unmount)
+import * as R from 'ramda'
+// import mitt from 'mitt'
+
+const log = (...message) => console.log(...message) // eslint-disable-line
+
+const loader = (plugins, path = '../behaviours/') => {
+	const state = {
+		stack: [],
+		scope: []
 	}
 
-	fetch = (context = document) => {
-		return Promise.all(
-			[...context.querySelectorAll('*[data-behaviour]')]
-				.map(node => {
-					const behaviours = node
-						.getAttribute('data-behaviour')
-						.replace(/^\s+|\s+$|\s+(?=\s)/g, '')
-						.split(' ')
-					return behaviours.map(behaviourName => ({
-						behaviourName,
-						node: node,
-						willDestroy: !!node.closest(this.$wrapper)
-					}))
-				})
-				.reduce((acc, curr) => [...acc, ...curr], [])
-				.map(({ node, behaviourName, willDestroy }) => {
-					return new Promise((resolve, reject) => {
-						import(`@/behaviours/${behaviourName}`)
-							.then(resp => {
-								return {
-									behaviour: resp.default,
-									node,
-									willDestroy
-								}
-							})
-							.then(resolve)
-							.catch(err => {
-								console.error(err)
-								reject()
-							})
+	const PATH = path
+
+	const gatherBehaviours = R.compose(
+		R.map(({ node, behaviour }) => {
+			return new Promise(resolve => {
+				import(`${PATH}${behaviour}`).then(resp => {
+					resolve({
+						id: behaviour,
+						node,
+						behaviour: resp.default
 					})
 				})
-		).then(resp => {
-			this.behaviours = resp
-			return this.behaviours
-		})
-	}
-
-	/**
-	 * Initalize all the behaviours
-	 *
-	 * @function  mount
-	 * @return this
-	 */
-	mount = (context = document) => {
-		this.fetch(context).then(resp => {
-			// debugger // eslint-disable-line
-			this.behaviours = resp.map(({ node, behaviour: fn, willDestroy }) => {
-				const behaviour = new fn(node)
-				behaviour.initialize()
-				return { behaviour, willDestroy }
 			})
+		}),
+		R.flatten,
+		R.map(node => {
+			return R.compose(
+				R.map(behaviour => ({
+					behaviour, // replace with
+					node
+				})),
+				R.split(' '),
+				R.replace(/^\s+|\s+$|\s+(?=\s)/g, '')
+			)(node.getAttribute('data-behaviour'))
+		})
+	)
+
+	const hydrate = context => {
+		return Promise.all(
+			gatherBehaviours([...context.querySelectorAll('*[data-behaviour]')])
+		).then(data => {
+			const stack = R.compose(
+				R.map(({ behaviour, node, id }) => {
+					const fn = behaviour(node, plugins)
+					const destroy = node.classList.contains('fake')
+					return { fn, destroy, id }
+				})
+			)(data)
+
+			const scope = R.compose(
+				R.filter(({ fn }) => typeof fn === 'function'),
+				R.filter(item => item.destroy)
+			)(stack)
+
+			Object.assign(state, { stack, scope })
+
+			return state
 		})
 	}
 
-	/**
-	 * Destroy all the the scoped behaviours and empty the array
-	 *
-	 * @function  unmount
-	 * @return {Loader}
-	 */
-	unmount = () => {
-		// loop over each behaviour and destroy, and empty the array
-		this.scoped = this.behaviours
-			.filter(({ willDestroy }) => willDestroy)
-			.reduce((acc, { behaviour }) => {
-				// base destroy, removes event handlers, unmount() called in base
-				behaviour.destroy()
-				return acc
-			}, [])
+	const unmount = () => {
+		R.compose(R.map(item => item()))(state.scope)
+	}
 
-		return this
+	return {
+		hydrate,
+		unmount
 	}
 }
+
+export default loader

@@ -61,11 +61,7 @@
 		"path-to-regexp": "^2.1.0",
 		"picturefill": "^3.0.2",
 		"raf-throttle": "^2.0.3",
-		"ramda": "^0.25.0",
-		"spon-draw": "0.1.2",
-		"spon-expander": "^0.1.0",
-		"spon-resize": "^0.1.1",
-		"sponlax": "2.0.2"
+		"ramda": "^0.25.0"
 	},
 	"devDependencies": {
 		"mulp": "2.0.0",
