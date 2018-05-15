@@ -1,6 +1,6 @@
 import createRefs from '@/core/refs'
 
-describe('loader function', () => {
+describe('create refs function', () => {
 	document.body.innerHTML = `<div id="test">
                               <b data-element="mod1" data-prop-1="a" data-prop2="b"></b>
                               <b data-element="mod2" data-prop-1="a" data-prop2="b"></b>
