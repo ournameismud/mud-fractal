@@ -4393,10 +4393,6 @@ fg-loadcss@^2.0.1:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/fg-loadcss/-/fg-loadcss-2.0.1.tgz#71c00e470a57f7739d0736124dfc8791995e8af1"
 
-fg-loadjs@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/fg-loadjs/-/fg-loadjs-1.0.0.tgz#c096af1675b9ed0d3b588f69ef186c6d81dbfb01"
-
 figures@^1.3.5:
   version "1.7.0"
   resolved "https://registry.yarnpkg.com/figures/-/figures-1.7.0.tgz#cbe1e3affcf1cd44b80cadfed28dc793a9701d2e"
@@ -8347,10 +8343,6 @@ ms@2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/ms/-/ms-2.0.0.tgz#5608aeadfc00be6c2901df5f9861788de0d597c8"
 
-mud-from-to@^1.0.4:
-  version "1.0.4"
-  resolved "https://registry.yarnpkg.com/mud-from-to/-/mud-from-to-1.0.4.tgz#e75075a850c0b79f608a4015b8fe94ad10b94eb5"
-
 mulp@2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/mulp/-/mulp-2.0.0.tgz#8bd926ab6ab2493c379e411bcbc5f1d3e59f6af6"
@@ -11664,35 +11656,11 @@ split@0.3:
   dependencies:
     through "2"
 
-spon-draw@0.1.2:
-  version "0.1.2"
-  resolved "https://registry.yarnpkg.com/spon-draw/-/spon-draw-0.1.2.tgz#1178c0b16811d081bd4af4fd042c57851e908b95"
-  dependencies:
-    mitt "^1.1.3"
-
-spon-expander@^0.1.0:
-  version "0.1.0"
-  resolved "https://registry.yarnpkg.com/spon-expander/-/spon-expander-0.1.0.tgz#70c30c758ce92b4e9a82a7844bc49f526e9a9f4e"
-  dependencies:
-    mitt "^1.1.3"
-    mud-from-to "^1.0.4"
-
-spon-resize@^0.1.1:
-  version "0.1.2"
-  resolved "https://registry.yarnpkg.com/spon-resize/-/spon-resize-0.1.2.tgz#14a299f56958b408f5f33056f6ad2057a64b4d40"
-  dependencies:
-    mitt "^1.1.3"
-    raf-throttle "^2.0.3"
-
 spon-slide@^1.0.7:
   version "1.0.7"
   resolved "https://registry.yarnpkg.com/spon-slide/-/spon-slide-1.0.7.tgz#f051d52516fcfcb2521ef678774827f040ce1b2b"
   dependencies:
     mitt "^1.1.3"
-
-sponlax@2.0.1:
-  version "2.0.1"
-  resolved "https://registry.yarnpkg.com/sponlax/-/sponlax-2.0.1.tgz#34154556d1d74168c8c9c2edca519475eb504f9e"
 
 sprintf-js@~1.0.2:
   version "1.0.3"
