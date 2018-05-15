@@ -22,6 +22,10 @@ describe('loader function', () => {
 		expect(ref).toBeInstanceOf(Object)
 	})
 
+	it('should return the correct number of items [4]', () => {
+		expect(ref.length).toBe(4)
+	})
+
 	it('should return an object with each key containing the dom node and any data attributes', () => {
 		const target = {
 			mod1: {
@@ -36,7 +40,6 @@ describe('loader function', () => {
 		const firstKey = Object.keys(result)[0] // ?
 
 		expect(firstKey).toEqual('mod1')
-		expect(ref.length).toBe(4)
 		expect(result).toMatchObject(target)
 	})
 })
