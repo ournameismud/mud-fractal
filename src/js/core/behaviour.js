@@ -20,7 +20,6 @@ export default class Behaviour {
 	init = () => {
 		this.$eventBus.on('routes:enter', this.routes.enter)
 		this.$eventBus.on('routes:exit', this.routes.exit)
-
 		return this
 	}
 
@@ -28,7 +27,13 @@ export default class Behaviour {
 		this.$refs = { ...this.$refs, ...refs(this.$el) }
 	}
 
+	mount = () => {}
+
+	unmount = () => {}
+
 	destroy = () => {
+		this.unmount()
+
 		if (this.$events.destroy) {
 			this.$events.destroy()
 		}

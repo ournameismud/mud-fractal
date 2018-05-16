@@ -23,13 +23,13 @@ export default class Example extends Behaviour {
 		exit: () => {}
 	}
 
-	screens = {
-		'(min-width: 800px)': () => {},
-		'(min-width: 1200px)': () => {}
-	}
+	// screens = {
+	// 	'(min-width: 800px)': () => {},
+	// 	'(min-width: 1200px)': () => {}
+	// }
 
-	viewport = {
-		enter: () => {},
-		exit: () => {}
-	}
+	// viewport = {
+	// 	enter: () => {},
+	// 	exit: () => {}
+	// }
 }
