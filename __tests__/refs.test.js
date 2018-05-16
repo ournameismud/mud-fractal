@@ -23,7 +23,7 @@ describe('create refs function', () => {
 	})
 
 	it('should return the correct number of items [4]', () => {
-		expect(ref.length).toBe(4)
+		expect(Object.keys(ref).length).toBe(4)
 	})
 
 	it('should return an object with each key containing the dom node and any data attributes', () => {
@@ -35,11 +35,8 @@ describe('create refs function', () => {
 			}
 		}
 
-		const result = ref[0] // ?
+		const result = ref
 
-		const firstKey = Object.keys(result)[0] // ?
-
-		expect(firstKey).toEqual('mod1')
 		expect(result).toMatchObject(target)
 	})
 })

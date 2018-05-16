@@ -1,7 +1,26 @@
+import Behaviour from '@/core/behaviour'
+
+class Example extends Behaviour {
+	constructor(el) {
+		super(el)
+		this.$events = this.$events(this.events)
+		this.$events.attachAll()
+	}
+
+	events = {
+		'click [data-item]': 'funk'
+	}
+
+	funk = (e, elm) => {
+		e.preventDefault()
+		this.$refs.mod1.node.classList.add('cheese')
+	}
+}
+
 export default node => {
-	console.log('Mount Module A')
+	const thing = new Example(node)
 
 	return () => {
-		console.log('destroy Module A')
+		thing.destroy()
 	}
 }

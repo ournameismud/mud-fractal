@@ -1,13 +1,14 @@
 import Delegate from 'dom-delegate'
 import * as R from 'ramda'
 
-export default (context, obj) => {
+export default R.curry(function(context, obj) {
 	const events = Object.entries(obj).map(([key, fn]) => {
 		const eventAndNode = R.compose(R.map(R.trim), R.split(' '))(key)
 		const capture = !!R.compose(R.length, R.match(/mouse/g), R.head)(
 			eventAndNode
 		)
-		return [...eventAndNode, fn, capture]
+		const funk = typeof fn === 'string' ? this[fn] : fn
+		return [...eventAndNode, funk, capture]
 	})
 
 	let $delegate
@@ -25,7 +26,14 @@ export default (context, obj) => {
 	return {
 		attachAll() {
 			$delegate = $delegate || new Delegate(context)
-			R.forEach(event => $delegate.on(...event))(events)
+			try {
+				R.forEach(event => $delegate.on(...event))(events)
+			} catch (err) {
+				console.error(
+					'Handler must be a type of Function, careful with arrow functions, they will need to be above the events object:',
+					err
+				)
+			}
 		},
 
 		attach(fns) {
@@ -49,4 +57,4 @@ export default (context, obj) => {
 			$node.dispatchEvent(emit)
 		}
 	}
-}
+})
