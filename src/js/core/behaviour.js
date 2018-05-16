@@ -11,9 +11,7 @@ export default class Behaviour {
 	}
 
 	routes = {
-		enter: () => {
-			log('e')
-		},
+		enter: () => {},
 		exit: () => {}
 	}
 
@@ -33,6 +31,8 @@ export default class Behaviour {
 
 	destroy = () => {
 		this.unmount()
+		this.$eventBus.off('routes:enter', this.routes.enter)
+		this.$eventBus.off('routes:exit', this.routes.exit)
 
 		if (this.$events.destroy) {
 			this.$events.destroy()

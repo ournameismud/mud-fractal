@@ -18,18 +18,10 @@ export default class Example extends Behaviour {
 
 	routes = {
 		enter: () => {
-			log('ffe')
+			log('enter')
 		},
-		exit: () => {}
+		exit: () => {
+			log('exit')
+		}
 	}
-
-	// screens = {
-	// 	'(min-width: 800px)': () => {},
-	// 	'(min-width: 1200px)': () => {}
-	// }
-
-	// viewport = {
-	// 	enter: () => {},
-	// 	exit: () => {}
-	// }
 }
