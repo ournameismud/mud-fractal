@@ -38,6 +38,8 @@ describe('behaviour class', () => {
                             </div>`
 
 	const $el = document.getElementById('test')
+	const $refItem = document.querySelector('[data-element="item"]')
+	const $link = document.querySelector('[data-link]')
 	let behaviour
 
 	beforeAll(async done => {
@@ -86,7 +88,7 @@ describe('behaviour class', () => {
 		expect(behaviour.$refs).toBeInstanceOf(Object)
 
 		const target = {
-			node: document.querySelector('[data-element="item"]'),
+			node: $refItem,
 			prop1: 'a',
 			prop2: 'b'
 		}
@@ -108,11 +110,9 @@ describe('behaviour class', () => {
 	})
 
 	it('should attach the event listeners', () => {
-		document.querySelector('[data-link]').click()
+		$link.click()
 
-		expect(
-			document.querySelector('[data-link]').classList.contains('huzzah')
-		).toBe(true)
+		expect($link.classList.contains('huzzah')).toBe(true)
 	})
 
 	it('should respond to router events', () => {
@@ -131,15 +131,13 @@ describe('behaviour class', () => {
 	it('should remove all events when destroyed', () => {
 		behaviour.destroy()
 
-		document.querySelector('[data-link]').click()
+		$link.click()
 		eventBus.emit('routes:enter')
 		eventBus.emit('routes:exit')
 
 		expect(behaviour.$el.classList.contains('enter')).toBe(true)
 		expect(behaviour.$el.classList.contains('exit')).toBe(true)
 
-		expect(
-			document.querySelector('[data-link]').classList.contains('huzzah')
-		).toBe(true)
+		expect($link.classList.contains('huzzah')).toBe(true)
 	})
 })
