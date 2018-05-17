@@ -13,6 +13,10 @@ describe('create events function', () => {
 	let onClick3
 	let onClick4
 	let onKeyDown
+
+	/*
+		Handle
+	*/
 	let events
 
 	beforeEach(() => {

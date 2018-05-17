@@ -11,11 +11,10 @@
 })
 
 import * as R from 'ramda'
-// import mitt from 'mitt'
 
 const log = (...message) => console.log(...message) // eslint-disable-line
 
-const loader = (plugins, path = '../behaviours/') => {
+const loader = (path = '../behaviours/') => {
 	const state = {
 		stack: [],
 		scope: []
@@ -53,15 +52,19 @@ const loader = (plugins, path = '../behaviours/') => {
 			gatherBehaviours([...context.querySelectorAll('*[data-behaviour]')])
 		).then(data => {
 			const stack = R.compose(
-				R.map(({ behaviour, node, id }) => {
-					const fn = behaviour(node, plugins)
+				R.map(({ behaviour: Behaviour, node, id }) => {
+					const fn = new Behaviour(node, id)
+					fn.init()
+					// setTimeout(() => {
+					// 	fn.mount()
+					// })
 					const destroy = node.classList.contains('fake')
 					return { fn, destroy, id }
 				})
 			)(data)
 
 			const scope = R.compose(
-				R.filter(({ fn }) => typeof fn === 'function'),
+				//R.filter(({ fn }) => typeof fn === 'function'),
 				R.filter(item => item.destroy)
 			)(stack)
 
@@ -72,7 +75,11 @@ const loader = (plugins, path = '../behaviours/') => {
 	}
 
 	const unmount = () => {
-		R.compose(R.map(item => item()))(state.scope)
+		R.compose(
+			R.map(item => {
+				item.destroy()
+			})
+		)(state.scope)
 	}
 
 	return {

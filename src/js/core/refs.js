@@ -20,7 +20,10 @@ const sanitizeName = name => name.replace(/-(.)/g, ($0, $1) => $1.toUpperCase())
 const removeValueLess = R.filter(({ value }) => value)
 
 const getDataAttributes = R.filter(
-	attr => /^data-/.test(attr.name) && attr.name !== 'data-element'
+	attr =>
+		/^data-/.test(attr.name) &&
+		attr.name !== 'data-element' &&
+		attr.name !== 'data-behaviour'
 )
 const cleanName = R.map(({ name, value }) => ({
 	name: sanitizeName(name.substr(5)),

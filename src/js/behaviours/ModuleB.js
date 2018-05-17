@@ -1,9 +1,12 @@
-export default node => {
-	console.log('Mount Module B')
+import Behaviour from '@/core/behaviour'
 
-	// events.emit('some-event')
+export default class Example extends Behaviour {
+	events = {
+		'click [data-item]': 'funk'
+	}
 
-	return () => {
-		console.log('destroy Module B')
+	funk = (e, elm) => {
+		e.preventDefault()
+		this.$refs.mod1.node.classList.add('cheese')
 	}
 }

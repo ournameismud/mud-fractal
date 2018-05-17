@@ -10,16 +10,9 @@
 
 	{# {{ source('/svgs/ui-facebook.svg') }} #}
 
-
-	<div id="test">
-		<button data-item>Hello Hugh</button>
-		<div data-element="mod1" data-item data-prop1-th="a" data-prop2="b">WAFFLE</div>
-		<div data-element="mod2" data-prop1-th="a" data-prop2="b">WAFFLE</div>
-		<div data-element="mod3" data-prop1-th="a" data-prop2="b">WAFFLE</div>
-		<div data-element="mod4" data-prop1-th="a" data-prop2="b">WAFFLE</div>
-		<div id="wrapper" data-group="gr1">
-			<b class="fake" data-behaviour="ModuleB">WAFFLE</b>
-		</div>
+<div id="test" data-behaviour="ModuleA">
+	<div data-element="item" data-prop1="a" data-prop2="b">
+		<a href="#0" data-link>Link</a>
 	</div>
-
+</div>
 {% endblock %}

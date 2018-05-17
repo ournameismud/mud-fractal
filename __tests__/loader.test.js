@@ -11,7 +11,7 @@ describe('loader function', () => {
 	let load
 
 	beforeAll(() => {
-		load = loader({}, `${__dirname}/behaviour/`)
+		load = loader(`${__dirname}/behaviours/`)
 	})
 
 	it('should be a function', () => {
@@ -36,9 +36,11 @@ describe('loader function', () => {
 		expect(stack[0].id).toEqual('ModuleA')
 		expect(stack[1].id).toEqual('ModuleB')
 
-		expect(stack[0].fn).toBeInstanceOf(Function)
-		expect(stack[1].fn).toBeInstanceOf(Function)
+		expect(stack[0].fn.$el).toEqual(node)
 
-		expect(node.classList.contains('test-class')).toBe(true)
+		expect(stack[0].fn.constructor).toBeInstanceOf(Function)
+		expect(stack[1].fn.constructor).toBeInstanceOf(Function)
+
+		// expect(node.classList.contains('test-class')).toBe(true)
 	})
 })
