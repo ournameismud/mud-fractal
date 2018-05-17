@@ -41,7 +41,7 @@ export default class Behaviour {
 		this.$eventBus.off('routes:enter', this.routes.enter)
 		this.$eventBus.off('routes:exit', this.routes.exit)
 
-		if (this.$events.destroy) {
+		if (this.events) {
 			this.$events.destroy()
 		}
 	}
