@@ -26,9 +26,6 @@ class ExampleWithAllTheBitsCovered extends Behaviour {
 		},
 		'(min-width: 200px)': () => {
 			this.$el.classList.add('min-width-200')
-		},
-		'(min-width: 1200px)': () => {
-			this.$el.classList.add('min-width-1200')
 		}
 	}
 
