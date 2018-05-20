@@ -5,7 +5,14 @@ describe('resize function', () => {
 		window.resizeTo(500, 500)
 		setTimeout(() => {
 			done()
-		})
+		}, 10)
+	})
+
+	afterEach(async done => {
+		window.resizeTo(500, 500)
+		setTimeout(() => {
+			done()
+		}, 10)
 	})
 
 	it('should be a function', () => {
@@ -17,6 +24,8 @@ describe('resize function', () => {
 		const { width, height } = r
 		expect(width).toBe(500)
 		expect(height).toBe(500)
+
+		r.destroy()
 	})
 
 	it('should trigger an event when the window changes size', async () => {
@@ -31,6 +40,7 @@ describe('resize function', () => {
 			}, 10)
 		})
 
+		r.destroy()
 		expect(onResize).toBeCalled()
 	})
 
@@ -47,6 +57,7 @@ describe('resize function', () => {
 			}, 10)
 		})
 
+		r.destroy()
 		expect(r.width).toBe(79)
 		expect(r.height).toBe(1000)
 	})
@@ -73,29 +84,26 @@ describe('resize function', () => {
 			}, 10)
 		})
 
+		r.destroy()
+
 		expect(onResizePass).toBeCalled()
 		expect(l).toBe(true)
 		expect(f).toBe(undefined)
 	})
 
-	// it('should remove all of the events when calling the destroy method', async () => {
-	// 	const onResizePass = jest.fn()
-	// 	const onResizeFail = jest.fn()
-	// 	const r = resizer({
-	// 		'(min-width: 600px)': onResizePass,
-	// 		'(min-width: 200px)': onResizeFail
-	// 	})
+	it('should remove all of the events when calling the destroy method', () => {
+		let l = 0
+		const onResizePass = jest.fn(({ match }) => {
+			if (match) {
+				l += 1
+			}
+		})
+		const r = resizer({
+			'(min-width: 700px)': onResizePass
+		})
 
-	// 	r.destroy()
+		r.destroy()
 
-	// 	await new Promise(resolve => {
-	// 		window.resizeTo(501, 1000)
-	// 		setTimeout(() => {
-	// 			resolve()
-	// 		}, 10)
-	// 	})
-
-	// 	expect(onResizePass).not.toBeCalled()
-	// 	expect(onResizeFail).not.toBeCalled()
-	// })
+		expect(onResizePass).not.toBeCalled()
+	})
 })

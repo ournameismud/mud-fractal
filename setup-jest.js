@@ -37,7 +37,6 @@ Object.defineProperty(document, 'currentStyle', {
 
 Object.defineProperty(window, 'matchMedia', {
 	value: jest.fn(a => {
-		const width = parseInt(a.match(/\d+/)[0], 10)
-		return { matches: global.innerWidth > width }
+		return { matches: global.innerWidth > parseInt(a.match(/\d+/)[0], 10) }
 	})
 })

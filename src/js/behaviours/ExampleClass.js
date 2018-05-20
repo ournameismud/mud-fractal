@@ -4,6 +4,10 @@ export default class ExampleClass extends Behaviour {
 	mount = () => {
 		this.$el.classList.add('mount')
 		this.$events.attachAll()
+
+		this.$screen.on('window:resize', ({ width, height, query }) => {
+			log({ width, height, query })
+		})
 	}
 
 	unmount = () => {
