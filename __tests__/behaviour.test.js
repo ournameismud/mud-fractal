@@ -20,6 +20,18 @@ class ExampleWithAllTheBitsCovered extends Behaviour {
 		elm.classList.toggle('huzzah')
 	}
 
+	screens = {
+		'(min-width: 600px)': () => {
+			this.$el.classList.add('min-width-600')
+		},
+		'(min-width: 200px)': () => {
+			this.$el.classList.add('min-width-200')
+		},
+		'(min-width: 1200px)': () => {
+			this.$el.classList.add('min-width-1200')
+		}
+	}
+
 	routes = {
 		enter: () => {
 			this.$el.classList.toggle('enter')
@@ -48,7 +60,7 @@ describe('behaviour class', () => {
 		setTimeout(() => {
 			behaviour.mount()
 			done()
-		})
+		}, 10)
 	})
 
 	it('should be a function', () => {
@@ -139,5 +151,17 @@ describe('behaviour class', () => {
 		expect(behaviour.$el.classList.contains('exit')).toBe(true)
 
 		expect($link.classList.contains('huzzah')).toBe(true)
+	})
+
+	it('should respond to media query keys on the screens prop', async () => {
+		await new Promise(resolve => {
+			window.resizeTo(700, 500)
+			setTimeout(() => {
+				resolve()
+			}, 10)
+		})
+
+		expect(behaviour.$el.classList.contains('min-width-600')).toBe(true)
+		expect(behaviour.$el.classList.contains('min-width-200')).not.toBe(false)
 	})
 })

@@ -4,10 +4,6 @@ export default class ExampleClass extends Behaviour {
 	mount = () => {
 		this.$el.classList.add('mount')
 		this.$events.attachAll()
-
-		this.$screen.on('window:resize', () => {
-			log('we are resizing')
-		})
 	}
 
 	unmount = () => {
@@ -34,7 +30,10 @@ export default class ExampleClass extends Behaviour {
 
 	screens = {
 		'(min-width: 1024px)': ({ match, width, height, query }) => {
-			log(match, width, height, query)
+			log('(min-width: 1024px)', match, width, height, query)
+		},
+		'(min-width: 680px)': ({ match, width, height, query }) => {
+			log('(min-width: 680px)', match, width, height, query)
 		}
 	}
 }

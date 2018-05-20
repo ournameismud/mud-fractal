@@ -61,16 +61,7 @@ const windowResize = () => {
 }
 windowResize.isRunning = false
 
-const once = (arg, fn) => {
-	if (once.value === arg) return
-	fn({ match: arg, ...getWindowProps() })
-	once.value = arg
-}
-
-const test = (breakpoint, fn) => {
-	const state = window.matchMedia(breakpoint).matches
-	once(state, fn)
-}
+const windowMatch = breakpoint => window.matchMedia(breakpoint).matches
 
 const resizer = (events = {}) => {
 	windowResize()
@@ -78,9 +69,20 @@ const resizer = (events = {}) => {
 	let bank = []
 
 	Object.entries(events).map(([breakpoint, fn]) => {
+		const once = (arg, fn) => {
+			if (once.value === arg) return
+			fn({ match: arg, ...getWindowProps() })
+			once.value = arg
+		}
+
+		const test = (breakpoint, fn) => {
+			const state = windowMatch(breakpoint)
+			once(state, fn)
+		}
+
 		const funk = test.bind(null, breakpoint, fn)
 		bank.push(funk)
-		funk()
+		windowMatch(breakpoint) && funk()
 		eventBus.on('window:resize', funk)
 	})
 
