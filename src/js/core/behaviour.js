@@ -2,6 +2,7 @@ import createEvents from '@/core/createEvents'
 import refs from '@/core/refs'
 import eventBus from '@/core/eventBus'
 import resizer from '@/core/resizer'
+import inview from '@/core/inview'
 
 export default class Behaviour {
 	constructor(el = document, name) {
@@ -10,7 +11,14 @@ export default class Behaviour {
 		this.$eventBus = eventBus
 	}
 
+	registerObserverOptions = {}
+
 	routes = {
+		enter: () => {},
+		exit: () => {}
+	}
+
+	viewport = {
 		enter: () => {},
 		exit: () => {}
 	}
@@ -18,6 +26,12 @@ export default class Behaviour {
 	screens = {}
 
 	init = () => {
+		this.$observer = inview(
+			this.$el,
+			this.viewport,
+			this.registerObserverOptions
+		)
+
 		this.$eventBus.on('routes:enter', this.routes.enter)
 		this.$eventBus.on('routes:exit', this.routes.exit)
 		this.$refs = refs(this.$el)
@@ -42,6 +56,10 @@ export default class Behaviour {
 		this.$eventBus.off('routes:enter', this.routes.enter)
 		this.$eventBus.off('routes:exit', this.routes.exit)
 		this.$screen.destroy()
+
+		if (this.viewport) {
+			this.$observer.destroy()
+		}
 
 		if (this.events) {
 			this.$events.destroy()

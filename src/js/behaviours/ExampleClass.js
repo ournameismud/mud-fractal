@@ -4,7 +4,6 @@ export default class ExampleClass extends Behaviour {
 	mount = () => {
 		this.$el.classList.add('mount')
 		this.$events.attachAll()
-
 		this.$screen.on('window:resize', ({ width, height, query }) => {
 			log({ width, height, query })
 		})
@@ -21,6 +20,16 @@ export default class ExampleClass extends Behaviour {
 	onClick = (e, elm) => {
 		e.preventDefault()
 		elm.classList.toggle('huzzah')
+	}
+
+	viewport = {
+		enter: () => {
+			log('enter')
+		},
+
+		exit: () => {
+			log('exit')
+		}
 	}
 
 	routes = {
