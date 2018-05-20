@@ -72,7 +72,7 @@ const test = (breakpoint, fn) => {
 	once(state, fn)
 }
 
-const resizer = events => {
+const resizer = (events = {}) => {
 	windowResize()
 
 	let bank = []
