@@ -24,7 +24,7 @@ const getWindowProps = () => {
 	}
 }
 
-const windowResizeEvent = e => {
+const windowResizeEvent = () => {
 	const { width, height, query } = getWindowProps()
 
 	eventBus.emit('window:resize', {

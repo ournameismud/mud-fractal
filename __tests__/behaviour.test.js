@@ -24,8 +24,8 @@ class ExampleWithAllTheBitsCovered extends Behaviour {
 		'(min-width: 600px)': () => {
 			this.$el.classList.add('min-width-600')
 		},
-		'(min-width: 200px)': () => {
-			this.$el.classList.add('min-width-200')
+		'(min-width: 800px)': () => {
+			this.$el.classList.add('min-width-800')
 		}
 	}
 
@@ -52,6 +52,7 @@ describe('behaviour class', () => {
 	let behaviour
 
 	beforeAll(async done => {
+		window.resizeTo(700, 500)
 		behaviour = new ExampleWithAllTheBitsCovered($el, 'Test')
 		behaviour.init()
 		setTimeout(() => {
@@ -159,6 +160,6 @@ describe('behaviour class', () => {
 		})
 
 		expect(behaviour.$el.classList.contains('min-width-600')).toBe(true)
-		expect(behaviour.$el.classList.contains('min-width-200')).not.toBe(false)
+		expect(behaviour.$el.classList.contains('min-width-800')).toBe(false)
 	})
 })
