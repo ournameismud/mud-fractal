@@ -25,7 +25,7 @@ const loader = (path = '../behaviours/') => {
 	const gatherBehaviours = R.compose(
 		R.map(({ node, behaviour }) => {
 			return new Promise(resolve => {
-				import(`${PATH}${behaviour}`).then(resp => {
+				import(`@/behaviours/${behaviour}`).then(resp => {
 					resolve({
 						id: behaviour,
 						node,
@@ -55,9 +55,9 @@ const loader = (path = '../behaviours/') => {
 				R.map(({ behaviour: Behaviour, node, id }) => {
 					const fn = new Behaviour(node, id)
 					fn.init()
-					// setTimeout(() => {
-					// 	fn.mount()
-					// })
+					setTimeout(() => {
+						fn.mount()
+					})
 					const destroy = node.classList.contains('fake')
 					return { fn, destroy, id }
 				})

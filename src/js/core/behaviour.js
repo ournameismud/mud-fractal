@@ -1,6 +1,7 @@
 import createEvents from '@/core/createEvents'
 import refs from '@/core/refs'
 import eventBus from '@/core/eventBus'
+import resizer from '@/core/resizer'
 
 export default class Behaviour {
 	constructor(el = document, name) {
@@ -20,7 +21,7 @@ export default class Behaviour {
 		this.$eventBus.on('routes:enter', this.routes.enter)
 		this.$eventBus.on('routes:exit', this.routes.exit)
 		this.$refs = refs(this.$el)
-
+		this.$screen = resizer(this.screens)
 		if (this.events) {
 			this.$events = createEvents.call(this, this.$el, this.events)
 		}
@@ -40,6 +41,7 @@ export default class Behaviour {
 		this.unmount()
 		this.$eventBus.off('routes:enter', this.routes.enter)
 		this.$eventBus.off('routes:exit', this.routes.exit)
+		this.$screen.destroy()
 
 		if (this.events) {
 			this.$events.destroy()
