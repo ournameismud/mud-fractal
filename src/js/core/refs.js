@@ -35,10 +35,14 @@ const flattenToObject = R.reduce((acc, { name: key, value }) => {
 	return acc
 }, {})
 
-const gatherProps = node =>
-	R.compose(flattenToObject, cleanName, removeValueLess, getDataAttributes)([
-		...node.attributes
-	])
+export const composeProps = R.compose(
+	flattenToObject,
+	cleanName,
+	removeValueLess,
+	getDataAttributes
+)
+
+const gatherProps = node => composeProps([...node.attributes])
 
 const createRefs = R.reduce((acc, node) => {
 	acc[`${sanitizeName(node.getAttribute('data-element'))}`] = {

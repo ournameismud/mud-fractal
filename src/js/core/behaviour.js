@@ -1,14 +1,19 @@
 import createEvents from '@/core/createEvents'
-import refs from '@/core/refs'
+import refs, { composeProps } from '@/core/refs'
 import eventBus from '@/core/eventBus'
 import resizer from '@/core/resizer'
 import inview from '@/core/inview'
 
+/**
+ * class Behaviour
+ *
+ */
 export default class Behaviour {
 	constructor(el = document, name) {
 		this.$name = name
 		this.$el = el
 		this.$eventBus = eventBus
+		this.$data = composeProps([...this.$el.attributes])
 	}
 
 	registerObserverOptions = {}

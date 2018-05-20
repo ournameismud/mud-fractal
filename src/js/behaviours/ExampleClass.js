@@ -7,6 +7,8 @@ export default class ExampleClass extends Behaviour {
 		this.$screen.on('window:resize', ({ width, height, query }) => {
 			log({ width, height, query })
 		})
+
+		log(this)
 	}
 
 	unmount = () => {
