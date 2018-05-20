@@ -12,8 +12,6 @@
 
 import * as R from 'ramda'
 
-const log = (...message) => console.log(...message) // eslint-disable-line
-
 const loader = (path = '../behaviours/') => {
 	const state = {
 		stack: [],
