@@ -23,14 +23,14 @@ export default class Router {
 
 	cache = {}
 
+	currentPath = null
+
 	onClick = (e, elm) => {
 		e.preventDefault()
 		const { href, pathname } = elm
 
 		if (this.cache[pathname]) {
-			this.inject(this.cache[pathname])
 			history.push(pathname, { some: 'state' })
-
 			return
 		}
 
@@ -38,12 +38,12 @@ export default class Router {
 			.then(response => response.text())
 			.then(data => {
 				this.cache[pathname] = data
-				this.inject(data)
 				history.push(pathname, { some: 'state' })
 			})
 	}
 
 	inject = html => {
+		log('INJECTING')
 		const $html = domify(html)
 		this.$wrapper.innerHTML = ''
 		this.$wrapper.appendChild($html.querySelector('.page-child'))
