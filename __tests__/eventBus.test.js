@@ -1,4 +1,4 @@
-import eventBus from '@/core/eventBus'
+import eventBus from '@/core/modules/eventBus'
 
 describe('loader function', () => {
 	it('should be a function', () => {

@@ -1,4 +1,4 @@
-import resizer from '@/core/resizer'
+import resizer from '@/core/modules/resizer'
 
 describe('resize function', () => {
 	beforeEach(async done => {

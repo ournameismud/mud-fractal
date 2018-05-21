@@ -1,4 +1,4 @@
-import createRefs from '@/core/refs'
+import createRefs from '@/core/modules/refs'
 
 describe('create refs function', () => {
 	document.body.innerHTML = `<div id="test">

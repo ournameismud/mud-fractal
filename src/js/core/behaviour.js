@@ -1,8 +1,8 @@
-import createEvents from '@/core/createEvents'
-import refs, { composeProps } from '@/core/refs'
-import eventBus from '@/core/eventBus'
-import resizer from '@/core/resizer'
-import inview from '@/core/inview'
+import createEvents from '@/core/modules/createEvents'
+import refs, { composeProps } from '@/core/modules/refs'
+import eventBus from '@/core/modules/eventBus'
+import resizer from '@/core/modules/resizer'
+import inview from '@/core/modules/inview'
 
 /**
  * class Behaviour

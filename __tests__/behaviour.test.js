@@ -1,5 +1,5 @@
 import Behaviour from '@/core/behaviour'
-import eventBus from '@/core/eventBus'
+import eventBus from '@/core/modules/eventBus'
 
 class ExampleWithAllTheBitsCovered extends Behaviour {
 	mount = () => {

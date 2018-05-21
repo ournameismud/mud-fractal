@@ -2,7 +2,7 @@ const path = require('path')
 
 module.exports = {
 	title: 'Mud-Fractal',
-	mode: 'fractal',
+	mode: 'html',
 
 	cms: {
 		watch: false,
@@ -14,6 +14,13 @@ module.exports = {
 		minify: true,
 		width: 1024,
 		height: 768
+	},
+
+	html: {
+		task: 'code',
+		watch: true,
+		extensions: ['twig', 'html', 'json'],
+		excludeFolders: ['__data', 'wrapper', 'macros']
 	},
 
 	fractal: {

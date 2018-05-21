@@ -1,4 +1,4 @@
-import loader from '@/core/loader'
+import loader from '@/core/modules/loader'
 
 describe('loader function', () => {
 	document.body.innerHTML = `<div id="test">

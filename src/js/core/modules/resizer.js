@@ -1,4 +1,4 @@
-import eventBus from '@/core/eventBus'
+import eventBus from '@/core/modules/eventBus'
 import raf from 'raf'
 import * as R from 'ramda'
 

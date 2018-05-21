@@ -10,6 +10,12 @@
 		}
 	},
 
+	"html": {
+		"src": "html-dev/",
+		"data": "html-dev/__data/global.json",
+		"dest": "./"
+	},
+
 	"fractal": {
 		"src": "templates",
 		"tmp": "./tmp/public",

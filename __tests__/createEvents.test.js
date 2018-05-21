@@ -1,4 +1,4 @@
-import createEvents from '@/core/createEvents'
+import createEvents from '@/core/modules/createEvents'
 
 describe('create events function', () => {
 	document.body.innerHTML = `<div id="test">
