@@ -17,15 +17,23 @@
 	},
 	"browser": true,
 	"jest": {
-		"setupFiles": ["<rootDir>/setup-jest.js"],
+		"setupFiles": [
+			"<rootDir>/setup-jest.js"
+		],
 		"mapCoverage": true,
-		"collectCoverageFrom": ["src/js/core/**/*.{js,jsx,ts,tsx}"],
-		"testMatch": ["**/?(*.)(spec|test).js?(x)"]
+		"collectCoverageFrom": [
+			"src/js/core/**/*.{js,jsx,ts,tsx}"
+		],
+		"testMatch": [
+			"**/?(*.)(spec|test).js?(x)"
+		]
 	},
 	"quokka": {
 		"babel": true,
 		"installPackageCommand": "yarn add {packageName}",
-		"plugins": ["jsdom-quokka-plugin"]
+		"plugins": [
+			"jsdom-quokka-plugin"
+		]
 	},
 	"homepage": "https://github.com/ournameismud/mud-fractal#readme",
 	"scripts": {
@@ -54,6 +62,7 @@
 		"dom-delegate": "^2.0.3",
 		"fg-loadcss": "^2.0.1",
 		"fontfaceobserver": "^2.0.13",
+		"intersection-observer": "^0.5.0",
 		"lazysizes": "^4.0.2",
 		"loadjs": "^3.5.4",
 		"local-links": "^1.4.1",

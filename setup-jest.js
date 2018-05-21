@@ -1,4 +1,5 @@
 // A solution for React 16 complaining of missing rAF.
+import 'intersection-observer'
 
 const jsdom = require('jsdom')
 const { JSDOM } = jsdom
