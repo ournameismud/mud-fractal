@@ -1,6 +1,7 @@
 import createEvents from '@/core/modules/createEvents'
 import createHistory from 'history/createBrowserHistory'
 import domify from 'domify'
+import { preventClick } from '@/core/utils/router.utils'
 
 const history = createHistory()
 
@@ -26,7 +27,13 @@ export default class Router {
 	currentPath = null
 
 	onClick = (e, elm) => {
+		if (!preventClick(e, elm)) {
+			return
+		}
+
+		e.stopPropagation()
 		e.preventDefault()
+
 		const { href, pathname } = elm
 
 		if (this.cache[pathname]) {
