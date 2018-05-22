@@ -1,4 +1,5 @@
 import createEvents from '@/core/modules/createEvents'
+import eventBus from '@/core/modules/eventBus'
 import createHistory from 'history/createBrowserHistory'
 import domify from 'domify'
 import { preventClick } from '@/core/utils/router.utils'
@@ -17,6 +18,14 @@ export default class Router {
 			if (this.cache[location.pathname]) {
 				this.inject(this.cache[location.pathname])
 			}
+
+			const { pathname, state } = location
+
+			eventBus.emit('history:change', {
+				action,
+				pathname,
+				state
+			})
 			// location is an object like window.location
 			log(action, location.pathname, location.state)
 		})
@@ -35,6 +44,8 @@ export default class Router {
 		e.preventDefault()
 
 		const { href, pathname } = elm
+
+		eventBus.emit('history:request', { pathname })
 
 		if (this.cache[pathname]) {
 			history.push(pathname, { some: 'state' })
