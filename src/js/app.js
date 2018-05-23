@@ -14,4 +14,31 @@ if (module.hot) {
 	module.hot.accept()
 }
 
-new Router().mount()
+new Router({
+	routes: [
+		{
+			path: '/',
+			view: 'home'
+		},
+		{
+			path: '/page-1/',
+			view: 'home',
+			children: {
+				path: ':id',
+				view: 'terry'
+			}
+		},
+		{
+			path: '/page-2/',
+			view: 'home'
+		},
+		{
+			path: '/page-3/',
+			view: 'home'
+		},
+		{
+			path: '/page-4/',
+			view: 'home'
+		}
+	]
+}).mount()

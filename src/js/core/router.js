@@ -2,40 +2,85 @@ import createEvents from '@/core/modules/createEvents'
 import eventBus from '@/core/modules/eventBus'
 import createHistory from 'history/createBrowserHistory'
 import domify from 'domify'
-import { preventClick } from '@/core/utils/router.utils'
+import {
+	preventClick,
+	flattenRoutes,
+	findRoute
+} from '@/core/utils/router.utils'
 
 const history = createHistory()
 
+const cache = {}
+
+const delay = delay => new Promise(resolve => setTimeout(resolve, delay))
+
+const baseView = {
+	onExit: next => {
+		log('onExit')
+
+		delay(100).then(next)
+	},
+
+	onAfterExit: () => {
+		log('onAfterExit')
+	},
+
+	onEnter: next => {
+		log('onEnter')
+		delay(100).then(next)
+	},
+
+	onAfterEnter: () => {
+		log('onAfterEnter')
+	}
+}
+
 export default class Router {
-	constructor() {
+	constructor({ routes }) {
+		this.$routes = flattenRoutes(routes)
+		this.$findRoute = findRoute(this.$routes)
+		this.updateHistory(window.location.pathname)
+
 		this.$wrapper = document.getElementById('page-wrapper')
 
 		this.$events = createEvents.call(this, document, {
 			'click a': 'onClick'
 		})
 
-		this.$unlisten = history.listen((location, action) => {
-			if (this.cache[location.pathname]) {
-				this.inject(this.cache[location.pathname])
+		history.listen((location, action) => {
+			const { pathname } = location
+			// if the current path is not currently cached, and the action is POP
+			// run
+			if (!cache[pathname]) {
+				if (action === 'POP') {
+					this.updateHistory(pathname)
+					this.lifecycle.exit(pathname).then(() => {
+						this.inject({ ...cache[pathname] })
+						return this.lifecycle.enter(pathname)
+					})
+				}
+				return
 			}
 
-			const { pathname, state } = location
+			const { state } = location
 
 			eventBus.emit('history:change', {
 				action,
 				pathname,
 				state
 			})
-			// location is an object like window.location
-			log(action, location.pathname, location.state)
 		})
 	}
 
-	cache = {}
+	state = {
+		current: '',
+		previous: ''
+	}
 
 	currentPath = null
 
 	onClick = (e, elm) => {
+		const { pathname } = elm
 		if (!preventClick(e, elm)) {
 			return
 		}
@@ -43,28 +88,69 @@ export default class Router {
 		e.stopPropagation()
 		e.preventDefault()
 
-		const { href, pathname } = elm
+		if (this.state.current.route.path === pathname) return
 
-		eventBus.emit('history:request', { pathname })
+		this.updateHistory(pathname)
 
-		if (this.cache[pathname]) {
-			history.push(pathname, { some: 'state' })
-			return
-		}
-
-		fetch(href)
-			.then(response => response.text())
-			.then(data => {
-				this.cache[pathname] = data
+		this.lifecycle
+			.exit(pathname)
+			.then(() => {
+				this.inject({ ...cache[pathname] })
+				return this.lifecycle.enter(pathname)
+			})
+			.then(() => {
 				history.push(pathname, { some: 'state' })
 			})
 	}
 
-	inject = html => {
-		log('INJECTING')
-		const $html = domify(html)
-		this.$wrapper.innerHTML = ''
-		this.$wrapper.appendChild($html.querySelector('.page-child'))
+	lifecycle = {
+		exit: pathname => {
+			const x = new Promise(resolve => {
+				baseView.onExit(resolve)
+			})
+			return Promise.all([x, this.fetch(pathname)])
+		},
+
+		enter: pathname => {
+			const x = new Promise(resolve => {
+				baseView.onEnter(resolve)
+			})
+			return x.then(() => {
+				log('all done')
+			})
+		}
+	}
+
+	updateHistory = pathname => {
+		const route = this.$findRoute(pathname)
+		this.currentPath = pathname
+		this.state.previous = this.state.current
+		this.state.current = route
+	}
+
+	fetch = pathname => {
+		return new Promise(resolve => {
+			if (cache[pathname]) {
+				resolve()
+				return
+			}
+
+			fetch(pathname)
+				.then(response => response.text())
+				.then(data => {
+					const $html = domify(data)
+					cache[pathname] = {
+						html: $html.querySelector('.page-child'),
+						title: $html.querySelector('title').textContent
+					}
+					resolve()
+				})
+		})
+	}
+
+	inject = ({ html, title }) => {
+		this.$wrapper.appendChild(html)
+		document.title = title
 	}
 
 	mount = () => {

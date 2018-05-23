@@ -1,4 +1,5 @@
 import pathToRegexp from 'path-to-regexp'
+import * as R from 'ramda'
 
 function parseUri(str) {
 	let o = parseUri.options,
@@ -44,7 +45,7 @@ parseUri.options = {
 	}
 }
 
-function pathx(options) {
+function createPathObject(options) {
 	options = options || {}
 
 	return function(path) {
@@ -79,7 +80,7 @@ function decodeParam(param) {
 	}
 }
 
-export const matchRoute = pathx({
+export const matchRoute = createPathObject({
 	// path-to-regexp options
 	sensitive: false,
 	strict: false,
@@ -105,48 +106,46 @@ export const parseUrl = href => {
 	}
 }
 
-export const flattenRoutes = routes =>
-	routes.reduce((acc, { path, view, children, name }) => {
-		const base = path
-		const tmp = []
+export const flattenRoutes = R.reduce((acc, { path, view, children, name }) => {
+	const base = path
+	const tmp = []
 
-		tmp.push({ path: path, view: view, name })
+	tmp.push({ path: path, view: view, name })
 
-		if (children) {
-			const items = Array.isArray(children) ? children : [children]
-			const slash = base === '/' ? '' : '/'
-			tmp.push(
-				...flattenRoutes(items).map(item => {
-					return {
-						...item,
-						path: base + slash + item.path
-					}
-				})
-			)
-		}
+	if (children) {
+		const items = Array.isArray(children) ? children : [children]
 
-		acc.push(...tmp)
+		tmp.push(
+			...R.compose(
+				R.map(item => ({
+					...item,
+					path: `${base}/${item.path}`.replace('//', '/')
+				})),
+				flattenRoutes
+			)(items)
+		)
+	}
 
-		return acc
-	}, [])
+	acc.push(...tmp)
 
-export const findRoute = routes => {
-	return url => {
+	return acc
+}, [])
+
+export const findRoute = R.curry(routes => {
+	return R.memoizeWith(R.identity, url => {
 		const data = parseUrl(url)
-		const slug = data.path
-		const list = routes.filter(({ path }) => matchRoute(path)(slug))
-
+		const { path: slug } = data
+		const list = R.filter(({ path }) => matchRoute(path)(slug))(routes)
 		const route =
 			list.length === 1 && slug !== '/'
 				? routes.find(({ path }) => path === '*')
 				: list[list.length - 1]
-
 		return {
 			route,
 			data
 		}
-	}
-}
+	})
+})
 // credit: https://github.com/luruke/barba.js/blob/master/src/Pjax/Pjax.js
 export const preventClick = (evt, element) => {
 	const { href } = element
