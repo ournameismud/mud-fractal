@@ -3,7 +3,6 @@ import refs, { composeProps } from '@/core/modules/refs'
 import eventBus from '@/core/modules/eventBus'
 import resizer from '@/core/modules/resizer'
 import inview from '@/core/modules/inview'
-import { ENGINE_METHOD_DIGESTS } from 'constants';
 
 /**
  * class Behaviour
@@ -14,7 +13,7 @@ export default class Behaviour {
 		this.$name = name
 		this.$el = el
 		this.$eventBus = eventBus
-		this.$data = composeProps([...this.$el.attributes])
+		this.$data = composeProps([...this.$el.attributes]) // here lies a bug
 	}
 
 	registerObserverOptions = {}
