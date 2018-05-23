@@ -3,6 +3,7 @@ import refs, { composeProps } from '@/core/modules/refs'
 import eventBus from '@/core/modules/eventBus'
 import resizer from '@/core/modules/resizer'
 import inview from '@/core/modules/inview'
+import { ENGINE_METHOD_DIGESTS } from 'constants';
 
 /**
  * class Behaviour
@@ -64,10 +65,17 @@ export default class Behaviour {
 
 		if (this.viewport) {
 			this.$observer.destroy()
+
+			delete this.$observer
 		}
 
 		if (this.events) {
 			this.$events.destroy()
+
+			delete this.$events
 		}
+
+		delete this.$eventBus
+		delete this.$screen
 	}
 }
