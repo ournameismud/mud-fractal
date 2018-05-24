@@ -21,12 +21,12 @@ const lifecycle = (() => {
 			return lifecycle
 		},
 
-		exit(pathname) {
+		exit(pathname, trans) {
 			const newState = matchRoute(pathname)
-
+			const view = trans ? trans : newState.route.view
 			historyManager.store.to = newState
 
-			transition = Object.assign(baseTransition, newState.route.view)
+			transition = Object.assign(baseTransition, view)
 
 			const promise = method =>
 				new Promise(resolve => {

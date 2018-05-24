@@ -23,8 +23,8 @@ export default class Router {
 		})
 	}
 
-	static goTo = pathname => {
-		lifecycle.exit(pathname).then(() => {
+	static goTo = (pathname, transition) => {
+		lifecycle.exit(pathname, transition).then(() => {
 			historyManager.push(pathname, { some: 'state' })
 		})
 	}
