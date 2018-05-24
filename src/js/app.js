@@ -14,31 +14,51 @@ if (module.hot) {
 	module.hot.accept()
 }
 
+const exampleTransition = {
+	onExit: ({ next, ...rest }) => {
+		log('onExit', rest)
+		next()
+	},
+
+	onAfterExit: ({ ...rest }) => {
+		log('onAfterExit', rest)
+	},
+
+	onEnter: ({ next, ...rest }) => {
+		log('onEnter', rest)
+		next()
+	},
+
+	onAfterEnter: ({ ...rest }) => {
+		log('onAfterEnter', rest)
+	}
+}
+
 new Router({
 	routes: [
 		{
 			path: '/',
-			view: 'home'
+			view: exampleTransition
 		},
 		{
 			path: '/page-1/',
-			view: 'home',
+			view: exampleTransition,
 			children: {
 				path: ':id',
-				view: 'terry'
+				view: exampleTransition
 			}
 		},
 		{
 			path: '/page-2/',
-			view: 'home'
+			view: exampleTransition
 		},
 		{
 			path: '/page-3/',
-			view: 'home'
+			view: exampleTransition
 		},
 		{
 			path: '/page-4/',
-			view: 'home'
+			view: exampleTransition
 		}
 	]
 }).mount()
