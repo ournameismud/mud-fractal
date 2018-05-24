@@ -148,7 +148,7 @@ export const findRoute = R.curry(routes => {
 })
 // credit: https://github.com/luruke/barba.js/blob/master/src/Pjax/Pjax.js
 export const preventClick = (evt, element) => {
-	const { href } = element
+	const { href, pathname } = element
 	if (!element || !href) return false
 
 	//Middle click, cmd click, and ctrl click

@@ -15,7 +15,7 @@ const cache = {}
 const delay = delay => new Promise(resolve => setTimeout(resolve, delay))
 
 const baseView = {
-	onExit: next => {
+	onExit: ({ next }) => {
 		log('onExit')
 
 		delay(100).then(next)
@@ -25,7 +25,7 @@ const baseView = {
 		log('onAfterExit')
 	},
 
-	onEnter: next => {
+	onEnter: ({ next }) => {
 		log('onEnter')
 		delay(100).then(next)
 	},
@@ -44,7 +44,8 @@ export default class Router {
 		this.$wrapper = document.getElementById('page-wrapper')
 
 		this.$events = createEvents.call(this, document, {
-			'click a': 'onClick'
+			'click a': 'onClick',
+			'mouseover a': 'onMouseEnter'
 		})
 
 		history.listen((location, action) => {
@@ -79,8 +80,19 @@ export default class Router {
 
 	currentPath = null
 
+	onMouseEnter = (e, elm) => {
+		const { pathname } = elm
+		if (!preventClick(e, elm) || cache[pathname]) {
+			return
+		}
+
+		log('mouse fetch request')
+		this.fetch(pathname)
+	}
+
 	onClick = (e, elm) => {
 		const { pathname } = elm
+
 		if (!preventClick(e, elm)) {
 			return
 		}
@@ -88,7 +100,7 @@ export default class Router {
 		e.stopPropagation()
 		e.preventDefault()
 
-		if (this.state.current.route.path === pathname) return
+		if (pathname !== window.location.pathname) return
 
 		this.updateHistory(pathname)
 
@@ -106,12 +118,12 @@ export default class Router {
 	lifecycle = {
 		exit: pathname => {
 			const x = new Promise(resolve => {
-				baseView.onExit(resolve)
+				baseView.onExit({ next: resolve })
 			})
 			return Promise.all([x, this.fetch(pathname)])
 		},
 
-		enter: pathname => {
+		enter: () => {
 			const x = new Promise(resolve => {
 				baseView.onEnter(resolve)
 			})
@@ -149,6 +161,7 @@ export default class Router {
 	}
 
 	inject = ({ html, title }) => {
+		this.$wrapper.innerHTML = ''
 		this.$wrapper.appendChild(html)
 		document.title = title
 	}

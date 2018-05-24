@@ -65,16 +65,16 @@ export default class Behaviour {
 		if (this.viewport) {
 			this.$observer.destroy()
 
-			delete this.$observer
+			// delete this.$observer
 		}
 
 		if (this.events) {
 			this.$events.destroy()
 
-			delete this.$events
+			// delete this.$events
 		}
 
-		delete this.$eventBus
-		delete this.$screen
+		// delete this.$eventBus
+		// delete this.$screen
 	}
 }
