@@ -3,7 +3,7 @@ import baseTransition from '@/core/router/transition'
 import fetch from '@/core/router/fetch'
 import cache from '@/core/router/cache'
 import historyManager from '@/core/router/history'
-// import eventBus from '@/core/modules/eventBus'
+import eventBus from '@/core/modules/eventBus'
 import domify from 'domify'
 
 const lifecycle = (() => {
@@ -22,6 +22,8 @@ const lifecycle = (() => {
 			const view = trans ? trans : newState.route.view
 			historyManager.store.to = newState
 
+			eventBus.emit('route:exit')
+
 			exitTransition = Object.assign(
 				{},
 				baseTransition,
@@ -37,6 +39,8 @@ const lifecycle = (() => {
 			return Promise.all([promise('onExit', exitTransition), fetch(pathname)])
 				.then(() => {
 					const { data: markup } = cache.get(pathname)
+
+					eventBus.emit('route:exit:complete')
 
 					const html = domify(markup)
 
@@ -54,9 +58,12 @@ const lifecycle = (() => {
 					return props
 				})
 				.then(props => {
+					eventBus.emit('route:enter')
+
 					promise('onEnter', enterTransition).then(() => {
 						enterTransition.onAfterEnter({ ...props, ...historyManager.store })
 						historyManager.store.from = newState
+						eventBus.emit('route:enter:complete')
 					})
 				})
 		}
