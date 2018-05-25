@@ -47,7 +47,6 @@ new Router({
 		{
 			path: '/page-2/',
 			view: {
-				page: 2,
 				onExit: ({ next, ...rest }) => {
 					log('onExit page-2', rest)
 					next()
@@ -61,7 +60,6 @@ new Router({
 		{
 			path: '/page-3/',
 			view: {
-				page: 3,
 				onExit: ({ next, ...rest }) => {
 					log('onExit page-3', rest)
 					next()
