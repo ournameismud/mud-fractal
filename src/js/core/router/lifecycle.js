@@ -14,12 +14,7 @@ const lifecycle = (() => {
 	return {
 		addRoutes(routes) {
 			matchRoute = findRoute(routes)
-
 			historyManager.store.from = matchRoute(window.location.pathname)
-
-			log(historyManager.store)
-
-			return lifecycle
 		},
 
 		exit(pathname, trans) {
