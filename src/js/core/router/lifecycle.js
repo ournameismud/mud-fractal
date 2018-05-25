@@ -8,7 +8,8 @@ import domify from 'domify'
 
 const lifecycle = (() => {
 	let matchRoute
-	let transition
+	let exitTransition
+	let enterTransition
 
 	return {
 		addRoutes(routes) {
@@ -26,35 +27,40 @@ const lifecycle = (() => {
 			const view = trans ? trans : newState.route.view
 			historyManager.store.to = newState
 
-			transition = Object.assign(baseTransition, view)
+			exitTransition = Object.assign(
+				{},
+				baseTransition,
+				historyManager.store.from.route.view
+			)
+			enterTransition = Object.assign({}, baseTransition, view)
 
-			const promise = method =>
+			const promise = (method, transition) =>
 				new Promise(resolve => {
 					transition[method]({ next: resolve, ...historyManager.store })
 				})
 
-			return Promise.all([promise('onExit'), fetch(pathname)])
+			return Promise.all([promise('onExit', exitTransition), fetch(pathname)])
 				.then(() => {
 					const { data: markup } = cache.get(pathname)
 
 					const html = domify(markup)
 
 					const title = html.querySelector('title').textContent
-					const newHtml = html.querySelector(transition.el)
+					const newHtml = html.querySelector(enterTransition.el)
 
 					const props = {
 						wrapper: document.getElementById('page-wrapper'),
 						newHtml,
 						title
 					}
-					transition.updateDom({ ...props, ...historyManager.store })
-					transition.onAfterExit({ ...props, ...historyManager.store })
+					enterTransition.updateDom({ ...props, ...historyManager.store })
+					exitTransition.onAfterExit({ ...props, ...historyManager.store })
 
 					return props
 				})
 				.then(props => {
-					promise('onEnter').then(() => {
-						transition.onAfterEnter({ ...props, ...historyManager.store })
+					promise('onEnter', enterTransition).then(() => {
+						enterTransition.onAfterEnter({ ...props, ...historyManager.store })
 						historyManager.store.from = newState
 					})
 				})

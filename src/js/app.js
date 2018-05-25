@@ -46,11 +46,31 @@ new Router({
 		},
 		{
 			path: '/page-2/',
-			view: exampleTransition
+			view: {
+				page: 2,
+				onExit: ({ next, ...rest }) => {
+					log('onExit page-2', rest)
+					next()
+				},
+				onEnter: ({ next, ...rest }) => {
+					log('onEnter page-2', rest)
+					next()
+				}
+			}
 		},
 		{
 			path: '/page-3/',
-			view: exampleTransition
+			view: {
+				page: 3,
+				onExit: ({ next, ...rest }) => {
+					log('onExit page-3', rest)
+					next()
+				},
+				onEnter: ({ next, ...rest }) => {
+					log('onEnter page-3', rest)
+					next()
+				}
+			}
 		},
 		{
 			path: '/page-4/',
