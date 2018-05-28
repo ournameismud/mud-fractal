@@ -8,8 +8,8 @@ import domify from 'domify'
 
 const lifecycle = (() => {
 	let matchRoute
-	let exitTransition
-	let enterTransition
+	let exitTransition = {}
+	let enterTransition = {}
 	let wrapper
 
 	return {
@@ -33,6 +33,8 @@ const lifecycle = (() => {
 
 			fn.onLoad()
 
+			eventBus.emit('route:transition:load', newState)
+
 			return this
 		},
 
@@ -40,8 +42,6 @@ const lifecycle = (() => {
 			const newState = matchRoute(pathname)
 			const view = trans ? trans : newState.route.view
 			historyManager.store.to = newState
-
-			eventBus.emit('route:exit')
 
 			exitTransition = Object.assign(
 				{},
