@@ -1,30 +1,64 @@
-const example = {
-	onEnter({ wrapper, next }) {
-		wrapper.style.opacity = 1
+const exampleTransition = {
+	onExit: ({ next, ...rest }) => {
+		log('onExit', rest)
 		next()
 	},
 
-	onEnterComplete() {},
+	onAfterExit: ({ ...rest }) => {
+		log('onAfterExit', rest)
+	},
 
-	onLeave({ wrapper, next }) {
-		wrapper.style.opacity = 0
+	onEnter: ({ next, ...rest }) => {
+		log('onEnter', rest)
 		next()
 	},
 
-	onLeaveComplete() {}
+	onAfterEnter: ({ ...rest }) => {
+		log('onAfterEnter', rest)
+	}
 }
 
 export default [
 	{
 		path: '/',
-		view: example,
+		view: exampleTransition
+	},
+	{
+		path: '/page-1/',
+		view: exampleTransition,
 		children: {
 			path: ':id',
-			view: example
+			view: exampleTransition
 		}
 	},
 	{
-		path: '*',
-		view: example
+		path: '/page-2/',
+		view: {
+			onExit: ({ next, ...rest }) => {
+				log('onExit page-2', rest)
+				next()
+			},
+			onEnter: ({ next, ...rest }) => {
+				log('onEnter page-2', rest)
+				next()
+			}
+		}
+	},
+	{
+		path: '/page-3/',
+		view: {
+			onExit: ({ next, ...rest }) => {
+				log('onExit page-3', rest)
+				next()
+			},
+			onEnter: ({ next, ...rest }) => {
+				log('onEnter page-3', rest)
+				next()
+			}
+		}
+	},
+	{
+		path: '/page-4/',
+		view: exampleTransition
 	}
 ]

@@ -3,7 +3,6 @@ import cache from '@/core/router/cache'
 export default (pathname, options = {}, type = 'text') => {
 	return new Promise(resolve => {
 		if (cache.get(pathname)) {
-			log('from cache')
 			resolve()
 			return
 		}

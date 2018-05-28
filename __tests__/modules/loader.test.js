@@ -3,15 +3,15 @@ import loader from '@/core/modules/loader'
 describe('loader function', () => {
 	document.body.innerHTML = `<div id="test">
                               <b data-behaviour="ModuleA"></b>
-                              <div id="wrapper">
-                                <b class="fake" data-behaviour="ModuleB"></b>
+                              <div id="page-wrapper">
+                                <div data-behaviour="ModuleB"></div>
                               </div>
                             </div>`
 
 	let load
-
+	const fn = behaviour => import(`../behaviours/${behaviour}`)
 	beforeAll(() => {
-		load = loader(`${__dirname}/behaviours/`)
+		load = loader(fn)
 	})
 
 	it('should be a function', () => {

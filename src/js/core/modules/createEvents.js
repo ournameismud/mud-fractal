@@ -7,7 +7,6 @@ export default R.curry(function(context, obj) {
 		const capture = !!R.compose(R.length, R.match(/mouse/g), R.head)(
 			eventAndNode
 		)
-		console.log(capture)
 		const funk = typeof fn === 'string' ? this[fn] : fn
 		return [...eventAndNode, funk, capture]
 	})

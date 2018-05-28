@@ -17,7 +17,7 @@ const lifecycle = (() => {
 			historyManager.store.from = matchRoute(window.location.pathname)
 		},
 
-		exit(pathname, trans) {
+		exit({ pathname, action, trans }) {
 			const newState = matchRoute(pathname)
 			const view = trans ? trans : newState.route.view
 			historyManager.store.to = newState
@@ -33,14 +33,12 @@ const lifecycle = (() => {
 
 			const promise = (method, transition) =>
 				new Promise(resolve => {
-					transition[method]({ next: resolve, ...historyManager.store })
+					transition[method]({ next: resolve, ...historyManager.store, action })
 				})
 
 			return Promise.all([promise('onExit', exitTransition), fetch(pathname)])
 				.then(() => {
 					const { data: markup } = cache.get(pathname)
-
-					eventBus.emit('route:exit:complete')
 
 					const html = domify(markup)
 
@@ -52,8 +50,21 @@ const lifecycle = (() => {
 						newHtml,
 						title
 					}
-					enterTransition.updateDom({ ...props, ...historyManager.store })
-					exitTransition.onAfterExit({ ...props, ...historyManager.store })
+					eventBus.emit('route:before:dom:update')
+
+					enterTransition.updateDom({
+						...props,
+						...historyManager.store,
+						action
+					})
+
+					eventBus.emit('route:after:dom:update', { newHtml })
+
+					exitTransition.onAfterExit({
+						...props,
+						...historyManager.store,
+						action
+					})
 
 					return props
 				})
@@ -61,7 +72,11 @@ const lifecycle = (() => {
 					eventBus.emit('route:enter')
 
 					promise('onEnter', enterTransition).then(() => {
-						enterTransition.onAfterEnter({ ...props, ...historyManager.store })
+						enterTransition.onAfterEnter({
+							...props,
+							...historyManager.store,
+							action
+						})
 						historyManager.store.from = newState
 						eventBus.emit('route:enter:complete')
 					})

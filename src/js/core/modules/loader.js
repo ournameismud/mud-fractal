@@ -1,29 +1,15 @@
-({
-	plugins: 'jsdom-quokka-plugin',
-	jsdom: {
-		html: `<div id="test">
-            <b data-behaviour="ModuleA"></b>
-            <div id="wrapper">
-							<b class="fake" data-behaviour="ModuleB"></b>
-						</div>
-					</div>`
-	}
-})
-
 import * as R from 'ramda'
 
-const loader = (path = '../behaviours/') => {
+const loader = fn => {
 	const state = {
 		stack: [],
 		scope: []
 	}
 
-	const PATH = path
-
 	const gatherBehaviours = R.compose(
 		R.map(({ node, behaviour }) => {
 			return new Promise(resolve => {
-				import(`@/behaviours/${behaviour}`).then(resp => {
+				fn(behaviour).then(resp => {
 					resolve({
 						id: behaviour,
 						node,
@@ -45,7 +31,7 @@ const loader = (path = '../behaviours/') => {
 		})
 	)
 
-	const hydrate = context => {
+	const hydrate = (context, wrapper = '#page-wrapper') => {
 		return Promise.all(
 			gatherBehaviours([...context.querySelectorAll('*[data-behaviour]')])
 		).then(data => {
@@ -56,7 +42,7 @@ const loader = (path = '../behaviours/') => {
 					setTimeout(() => {
 						fn.mount()
 					})
-					const destroy = node.classList.contains('fake')
+					const destroy = node.closest(wrapper)
 					return { fn, destroy, id }
 				})
 			)(data)
@@ -74,8 +60,8 @@ const loader = (path = '../behaviours/') => {
 
 	const unmount = () => {
 		R.compose(
-			R.map(item => {
-				item.destroy()
+			R.map(({ fn }) => {
+				fn.destroy()
 			})
 		)(state.scope)
 	}

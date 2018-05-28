@@ -7,7 +7,7 @@ const historyManager = (() => {
 	history.listen((location, action) => {
 		const { pathname, state } = location
 		if (action === 'POP') {
-			eventBus.emit('__route-pop__', pathname)
+			eventBus.emit('__route-pop__', { pathname, state })
 		}
 	})
 

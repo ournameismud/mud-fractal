@@ -45,11 +45,11 @@
   <body>
 		<pre id="debug"></pre>
 		<div class="flex">
-			<header class="w-4/12">
+			<header class="w-4/12" data-behaviour="Header">
 				<ul class="list-reset p-1">
 					{% for entry in menu %}
 						<li class="text-lg mb-1">
-							<a href="{{ entry.slug }}">{{ entry.title }}</a>
+							<a href="{{ entry.slug }}" data-prop-1="hello" data-prefetch>{{ entry.title }}</a>
 						</li>
 					{% endfor %}
 				</ul>

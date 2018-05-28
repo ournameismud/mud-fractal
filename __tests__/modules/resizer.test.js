@@ -5,7 +5,7 @@ describe('resize function', () => {
 		window.resizeTo(500, 500)
 		setTimeout(() => {
 			done()
-		}, 10)
+		}, 100)
 	})
 
 	afterEach(async done => {

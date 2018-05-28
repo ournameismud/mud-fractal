@@ -1,7 +1,8 @@
-import Behaviour from '@/core/behaviour'
+import Behaviour from '@/core/Behaviour'
 
-export default class ExampleClass extends Behaviour {
+export default class HomePage extends Behaviour {
 	mount = () => {
+		log('mount: HomePage')
 		this.$el.classList.add('mount')
 		this.$events.attachAll()
 		this.$screen.on('window:resize', ({ width, height, query }) => {
@@ -10,6 +11,7 @@ export default class ExampleClass extends Behaviour {
 	}
 
 	unmount = () => {
+		log('unmount: HomePage')
 		this.$el.classList.add('unmount')
 	}
 
@@ -24,11 +26,11 @@ export default class ExampleClass extends Behaviour {
 
 	viewport = {
 		enter: () => {
-			log('enter')
+			log('ExampleClass enter')
 		},
 
 		exit: () => {
-			log('exit')
+			log('ExampleClass exit')
 		}
 	}
 

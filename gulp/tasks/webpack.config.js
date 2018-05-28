@@ -28,6 +28,7 @@ module.exports = env => {
 			path: path.normalize(dest),
 			publicPath: '/dist/js/',
 			pathinfo: env !== 'production' && true,
+			globalObject: 'this',
 			filename:
 				env === 'production'
 					? `[name].${filename}.${TASK_CONFIG.stamp}.js`
@@ -66,6 +67,10 @@ module.exports = env => {
 					test: /\.js?$/,
 					loader: 'babel-loader',
 					exclude: /node_modules/
+				},
+				{
+					test: /\.worker\.js$/,
+					use: { loader: 'worker-loader' }
 				},
 				{
 					test: /\.js$/,
