@@ -11,6 +11,20 @@ import Worker from '@/core/router/fetch.worker.js'
 
 const worker = new Worker()
 
+const getLinks = R.compose(
+	R.filter(
+		pathname => pathname !== window.location.pathname && !cache.get(pathname)
+	),
+	R.map(R.prop('pathname')),
+	R.filter(link => !preventClick({}, link.pathname))
+)
+
+worker.addEventListener('message', function({ data }) {
+	data.forEach(({ key, data }) => {
+		cache.set(key, { data })
+	})
+})
+
 export default class Router {
 	constructor({ routes, rootNode }) {
 		this.$routes = flattenRoutes(routes)
@@ -72,25 +86,9 @@ export default class Router {
 	}
 
 	lazyload = () => {
-		const links = R.compose(
-			R.filter(
-				pathname =>
-					pathname !== window.location.pathname && !cache.get(pathname)
-			),
-			R.map(R.prop('pathname')),
-			R.filter(link => !preventClick({}, link.pathname))
-		)([...document.querySelectorAll('a')])
+		const links = getLinks([...document.querySelectorAll('a')])
 
-		worker.postMessage({ links })
-		worker.onmessage = function({ data }) {
-			data.forEach(({ key, data }) => {
-				cache.set(key, { data })
-			})
-		}
-
-		worker.addEventListener('message', function(event) {
-			// console.log('window message', event)
-		})
+		links.length && worker.postMessage({ links })
 
 		return this
 	}

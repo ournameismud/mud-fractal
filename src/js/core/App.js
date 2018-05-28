@@ -23,6 +23,7 @@ export default (() => {
 
 			eventBus.on('route:after:dom:update', ({ newHtml }) => {
 				this.$loader.hydrate(newHtml)
+				this.$router.lazyload()
 			})
 		}
 	}
