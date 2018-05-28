@@ -1,6 +1,6 @@
 import loader from '@/core/modules/loader'
-import Router from '@/core/router/index'
 import eventBus from '@/core/modules/eventBus'
+import Router from '@/core/router/'
 
 export default (() => {
 	return class App {

@@ -1,20 +1,20 @@
 const exampleTransition = {
-	onExit: ({ next, ...rest }) => {
-		log('onExit', rest)
+	onExit: ({ next, from: { route: { path } } }) => {
+		log('onExit', path)
 		next()
 	},
 
-	onAfterExit: ({ ...rest }) => {
-		log('onAfterExit', rest)
+	onAfterExit: ({ from: { route: { path } } }) => {
+		log('onAfterExit', path)
 	},
 
-	onEnter: ({ next, ...rest }) => {
-		log('onEnter', rest)
+	onEnter: ({ next, to: { route: { path } } }) => {
+		log('onEnter', path)
 		next()
 	},
 
-	onAfterEnter: ({ ...rest }) => {
-		log('onAfterEnter', rest)
+	onAfterEnter: ({ to: { route: { path } } }) => {
+		log('onAfterEnter', path)
 	}
 }
 
@@ -33,29 +33,11 @@ export default [
 	},
 	{
 		path: '/page-2/',
-		view: {
-			onExit: ({ next, ...rest }) => {
-				log('onExit page-2', rest)
-				next()
-			},
-			onEnter: ({ next, ...rest }) => {
-				log('onEnter page-2', rest)
-				next()
-			}
-		}
+		view: exampleTransition
 	},
 	{
 		path: '/page-3/',
-		view: {
-			onExit: ({ next, ...rest }) => {
-				log('onExit page-3', rest)
-				next()
-			},
-			onEnter: ({ next, ...rest }) => {
-				log('onEnter page-3', rest)
-				next()
-			}
-		}
+		view: exampleTransition
 	},
 	{
 		path: '/page-4/',

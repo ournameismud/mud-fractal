@@ -10,14 +10,33 @@ const lifecycle = (() => {
 	let matchRoute
 	let exitTransition
 	let enterTransition
+	let wrapper
 
 	return {
 		addRoutes(routes) {
 			matchRoute = findRoute(routes)
 			historyManager.store.from = matchRoute(window.location.pathname)
+
+			return this
 		},
 
-		exit({ pathname, action, trans }) {
+		setWrapper(node) {
+			wrapper = node
+
+			return this
+		},
+
+		onLoad(pathname) {
+			const newState = matchRoute(pathname)
+
+			const fn = Object.assign({}, baseTransition, newState.route.view)
+
+			fn.onLoad()
+
+			return this
+		},
+
+		exit({ pathname, action, transition: trans, dataAttrs }) {
 			const newState = matchRoute(pathname)
 			const view = trans ? trans : newState.route.view
 			historyManager.store.to = newState
@@ -31,54 +50,69 @@ const lifecycle = (() => {
 			)
 			enterTransition = Object.assign({}, baseTransition, view)
 
-			const promise = (method, transition) =>
+			const exitProps = {
+				...historyManager.store,
+				wrapper,
+				oldHtml: document.querySelector(exitTransition.el),
+				action,
+				dataAttrs
+			}
+
+			const promise = (method, transition, props = {}) =>
 				new Promise(resolve => {
-					transition[method]({ next: resolve, ...historyManager.store, action })
+					transition[method]({
+						next: resolve,
+						...props
+					})
 				})
 
-			return Promise.all([promise('onExit', exitTransition), fetch(pathname)])
+			eventBus.emit('route:transition:exit', exitProps)
+
+			return Promise.all([
+				promise('onExit', exitTransition, exitProps),
+				fetch(pathname)
+			])
 				.then(() => {
+					eventBus.emit('route:transition:resolved', exitProps)
 					const { data: markup } = cache.get(pathname)
 
 					const html = domify(markup)
 
-					const title = html.querySelector('title').textContent
+					const title = html.querySelector('title').textContent.trim()
 					const newHtml = html.querySelector(enterTransition.el)
 
 					const props = {
-						wrapper: document.getElementById('page-wrapper'),
+						oldHtml: document.querySelector(exitTransition.el),
+						wrapper,
 						newHtml,
-						title
+						title,
+						html,
+						...historyManager.store,
+						action
 					}
-					eventBus.emit('route:before:dom:update')
+					eventBus.emit('route:before:dom:update', props)
 
-					enterTransition.updateDom({
-						...props,
-						...historyManager.store,
-						action
-					})
+					enterTransition.updateDom(props)
 
-					eventBus.emit('route:after:dom:update', { newHtml })
+					eventBus.emit('route:after:dom:update', props)
 
-					exitTransition.onAfterExit({
-						...props,
-						...historyManager.store,
-						action
-					})
+					exitTransition.onAfterExit(props)
 
 					return props
 				})
 				.then(props => {
-					eventBus.emit('route:enter')
+					const enterProps = {
+						...props,
+						...historyManager.store,
+						action
+					}
 
-					promise('onEnter', enterTransition).then(() => {
-						enterTransition.onAfterEnter({
-							...props,
-							...historyManager.store,
-							action
-						})
+					eventBus.emit('route:transition:enter', enterProps)
+
+					promise('onEnter', enterTransition, enterProps).then(() => {
+						enterTransition.onAfterEnter(enterProps)
 						historyManager.store.from = newState
-						eventBus.emit('route:enter:complete')
+						eventBus.emit('route:transition:complete', enterProps)
 					})
 				})
 		}

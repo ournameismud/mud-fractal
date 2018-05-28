@@ -15,7 +15,10 @@ export default class Router {
 	constructor({ routes, rootNode }) {
 		this.$routes = flattenRoutes(routes)
 
-		lifecycle.addRoutes(this.$routes)
+		lifecycle
+			.addRoutes(this.$routes)
+			.setWrapper(rootNode)
+			.onLoad(window.location.pathname)
 
 		this.$findRoute = findRoute(this.$routes)
 
@@ -28,7 +31,7 @@ export default class Router {
 	}
 
 	static goTo = ({ pathname, action, dataAttrs }, transition) => {
-		lifecycle.exit({ pathname, action, transition }).then(() => {
+		lifecycle.exit({ pathname, action, transition, dataAttrs }).then(() => {
 			historyManager.push(pathname, { attr: dataAttrs })
 		})
 	}
@@ -70,8 +73,10 @@ export default class Router {
 
 	lazyload = () => {
 		const links = R.compose(
-			R.filter(pathname => !cache.get(pathname)),
-			R.filter(pathname => pathname !== window.location.pathname),
+			R.filter(
+				pathname =>
+					pathname !== window.location.pathname && !cache.get(pathname)
+			),
 			R.map(R.prop('pathname')),
 			R.filter(link => !preventClick({}, link.pathname))
 		)([...document.querySelectorAll('a')])
