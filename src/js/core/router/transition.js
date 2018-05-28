@@ -12,20 +12,14 @@ export default {
 	},
 
 	onExit: ({ next }) => {
-		log('onExit')
 		next()
 	},
 
-	onAfterExit: () => {
-		log('onAfterExit')
-	},
+	onAfterExit: () => {},
 
 	onEnter: ({ next }) => {
-		log('onEnter')
 		next()
 	},
 
-	onAfterEnter: () => {
-		log('onAfterEnter')
-	}
+	onAfterEnter: () => {}
 }
