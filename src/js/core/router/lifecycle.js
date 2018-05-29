@@ -4,6 +4,7 @@ import fetch from '@/core/router/fetch'
 import cache from '@/core/router/cache'
 import historyManager from '@/core/router/history'
 import eventBus from '@/core/modules/eventBus'
+import * as Action from '@/core/router/actions'
 import domify from 'domify'
 
 const lifecycle = (() => {
@@ -31,9 +32,9 @@ const lifecycle = (() => {
 
 			const fn = Object.assign({}, baseTransition, newState.route.view)
 
-			fn.onLoad()
+			fn.onLoad(newState)
 
-			eventBus.emit('route:transition:load', newState)
+			eventBus.emit(Action.ROUTE_TRANSITION_LOAD, newState)
 
 			return this
 		},
@@ -67,14 +68,14 @@ const lifecycle = (() => {
 					})
 				})
 
-			eventBus.emit('route:transition:exit', exitProps)
+			eventBus.emit(Action.ROUTE_TRANSITION_EXIT, exitProps)
 
 			return Promise.all([
 				promise('onExit', exitTransition, exitProps),
 				fetch(pathname)
 			])
 				.then(([, resp]) => {
-					eventBus.emit('route:transition:resolved', exitProps)
+					eventBus.emit(Action.ROUTE_TRANSITION_RESOLVED, exitProps)
 					const { data: markup } = cache.get(pathname)
 
 					if (resp.data && resp.data.data === false) {
@@ -97,11 +98,11 @@ const lifecycle = (() => {
 						...historyManager.store,
 						action
 					}
-					eventBus.emit('route:before:dom:update', props)
+					eventBus.emit(Action.ROUTE_TRANSITION_BEFORE_DOM_UPDATE, props)
 
 					enterTransition.updateDom(props)
 
-					eventBus.emit('route:after:dom:update', props)
+					eventBus.emit(Action.ROUTE_TRANSITION_AFTER_DOM_UPDATE, props)
 
 					exitTransition.onAfterExit(props)
 
@@ -119,12 +120,12 @@ const lifecycle = (() => {
 							log('update history ')
 						}
 
-						eventBus.emit('route:transition:enter', enterProps)
+						eventBus.emit(Action.ROUTE_TRANSITION_ENTER, enterProps)
 
 						promise('onEnter', enterTransition, enterProps).then(() => {
 							enterTransition.onAfterEnter(enterProps)
 							historyManager.store.from = newState
-							eventBus.emit('route:transition:complete', enterProps)
+							eventBus.emit(Action.ROUTE_TRANSITION_COMPLETE, enterProps)
 						})
 					}
 

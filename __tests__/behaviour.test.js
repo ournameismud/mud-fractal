@@ -1,5 +1,6 @@
 import Behaviour from '@/core/behaviour'
 import eventBus from '@/core/modules/eventBus'
+import * as Actions from '@/core/router/actions'
 
 class ExampleWithAllTheBitsCovered extends Behaviour {
 	mount = () => {
@@ -126,8 +127,8 @@ describe('behaviour class', () => {
 	})
 
 	it('should respond to router events', () => {
-		eventBus.emit('routes:enter')
-		eventBus.emit('routes:exit')
+		eventBus.emit(Actions.ROUTE_TRANSITION_ENTER)
+		eventBus.emit(Actions.ROUTE_TRANSITION_EXIT)
 
 		expect(behaviour.$el.classList.contains('enter')).toBe(true)
 		expect(behaviour.$el.classList.contains('exit')).toBe(true)
@@ -142,8 +143,8 @@ describe('behaviour class', () => {
 		behaviour.destroy()
 
 		$link.click()
-		eventBus.emit('routes:enter')
-		eventBus.emit('routes:exit')
+		eventBus.emit(Actions.ROUTE_TRANSITION_ENTER)
+		eventBus.emit(Actions.ROUTE_TRANSITION_EXIT)
 
 		expect(behaviour.$el.classList.contains('enter')).toBe(true)
 		expect(behaviour.$el.classList.contains('exit')).toBe(true)

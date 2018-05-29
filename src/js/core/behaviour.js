@@ -3,6 +3,7 @@ import refs, { composeProps } from '@/core/modules/refs'
 import eventBus from '@/core/modules/eventBus'
 import resizer from '@/core/modules/resizer'
 import inview from '@/core/modules/inview'
+import * as Actions from '@/core/router/actions'
 
 /**
  * class Behaviour
@@ -37,8 +38,8 @@ export default class Behaviour {
 			this.registerObserverOptions
 		)
 
-		this.$eventBus.on('routes:enter', this.routes.enter)
-		this.$eventBus.on('routes:exit', this.routes.exit)
+		this.$eventBus.on(Actions.ROUTE_TRANSITION_ENTER, this.routes.enter)
+		this.$eventBus.on(Actions.ROUTE_TRANSITION_EXIT, this.routes.exit)
 		this.$refs = refs(this.$el)
 		this.$screen = resizer(this.screens)
 		if (this.events) {
@@ -58,8 +59,8 @@ export default class Behaviour {
 
 	destroy = () => {
 		this.unmount()
-		this.$eventBus.off('routes:enter', this.routes.enter)
-		this.$eventBus.off('routes:exit', this.routes.exit)
+		this.$eventBus.off(Actions.ROUTE_TRANSITION_ENTER, this.routes.enter)
+		this.$eventBus.off(Actions.ROUTE_TRANSITION_EXIT, this.routes.exit)
 		this.$screen.destroy()
 
 		if (this.viewport) {

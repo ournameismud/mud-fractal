@@ -1,20 +1,20 @@
 const exampleTransition = {
-	onExit: ({ next, from: { route: { path } } }) => {
-		log('onExit', path)
+	onExit: ({ next, from: { route: { path } }, ...rest }) => {
+		console.info('onExit', path, rest)
 		next()
 	},
 
-	onAfterExit: ({ from: { route: { path } } }) => {
-		log('onAfterExit', path)
+	onAfterExit: ({ from: { route: { path } }, ...rest }) => {
+		console.info('onAfterExit', path, rest)
 	},
 
-	onEnter: ({ next, to: { route: { path } } }) => {
-		log('onEnter', path)
+	onEnter: ({ next, to: { route: { path } }, ...rest }) => {
+		console.info('onEnter', path, rest)
 		next()
 	},
 
-	onAfterEnter: ({ to: { route: { path } } }) => {
-		log('onAfterEnter', path)
+	onAfterEnter: ({ to: { route: { path } }, ...rest }) => {
+		console.info('onAfterEnter', path, rest)
 	}
 }
 

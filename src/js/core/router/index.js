@@ -8,6 +8,7 @@ import cache from '@/core/router/cache'
 import fetch from '@/core/router/fetch'
 import lifecycle from '@/core/router/lifecycle'
 import Worker from '@/core/router/fetch.worker.js'
+import * as Action from '@/core/router/actions'
 
 const worker = new Worker()
 
@@ -84,7 +85,7 @@ export default class Router {
 	}
 
 	mount = () => {
-		eventBus.on('__route-pop__', ({ pathname }) => {
+		eventBus.on(Action.ROUTER_POP_EVENT, ({ pathname }) => {
 			lifecycle.exit({ pathname, action: 'POP' })
 		})
 

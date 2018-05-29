@@ -1,5 +1,6 @@
 import createHistory from 'history/createBrowserHistory'
 import eventBus from '@/core/modules/eventBus'
+import * as Action from '@/core/router/actions'
 
 const historyManager = (() => {
 	const history = createHistory()
@@ -7,7 +8,7 @@ const historyManager = (() => {
 	history.listen((location, action) => {
 		const { pathname, state } = location
 		if (action === 'POP') {
-			eventBus.emit('__route-pop__', { pathname, state })
+			eventBus.emit(Action.ROUTER_POP_EVENT, { pathname, state })
 		}
 	})
 
