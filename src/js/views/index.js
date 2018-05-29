@@ -17,6 +17,32 @@ const exampleTransition = {
 		console.info('onAfterEnter', path, rest)
 	}
 }
+let prevHtml
+const paginationExample = {
+	updateDom({ wrapper, newHtml, title, action }) {
+		if (action === 'POP' && prevHtml) {
+			if (prevHtml) {
+				let removeHtml = prevHtml
+				const prev = removeHtml.previousElementSibling
+				prevHtml = prev.classList.contains('page-child') ? prev : null
+				removeHtml.parentNode.removeChild(removeHtml)
+			}
+		} else {
+			wrapper.appendChild(newHtml)
+			prevHtml = newHtml
+		}
+
+		document.title = title
+	},
+
+	onExit: ({ next }) => {
+		next()
+	},
+
+	onEnter: ({ next }) => {
+		next()
+	}
+}
 
 export default [
 	{
@@ -28,7 +54,7 @@ export default [
 		view: exampleTransition,
 		children: {
 			path: ':id',
-			view: exampleTransition
+			view: paginationExample
 		}
 	},
 	{

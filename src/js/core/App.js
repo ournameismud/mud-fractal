@@ -1,6 +1,7 @@
 import loader from '@/core/modules/loader'
 import eventBus from '@/core/modules/eventBus'
 import Router from '@/core/router/'
+import * as Actions from '@/core/router/actions'
 
 export default (() => {
 	return class App {
@@ -17,11 +18,11 @@ export default (() => {
 
 			this.$router && this.$router.mount().lazyload()
 
-			eventBus.on('route:before:dom:update', () => {
+			eventBus.on(Actions.ROUTE_TRANSITION_BEFORE_DOM_UPDATE, () => {
 				this.$loader.unmount()
 			})
 
-			eventBus.on('route:after:dom:update', ({ newHtml }) => {
+			eventBus.on(Actions.ROUTE_TRANSITION_AFTER_DOM_UPDATE, ({ newHtml }) => {
 				this.$loader.hydrate(newHtml)
 				this.$router.lazyload()
 			})
