@@ -45,17 +45,25 @@ export default class Router {
 	}
 
 	static goTo = ({ pathname, action, dataAttrs }, transition) => {
-		lifecycle.exit({ pathname, action, transition, dataAttrs }).then(() => {
-			historyManager.push(pathname, { attr: dataAttrs })
-		})
+		lifecycle
+			.exit({ pathname, action, transition, dataAttrs })
+			.then(({ action }) => {
+				if (action === 'PUSH') {
+					historyManager.push(pathname, { attr: dataAttrs })
+				}
+			})
 	}
 
 	onMouseEnter = (e, elm) => {
 		const { pathname } = elm
 		if (!preventClick(e, elm) || cache.get(pathname)) {
+			log('NARP')
 			return
 		}
-		fetch(pathname)
+
+		fetch(pathname).catch(err => {
+			console.warn(`[PREFETCH] no page found at ${pathname}`)
+		})
 	}
 
 	onClick = (e, elm) => {

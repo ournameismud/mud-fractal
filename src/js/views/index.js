@@ -42,5 +42,9 @@ export default [
 	{
 		path: '/page-4/',
 		view: exampleTransition
+	},
+	{
+		path: '*',
+		view: exampleTransition
 	}
 ]

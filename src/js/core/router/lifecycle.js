@@ -59,9 +59,10 @@ const lifecycle = (() => {
 			}
 
 			const promise = (method, transition, props = {}) =>
-				new Promise(resolve => {
+				new Promise((resolve, reject) => {
 					transition[method]({
 						next: resolve,
+						onError: reject,
 						...props
 					})
 				})
@@ -72,9 +73,15 @@ const lifecycle = (() => {
 				promise('onExit', exitTransition, exitProps),
 				fetch(pathname)
 			])
-				.then(() => {
+				.then(([, resp]) => {
 					eventBus.emit('route:transition:resolved', exitProps)
 					const { data: markup } = cache.get(pathname)
+
+					if (resp.data && resp.data.data === false) {
+						exitTransition.onError({ ...exitProps, ...resp })
+						// window.location.pathname = pathname
+						return false
+					}
 
 					const html = domify(markup)
 
@@ -101,19 +108,27 @@ const lifecycle = (() => {
 					return props
 				})
 				.then(props => {
-					const enterProps = {
-						...props,
-						...historyManager.store,
-						action
+					if (props) {
+						const enterProps = {
+							...props,
+							...historyManager.store,
+							action
+						}
+
+						if (action === 'PUSH') {
+							log('update history ')
+						}
+
+						eventBus.emit('route:transition:enter', enterProps)
+
+						promise('onEnter', enterTransition, enterProps).then(() => {
+							enterTransition.onAfterEnter(enterProps)
+							historyManager.store.from = newState
+							eventBus.emit('route:transition:complete', enterProps)
+						})
 					}
 
-					eventBus.emit('route:transition:enter', enterProps)
-
-					promise('onEnter', enterTransition, enterProps).then(() => {
-						enterTransition.onAfterEnter(enterProps)
-						historyManager.store.from = newState
-						eventBus.emit('route:transition:complete', enterProps)
-					})
+					return props
 				})
 		}
 	}

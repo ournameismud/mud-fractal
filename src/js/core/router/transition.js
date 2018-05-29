@@ -5,6 +5,10 @@ export default {
 		log('on load')
 	},
 
+	onError: props => {
+		console.warn('error loading page', props)
+	},
+
 	updateDom: ({ wrapper, newHtml, title }) => {
 		wrapper.innerHTML = ''
 		wrapper.appendChild(newHtml)
