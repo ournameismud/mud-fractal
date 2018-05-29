@@ -76,6 +76,7 @@
 		"ramda": "^0.25.0"
 	},
 	"devDependencies": {
+		"fetch-mock": "^6.4.2",
 		"mulp": "2.0.0",
 		"spon-slide": "^1.0.7",
 		"tailwindcss-aspect-ratio": "^1.0.0",

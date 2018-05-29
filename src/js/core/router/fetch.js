@@ -3,7 +3,7 @@ import cache from '@/core/router/cache'
 export default (pathname, options = {}, type = 'text') => {
 	return new Promise(resolve => {
 		if (cache.get(pathname)) {
-			resolve()
+			resolve(cache.get(pathname).data)
 			return
 		}
 
@@ -13,7 +13,7 @@ export default (pathname, options = {}, type = 'text') => {
 				cache.set(pathname, {
 					data
 				})
-				resolve()
+				resolve(data)
 			})
 	})
 }
