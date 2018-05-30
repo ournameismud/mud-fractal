@@ -107,11 +107,11 @@ export const parseUrl = href => {
 }
 
 export const flattenRoutes = R.reduce(
-	(acc, { path, view, children, name, pagination }) => {
+	(acc, { path, view = {}, children, name = '', options = {} }) => {
 		const base = path
 		const tmp = []
 
-		tmp.push({ path: path, view: view, name, pagination })
+		tmp.push({ path, view, name, options })
 
 		if (children) {
 			const items = Array.isArray(children) ? children : [children]
@@ -137,7 +137,6 @@ export const flattenRoutes = R.reduce(
 export const findRoute = R.curry(routes => {
 	return R.memoizeWith(R.identity, url => {
 		const pNum = url.match(/\d+/g)
-		const page = pNum ? parseInt(pNum[pNum.length - 1], 10) : null
 		const data = parseUrl(url)
 		const { path: slug } = data
 		const list = R.filter(({ path }) => matchRoute(path)(slug))(routes)
@@ -146,16 +145,21 @@ export const findRoute = R.curry(routes => {
 				? routes.find(({ path }) => path === '*')
 				: list[list.length - 1]
 
+		const { options: { paginationParent } } = route
+		const page = pNum
+			? parseInt(pNum[pNum.length - 1], 10)
+			: paginationParent ? 1 : null
+
 		return {
 			route,
 			data,
-			page: route.pagination ? page : null
+			page
 		}
 	})
 })
 // credit: https://github.com/luruke/barba.js/blob/master/src/Pjax/Pjax.js
 export const preventClick = (evt, element) => {
-	const { href, pathname } = element
+	const { href } = element
 	if (!element || !href) return false
 
 	//Middle click, cmd click, and ctrl click

@@ -1,22 +1,25 @@
 let prevHtml
 let nextHtml
+
+const toggleBtnState = (wrapper, type, display) => {
+	const $btn = wrapper.querySelector(`[data-pagination-${type}]`)
+	if ($btn) {
+		$btn.style.display = display
+	}
+}
+
 const paginationExample = {
 	updateDom({ wrapper, newHtml, title, from, to }) {
-		const { page: fromPageNumber, data: { segments: fromSegments } } = from
-		const { page: toPageNumber, data: { segments: toSegments } } = to
+		const { page: fromPageNumber, route: fromRoute } = from
+		const { page: toPageNumber } = to
+		const alienPage =
+			!fromRoute.options.paginationParent && !fromRoute.options.pagination
 
 		// if we are coming from a pagination page
-		if (fromPageNumber === null) {
-			// and the previous page is not the new pages parent
-			prevHtml = null
-			const fromParent =
-				toSegments[toSegments.length - 2] ===
-				fromSegments[fromSegments.length - 1]
 
-			// empty the wrapper
-			if (!fromParent) {
-				wrapper.innerHTML = ''
-			}
+		if (alienPage) {
+			prevHtml = null
+			wrapper.innerHTML = ''
 		}
 
 		// if we are going forward
@@ -27,23 +30,34 @@ const paginationExample = {
 			const $newHtmlAlreadyExists = wrapper.querySelector(
 				`[data-spon-page="${toPageNumber}"]`
 			)
-			if ($newHtmlAlreadyExists) return
+
+			if ($newHtmlAlreadyExists) {
+				return
+			}
+
 			// remove the pagination button
 			// if the previous html exits, that's where the button will be
 			// if not look in the nextHtml sibling, that's where it's gonna be
-			const container = prevHtml
-				? prevHtml
-				: nextHtml ? nextHtml.nextElementSibling : wrapper
-			const $nextBtn = container.querySelector('[data-pagination-next]')
-
-			if ($nextBtn) {
-				$nextBtn.style.display = 'none'
-			}
 
 			// set the current page number on data-spon-page attribute
 			newHtml.setAttribute('data-spon-page', toPageNumber)
+
 			// inject into the dom
 			wrapper.appendChild(newHtml)
+
+			const $previousWrapper = wrapper.querySelector(
+				`[data-spon-page="${toPageNumber - 1}"]`
+			)
+			const $btnWrapper = $previousWrapper ? $previousWrapper : wrapper
+
+			if (!alienPage) {
+				toggleBtnState($btnWrapper, 'next', 'none')
+				toggleBtnState(newHtml, 'prev', 'none')
+			}
+
+			if (newHtml.previousElementSibling) {
+				toggleBtnState(newHtml.previousElementSibling, 'prev', 'none')
+			}
 			// store a reference to the newly inject markup
 			prevHtml = newHtml
 		} else {
@@ -56,8 +70,11 @@ const paginationExample = {
 
 				// if it exists we should remove it
 				if (tempPrev) {
-					tempPrev.querySelector('[data-pagination-next]').style.display = ''
+					toggleBtnState(tempPrev, 'next', '')
 					prevHtml.parentNode.removeChild(prevHtml)
+					if (wrapper.children.length === 1) {
+						toggleBtnState(tempPrev, 'prev', '')
+					}
 				}
 				// update the prevHtml to the temp value, could be null
 				prevHtml = tempPrev
@@ -72,6 +89,7 @@ const paginationExample = {
 					newHtml.setAttribute('data-spon-page', toPageNumber)
 					// inject into the dom
 					wrapper.appendChild(newHtml)
+					toggleBtnState(newHtml, 'prev', '')
 				}
 			} else {
 				// we have no previous html so we are are trying to inject some
@@ -88,7 +106,7 @@ const paginationExample = {
 					// we do have 'nextHtml'... inject the nextHtml before the
 					// existing chunk
 					nextHtml = nextHtml.parentNode.insertBefore(newHtml, nextHtml)
-					newHtml.querySelector('[data-pagination-next]').style.display = 'none'
+					toggleBtnState(newHtml, 'next', 'none')
 				}
 				// reset the prevHtml ref
 				prevHtml = null
@@ -108,10 +126,15 @@ export default [
 	{
 		path: '/blog/',
 		view: {},
+		options: {
+			paginationParent: true
+		},
 		children: {
 			path: ':id',
 			view: paginationExample,
-			pagination: true
+			options: {
+				pagination: true
+			}
 		}
 	},
 	{

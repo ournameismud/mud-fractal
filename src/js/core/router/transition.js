@@ -16,15 +16,7 @@ export default {
 	},
 
 	onExit: ({ next, action, from, to }) => {
-		log(from)
-		const debug = {
-			from: from.data.path,
-			to: to.data.path,
-			action
-		}
-
-		console.table(debug)
-
+		// console.table({ from: from.data.path, to: to.data.path, action }) // eslint-disable-line
 		next()
 	},
 
