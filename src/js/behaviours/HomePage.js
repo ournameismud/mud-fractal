@@ -2,16 +2,16 @@ import Behaviour from '@/core/Behaviour'
 
 export default class HomePage extends Behaviour {
 	mount = () => {
-		log('mount: HomePage')
+		// log('mount: HomePage')
 		this.$el.classList.add('mount')
 		this.$events.attachAll()
 		this.$screen.on('window:resize', ({ width, height, query }) => {
-			log({ width, height, query })
+			// log({ width, height, query })
 		})
 	}
 
 	unmount = () => {
-		log('unmount: HomePage')
+		// log('unmount: HomePage')
 		this.$el.classList.add('unmount')
 	}
 
@@ -26,11 +26,11 @@ export default class HomePage extends Behaviour {
 
 	viewport = {
 		enter: () => {
-			log('ExampleClass enter')
+			// log('ExampleClass enter')
 		},
 
 		exit: () => {
-			log('ExampleClass exit')
+			// log('ExampleClass exit')
 		}
 	}
 
@@ -45,11 +45,11 @@ export default class HomePage extends Behaviour {
 
 	screens = {
 		'(min-width: 1024px)': ({ match, width, height, query }) => {
-			log('(min-width: 1024px)', match, width, height, query)
+			// log('(min-width: 1024px)', match, width, height, query)
 		},
 
 		'(min-width: 680px)': ({ match, width, height, query }) => {
-			log('(min-width: 680px)', match, width, height, query)
+			// log('(min-width: 680px)', match, width, height, query)
 		}
 	}
 }

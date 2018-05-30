@@ -58,7 +58,7 @@ export default class Router {
 	onMouseEnter = (e, elm) => {
 		const { pathname } = elm
 		if (!preventClick(e, elm) || cache.get(pathname)) {
-			log('NARP')
+			// log('NARP')
 			return
 		}
 

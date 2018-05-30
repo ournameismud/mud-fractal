@@ -70,7 +70,7 @@ export default class Validation extends Concert {
 			try {
 				this.options.constraints = JSON.parse(rules.innerHTML)
 			} catch (error) {
-				log(error)
+				// log(error)
 			}
 		}
 

@@ -2,8 +2,8 @@ export default {
 	el: '.page-child',
 
 	onLoad: props => {
-		log('on load')
-		console.info('onLoad', props)
+		// log('on load')
+		// console.info('onLoad', props)
 	},
 
 	onError: props => {

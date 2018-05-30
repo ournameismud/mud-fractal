@@ -117,7 +117,7 @@ const lifecycle = (() => {
 						}
 
 						if (action === 'PUSH') {
-							log('update history ')
+							// log('update history ')
 						}
 
 						eventBus.emit(Action.ROUTE_TRANSITION_ENTER, enterProps)
