@@ -106,33 +106,38 @@ export const parseUrl = href => {
 	}
 }
 
-export const flattenRoutes = R.reduce((acc, { path, view, children, name }) => {
-	const base = path
-	const tmp = []
+export const flattenRoutes = R.reduce(
+	(acc, { path, view, children, name, pagination }) => {
+		const base = path
+		const tmp = []
 
-	tmp.push({ path: path, view: view, name })
+		tmp.push({ path: path, view: view, name, pagination })
 
-	if (children) {
-		const items = Array.isArray(children) ? children : [children]
+		if (children) {
+			const items = Array.isArray(children) ? children : [children]
 
-		tmp.push(
-			...R.compose(
-				R.map(item => ({
-					...item,
-					path: `${base}/${item.path}`.replace('//', '/')
-				})),
-				flattenRoutes
-			)(items)
-		)
-	}
+			tmp.push(
+				...R.compose(
+					R.map(item => ({
+						...item,
+						path: `${base}/${item.path}`.replace('//', '/')
+					})),
+					flattenRoutes
+				)(items)
+			)
+		}
 
-	acc.push(...tmp)
+		acc.push(...tmp)
 
-	return acc
-}, [])
+		return acc
+	},
+	[]
+)
 
 export const findRoute = R.curry(routes => {
 	return R.memoizeWith(R.identity, url => {
+		const pNum = url.match(/\d+/g)
+		const page = pNum ? parseInt(pNum[pNum.length - 1], 10) : null
 		const data = parseUrl(url)
 		const { path: slug } = data
 		const list = R.filter(({ path }) => matchRoute(path)(slug))(routes)
@@ -142,7 +147,8 @@ export const findRoute = R.curry(routes => {
 				: list[list.length - 1]
 		return {
 			route,
-			data
+			data,
+			page
 		}
 	})
 })

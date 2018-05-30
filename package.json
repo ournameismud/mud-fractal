@@ -57,7 +57,6 @@
 		"gen-cert": "node ./cert/cli.js gen-certs"
 	},
 	"dependencies": {
-		"barba.js": "^1.0.0",
 		"debug": "^3.1.0",
 		"dom-delegate": "^2.0.3",
 		"domify": "^1.4.0",

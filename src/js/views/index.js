@@ -19,17 +19,33 @@ const exampleTransition = {
 }
 let prevHtml
 const paginationExample = {
-	updateDom({ wrapper, newHtml, title, action }) {
-		if (action === 'POP' && prevHtml) {
-			if (prevHtml) {
-				let removeHtml = prevHtml
-				const prev = removeHtml.previousElementSibling
-				prevHtml = prev.classList.contains('page-child') ? prev : null
-				removeHtml.parentNode.removeChild(removeHtml)
+	updateDom({ wrapper, newHtml, title, action, from, to }) {
+		if (from.route.pagination || to.route.pagination) {
+			const { page: fromPageNumber } = from
+			const { page: toPageNumber } = to
+
+			if (toPageNumber > fromPageNumber) {
+				log('GO FORWARD')
+				wrapper.appendChild(newHtml)
+				prevHtml = newHtml
+			} else {
+				log('GO BACKWARD')
+				if (prevHtml) {
+					let removeHtml = prevHtml
+					const prev = removeHtml.previousElementSibling
+
+					if (prev && prevHtml) {
+						log('a')
+						prevHtml = prev.classList.contains('page-child') ? prev : null
+						removeHtml.parentNode.removeChild(removeHtml)
+					} else {
+						log('b')
+						wrapper.parentNode.insertBefore(newHtml, wrapper)
+					}
+				}
 			}
 		} else {
 			wrapper.appendChild(newHtml)
-			prevHtml = newHtml
 		}
 
 		document.title = title
@@ -50,11 +66,12 @@ export default [
 		view: exampleTransition
 	},
 	{
-		path: '/page-1/',
+		path: '/blog/',
 		view: exampleTransition,
 		children: {
 			path: ':id',
-			view: paginationExample
+			view: paginationExample,
+			pagination: true
 		}
 	},
 	{
