@@ -1,23 +1,3 @@
-const exampleTransition = {
-	onExit: ({ next, from: { route: { path } }, ...rest }) => {
-		// console.info('onExit', path, rest)
-		next()
-	},
-
-	onAfterExit: ({ from: { route: { path } }, ...rest }) => {
-		// console.info('onAfterExit', path, rest)
-	},
-
-	onEnter: ({ next, to: { route: { path } }, ...rest }) => {
-		// console.info('onEnter', path, rest)
-		next()
-	},
-
-	onAfterEnter: ({ to: { route: { path } }, ...rest }) => {
-		// console.info('onAfterEnter', path, rest)
-	}
-}
-
 let prevHtml
 let nextHtml
 const paginationExample = {
@@ -49,7 +29,11 @@ const paginationExample = {
 			)
 			if ($newHtmlAlreadyExists) return
 			// remove the pagination button
-			const container = prevHtml ? prevHtml : wrapper
+			// if the previous html exits, that's where the button will be
+			// if not look in the nextHtml sibling, that's where it's gonna be
+			const container = prevHtml
+				? prevHtml
+				: nextHtml ? nextHtml.nextElementSibling : wrapper
 			const $nextBtn = container.querySelector('[data-pagination-next]')
 
 			if ($nextBtn) {
@@ -104,6 +88,7 @@ const paginationExample = {
 					// we do have 'nextHtml'... inject the nextHtml before the
 					// existing chunk
 					nextHtml = nextHtml.parentNode.insertBefore(newHtml, nextHtml)
+					newHtml.querySelector('[data-pagination-next]').style.display = 'none'
 				}
 				// reset the prevHtml ref
 				prevHtml = null
@@ -112,25 +97,17 @@ const paginationExample = {
 
 		// update the title
 		document.title = title
-	},
-
-	onExit: ({ next }) => {
-		next()
-	},
-
-	onEnter: ({ next }) => {
-		next()
 	}
 }
 
 export default [
 	{
 		path: '/',
-		view: exampleTransition
+		view: {}
 	},
 	{
 		path: '/blog/',
-		view: exampleTransition,
+		view: {},
 		children: {
 			path: ':id',
 			view: paginationExample,
@@ -139,18 +116,35 @@ export default [
 	},
 	{
 		path: '/page-2/',
-		view: exampleTransition
+		view: {}
 	},
 	{
 		path: '/page-3/',
-		view: exampleTransition
+		view: {}
 	},
 	{
 		path: '/page-4/',
-		view: exampleTransition
+		view: {}
 	},
 	{
 		path: '*',
-		view: exampleTransition
+		view: {}
 	}
 ]
+
+/*
+
+	from /blog/p2/ PUSH
+	to p3 PUSH
+	from /blog/p3/ PUSH
+	to p4 PUSH
+	from /blog/p4/ PUSH
+	to page-4 PUSH
+	from /blog/p4/ POP
+	to p4 POP
+	from /blog/p3/ POP
+	to p3 POP
+	from /blog/p2/ POP
+	to p2 POP
+
+*/

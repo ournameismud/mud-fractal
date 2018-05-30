@@ -2,8 +2,7 @@ export default {
 	el: '.page-child',
 
 	onLoad: props => {
-		// log('on load')
-		// console.info('onLoad', props)
+		console.info('onLoad', props)
 	},
 
 	onError: props => {
@@ -16,7 +15,16 @@ export default {
 		document.title = title
 	},
 
-	onExit: ({ next }) => {
+	onExit: ({ next, action, from, to }) => {
+		log(from)
+		const debug = {
+			from: from.data.path,
+			to: to.data.path,
+			action
+		}
+
+		console.table(debug)
+
 		next()
 	},
 
