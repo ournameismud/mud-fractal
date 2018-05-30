@@ -105,6 +105,7 @@ const paginationExample = {
 				} else {
 					// we do have 'nextHtml'... inject the nextHtml before the
 					// existing chunk
+					toggleBtnState(nextHtml, 'prev', '')
 					nextHtml = nextHtml.parentNode.insertBefore(newHtml, nextHtml)
 					toggleBtnState(newHtml, 'next', 'none')
 				}
