@@ -110,8 +110,7 @@ export const flattenRoutes = R.reduce(
 	(acc, { path, view = {}, children, name = '', options = {} }) => {
 		const base = path
 		const tmp = []
-
-		tmp.push({ path, view, name, options })
+		tmp.push({ path: path, view, name, options })
 
 		if (children) {
 			const items = Array.isArray(children) ? children : [children]

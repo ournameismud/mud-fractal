@@ -9,6 +9,14 @@ const toggleBtnState = (wrapper, type, display) => {
 }
 
 const paginationExample = {
+	shouldUnmount({ from }) {
+		const { pagination, paginationParent } = from.route.options
+
+		if (pagination || paginationParent) return false
+
+		return true
+	},
+
 	updateDom({ wrapper, newHtml, title, from, to }) {
 		const { page: fromPageNumber, route: fromRoute } = from
 		const { page: toPageNumber } = to
@@ -137,18 +145,6 @@ export default [
 				pagination: true
 			}
 		}
-	},
-	{
-		path: '/page-2/',
-		view: {}
-	},
-	{
-		path: '/page-3/',
-		view: {}
-	},
-	{
-		path: '/page-4/',
-		view: {}
 	},
 	{
 		path: '*',

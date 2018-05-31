@@ -30,6 +30,8 @@ export default class Router {
 	constructor({ routes, rootNode }) {
 		this.$routes = flattenRoutes(routes)
 
+		log(this.$routes)
+
 		lifecycle
 			.addRoutes(this.$routes)
 			.setWrapper(rootNode)

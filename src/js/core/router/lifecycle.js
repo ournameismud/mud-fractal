@@ -98,7 +98,11 @@ const lifecycle = (() => {
 						...historyManager.store,
 						action
 					}
-					eventBus.emit(Action.ROUTE_TRANSITION_BEFORE_DOM_UPDATE, props)
+
+					const shouldUnmount = enterTransition.shouldUnmount(props)
+
+					shouldUnmount &&
+						eventBus.emit(Action.ROUTE_TRANSITION_BEFORE_DOM_UPDATE, props)
 
 					enterTransition.updateDom(props)
 
@@ -114,10 +118,6 @@ const lifecycle = (() => {
 							...props,
 							...historyManager.store,
 							action
-						}
-
-						if (action === 'PUSH') {
-							// log('update history ')
 						}
 
 						eventBus.emit(Action.ROUTE_TRANSITION_ENTER, enterProps)
