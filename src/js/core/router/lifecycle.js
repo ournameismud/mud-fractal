@@ -7,13 +7,28 @@ import eventBus from '@/core/modules/eventBus'
 import * as Action from '@/core/router/actions'
 import domify from 'domify'
 
+/***
+ * native lifecycle
+ *
+ * @return :object
+ */
 const lifecycle = (() => {
+	/*
+		setup to vars to share
+	*/
 	let matchRoute
 	let exitTransition = {}
 	let enterTransition = {}
 	let wrapper
 
 	return {
+		/***
+		 * @function addRoutes
+		 * @param :array
+		 *
+		 * @return :lifecycle
+		 */
+
 		addRoutes(routes) {
 			matchRoute = findRoute(routes)
 			historyManager.store.from = matchRoute(window.location.pathname)
@@ -21,12 +36,27 @@ const lifecycle = (() => {
 			return this
 		},
 
+		/***
+		 * @function setWrapper
+		 * @param :HTMLElement
+		 *
+		 * @return :lifecycle
+		 */
 		setWrapper(node) {
 			wrapper = node
 
 			return this
 		},
 
+		/***
+		 *
+		 * This function is called once upon load
+		 *
+		 * @function setWrapper
+		 * @param :string
+		 *
+		 * @return :lifecycle
+		 */
 		onLoad(pathname) {
 			const newState = matchRoute(pathname)
 
@@ -39,7 +69,16 @@ const lifecycle = (() => {
 			return this
 		},
 
-		exit({ pathname, action, transition: trans, dataAttrs }) {
+		/***
+		 *
+		 * This function is called once upon load
+		 *
+		 * @function setWrapper
+		 * @param :string
+		 *
+		 * @return :lifecycle
+		 */
+		transition({ pathname, action, transition: trans, dataAttrs }) {
 			const newState = matchRoute(pathname)
 			const view = trans ? trans : newState.route.view
 			historyManager.store.to = newState

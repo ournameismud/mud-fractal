@@ -49,7 +49,7 @@ export default class Router {
 
 	static goTo = ({ pathname, action, dataAttrs }, transition) => {
 		lifecycle
-			.exit({ pathname, action, transition, dataAttrs })
+			.transition({ pathname, action, transition, dataAttrs })
 			.then(({ action }) => {
 				if (action === 'PUSH') {
 					historyManager.push(pathname, { attr: dataAttrs })
@@ -88,7 +88,7 @@ export default class Router {
 
 	mount = () => {
 		eventBus.on(Action.ROUTER_POP_EVENT, ({ pathname }) => {
-			lifecycle.exit({ pathname, action: 'POP' })
+			lifecycle.transition({ pathname, action: 'POP' })
 		})
 
 		this.$events.attachAll()
