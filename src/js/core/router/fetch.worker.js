@@ -1,3 +1,14 @@
+/*
+	Web Worker
+
+	https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API/Using_web_workers
+
+	pretty much the same thing as the fetch function....
+	
+	there is no reference to the cache so that is handled before the request takes place
+
+*/
+
 self.addEventListener(
 	'message',
 	e => {

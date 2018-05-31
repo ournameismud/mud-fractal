@@ -1,7 +1,8 @@
 import pathToRegexp from 'path-to-regexp'
 import * as R from 'ramda'
 
-function parseUri(str) {
+// https://gist.github.com/ir-g/4642307
+export function parseUri(str) {
 	let o = parseUri.options,
 		m = o.parser[o.strictMode ? 'strict' : 'loose'].exec(str),
 		uri = {},
@@ -136,7 +137,9 @@ export const flattenRoutes = R.reduce(
 export const findRoute = R.curry(routes => {
 	return R.memoizeWith(R.identity, url => {
 		const pNum = url.match(/\d+/g)
+		console.log('url', url)
 		const data = parseUrl(url)
+		console.log(data)
 		const { path: slug } = data
 		const list = R.filter(({ path }) => matchRoute(path)(slug))(routes)
 		const route =

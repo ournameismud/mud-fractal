@@ -1,19 +1,17 @@
-const cache = (() => {
-	const cache = {}
+import { parseUrl } from '@/core/router/utils'
+import * as R from 'ramda'
 
-	return {
-		set(key, value) {
-			cache[key] = value
-		},
+let segmentize = uri =>
+	uri
+		// strip starting/ending slashes
+		.replace(/(^\/+|\/+$)/g, '')
+		.split('/')
 
-		get(key) {
-			return cache[key]
-		}
-	}
-})()
+const string = '/blog/p10/'
+const otherSt = ''
 
-cache.set('terry', {
-	key: 10
-})
+const p = parseUrl(string)
 
-cache.get('terry') // ?
+const pubes = segmentize(string).join('/')
+
+const exp = `/(\/${pubes}\/)?(p)+(\d+)/g` // this pattern yeah
