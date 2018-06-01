@@ -2,17 +2,26 @@ import eventBus from '@/core/modules/eventBus'
 import raf from 'raf'
 import * as R from 'ramda'
 
-let handle
-
+// get the :after style from the body
 const getStyle = () => window.getComputedStyle(document.body, ':after')
+
+// get the content prop and give it a clean
 const query = R.compose(R.replace(/'|"/g, ''), item =>
 	item.getPropertyValue('content')
 )
+
+// compose the functions together to return the current breakpoint
 const getCurrentMediaQuery = R.compose(query, getStyle)
 
-let last = getCurrentMediaQuery()
+const windowMatch = breakpoint => window.matchMedia(breakpoint).matches
 
-const getWindowProps = () => {
+/**
+ *
+ * @function getWindowProps
+ *
+ * @return :object with the current width/height/breakpoint
+ */
+function getWindowProps() {
 	const width = window.innerWidth
 	const height = window.innerHeight
 	const query = getCurrentMediaQuery()
@@ -23,93 +32,144 @@ const getWindowProps = () => {
 		query
 	}
 }
+/**
+ *
+ * consumes an object like this:
+ *
+ *  {
+ *	'(min-width: 960px)': () => {},
+ *	'(min-width: 680px)': () => {}
+ *	}
+ *
+ * @function mapEventsToResize
+ *
+ * @param :object
+ *
+ * @return :array of functions
+ */
+function mapEventsToResize(events) {
+	return R.compose(
+		R.map(([breakpoint, fn]) => {
+			// <REFACTOR></REFACTOR> me thinks this could be written in
+			// a way that it can be defined outside of the loop
+			const once = (arg, fn) => {
+				if (once.value === arg) return
+				fn({ match: arg, ...getWindowProps() })
+				once.value = arg
+			}
 
-const windowResizeEvent = () => {
-	const { width, height, query } = getWindowProps()
+			// <REFACTOR></REFACTOR> me thinks this could be written in
+			// a way that it can be defined outside of the loop
+			const test = (breakpoint, fn) => {
+				const state = windowMatch(breakpoint)
+				once(state, fn)
+			}
 
-	eventBus.emit('window:resize', {
-		width,
-		height,
-		query
-	})
+			const matchQueryTest = test.bind(null, breakpoint, fn)
+			windowMatch(breakpoint) && matchQueryTest()
+			eventBus.on('window:resize', matchQueryTest)
 
-	if (query !== last) {
-		last = query
-		eventBus.emit('window:breakpoint', {
+			return matchQueryTest
+		}),
+		Object.entries
+	)(events)
+}
+
+/***
+ *
+ * Wrapper/Helper window resize event
+ *
+ * @function resizer
+ *
+ * @return :function resizer
+ */
+
+export default (function resizer() {
+	// setup a handle reference
+	let handle
+
+	// reference the current, will become to previous one
+	let last = getCurrentMediaQuery()
+
+	/**
+	 * The throttled window resize event
+	 * @private
+	 * @function windowResizeEvent
+	 *
+	 * @return void
+	 */
+	function windowResizeEvent() {
+		const { width, height, query } = getWindowProps()
+
+		eventBus.emit('window:resize', {
 			width,
 			height,
 			query
 		})
-	}
-}
 
-const windowResize = () => {
-	if (windowResize.isRunning) return
-	windowResize.isRunning = true
-	handle = raf.bind(null, windowResizeEvent)
-
-	window.addEventListener('resize', handle, false)
-
-	return {
-		destroy() {
-			if (!windowResize.isRunning) return
-			windowResize.isRunning = false
-			window.removeEventListener('resize', handle, false)
-			handle.cancel()
+		if (query !== last) {
+			last = query
+			eventBus.emit('window:breakpoint', {
+				width,
+				height,
+				query
+			})
 		}
 	}
-}
-windowResize.isRunning = false
 
-const windowMatch = breakpoint => window.matchMedia(breakpoint).matches
+	/**
+	 * add the window resize event
+	 *
+	 * returns the destroy method
+	 *
+	 * @function addWindowResizeEvent
+	 *
+	 * @return object
+	 */
+	function addWindowResizeEvent() {
+		if (addWindowResizeEvent.isRunning) return
+		addWindowResizeEvent.isRunning = true
+		handle = raf.bind(null, windowResizeEvent)
 
-const mapEventsToResize = events =>
-	Object.entries(events).map(([breakpoint, fn]) => {
-		const once = (arg, fn) => {
-			if (once.value === arg) return
-			fn({ match: arg, ...getWindowProps() })
-			once.value = arg
+		window.addEventListener('resize', handle, false)
+
+		return {
+			destroy() {
+				if (!addWindowResizeEvent.isRunning) return
+				addWindowResizeEvent.isRunning = false
+				window.removeEventListener('resize', handle, false)
+				handle.cancel()
+			}
 		}
-
-		const test = (breakpoint, fn) => {
-			const state = windowMatch(breakpoint)
-			once(state, fn)
-		}
-
-		const funk = test.bind(null, breakpoint, fn)
-		windowMatch(breakpoint) && funk()
-		eventBus.on('window:resize', funk)
-
-		return funk
-	})
-
-const resizer = (events = {}) => {
-	windowResize()
-
-	let bank = mapEventsToResize(events)
-
-	const destroy = () => {
-		bank.forEach(fn => eventBus.off('window:resize', fn))
-		bank = []
 	}
 
-	return {
-		get breakpoint() {
-			return getCurrentMediaQuery()
-		},
+	addWindowResizeEvent.isRunning = false
 
-		get width() {
-			return window.innerWidth
-		},
+	return (events = {}) => {
+		addWindowResizeEvent()
 
-		get height() {
-			return window.innerHeight
-		},
+		// store the current events
+		let bank = mapEventsToResize(events)
 
-		destroy,
+		return {
+			get breakpoint() {
+				return getCurrentMediaQuery()
+			},
 
-		...eventBus
+			get width() {
+				return window.innerWidth
+			},
+
+			get height() {
+				return window.innerHeight
+			},
+
+			destroy() {
+				bank.forEach(fn => eventBus.off('window:resize', fn))
+				bank = []
+			},
+
+			...eventBus
+		}
 	}
-}
-
-export default resizer
+})()
