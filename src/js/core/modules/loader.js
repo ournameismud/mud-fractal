@@ -1,11 +1,23 @@
 import * as R from 'ramda'
 
-const loader = fn => {
+/**
+ *
+ * @function loader
+ *
+ * @param :promise -> behaviour => import(`@/behaviours/${behaviour}`)
+ *
+ * @return :object
+ *
+ */
+
+export default function loader(fn) {
 	const state = {
 		stack: [],
 		scope: []
 	}
 
+	// get all of the data-behaviour props
+	// return an array of behaviour objects
 	const gatherBehaviours = R.compose(
 		R.map(({ node, behaviour }) => {
 			return new Promise(resolve => {
@@ -22,7 +34,7 @@ const loader = fn => {
 		R.map(node => {
 			return R.compose(
 				R.map(behaviour => ({
-					behaviour, // replace with
+					behaviour,
 					node
 				})),
 				R.split(' '),
@@ -31,7 +43,20 @@ const loader = fn => {
 		})
 	)
 
-	const hydrate = (context, wrapper = '#page-wrapper') => {
+	/**
+	 * @public
+	 *
+	 * Get data behaviours and instantiate
+	 *
+	 * @function hydrate
+	 *
+	 * @param :HTMLElement
+	 * @param :string - css selector
+	 *
+	 * @return :object
+	 *
+	 */
+	function hydrate(context, wrapper = '#page-wrapper') {
 		return Promise.all(
 			gatherBehaviours([...context.querySelectorAll('*[data-behaviour]')])
 		).then(data => {
@@ -58,7 +83,17 @@ const loader = fn => {
 		})
 	}
 
-	const unmount = () => {
+	/**
+	 * @public
+	 *
+	 * destroy the behaviours
+	 *
+	 * @function unmount
+	 *
+	 * @return voide
+	 *
+	 */
+	function unmount() {
 		R.compose(
 			R.map(({ fn }) => {
 				fn.destroy()
@@ -71,5 +106,3 @@ const loader = fn => {
 		unmount
 	}
 }
-
-export default loader
