@@ -18,6 +18,8 @@ export function parseUri(str) {
 	return uri
 }
 
+const exp = `/(\/${name}\/)?(p)+(\d+)/g`
+
 parseUri.options = {
 	strictMode: false,
 	key: [
@@ -194,3 +196,9 @@ export const preventClick = (evt, element) => {
 
 	return true
 }
+
+// `/`	first... is it root
+// `/this/bloody/page/`	second is there an exact match
+// /(\/blog\/)?(p)+(\d+)/g is there a regex pattern [/blog/p231]
+// /page/:id is it a dynamic route
+// {*([/[a-z]+[/\/])}?(p)+(\d+)

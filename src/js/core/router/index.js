@@ -10,97 +10,122 @@ import lifecycle from '@/core/router/lifecycle'
 import Worker from '@/core/router/fetch.worker.js'
 import * as Action from '@/core/router/actions'
 
-const worker = new Worker()
+export default (() => {
+	// setup a worker
+	const worker = new Worker()
 
-const getLinks = R.compose(
-	R.filter(
-		pathname => pathname !== window.location.pathname && !cache.get(pathname)
-	),
-	R.map(R.prop('pathname')),
-	R.filter(link => !preventClick({}, link.pathname))
-)
-
-worker.addEventListener('message', function({ data }) {
-	data.forEach(({ key, data }) => {
-		cache.set(key, { data })
+	// add listen to events...
+	worker.addEventListener('message', function({ data }) {
+		// should probably check what i'm getting here
+		// but... alpha... we're getting html responses
+		data.forEach(({ key, data }) => {
+			cache.set(key, { data })
+		})
 	})
-})
 
-export default class Router {
-	constructor({ routes, rootNode }) {
-		this.$routes = flattenRoutes(routes)
+	// get the good links
+	// probably move to utils
+	const getLinks = R.compose(
+		R.filter(
+			pathname => pathname !== window.location.pathname && !cache.get(pathname)
+		),
+		R.map(R.prop('pathname')),
+		R.filter(link => !preventClick({}, link.pathname))
+	)
 
-		log(this.$routes)
+	/***
+	 *@class Router
+	 * @param :object
+	 *
+	 * @return Router
+	 */
+	return class Router {
+		constructor({ routes, rootNode }) {
+			// setup routes.... <REWITE></REWITE>
+			this.$routes = flattenRoutes(routes)
 
-		lifecycle
-			.addRoutes(this.$routes)
-			.setWrapper(rootNode)
-			.onLoad(window.location.pathname)
+			// bootup the lifecycle
+			lifecycle
+				.addRoutes(this.$routes)
+				.setWrapper(rootNode)
+				.onLoad(window.location.pathname)
 
-		this.$findRoute = findRoute(this.$routes)
+			// get the routes method built... <REWITE></REWITE>
+			this.$findRoute = findRoute(this.$routes)
 
-		this.$wrapper = rootNode
+			// the root node... ?? configurable at the route level
+			this.$wrapper = rootNode
 
-		this.$events = createEvents.call(this, document, {
-			'click a': 'onClick',
-			'mouseover a': 'onMouseEnter'
-		})
-	}
-
-	static goTo = ({ pathname, action, dataAttrs }, transition) => {
-		lifecycle
-			.transition({ pathname, action, transition, dataAttrs })
-			.then(({ action }) => {
-				if (action === 'PUSH') {
-					historyManager.push(pathname, { attr: dataAttrs })
-				}
+			// set the dom events
+			this.$events = createEvents.call(this, document, {
+				'click a': 'onClick',
+				'mouseover a': 'onMouseEnter'
 			})
-	}
 
-	onMouseEnter = (e, elm) => {
-		const { pathname } = elm
-		if (!preventClick(e, elm) || cache.get(pathname)) {
-			// log('NARP')
-			return
+			return this
 		}
 
-		fetch(pathname).catch(err => {
-			console.warn(`[PREFETCH] no page found at ${pathname}`)
-		})
-	}
-
-	onClick = (e, elm) => {
-		const { pathname } = elm
-
-		if (!preventClick(e, elm)) {
-			return
+		/***
+		 * @static goTo
+		 * @param :object
+		 *
+		 * @return void
+		 */
+		static goTo = ({ pathname, action, dataAttrs }, transition) => {
+			lifecycle
+				.transition({ pathname, action, transition, dataAttrs })
+				.then(({ action }) => {
+					if (action === 'PUSH') {
+						historyManager.push(pathname, { attr: dataAttrs })
+					}
+				})
 		}
 
-		e.stopPropagation()
-		e.preventDefault()
+		onMouseEnter = (e, elm) => {
+			const { pathname } = elm
+			if (!preventClick(e, elm) || cache.get(pathname)) {
+				// log('NARP')
+				return
+			}
 
-		if (pathname === window.location.pathname) return
+			fetch(pathname).catch(err => {
+				console.warn(`[PREFETCH] no page found at ${pathname}`)
+			})
+		}
 
-		const dataAttrs = composeProps([...elm.attributes])
+		onClick = (e, elm) => {
+			const { pathname } = elm
 
-		Router.goTo({ pathname, dataAttrs, action: 'PUSH' })
+			if (!preventClick(e, elm)) {
+				return
+			}
+
+			e.stopPropagation()
+			e.preventDefault()
+
+			if (pathname === window.location.pathname) return
+
+			const dataAttrs = composeProps([...elm.attributes])
+
+			Router.goTo({ pathname, dataAttrs, action: 'PUSH' })
+		}
+
+		mount = () => {
+			eventBus.on(Action.ROUTER_POP_EVENT, ({ pathname }) => {
+				lifecycle.transition({ pathname, action: 'POP' })
+			})
+
+			this.$events.attachAll()
+
+			return this
+		}
+
+		lazyload = () => {
+			const links = getLinks([...document.querySelectorAll('a')])
+
+			links.length && worker.postMessage({ links })
+
+			return this
+		}
 	}
-
-	mount = () => {
-		eventBus.on(Action.ROUTER_POP_EVENT, ({ pathname }) => {
-			lifecycle.transition({ pathname, action: 'POP' })
-		})
-
-		this.$events.attachAll()
-
-		return this
-	}
-
-	lazyload = () => {
-		const links = getLinks([...document.querySelectorAll('a')])
-
-		links.length && worker.postMessage({ links })
-
-		return this
-	}
-}
+})()

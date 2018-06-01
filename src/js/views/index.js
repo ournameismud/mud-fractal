@@ -13,7 +13,9 @@ export default [
 		},
 		children: {
 			path: ':id',
-			view: paginationExample,
+			view: {
+				...paginationExample
+			},
 			options: {
 				pagination: true
 			}

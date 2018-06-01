@@ -1,4 +1,4 @@
-export default () => {
+export default (() => {
 	let prevHtml
 	let nextHtml
 
@@ -127,4 +127,4 @@ export default () => {
 			document.title = title
 		}
 	}
-}
+})()

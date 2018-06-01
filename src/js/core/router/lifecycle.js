@@ -23,6 +23,13 @@ const lifecycle = (() => {
 
 	return {
 		/***
+		 *
+		 * The routes structure is gonna need a rewrite so...
+		 * suject to change...
+		 *
+		 * at the moment we're returing a functiona storing
+		 * it on the matchRoute var
+		 *
 		 * @function addRoutes
 		 * @param :array
 		 *
@@ -30,19 +37,27 @@ const lifecycle = (() => {
 		 */
 
 		addRoutes(routes) {
+			// setup the match function.... <REWITE></REWITE>
 			matchRoute = findRoute(routes)
+			// update the from history store.... <REWITE></REWITE>
 			historyManager.store.from = matchRoute(window.location.pathname)
 
 			return this
 		},
 
 		/***
+		 *
+		 * assign the default wrapper...
+		 *
+		 * i'm thinking this could be overwritten on a route basis
+		 *
 		 * @function setWrapper
 		 * @param :HTMLElement
 		 *
 		 * @return :lifecycle
 		 */
 		setWrapper(node) {
+			// assign the node to the wrapper var
 			wrapper = node
 
 			return this
@@ -53,17 +68,21 @@ const lifecycle = (() => {
 		 * This function is called once upon load
 		 *
 		 * @function setWrapper
-		 * @param :string
+		 * @param :string -> the pathname yeah: /blog/terry
 		 *
 		 * @return :lifecycle
 		 */
 		onLoad(pathname) {
+			// get the new route object
 			const newState = matchRoute(pathname)
 
+			// combine the transition methods
 			const fn = Object.assign({}, baseTransition, newState.route.view)
 
+			// all the onLoad method
 			fn.onLoad(newState)
 
+			// emit this bad boy
 			eventBus.emit(Action.ROUTE_TRANSITION_LOAD, newState)
 
 			return this
@@ -71,25 +90,33 @@ const lifecycle = (() => {
 
 		/***
 		 *
-		 * This function is called once upon load
+		 * This is the main thing... from/request/to etc... all here
 		 *
-		 * @function setWrapper
+		 * @function transition
 		 * @param :string
 		 *
 		 * @return :lifecycle
 		 */
 		transition({ pathname, action, transition: trans, dataAttrs }) {
+			// get the new route object
 			const newState = matchRoute(pathname)
+			// have we been supplice with a transition object... no.. use the route one
 			const view = trans ? trans : newState.route.view
+
+			// update the from history store.... <REWITE></REWITE>
 			historyManager.store.to = newState
 
+			// combine the transition methods for exit... basic + route exits
 			exitTransition = Object.assign(
 				{},
 				baseTransition,
 				historyManager.store.from.route.view
 			)
+
+			// combine the transition methods for exit... basic + route enters
 			enterTransition = Object.assign({}, baseTransition, view)
 
+			// setup the props to be passed to onExit and onExitComplete
 			const exitProps = {
 				...historyManager.store,
 				wrapper,
@@ -98,6 +125,17 @@ const lifecycle = (() => {
 				dataAttrs
 			}
 
+			/***
+			 *
+			 * promise function... does a thing.. returns a transiton promise
+			 *
+			 * @function promise
+			 * @param :string
+			 * @param :object
+			 * @param :striobjectng
+			 *
+			 * @return :lifecycle
+			 */
 			const promise = (method, transition, props = {}) =>
 				new Promise((resolve, reject) => {
 					transition[method]({
@@ -107,69 +145,99 @@ const lifecycle = (() => {
 					})
 				})
 
+			// we have requested exit... emit
 			eventBus.emit(Action.ROUTE_TRANSITION_EXIT, exitProps)
 
-			return Promise.all([
-				promise('onExit', exitTransition, exitProps),
-				fetch(pathname)
-			])
-				.then(([, resp]) => {
-					eventBus.emit(Action.ROUTE_TRANSITION_RESOLVED, exitProps)
-					const { data: markup } = cache.get(pathname)
+			// now... lets do the promise funk
+			return (
+				Promise.all([
+					promise('onExit', exitTransition, exitProps),
+					fetch(pathname)
+				])
+					// the second request returns a response
+					// get it
+					.then(([, resp]) => {
+						// more event emiiting
+						eventBus.emit(Action.ROUTE_TRANSITION_RESOLVED, exitProps)
 
-					if (resp.data && resp.data.data === false) {
-						exitTransition.onError({ ...exitProps, ...resp })
-						// window.location.pathname = pathname
-						return false
-					}
+						// get the data, assign to markup
+						const { data: markup } = cache.get(pathname)
 
-					const html = domify(markup)
+						// do we have errors...
+						if (resp.data && resp.data.data === false) {
+							// emit the error method
+							exitTransition.onError({ ...exitProps, ...resp })
+							// window.location.pathname = pathname
+							return false
+						}
 
-					const title = html.querySelector('title').textContent.trim()
-					const newHtml = html.querySelector(enterTransition.el)
+						// conver the response html into something we can work with
+						const html = domify(markup)
 
-					const props = {
-						oldHtml: document.querySelector(exitTransition.el),
-						wrapper,
-						newHtml,
-						title,
-						html,
-						...historyManager.store,
-						action
-					}
+						// get the title, and give it a clean
+						const title = html.querySelector('title').textContent.trim()
 
-					const shouldUnmount = enterTransition.shouldUnmount(props)
+						// query the new newHtml for the selector defined on
+						// this object... default = '.page-child'
+						const newHtml = html.querySelector(enterTransition.el)
 
-					shouldUnmount &&
-						eventBus.emit(Action.ROUTE_TRANSITION_BEFORE_DOM_UPDATE, props)
-
-					enterTransition.updateDom(props)
-
-					eventBus.emit(Action.ROUTE_TRANSITION_AFTER_DOM_UPDATE, props)
-
-					exitTransition.onAfterExit(props)
-
-					return props
-				})
-				.then(props => {
-					if (props) {
-						const enterProps = {
-							...props,
+						// props object passed to each after method
+						const props = {
+							oldHtml: document.querySelector(exitTransition.el),
+							wrapper,
+							newHtml,
+							title,
+							html,
 							...historyManager.store,
 							action
 						}
 
-						eventBus.emit(Action.ROUTE_TRANSITION_ENTER, enterProps)
+						// check... do we want to unmount the previous html
+						const shouldUnmount = enterTransition.shouldUnmount(props)
 
-						promise('onEnter', enterTransition, enterProps).then(() => {
-							enterTransition.onAfterEnter(enterProps)
-							historyManager.store.from = newState
-							eventBus.emit(Action.ROUTE_TRANSITION_COMPLETE, enterProps)
-						})
-					}
+						// if we do... sure... unmount event
+						shouldUnmount &&
+							eventBus.emit(Action.ROUTE_TRANSITION_BEFORE_DOM_UPDATE, props)
 
-					return props
-				})
+						// update the dom method
+						enterTransition.updateDom(props)
+
+						// emit update event
+						eventBus.emit(Action.ROUTE_TRANSITION_AFTER_DOM_UPDATE, props)
+
+						// no proms here.. just call this method
+						exitTransition.onAfterExit(props)
+
+						// return that props object we made earlier
+						return props
+					})
+					.then(props => {
+						// we have props...
+						// it's possible we don't, we could have bailed early
+						if (props) {
+							// enter props
+							const enterProps = {
+								...props,
+								...historyManager.store,
+								action
+							}
+
+							// emit some more
+							eventBus.emit(Action.ROUTE_TRANSITION_ENTER, enterProps)
+
+							// cycle through the enter methods
+							promise('onEnter', enterTransition, enterProps).then(() => {
+								enterTransition.onAfterEnter(enterProps)
+
+								// update the from history store.... <REWITE></REWITE>
+								historyManager.store.from = newState
+								eventBus.emit(Action.ROUTE_TRANSITION_COMPLETE, enterProps)
+							})
+						}
+
+						return props
+					})
+			)
 		}
 	}
 })()
