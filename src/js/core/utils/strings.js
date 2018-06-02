@@ -6,12 +6,10 @@ export const removeSpecialCharacters = R.compose(
 	R.replace(/[^a-zA-Z\d\s:]/g, '')
 )
 
-const lens = R.over(R.lensIndex(0))
-
 export const pascalify = R.memoizeWith(R.identity, str => {
 	return R.compose(
 		R.join(''),
-		lens(R.toUpper),
+		R.over(R.lensIndex(0))(R.toUpper),
 		R.replace(/[\s]+(.)?/g, (match, ch) => (ch ? R.toUpper(ch) : '')),
 		R.toLower,
 		removeSpecialCharacters
