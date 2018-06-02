@@ -1,0 +1,9 @@
+/***
+ *
+ * placeholder
+ *
+ */
+
+export default (() => {
+	//
+})()
