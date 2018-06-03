@@ -1,139 +1,37 @@
 import pathToRegexp from 'path-to-regexp'
 import * as R from 'ramda'
+import { matchRoute, parseUrl } from './parseUrl'
+import * as str from '@/core/utils/strings'
 
 // https://gist.github.com/ir-g/4642307
-export function parseUri(str) {
-	let o = parseUri.options,
-		m = o.parser[o.strictMode ? 'strict' : 'loose'].exec(str),
-		uri = {},
-		i = 14
-
-	while (i--) uri[o.key[i]] = m[i] || '' // eslint-disable-line
-
-	uri[o.q.name] = {}
-	uri[o.key[12]].replace(o.q.parser, function($0, $1, $2) {
-		if ($1) uri[o.q.name][$1] = $2
-	})
-
-	return uri
-}
-
-parseUri.options = {
-	strictMode: false,
-	key: [
-		'source',
-		'protocol',
-		'authority',
-		'userInfo',
-		'user',
-		'password',
-		'host',
-		'port',
-		'relative',
-		'path',
-		'directory',
-		'file',
-		'query',
-		'anchor'
-	],
-	q: {
-		name: 'queryKey',
-		parser: /(?:^|&)([^&=]*)=?([^&]*)/g
-	},
-	parser: {
-		strict: /^(?:([^:\/?#]+):)?(?:\/\/((?:(([^:@]*)(?::([^:@]*))?)?@)?([^:\/?#]*)(?::(\d*))?))?((((?:[^?#\/]*\/)*)([^?#]*))(?:\?([^#]*))?(?:#(.*))?)/,
-		loose: /^(?:(?![^:@]+:[^:@\/]*@)([^:\/?#.]+):)?(?:\/\/)?((?:(([^:@]*)(?::([^:@]*))?)?@)?([^:\/?#]*)(?::(\d*))?)(((\/(?:[^?#](?![^?#\/]*\.[^?#\/.]+(?:[?#]|$)))*\/?)?([^?#\/]*))(?:\?([^#]*))?(?:#(.*))?)/
-	}
-}
-
-function createPathObject(options) {
-	options = options || {}
-
-	return function(path) {
-		let keys = []
-		let re = pathToRegexp(path, keys, options)
-
-		return function(pathname, params) {
-			let m = re.exec(pathname)
-			if (!m) return false
-
-			params = params || {}
-
-			let key, param
-			for (let i = 0; i < keys.length; i += 1) {
-				key = keys[i]
-				param = m[i + 1]
-				if (!param) continue
-				params[key.name] = decodeParam(param)
-				if (key.repeat) params[key.name] = params[key.name].split(key.delimiter)
-			}
-
-			return params
-		}
-	}
-}
-
-function decodeParam(param) {
-	try {
-		return decodeURIComponent(param)
-	} catch (_) {
-		console.error('decodeParam error')
-	}
-}
-
-export const matchRoute = createPathObject({
-	// path-to-regexp options
-	sensitive: false,
-	strict: false,
-	end: false
-})
-
-export const parseUrl = href => {
-	const { anchor: hash, host, path, queryKey, source } = parseUri(href)
-
-	const segments = path.split('/').filter(p => p.length)
-	const slug = segments[segments.length - 1]
-
-	return {
-		isRoot: path === '/' ? true : false,
-		hash,
-		host,
-		path,
-		segments,
-		slug,
-		source,
-		query: queryKey,
-		length: segments.length
-	}
-}
 
 const routes = [
 	{
 		path: '/a/',
-		name: 'test',
+		name: 'a',
 		view: {},
 		options: {},
 		children: [
 			{
 				path: /(p)+(\d+)/,
-				name: 'test',
+				name: 'pagination',
 				view: {},
 				options: {}
 			},
 			{
 				path: ':id',
-				name: 'test',
+				name: 'id',
 				view: {},
 				options: {}
 			},
 			{
 				path: '/terry/',
-				name: 'test',
+				name: 'terry',
 				view: {},
 				options: {},
 				children: {
 					path: ':id',
-					name: 'test',
+					name: 'terry:id',
 					view: {},
 					options: {}
 				}
@@ -142,44 +40,35 @@ const routes = [
 	},
 	{
 		path: '/b/',
-		name: 'test',
+		name: 'b-test',
 		view: {},
 		options: {},
 		children: {
 			path: ':id',
-			name: 'test',
+			name: 'b-test:id',
 			view: {},
 			options: {}
 		}
 	},
 	{
 		path: '/c/',
-		name: 'test',
+		name: 'c-test',
 		view: {},
 		options: {}
 	}
 ]
-
-const segmentize = R.compose(
-	R.filter(R.identity),
-	R.split('/'),
-	R.replace(/(^\/+|\/+$)/g, '')
-)
-
-const beautifyPath = R.compose(R.join('/'), segmentize)
-const slugFromPath = R.compose(R.last, segmentize)
 
 const mapChildren = base =>
 	R.compose(
 		R.flatten,
 		R.map(({ children, path, ...rest }) => {
 			const container = []
-			const tmpPath = path ? beautifyPath(`${base}${path}`) : ':regex'
+			const tmpPath = path ? str.beautifyPath(`${base}${path}`) : ':regex'
 
 			container.push({
 				path: tmpPath,
 				pattern: typeof path === 'string' ? false : path,
-				parent: beautifyPath(base),
+				parent: str.beautifyPath(base),
 				...rest
 			})
 
@@ -191,13 +80,13 @@ const mapChildren = base =>
 		})
 	)
 
-const funk = R.reduce((acc, curr) => {
+const flattenRoutes = R.reduce((acc, curr) => {
 	const { path: tmpPath, children, ...rest } = curr
 	let tmp = []
 
 	const path = tmpPath
 
-	tmp.push({ path: beautifyPath(tmpPath), ...rest })
+	tmp.push({ path: str.beautifyPath(tmpPath), ...rest })
 
 	if (children) {
 		const items = Array.isArray(children) ? children : [children]
@@ -221,34 +110,37 @@ const matches = R.curry((routes, url) => {
 		R.reverse,
 		R.sortBy(R.prop('score')),
 		R.map(({ path, pattern, ...rest }) => {
-			const last = slugFromPath(slug)
+			const last = str.slugFromPath(slug)
+			const slugLength = str.segmentize(slug).length
 			let score = 1
 
-			if (beautifyPath(slug) === beautifyPath(path)) {
-				score = 4
+			if (str.beautifyPath(slug) === str.beautifyPath(path)) {
+				score = 5
 			} else {
 				if (pattern) {
 					if (pathToRegexp(pattern).exec(last)) {
-						score = 3
+						score = 4
 					}
-				} else {
-					if (segmentize(slug).length === segmentize(path).length) {
-						score = 2
-					}
+				} else if (slugLength === str.segmentize(path).length) {
+					score = 3
 				}
 			}
 
 			return { path, score, pattern, ...rest }
 		}),
 		R.filter(({ path }) => {
-			return matchRoute(path)(beautifyPath(slug))
+			return matchRoute(path)(str.beautifyPath(slug))
 		})
 	)(routes)
 })
 
+flattenRoutes(routes)
+
 const findRoute = R.curry((routes, url) => {
-	const routeMap = funk(routes)
+	const routeMap = flattenRoutes(routes)
 	return matches(routeMap, url)
 })
 
-findRoute(routes, '/a/p2') // ?
+const find = findRoute(routes)
+
+find('/a/terry/') // ?

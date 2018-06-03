@@ -39,3 +39,12 @@ export const snakeify = R.memoizeWith(R.identity, str => {
 		removeSpecialCharacters
 	)(str)
 })
+
+export const segmentize = R.compose(
+	R.filter(R.identity),
+	R.split('/'),
+	R.replace(/(^\/+|\/+$)/g, '')
+)
+
+export const beautifyPath = R.compose(R.join('/'), segmentize)
+export const slugFromPath = R.compose(R.last, segmentize)

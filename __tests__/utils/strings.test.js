@@ -1,10 +1,14 @@
 import * as str from '@/core/utils/strings'
 
 describe('fetch function', () => {
-	it('slug/camel/snakeify should all be functons', () => {
+	it('removeSpecialCharacters and slug/camel/snakeify should all be functons', () => {
 		expect(str.camelify).toBeInstanceOf(Function)
 		expect(str.slugify).toBeInstanceOf(Function)
 		expect(str.snakeify).toBeInstanceOf(Function)
+		expect(str.segmentize).toBeInstanceOf(Function)
+		expect(str.beautifyPath).toBeInstanceOf(Function)
+		expect(str.slugFromPath).toBeInstanceOf(Function)
+		expect(str.removeSpecialCharacters).toBeInstanceOf(Function)
 	})
 
 	it('should remove any special characters and trim strings', () => {
@@ -36,5 +40,20 @@ describe('fetch function', () => {
 		const result = 'HelloHugh'
 		expect(str.pascalify('hello Hugh')).toBe(result)
 		expect(str.pascalify('  --- hello @#$%^&*   Hugh   ')).toBe(result)
+	})
+
+	it('segmentize should convert a url into segments', () => {
+		const result = JSON.stringify(['hello', 'hugh'])
+		expect(JSON.stringify(str.segmentize('/hello/hugh'))).toBe(result)
+	})
+
+	it('beautifyPath should strip a url of it\'s opening/closing slashes', () => {
+		const result = 'hello/hugh'
+		expect(str.beautifyPath('/hello/hugh/')).toBe(result)
+	})
+
+	it('slugFromPath should return the page slug', () => {
+		const result = 'hugh'
+		expect(str.slugFromPath('/hello/hugh/')).toBe(result)
 	})
 })
