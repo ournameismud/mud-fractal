@@ -72,7 +72,7 @@ describe('findRoute function', () => {
 		},
 		{
 			path: '*',
-			name: 'c-wendual',
+			name: 'default',
 			view: {},
 			options: {}
 		}
@@ -128,5 +128,13 @@ describe('findRoute function', () => {
 		}
 
 		expect(find('/a/p2/')).toMatchObject(props)
+	})
+
+	it('should fallback to the * default transition', () => {
+		const props = {
+			name: 'default'
+		}
+
+		expect(find('/dsadsadad/')).toMatchObject(props)
 	})
 })
