@@ -10,8 +10,10 @@ describe('loader function', () => {
 
 	let load
 	const fn = behaviour => import(`../behaviours/${behaviour}`)
-	beforeAll(() => {
-		load = loader(fn)
+
+	beforeAll(async done => {
+		load = await loader(fn)
+		done()
 	})
 
 	it('should be a function', () => {

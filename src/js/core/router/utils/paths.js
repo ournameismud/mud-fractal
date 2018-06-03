@@ -3,72 +3,6 @@ import * as R from 'ramda'
 import { matchRoute, parseUrl } from './parseUrl'
 import * as str from '@/core/utils/strings'
 
-// https://gist.github.com/ir-g/4642307
-
-const routes = [
-	{
-		path: '/',
-		name: 'root',
-		view: {},
-		options: {}
-	},
-	{
-		path: '/a/',
-		name: 'a',
-		view: {},
-		options: {},
-		children: [
-			{
-				path: /(p)+(\d+)/,
-				view: {},
-				options: {}
-			},
-			{
-				path: ':id',
-				name: 'id',
-				view: {},
-				options: {}
-			},
-			{
-				path: '/terry/',
-				name: 'terry',
-				view: {},
-				options: {},
-				children: {
-					path: ':id',
-					name: 'terry:id',
-					view: {},
-					options: {}
-				}
-			}
-		]
-	},
-	{
-		path: '/b/',
-		name: 'b-test',
-		view: {},
-		options: {},
-		children: {
-			path: ':id',
-			name: 'b-test:id',
-			view: {},
-			options: {}
-		}
-	},
-	{
-		path: '/c/',
-		name: 'c-test',
-		view: {},
-		options: {}
-	},
-	{
-		path: '*',
-		name: 'c-wendual',
-		view: {},
-		options: {}
-	}
-]
-
 const mapChildren = base =>
 	R.compose(
 		R.flatten,
@@ -113,7 +47,7 @@ const log = R.curry((name, value) => {
 	return value
 })
 
-const matches = R.curry((routes, url) => {
+const matches = (routes, url) => {
 	const data = parseUrl(url)
 	const { path: slug } = data
 
@@ -141,7 +75,7 @@ const matches = R.curry((routes, url) => {
 			return matchRoute(path)(str.beautifyPath(slug))
 		})
 	)(routes)
-})
+}
 
 export const findRoute = routes => {
 	const routeMap = flattenRoutes(routes)
@@ -160,6 +94,6 @@ export const findRoute = routes => {
 	}
 }
 
-const find = findRoute(routes)
+// const find = findRoute(routes)
 
-find('/') // ?
+// find('/a/p2') // ?
