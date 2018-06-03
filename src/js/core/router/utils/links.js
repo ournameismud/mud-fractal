@@ -1,5 +1,6 @@
 import * as R from 'ramda'
-
+import { segmentize, beautifyPath, slugFromPath } from '@/core/utils/strings'
+import cache from '@/core/router/cache'
 /**
  * credit:
  *
@@ -48,3 +49,82 @@ export const getLinks = R.compose(
 	R.map(R.prop('pathname')),
 	R.filter(link => !preventClick({}, link.pathname))
 )
+
+export const activeLinks = (() => {
+	let previous
+	let $anchors = []
+
+	const defaultClasses = {
+		match: 'is-current',
+		root: 'is-current-root',
+		parent: 'is-current-parent'
+	}
+
+	return ({ scope, classes }) => {
+		$anchors = scope
+
+		const classNames = {
+			...defaultClasses,
+			...classes
+		}
+
+		return path => {
+			const testSegments = segmentize(path)
+
+			if (previous) {
+				R.forEach(({ node }) => {
+					node.classList.remove('is-current')
+				})(previous)
+
+				previous = []
+			}
+
+			previous = R.compose(
+				R.forEach(({ node, className }) => {
+					log(node.textContent, className)
+					node.classList.add(classNames[className])
+				}),
+				R.reduce((acc, [, value]) => {
+					acc.push(...value)
+					return acc
+				}, []),
+				Object.entries,
+				R.map(item => {
+					return R.compose(
+						R.filter(({ segments, matchAgainst }) => {
+							return matchAgainst === R.join('/', segments)
+						}),
+						R.map(node => {
+							const { pathname } = node
+							const segments = segmentize(pathname)
+							const length = R.length(segments)
+							const matchAgainst = R.compose(R.join('/'), R.take(length))(
+								testSegments
+							)
+							return {
+								node,
+								segments,
+								matchAgainst,
+								className:
+									beautifyPath(pathname) === path
+										? 'match'
+										: length === 1 ? 'root' : 'parent'
+							}
+						})
+					)(item)
+				}),
+				R.groupBy(({ pathname }) => segmentize(pathname).length),
+				R.filter(item => {
+					const { pathname } = item
+					const segments = segmentize(pathname)
+					return (
+						R.head(segments) === R.head(testSegments) &&
+						segments.length <= testSegments.length
+					)
+				})
+			)($anchors)
+
+			log(previous)
+		}
+	}
+})()

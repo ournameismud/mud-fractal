@@ -64,6 +64,19 @@
 				</div>
 			</main>
 		</div>
+
+			<footer class="flex" data-behaviour="Header">
+				<ul class="list-reset flex p-1">
+					{% for entry in menu %}
+						<li class="text-lg mr-1">
+							<a href="{{ entry.slug }}" data-prop-1="hello" data-prefetch>{{ entry.title }}</a>
+						</li>
+					{% endfor %}
+					<li class="text-lg mr-1">
+						<a href="/no-such-page" data-prop-1="hello" data-prefetch>Error</a>
+					</li>
+				</ul>
+			</footer>
     <script src="/dist/js/vendor.bundle{{ stamp }}.js"></script>
     <script async defer src="/dist/js/app.bundle{{ stamp }}.js"></script>
   </body>

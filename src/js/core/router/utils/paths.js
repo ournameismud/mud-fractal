@@ -77,7 +77,7 @@ function mapChildren(base) {
  *
  * @return :object
  */
-const matches = (routes, url, data) => {
+const matches = (routes, data) => {
 	const { path: slug } = data
 
 	return R.compose(
@@ -91,7 +91,7 @@ const matches = (routes, url, data) => {
 			let pageNo = null
 
 			// exact match?
-			if (str.beautifyPath(slug) === str.beautifyPath(path)) {
+			if (str.beautifyPath(slug) === path) {
 				score = 5
 			} else {
 				// pattern, and the last segment matches the regexp
@@ -125,7 +125,7 @@ export const findRoute = routes => {
 			}
 		}
 
-		const match = R.head(matches(routeMap, url, data))
+		const match = R.head(matches(routeMap, data))
 
 		if (match) {
 			return match

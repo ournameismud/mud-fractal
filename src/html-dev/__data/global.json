@@ -17,6 +17,30 @@
 			"slug": "/ted/"
 		},
 		{
+			"title": "Barry",
+			"slug": "/ted/barry/"
+		},
+		{
+			"title": "Ian",
+			"slug": "/ted/barry/ian/"
+		},
+		{
+			"title": "Sue",
+			"slug": "/ted/barry/ian/sue/"
+		},
+		{
+			"title": "Barry",
+			"slug": "/ted/wayne/"
+		},
+		{
+			"title": "Ian",
+			"slug": "/ted/wayne/ian/"
+		},
+		{
+			"title": "Sue",
+			"slug": "/ted/wayne/ian/sue/"
+		},
+		{
 			"title": "Waffles",
 			"slug": "/waffles/"
 		}

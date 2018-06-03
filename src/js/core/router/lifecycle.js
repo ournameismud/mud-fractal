@@ -193,7 +193,6 @@ const lifecycle = (() => {
 						}
 
 						// check... do we want to unmount the previous html
-						log(props)
 						const shouldUnmount = enterTransition.shouldUnmount(props)
 
 						// if we do... sure... unmount event

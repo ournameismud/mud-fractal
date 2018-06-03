@@ -2,7 +2,7 @@ import * as R from 'ramda'
 import createEvents from '@/core/modules/createEvents'
 import eventBus from '@/core/modules/eventBus'
 import { composeProps } from '@/core/modules/refs'
-import { preventClick, getLinks } from '@/core/router/utils/links'
+import { preventClick, getLinks, activeLinks } from '@/core/router/utils/links'
 import historyManager from '@/core/router/history'
 import cache from '@/core/router/cache'
 import request from '@/core/router/request'
@@ -41,7 +41,7 @@ export default (() => {
 	 * @return Router
 	 */
 	return class Router {
-		constructor({ routes, rootNode }) {
+		constructor({ routes, rootNode, navLinks, classes }) {
 			// bootup the lifecycle
 			lifecycle
 				.addRoutes(routes || defaultRoutes)
@@ -50,6 +50,7 @@ export default (() => {
 
 			// the root node... ?? configurable at the route level
 			this.$wrapper = rootNode
+			this.$links = activeLinks({ scope: navLinks, classes: classes })
 
 			// set the dom events
 			this.$events = createEvents.call(this, document, {
@@ -109,6 +110,13 @@ export default (() => {
 			eventBus.on(Action.ROUTER_POP_EVENT, ({ pathname }) => {
 				lifecycle.transition({ pathname, action: 'POP' })
 			})
+
+			eventBus.on(
+				Action.ROUTE_TRANSITION_AFTER_DOM_UPDATE,
+				({ to: { params: { path } } }) => {
+					this.$links(path)
+				}
+			)
 
 			this.$events.attachAll()
 

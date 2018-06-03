@@ -1,6 +1,5 @@
 import pathToRegexp from 'path-to-regexp'
-import * as R from 'ramda'
-import { segmentize } from '@/core/utils/strings'
+import { segmentize, beautifyPath, slugFromPath } from '@/core/utils/strings'
 /**
  * extracts meta data from urls (queries, hash, host, et al)
  *
@@ -133,18 +132,14 @@ export const matchRoute = createPathObject({
 export const parseUrl = href => {
 	const { anchor: hash, host, path, queryKey, source } = parseUri(href)
 
-	const segments = segmentize(path)
-	const slug = R.last(segments)
-
 	return {
 		isRoot: path === '/' ? true : false,
+		path: beautifyPath(path),
+		segments: segmentize(path),
+		slug: slugFromPath(path),
 		hash,
 		host,
-		path,
-		segments,
-		slug,
 		source,
-		query: queryKey,
-		length: segments.length
+		query: queryKey
 	}
 }

@@ -16,12 +16,11 @@ describe('parseUrl function', () => {
 			isRoot: false,
 			hash: 'barry',
 			host: '',
-			path: '/blog/p10/',
+			path: 'blog/p10',
 			segments: ['blog', 'p10'],
 			slug: 'p10',
 			source: '/blog/p10/?category=hugh#barry',
-			query: { category: 'hugh' },
-			length: 2
+			query: { category: 'hugh' }
 		}
 
 		const result = parseUrl(string)

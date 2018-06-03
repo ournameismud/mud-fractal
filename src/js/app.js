@@ -9,7 +9,16 @@ if (module.hot) {
 new App({
 	router: {
 		routes,
-		rootNode: document.getElementById('page-wrapper')
+		rootNode: document.getElementById('page-wrapper'),
+		navLinks: [
+			...document.querySelectorAll('header a'),
+			...document.querySelectorAll('footer a')
+		],
+		classes: {
+			match: 'is-current',
+			root: 'is-current-root',
+			parent: 'is-current-parent'
+		}
 	},
 
 	chunks: behaviour => import(`@/behaviours/${behaviour}`)
