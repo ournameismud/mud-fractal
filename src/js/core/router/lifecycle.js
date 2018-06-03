@@ -1,6 +1,6 @@
 import { findRoute } from '@/core/router/utils'
 import baseTransition from '@/core/router/transition'
-import fetch from '@/core/router/fetch'
+import request from '@/core/router/request'
 import cache from '@/core/router/cache'
 import historyManager from '@/core/router/history'
 import eventBus from '@/core/modules/eventBus'
@@ -152,7 +152,7 @@ const lifecycle = (() => {
 			return (
 				Promise.all([
 					promise('onExit', exitTransition, exitProps),
-					fetch(pathname)
+					request(pathname)
 				])
 					// the second request returns a response
 					// get it

@@ -5,7 +5,7 @@ import { composeProps } from '@/core/modules/refs'
 import { preventClick, flattenRoutes, findRoute } from '@/core/router/utils'
 import historyManager from '@/core/router/history'
 import cache from '@/core/router/cache'
-import fetch from '@/core/router/fetch'
+import request from '@/core/router/request'
 import lifecycle from '@/core/router/lifecycle'
 import Worker from '@/core/router/fetch.worker.js'
 import * as Action from '@/core/router/actions'
@@ -88,7 +88,7 @@ export default (() => {
 				return
 			}
 
-			fetch(pathname).catch(err => {
+			request(pathname).catch(err => {
 				console.warn(`[PREFETCH] no page found at ${pathname}`)
 			})
 		}

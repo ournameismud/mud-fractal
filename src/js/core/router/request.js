@@ -1,7 +1,7 @@
 import cache from '@/core/router/cache'
 
 /***
- * reuest function... ajax or cache
+ * request function... ajax or cache
  *
  * @param :string - the pathname
  * @param :object - any fetch options

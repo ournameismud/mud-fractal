@@ -42,7 +42,5 @@ describe('loader function', () => {
 
 		expect(stack[0].fn.constructor).toBeInstanceOf(Function)
 		expect(stack[1].fn.constructor).toBeInstanceOf(Function)
-
-		// expect(node.classList.contains('test-class')).toBe(true)
 	})
 })
