@@ -47,4 +47,5 @@ export const segmentize = R.compose(
 )
 
 export const beautifyPath = R.compose(R.join('/'), segmentize)
+
 export const slugFromPath = R.compose(R.last, segmentize)

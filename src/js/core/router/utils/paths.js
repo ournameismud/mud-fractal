@@ -7,6 +7,12 @@ import * as str from '@/core/utils/strings'
 
 const routes = [
 	{
+		path: '/',
+		name: 'root',
+		view: {},
+		options: {}
+	},
+	{
 		path: '/a/',
 		name: 'a',
 		view: {},
@@ -14,7 +20,6 @@ const routes = [
 		children: [
 			{
 				path: /(p)+(\d+)/,
-				name: 'pagination',
 				view: {},
 				options: {}
 			},
@@ -53,6 +58,12 @@ const routes = [
 	{
 		path: '/c/',
 		name: 'c-test',
+		view: {},
+		options: {}
+	},
+	{
+		path: '*',
+		name: 'c-wendual',
 		view: {},
 		options: {}
 	}
@@ -117,10 +128,8 @@ const matches = R.curry((routes, url) => {
 			if (str.beautifyPath(slug) === str.beautifyPath(path)) {
 				score = 5
 			} else {
-				if (pattern) {
-					if (pathToRegexp(pattern).exec(last)) {
-						score = 4
-					}
+				if (pattern && pathToRegexp(pattern).exec(last)) {
+					score = 4
 				} else if (slugLength === str.segmentize(path).length) {
 					score = 3
 				}
@@ -134,13 +143,23 @@ const matches = R.curry((routes, url) => {
 	)(routes)
 })
 
-flattenRoutes(routes)
-
-const findRoute = R.curry((routes, url) => {
+export const findRoute = routes => {
 	const routeMap = flattenRoutes(routes)
-	return matches(routeMap, url)
-})
+	return url => {
+		const { isRoot } = parseUrl(url)
+
+		if (isRoot) return R.find(R.propEq('path', '/'))(routes)
+
+		const match = R.head(matches(routeMap, url))
+
+		if (match) {
+			return match
+		}
+
+		return R.find(R.propEq('path', '*'))(routes)
+	}
+}
 
 const find = findRoute(routes)
 
-find('/a/terry/') // ?
+find('/') // ?
