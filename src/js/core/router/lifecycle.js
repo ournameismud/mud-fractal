@@ -1,4 +1,4 @@
-import { findRoute } from '@/core/router/utils'
+import { findRoute } from '@/core/router/utils/paths'
 import baseTransition from '@/core/router/transition'
 import request from '@/core/router/request'
 import cache from '@/core/router/cache'
@@ -36,9 +36,9 @@ const lifecycle = (() => {
 		 * @return :lifecycle
 		 */
 
-		addRoutes(routes) {
-			// setup the match function.... <REWITE></REWITE>
-			matchRoute = findRoute(routes)
+		addRoutes(routesObject) {
+			matchRoute = findRoute(routesObject)
+
 			// update the from history store.... <REWITE></REWITE>
 			historyManager.store.from = matchRoute(window.location.pathname)
 
@@ -77,7 +77,7 @@ const lifecycle = (() => {
 			const newState = matchRoute(pathname)
 
 			// combine the transition methods
-			const fn = Object.assign({}, baseTransition, newState.route.view)
+			const fn = Object.assign({}, baseTransition, newState.view)
 
 			// all the onLoad method
 			fn.onLoad(newState)
@@ -101,7 +101,7 @@ const lifecycle = (() => {
 			// get the new route object
 			const newState = matchRoute(pathname)
 			// have we been supplice with a transition object... no.. use the route one
-			const view = trans ? trans : newState.route.view
+			const view = trans ? trans : newState.view
 
 			// update the from history store.... <REWITE></REWITE>
 			historyManager.store.to = newState
@@ -110,7 +110,7 @@ const lifecycle = (() => {
 			exitTransition = Object.assign(
 				{},
 				baseTransition,
-				historyManager.store.from.route.view
+				historyManager.store.from.view
 			)
 
 			// combine the transition methods for exit... basic + route enters
@@ -193,6 +193,7 @@ const lifecycle = (() => {
 						}
 
 						// check... do we want to unmount the previous html
+						log(props)
 						const shouldUnmount = enterTransition.shouldUnmount(props)
 
 						// if we do... sure... unmount event

@@ -3,8 +3,8 @@ import * as R from 'ramda'
 import { matchRoute, parseUrl } from './parseUrl'
 import * as str from '@/core/utils/strings'
 
-const mapChildren = base =>
-	R.compose(
+function mapChildren(base) {
+	return R.compose(
 		R.flatten,
 		R.map(({ children, path, ...rest }) => {
 			const container = []
@@ -24,8 +24,9 @@ const mapChildren = base =>
 			return container
 		})
 	)
+}
 
-const flattenRoutes = R.reduce((acc, curr) => {
+export const flattenRoutes = R.reduce((acc, curr) => {
 	const { path: tmpPath, children, ...rest } = curr
 	let tmp = []
 
@@ -43,12 +44,7 @@ const flattenRoutes = R.reduce((acc, curr) => {
 	return acc
 }, [])
 
-const log = R.curry((name, value) => {
-	return value
-})
-
-const matches = (routes, url) => {
-	const data = parseUrl(url)
+const matches = (routes, url, data) => {
 	const { path: slug } = data
 
 	return R.compose(
@@ -58,18 +54,20 @@ const matches = (routes, url) => {
 			const last = str.slugFromPath(slug)
 			const slugLength = str.segmentize(slug).length
 			let score = 1
+			let pageNo = null
 
 			if (str.beautifyPath(slug) === str.beautifyPath(path)) {
 				score = 5
 			} else {
 				if (pattern && pathToRegexp(pattern).exec(last)) {
 					score = 4
+					pageNo = R.compose(parseInt, R.head, R.match(/\d+/g))(last)
 				} else if (slugLength === str.segmentize(path).length) {
 					score = 3
 				}
 			}
 
-			return { path, score, pattern, ...rest }
+			return { path, score, pattern, pageNo, params: data, ...rest }
 		}),
 		R.filter(({ path }) => {
 			return matchRoute(path)(str.beautifyPath(slug))
@@ -80,20 +78,29 @@ const matches = (routes, url) => {
 export const findRoute = routes => {
 	const routeMap = flattenRoutes(routes)
 	return url => {
-		const { isRoot } = parseUrl(url)
+		const data = parseUrl(url)
+		const { isRoot } = data
 
-		if (isRoot) return R.find(R.propEq('path', '/'))(routes)
+		if (isRoot) {
+			return {
+				...R.find(R.propEq('path', '/'))(routes),
+				params: data
+			}
+		}
 
-		const match = R.head(matches(routeMap, url))
+		const match = R.head(matches(routeMap, url, data))
 
 		if (match) {
 			return match
 		}
 
-		return R.find(R.propEq('path', '*'))(routes)
+		return {
+			...R.find(R.propEq('path', '*'))(routes),
+			params: data
+		}
 	}
 }
 
 // const find = findRoute(routes)
 
-// find('/a/p2') // ?
+// find('https://www.our.com/a/p2?test=hello#terry') // ?

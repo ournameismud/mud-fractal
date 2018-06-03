@@ -2,7 +2,7 @@ import * as R from 'ramda'
 import createEvents from '@/core/modules/createEvents'
 import eventBus from '@/core/modules/eventBus'
 import { composeProps } from '@/core/modules/refs'
-import { preventClick, flattenRoutes, findRoute } from '@/core/router/utils'
+import { preventClick, getLinks } from '@/core/router/utils/links'
 import historyManager from '@/core/router/history'
 import cache from '@/core/router/cache'
 import request from '@/core/router/request'
@@ -14,6 +14,17 @@ export default (() => {
 	// setup a worker
 	const worker = new Worker()
 
+	const defaultRoutes = [
+		{
+			path: '/',
+			view: {}
+		},
+		{
+			path: '*',
+			view: {}
+		}
+	]
+
 	// add listen to events...
 	worker.addEventListener('message', function({ data }) {
 		// should probably check what i'm getting here
@@ -23,16 +34,6 @@ export default (() => {
 		})
 	})
 
-	// get the good links
-	// probably move to utils
-	const getLinks = R.compose(
-		R.filter(
-			pathname => pathname !== window.location.pathname && !cache.get(pathname)
-		),
-		R.map(R.prop('pathname')),
-		R.filter(link => !preventClick({}, link.pathname))
-	)
-
 	/***
 	 *@class Router
 	 * @param :object
@@ -41,17 +42,11 @@ export default (() => {
 	 */
 	return class Router {
 		constructor({ routes, rootNode }) {
-			// setup routes.... <REWITE></REWITE>
-			this.$routes = flattenRoutes(routes)
-
 			// bootup the lifecycle
 			lifecycle
-				.addRoutes(this.$routes)
+				.addRoutes(routes || defaultRoutes)
 				.setWrapper(rootNode)
 				.onLoad(window.location.pathname)
-
-			// get the routes method built... <REWITE></REWITE>
-			this.$findRoute = findRoute(this.$routes)
 
 			// the root node... ?? configurable at the route level
 			this.$wrapper = rootNode

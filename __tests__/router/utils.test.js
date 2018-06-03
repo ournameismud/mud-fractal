@@ -1,5 +1,5 @@
 import { parseUrl } from '@/core/router/utils/parseUrl'
-import { findRoute } from '@/core/router/utils/paths'
+import { findRoute, flattenRoutes } from '@/core/router/utils/paths'
 
 describe('parseUrl function', () => {
 	it('should be a function', () => {
@@ -30,54 +30,73 @@ describe('parseUrl function', () => {
 	})
 })
 
-describe('findRoute function', () => {
-	const routes = [
-		{
-			path: '/',
-			name: 'root',
-			view: {},
-			options: {}
-		},
-		{
-			path: '/a/',
-			name: 'a',
-			view: {},
-			options: {},
-			children: [
-				{
-					path: /(p)+(\d+)/,
-					view: {},
-					options: {},
-					name: 'pagination'
-				},
-				{
+const routes = [
+	{
+		path: '/',
+		name: 'root',
+		view: {},
+		options: {}
+	},
+	{
+		path: '/a/',
+		name: 'a',
+		view: {},
+		options: {},
+		children: [
+			{
+				path: /(p)+(\d+)/,
+				view: {},
+				options: {},
+				name: 'pagination'
+			},
+			{
+				path: ':id',
+				name: 'dynamic',
+				view: {},
+				options: {}
+			},
+			{
+				path: '/terry/',
+				name: 'terry',
+				view: {},
+				options: {},
+				children: {
 					path: ':id',
-					name: 'dynamic',
+					name: 'terry:id',
 					view: {},
 					options: {}
-				},
-				{
-					path: '/terry/',
-					name: 'terry',
-					view: {},
-					options: {},
-					children: {
-						path: ':id',
-						name: 'terry:id',
-						view: {},
-						options: {}
-					}
 				}
-			]
-		},
-		{
-			path: '*',
-			name: 'default',
-			view: {},
-			options: {}
-		}
-	]
+			}
+		]
+	},
+	{
+		path: '*',
+		name: 'default',
+		view: {},
+		options: {}
+	}
+]
 
+describe('flattenRoute function', () => {
+	it('should be a function', () => {
+		expect(flattenRoutes).toBeInstanceOf(Function)
+	})
+
+	it('should flatten the routes into a 1d array', () => {
+		const flatRoutes = flattenRoutes(routes)
+
+		expect(flatRoutes.length).toBe(7)
+
+		expect(flatRoutes[0].path).toBe('')
+		expect(flatRoutes[1].path).toBe('a')
+		expect(flatRoutes[2].path).toBe('a/(p)+(\\d+)')
+		expect(flatRoutes[3].path).toBe('a/:id')
+		expect(flatRoutes[4].path).toBe('a/terry')
+		expect(flatRoutes[5].path).toBe('a/terry/:id')
+	})
+})
+
+describe('findRoute function', () => {
 	let find
 
 	beforeAll(() => {
@@ -124,7 +143,8 @@ describe('findRoute function', () => {
 
 	it('should match the a regex path', () => {
 		const props = {
-			name: 'pagination'
+			name: 'pagination',
+			pageNo: 2
 		}
 
 		expect(find('/a/p2/')).toMatchObject(props)

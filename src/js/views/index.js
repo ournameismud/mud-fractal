@@ -11,15 +11,18 @@ export default [
 		options: {
 			paginationParent: true
 		},
-		children: {
-			path: ':id',
-			view: {
-				...paginationExample
-			},
-			options: {
-				pagination: true
+		children: [
+			{
+				path: /(p)+(\d+)/,
+				name: 'pagination',
+				view: {
+					...paginationExample
+				},
+				options: {
+					pagination: true
+				}
 			}
-		}
+		]
 	},
 	{
 		path: '*',

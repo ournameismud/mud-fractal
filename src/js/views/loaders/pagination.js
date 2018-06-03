@@ -11,7 +11,7 @@ export default (() => {
 
 	return {
 		shouldUnmount({ from }) {
-			const { pagination, paginationParent } = from.route.options
+			const { pagination, paginationParent } = from.options
 
 			if (pagination || paginationParent) return false
 
@@ -19,10 +19,9 @@ export default (() => {
 		},
 
 		updateDom({ wrapper, newHtml, title, from, to }) {
-			const { page: fromPageNumber, route: fromRoute } = from
-			const { page: toPageNumber } = to
-			const alienPage =
-				!fromRoute.options.paginationParent && !fromRoute.options.pagination
+			const { pageNo: fromPageNumber, options: fromOptions } = from
+			const { pageNo: toPageNumber } = to
+			const alienPage = !fromOptions.paginationParent && !fromOptions.pagination
 
 			// if we are coming from a pagination page
 
