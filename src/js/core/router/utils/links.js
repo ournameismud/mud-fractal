@@ -1,3 +1,5 @@
+import * as R from 'ramda'
+
 /**
  * credit:
  *
@@ -38,3 +40,11 @@ export const preventClick = (evt, element) => {
 
 	return true
 }
+
+export const getLinks = R.compose(
+	R.filter(
+		pathname => pathname !== window.location.pathname && !cache.get(pathname)
+	),
+	R.map(R.prop('pathname')),
+	R.filter(link => !preventClick({}, link.pathname))
+)
