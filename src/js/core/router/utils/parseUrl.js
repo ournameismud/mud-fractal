@@ -1,5 +1,15 @@
 import pathToRegexp from 'path-to-regexp'
-
+import * as R from 'ramda'
+import { segmentize } from '@/core/utils/strings'
+/**
+ * extracts meta data from urls (queries, hash, host, et al)
+ *
+ * @function parseUri
+ *
+ * @param :string url
+ *
+ * @return :object
+ */
 export function parseUri(str) {
 	let o = parseUri.options,
 		m = o.parser[o.strictMode ? 'strict' : 'loose'].exec(str),
@@ -44,13 +54,33 @@ parseUri.options = {
 	}
 }
 
+/**
+ *
+ * @function createPathObject
+ *
+ * @param :object pathToRegexp options
+ *
+ * @return :function
+ */
 function createPathObject(options) {
 	options = options || {}
 
+	/**
+	 *
+	 * @param :string the test path
+	 *
+	 * @return :function
+	 */
 	return function(path) {
 		let keys = []
 		let re = pathToRegexp(path, keys, options)
 
+		/**
+		 * @param :string // the url you want to match
+		 * @param :object
+		 *
+		 * @return :object / :boolean
+		 */
 		return function(pathname, params) {
 			let m = re.exec(pathname)
 			if (!m) return false
@@ -79,6 +109,12 @@ function decodeParam(param) {
 	}
 }
 
+/**
+ *
+ * @function matchRoute
+ *
+ * @return :function
+ */
 export const matchRoute = createPathObject({
 	// path-to-regexp options
 	sensitive: false,
@@ -86,11 +122,19 @@ export const matchRoute = createPathObject({
 	end: false
 })
 
+/**
+ *
+ * @function parseUrl
+ *
+ * @param :string url...
+ *
+ * @return :object
+ */
 export const parseUrl = href => {
 	const { anchor: hash, host, path, queryKey, source } = parseUri(href)
 
-	const segments = path.split('/').filter(p => p.length)
-	const slug = segments[segments.length - 1]
+	const segments = segmentize(path)
+	const slug = R.last(segments)
 
 	return {
 		isRoot: path === '/' ? true : false,

@@ -1,9 +1,0 @@
-/***
- *
- * placeholder
- *
- */
-
-export default (() => {
-	//
-})()
