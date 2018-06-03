@@ -72,8 +72,10 @@ export const activeLinks = (() => {
 			const testSegments = segmentize(path)
 
 			if (previous) {
-				R.forEach(({ node }) => {
-					node.classList.remove('is-current')
+				R.forEach(({ node, className }) => {
+					if (classNames[className]) {
+						node.classList.remove(classNames[className])
+					}
 				})(previous)
 
 				previous = []
@@ -81,8 +83,9 @@ export const activeLinks = (() => {
 
 			previous = R.compose(
 				R.forEach(({ node, className }) => {
-					log(node.textContent, className)
-					node.classList.add(classNames[className])
+					if (classNames[className]) {
+						node.classList.add(classNames[className])
+					}
 				}),
 				R.reduce((acc, [, value]) => {
 					acc.push(...value)
