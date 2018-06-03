@@ -92,8 +92,8 @@ export const activeLinks = (() => {
 					return acc
 				}, []),
 				Object.entries,
-				R.map(item => {
-					return R.compose(
+				R.map(
+					R.compose(
 						R.filter(({ segments, matchAgainst }) => {
 							return matchAgainst === R.join('/', segments)
 						}),
@@ -114,8 +114,8 @@ export const activeLinks = (() => {
 										: length === 1 ? 'root' : 'parent'
 							}
 						})
-					)(item)
-				}),
+					)
+				),
 				R.groupBy(({ pathname }) => segmentize(pathname).length),
 				R.filter(item => {
 					const { pathname } = item
@@ -126,8 +126,6 @@ export const activeLinks = (() => {
 					)
 				})
 			)($anchors)
-
-			log(previous)
 		}
 	}
 })()
