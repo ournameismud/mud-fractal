@@ -12,8 +12,8 @@ fetchMock.get('/page-2.html', {
 })
 
 fetchMock.get('/ddasdsad', {
-	body: '404',
-	status: 200,
+	body: '500',
+	status: 500,
 	ok: false
 })
 
@@ -28,6 +28,9 @@ describe('fetch function', () => {
 		expect(resp).toBe('page-1')
 	})
 
+	// i'm not sure what this is really proving... ermmm...
+	// have a look at the lifecycle, the error response should be handled there
+	// hmmmm
 	it('should fetch return an error object when stuff fails', async () => {
 		const resp = await request('/ddasdsad')
 
@@ -36,5 +39,10 @@ describe('fetch function', () => {
 		expect(data).toMatchObject({
 			ok: false
 		})
+	})
+
+	afterAll(async done => {
+		fetchMock.restore()
+		done()
 	})
 })

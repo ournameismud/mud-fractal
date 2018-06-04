@@ -1,5 +1,6 @@
 import '@/plugins/logger'
 import App from '@/core/App'
+// routes array
 import routes from '@/views'
 
 if (module.hot) {
@@ -7,6 +8,12 @@ if (module.hot) {
 }
 
 new App({
+	/***
+	 * router
+	 *
+	 * @prop :array => routes
+	 *
+	 */
 	router: {
 		routes,
 		rootNode: document.getElementById('page-wrapper'),

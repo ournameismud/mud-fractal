@@ -14,26 +14,26 @@ self.addEventListener(
 	e => {
 		const { links } = e.data
 		const proms = links.map(link => {
-			return new Promise(resolve => {
+			return new Promise((resolve, reject) => {
 				fetch(link)
 					.then(response => {
 						const { ok, status, url } = response
-						if (!ok || status !== 200) {
-							return {
-								data: false,
-								ok,
-								status,
-								url
-							}
-						}
 
-						return response.text()
+						if (ok) {
+							return response.text()
+						}
+						reject({ ok, status, url })
+						return false
 					})
 					.then((...args) => {
-						const data = args[0].data ? { ...args[0].data } : args[0]
+						if (args) {
+							const data = args[0].data ? { ...args[0].data } : args[0]
 
-						resolve({ key: link, data })
+							resolve({ key: link, data })
+						}
 					})
+			}).catch(() => {
+				console.error('hello')
 			})
 		})
 

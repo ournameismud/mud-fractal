@@ -2,15 +2,13 @@ import * as R from 'ramda'
 import { segmentize, beautifyPath } from '@/core/utils/strings'
 import { parseUrl } from '@/core/router/utils/parseUrl'
 import cache from '@/core/router/cache'
+
 /**
  * credit:
  *
  * https://github.com/luruke/barba.js/blob/master/src/Pjax/Pjax.js
  *
  */
-
-window.parseUrl = parseUrl
-
 export const preventClick = (evt, element) => {
 	const { href } = element
 	if (!element || !href) return
@@ -74,8 +72,6 @@ export const activeLinks = (() => {
 
 		return url => {
 			const { path, segments: testSegments } = parseUrl(url)
-
-			log('url:', url, 'path:', path, testSegments)
 
 			if (previous) {
 				R.forEach(({ node, className }) => {

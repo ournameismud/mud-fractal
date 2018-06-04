@@ -154,6 +154,15 @@ const lifecycle = (() => {
 				])
 					// the second request returns a response
 					// get it
+					// .catch(err => {
+					// 	// do we have errors...
+					// 	if (err.data && err.ok === false) {
+					// 		// emit the error method
+					// 		exitTransition.onError({ ...exitProps, ...err })
+					// 		// window.location.pathname = pathname
+					// 		return false
+					// 	}
+					// })
 					.then(([, resp]) => {
 						// more event emiiting
 						eventBus.emit(Action.ROUTE_TRANSITION_RESOLVED, exitProps)
@@ -161,8 +170,9 @@ const lifecycle = (() => {
 						// get the data, assign to markup
 						const { data: markup } = cache.get(pathname)
 
+						// console.log(resp)
 						// do we have errors...
-						if (resp.data && resp.data.data === false) {
+						if (resp.data && resp.data.ok === false) {
 							// emit the error method
 							exitTransition.onError({ ...exitProps, ...resp })
 							// window.location.pathname = pathname

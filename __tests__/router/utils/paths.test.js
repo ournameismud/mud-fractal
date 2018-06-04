@@ -1,51 +1,5 @@
 import { findRoute, flattenRoutes } from '@/core/router/utils/paths'
-
-const routes = [
-	{
-		path: '/',
-		name: 'root',
-		view: {},
-		options: {}
-	},
-	{
-		path: '/a/',
-		name: 'a',
-		view: {},
-		options: {},
-		children: [
-			{
-				path: /(p)+(\d+)/,
-				view: {},
-				options: {},
-				name: 'pagination'
-			},
-			{
-				path: ':id',
-				name: 'dynamic',
-				view: {},
-				options: {}
-			},
-			{
-				path: '/terry/',
-				name: 'terry',
-				view: {},
-				options: {},
-				children: {
-					path: ':id',
-					name: 'terry:id',
-					view: {},
-					options: {}
-				}
-			}
-		]
-	},
-	{
-		path: '*',
-		name: 'default',
-		view: {},
-		options: {}
-	}
-]
+import routes from '../routes'
 
 describe('flattenRoute function', () => {
 	it('should be a function', () => {

@@ -29,9 +29,12 @@ export default (() => {
 	worker.addEventListener('message', function({ data }) {
 		// should probably check what i'm getting here
 		// but... alpha... we're getting html responses
-		data.forEach(({ key, data }) => {
-			cache.set(key, { data })
-		})
+		log(R.filter(R.identity)(data))
+
+		// data.forEach(({ key, data }) => {
+		// 	log(data)
+		// 	cache.set(key, { data })
+		// })
 	})
 
 	/***
