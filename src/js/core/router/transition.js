@@ -8,6 +8,10 @@ export default {
 	shouldUnmount() {
 		return true
 	},
+	
+	shouldMount() {
+		return true
+	},
 
 	onError: props => {
 		console.warn('error loading page', props)

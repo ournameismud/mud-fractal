@@ -203,6 +203,7 @@ const lifecycle = (() => {
 
 						// check... do we want to unmount the previous html
 						const shouldUnmount = enterTransition.shouldUnmount(props)
+						const shouldMount = enterTransition.shouldUnmount(props)
 
 						// if we do... sure... unmount event
 						shouldUnmount &&
@@ -212,7 +213,8 @@ const lifecycle = (() => {
 						enterTransition.updateDom(props)
 
 						// emit update event
-						eventBus.emit(Action.ROUTE_TRANSITION_AFTER_DOM_UPDATE, props)
+						shouldMount &&
+							eventBus.emit(Action.ROUTE_TRANSITION_AFTER_DOM_UPDATE, props)
 
 						// no proms here.. just call this method
 						exitTransition.onAfterExit(props)
