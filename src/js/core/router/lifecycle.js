@@ -38,10 +38,7 @@ const lifecycle = (() => {
 
 		addRoutes(routesObject) {
 			matchRoute = findRoute(routesObject)
-
-			// update the from history store.... <REWITE></REWITE>
-			historyManager.store.from = matchRoute(window.location.pathname)
-
+			historyManager.set('from', matchRoute(window.location.pathname))
 			return this
 		},
 
@@ -104,21 +101,22 @@ const lifecycle = (() => {
 			const view = trans ? trans : newState.view
 
 			// update the from history store.... <REWITE></REWITE>
-			historyManager.store.to = newState
+			// historyManager.store.to = newState
+			historyManager.set('to', newState)
+
+			const from = historyManager.get('from')
+			const to = historyManager.get('to')
 
 			// combine the transition methods for exit... basic + route exits
-			exitTransition = Object.assign(
-				{},
-				baseTransition,
-				historyManager.store.from.view
-			)
+			exitTransition = Object.assign({}, baseTransition, from.view)
 
 			// combine the transition methods for exit... basic + route enters
 			enterTransition = Object.assign({}, baseTransition, view)
 
 			// setup the props to be passed to onExit and onExitComplete
 			const exitProps = {
-				...historyManager.store,
+				to,
+				from,
 				wrapper,
 				oldHtml: document.querySelector(exitTransition.el),
 				action,
@@ -188,7 +186,8 @@ const lifecycle = (() => {
 							newHtml,
 							title,
 							html,
-							...historyManager.store,
+							to,
+							from,
 							action
 						}
 
@@ -218,7 +217,6 @@ const lifecycle = (() => {
 							// enter props
 							const enterProps = {
 								...props,
-								...historyManager.store,
 								action
 							}
 
@@ -229,8 +227,7 @@ const lifecycle = (() => {
 							promise('onEnter', enterTransition, enterProps).then(() => {
 								enterTransition.onAfterEnter(enterProps)
 
-								// update the from history store.... <REWITE></REWITE>
-								historyManager.store.from = newState
+								historyManager.set('from', newState)
 								eventBus.emit(Action.ROUTE_TRANSITION_COMPLETE, enterProps)
 							})
 						}

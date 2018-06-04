@@ -47,10 +47,9 @@ export default (pathname, options = {}, type = 'text') => {
 					// set the failed failed shiz into the cache ??? why... [RETHINk] ?
 					cache.set(pathname, resp)
 					// reject.. with out fancy error object
-					reject(resp)
 
 					// bail..
-					return
+					return reject(resp)
 				}
 
 				// return the response transform

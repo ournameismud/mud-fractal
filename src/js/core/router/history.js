@@ -11,6 +11,8 @@ import * as Action from '@/core/router/actions'
 const historyManager = (() => {
 	// create a new history instance
 	const history = createHistory()
+	// object to how the current/previous paths
+	const store = {}
 
 	// listen to any history changes
 	history.listen((location, action) => {
@@ -23,12 +25,30 @@ const historyManager = (() => {
 	})
 
 	return {
-		/*
-			refactor alert yo!
-		*/
-		store: {
-			from: '',
-			to: ''
+		/***
+		 * set('string', value)
+		 *
+		 * set an item into the history store
+		 *
+		 * @param :string, :any
+		 *
+		 * @return void
+		 */
+		set(key, value) {
+			store[key] = value
+		},
+
+		/***
+		 * get('string')
+		 *
+		 * get an item from the history store
+		 *
+		 * @param :string
+		 *
+		 * @return :any
+		 */
+		get(key) {
+			return store[key]
 		},
 
 		/*
