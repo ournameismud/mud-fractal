@@ -1,5 +1,6 @@
 import * as R from 'ramda'
-import { segmentize, beautifyPath, slugFromPath } from '@/core/utils/strings'
+import { segmentize, beautifyPath } from '@/core/utils/strings'
+import { parseUrl } from '@/core/router/utils/parseUrl'
 import cache from '@/core/router/cache'
 /**
  * credit:
@@ -118,7 +119,9 @@ export const activeLinks = (() => {
 				),
 				R.groupBy(({ pathname }) => segmentize(pathname).length),
 				R.filter(item => {
-					const { pathname } = item
+					const { href } = item
+					const { path: pathname } = parseUrl(href)
+
 					const segments = segmentize(pathname)
 					return (
 						R.head(segments) === R.head(testSegments) &&
