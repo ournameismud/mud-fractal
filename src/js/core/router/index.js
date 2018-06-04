@@ -113,8 +113,8 @@ export default (() => {
 
 			eventBus.on(
 				Action.ROUTE_TRANSITION_AFTER_DOM_UPDATE,
-				({ to: { params: { path } } }) => {
-					this.$links(path)
+				({ to: { params: { raw: url } } }) => {
+					this.$links(url)
 				}
 			)
 

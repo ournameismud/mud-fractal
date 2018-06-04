@@ -8,9 +8,12 @@ import cache from '@/core/router/cache'
  * https://github.com/luruke/barba.js/blob/master/src/Pjax/Pjax.js
  *
  */
+
+window.parseUrl = parseUrl
+
 export const preventClick = (evt, element) => {
 	const { href } = element
-	if (!element || !href) return false
+	if (!element || !href) return
 
 	//Middle click, cmd click, and ctrl click
 	if (evt.which > 1 || evt.metaKey || evt.ctrlKey || evt.shiftKey || evt.altKey)
@@ -38,7 +41,7 @@ export const preventClick = (evt, element) => {
 	)
 		return
 
-	if (element.classList.contains('nope')) return
+	if (element.classList.contains('no-spon')) return
 
 	return true
 }
@@ -69,8 +72,10 @@ export const activeLinks = (() => {
 			...classes
 		}
 
-		return path => {
-			const testSegments = segmentize(path)
+		return url => {
+			const { path, segments: testSegments } = parseUrl(url)
+
+			log('url:', url, 'path:', path, testSegments)
 
 			if (previous) {
 				R.forEach(({ node, className }) => {
@@ -99,12 +104,15 @@ export const activeLinks = (() => {
 							return matchAgainst === R.join('/', segments)
 						}),
 						R.map(node => {
-							const { pathname } = node
+							const { href } = node
+							const { path: pathname } = parseUrl(href)
+
 							const segments = segmentize(pathname)
 							const length = R.length(segments)
 							const matchAgainst = R.compose(R.join('/'), R.take(length))(
 								testSegments
 							)
+
 							return {
 								node,
 								segments,

@@ -61,9 +61,7 @@ parseUri.options = {
  *
  * @return :function
  */
-function createPathObject(options) {
-	options = options || {}
-
+function createPathObject(options = {}) {
 	/**
 	 *
 	 * @param :string the test path
@@ -131,10 +129,10 @@ export const matchRoute = createPathObject({
  */
 export const parseUrl = href => {
 	const { anchor: hash, host, path, queryKey, source } = parseUri(href)
-
 	return {
 		isRoot: path === '/' ? true : false,
 		path: beautifyPath(path),
+		raw: path,
 		segments: segmentize(path),
 		slug: slugFromPath(path),
 		hash,
