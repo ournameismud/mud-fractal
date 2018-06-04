@@ -1,12 +1,13 @@
 import { activeLinks, preventClick } from '@/core/router/utils/links'
 
 document.body.innerHTML = `<div>
+<a id="valid" href="/waffle/">Root</a>
 <a id="external" href="http://www.otherdomain.com/path/">a</a>
 <a id="download" download="" href="/some/download.pdf">a</a>
 <a id="spon" class="no-spon" href="/some/ignoredlink">a</a>
 <a id="blank" target="_blank" href="/some/ignoredlink">a</a>
 <a id="hash" href="/some/ignoredlink#waffle">a</a>
-<a class="root" href="/">Root</a>
+<a class="root" class="root"  href="/">Root</a>
 <a class="parent parent--a" href="/a/">Root</a>
 <a class="parent parent--b" href="/a/b/c">Root</a>
 <a class="parent parent--c" href="/a/c">Root</a>
@@ -16,6 +17,13 @@ document.body.innerHTML = `<div>
 describe('prevent route link', () => {
 	it('should be a function', () => {
 		expect(preventClick).toBeInstanceOf(Function)
+	})
+
+	it('should return true when called on a valid link', () => {
+		const $node = document.getElementById('valid')
+		const result = preventClick({}, $node)
+
+		expect(result).toBe(true)
 	})
 
 	it('should return undefined when called with an external link', () => {
