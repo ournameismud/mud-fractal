@@ -4,7 +4,7 @@ describe('active links function', () => {
 	document.body.innerHTML = `<div>
 															<a class="root" href="/">Root</a>
 															<a class="parent parent--a" href="/a/">Root</a>
-															<a class="parent" href="/a/b/c">Root</a>
+															<a class="parent parent--b" href="/a/b/c">Root</a>
 															<a class="item" href="/a/b/c/d/">Root</a>
 														</div>`
 
@@ -39,11 +39,17 @@ describe('active links function', () => {
 		expect($root.classList.contains('is-current')).toBe(true)
 	})
 
-	it('should apply the is the parent class to any parent nodes', () => {
+	it('should apply the correct classes to all matching nodes', () => {
 		links('a/b/c/d')
 
-		const $item = document.querySelector('.parent--a')
+		const $root = document.querySelector('.root')
+		const $item1 = document.querySelector('.parent--a')
+		const $item2 = document.querySelector('.parent--b')
+		const $page = document.querySelector('.item')
 
-		expect($item.classList.contains('is-current-parent')).toBe(true)
+		expect($root.classList.contains('is-current-root')).toBe(false)
+		expect($item1.classList.contains('is-current-root')).toBe(true)
+		expect($item2.classList.contains('is-current-parent')).toBe(true)
+		expect($page.classList.contains('is-current')).toBe(true)
 	})
 })
