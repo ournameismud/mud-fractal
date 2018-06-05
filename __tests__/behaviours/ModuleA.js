@@ -1,3 +1,3 @@
-import Behaviour from '@/core/behaviour'
+import Behaviour from '@/core/Behaviour'
 
 export default class ModuleA extends Behaviour {}

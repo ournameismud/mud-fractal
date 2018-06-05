@@ -1,4 +1,4 @@
-import Behaviour from '@/core/behaviour'
+import Behaviour from '@/core/Behaviour'
 import eventBus from '@/core/modules/eventBus'
 import * as Actions from '@/core/router/actions'
 

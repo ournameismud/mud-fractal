@@ -10,10 +10,12 @@ new App({
 	/***
 	 * router
 	 *
-	 * @prop :array : routes object
-	 * @prop :HTMLElement  : the root html node
-	 * @prop :array  :  an array of links that should update on navigation
-	 * @prop :object  :  clases applied to active links
+	 * @prop routes :array - routes object
+	 * @prop rootNode:HTMLElement - the root html node
+	 * @prop navLinks :array - an array of links that should update on navigation
+	 * @prop classes :object - clases applied to active links
+	 * @prop onExit :function - called before the dom is updated
+	 * @prop onEnter :function - called after the dom is updated
 	 *
 	 */
 	router: {
@@ -28,12 +30,8 @@ new App({
 			root: 'is-current-root',
 			parent: 'is-current-parent'
 		},
-		onExit(props) {
-			log('ON EXIT', props)
-		},
-		onEnter() {
-			log('ON ENTER')
-		}
+		onExit() {},
+		onEnter() {}
 	},
 
 	/***
