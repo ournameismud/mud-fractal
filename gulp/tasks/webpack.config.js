@@ -4,6 +4,8 @@ const querystring = require('querystring')
 const { removeEmpty } = require('webpack-config-utils')
 const ProgressBarPlugin = require('progress-bar-webpack-plugin')
 const { InjectManifest } = require('workbox-webpack-plugin')
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer')
+	.BundleAnalyzerPlugin
 
 module.exports = env => {
 	const context = path.resolve(
@@ -134,7 +136,10 @@ module.exports = env => {
 	}
 
 	if (env === 'production') {
-		config.plugins.push(new webpack.NoEmitOnErrorsPlugin())
+		config.plugins.push(
+			new webpack.NoEmitOnErrorsPlugin(),
+			new BundleAnalyzerPlugin()
+		)
 	}
 
 	return config

@@ -18,15 +18,23 @@
 	"browser": true,
 	"jest": {
 		"testURL": "http://localhost:3000/",
-		"setupFiles": ["<rootDir>/setup-jest.js"],
+		"setupFiles": [
+			"<rootDir>/setup-jest.js"
+		],
 		"mapCoverage": true,
-		"collectCoverageFrom": ["src/js/core/**/*.{js,jsx,ts,tsx}"],
-		"testMatch": ["**/?(*.)(spec|test).js?(x)"]
+		"collectCoverageFrom": [
+			"src/js/core/**/*.{js,jsx,ts,tsx}"
+		],
+		"testMatch": [
+			"**/?(*.)(spec|test).js?(x)"
+		]
 	},
 	"quokka": {
 		"babel": true,
 		"installPackageCommand": "yarn add {packageName}",
-		"plugins": ["jsdom-quokka-plugin"]
+		"plugins": [
+			"jsdom-quokka-plugin"
+		]
 	},
 	"homepage": "https://github.com/ournameismud/mud-fractal#readme",
 	"scripts": {
@@ -67,12 +75,14 @@
 		"ramda": "^0.25.0"
 	},
 	"devDependencies": {
+		"babel-plugin-ramda": "^1.6.1",
 		"fetch-mock": "^6.4.2",
 		"mulp": "2.0.0",
 		"tailwindcss-aspect-ratio": "^1.0.0",
 		"tailwindcss-fluid": "^0.1.0",
 		"tailwindcss-visuallyhidden": "^1.0.1",
 		"tailwindcss-writing-mode": "^1.0.0",
+		"webpack-bundle-analyzer": "^2.13.1",
 		"workbox-webpack-plugin": "^3.1.0",
 		"worker-loader": "^2.0.0"
 	}

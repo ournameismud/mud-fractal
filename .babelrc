@@ -27,6 +27,12 @@
 	],
 
 	"env": {
+		"development": {
+			"plugins": ["ramda"]
+		},
+		"production": {
+			"plugins": ["ramda"]
+		},
 		"test": {
 			"plugins": [
 				"transform-es2015-modules-commonjs",

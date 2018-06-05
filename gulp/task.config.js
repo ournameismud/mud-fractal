@@ -72,7 +72,7 @@ module.exports = {
 
 	js: {
 		entries: {
-			preview: ['./app.js'], // for craftcms, babel-polyfill has a hissy fit
+			// preview: ['./app.js'], // for craftcms, babel-polyfill has a hissy fit
 			app: ['./app.js']
 		},
 		hot: {
