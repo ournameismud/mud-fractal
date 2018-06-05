@@ -1,3 +1,5 @@
+import { leadingSlashPath } from '@/core/utils/strings'
+
 /***
  * Cache object
  *
@@ -7,12 +9,18 @@ const cache = (() => {
 	/*
 		The cache... html responses from ajax requests get stored here
 		We should probably put a limit on it!
+
+		keys are beautified, with a leading slash, before storing to unsure 
+		prevent duplicate requests... probably a better way... hmm!
+		does the job! 
 	*/
 	const cache = {}
 
 	return {
 		/***
 		 * set('string', value)
+		 *
+		 * the input is beautified, with a leading slash, before storing
 		 *
 		 * set an item into the cache
 		 *
@@ -21,20 +29,22 @@ const cache = (() => {
 		 * @return void
 		 */
 		set(key, value) {
-			cache[key] = value
+			cache[leadingSlashPath(key)] = value
 		},
 
 		/***
 		 * get('string')
 		 *
-		 * set an item into the cache
+		 * get an item from the cache
+		 *
+		 * the input is beautified, with a leading slash, before requesting
 		 *
 		 * @param :string
 		 *
 		 * @return :any
 		 */
 		get(key) {
-			return cache[key]
+			return cache[leadingSlashPath(key)]
 		}
 	}
 })()

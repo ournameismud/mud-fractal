@@ -32,6 +32,12 @@ describe('prevent route link', () => {
 		expect(result).toBe(undefined)
 	})
 
+	it('should return undefined when called with no arguments', () => {
+		const result = preventClick()
+
+		expect(result).toBe(undefined)
+	})
+
 	it('should return break the link functionality, right click should work', () => {
 		const $node = document.querySelector('.parent--a')
 		const which = preventClick({ which: 3 }, $node)

@@ -52,6 +52,11 @@ describe('fetch function', () => {
 		expect(str.beautifyPath('/hello/hugh/')).toBe(result)
 	})
 
+	it('it should beautify but with a leading slash', () => {
+		const result = '/hello/hugh'
+		expect(str.leadingSlashPath('/hello/hugh/')).toBe(result)
+	})
+
 	it('slugFromPath should return the page slug', () => {
 		const result = 'hugh'
 		expect(str.slugFromPath('/hello/hugh/')).toBe(result)

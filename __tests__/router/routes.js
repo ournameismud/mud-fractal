@@ -1,12 +1,11 @@
 const transitions = {
 	onLoad() {
-		log('on load')
 		document.querySelector(this.el).classList.add('onLoad')
 	},
 
 	onError() {
 		log('on error')
-		document.body.classList.add('onError')
+		//	document.body.classList.add('onError')
 	},
 
 	onExit({ next }) {

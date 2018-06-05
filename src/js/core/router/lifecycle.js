@@ -16,7 +16,7 @@ const lifecycle = (() => {
 	/*
 		setup to vars to share
 	*/
-	let matchRoute
+	let matchRoute = () => {}
 	let exitTransition = {}
 	let enterTransition = {}
 	let wrapper
@@ -147,106 +147,91 @@ const lifecycle = (() => {
 			eventBus.emit(Action.ROUTE_TRANSITION_EXIT, exitProps)
 
 			// now... lets do the promise funk
-			return (
-				Promise.all([
-					promise('onExit', exitTransition, exitProps),
-					request(pathname)
-				])
-					// the second request returns a response
-					// get it
-					// .catch(err => {
-					// 	// do we have errors...
-					// 	if (err.data && err.ok === false) {
-					// 		// emit the error method
-					// 		exitTransition.onError({ ...exitProps, ...err })
-					// 		// window.location.pathname = pathname
-					// 		return false
-					// 	}
-					// })
-					.then(([, resp]) => {
-						// more event emiiting
-						eventBus.emit(Action.ROUTE_TRANSITION_RESOLVED, exitProps)
+			return Promise.all([
+				promise('onExit', exitTransition, exitProps),
+				request(pathname)
+			])
+				.then(([, resp]) => {
+					// more event emiiting
+					eventBus.emit(Action.ROUTE_TRANSITION_RESOLVED, exitProps)
 
-						// get the data, assign to markup
-						const { data: markup } = cache.get(pathname)
+					// do we have errors...
+					if (resp.data && resp.data.ok === false) {
+						// emit the error method
+						exitTransition.onError({ ...exitProps, ...resp })
+						// window.location.pathname = pathname
+						return false
+					}
 
-						// console.log(resp)
-						// do we have errors...
-						if (resp.data && resp.data.ok === false) {
-							// emit the error method
-							exitTransition.onError({ ...exitProps, ...resp })
-							// window.location.pathname = pathname
-							return false
-						}
+					// get the data, assign to markup
+					const { data: markup } = cache.get(pathname)
+					// conver the response html into something we can work with
+					const html = domify(markup)
 
-						// conver the response html into something we can work with
-						const html = domify(markup)
+					// get the title, and give it a clean
+					const title = html.querySelector('title').textContent.trim()
 
-						// get the title, and give it a clean
-						const title = html.querySelector('title').textContent.trim()
+					// query the new newHtml for the selector defined on
+					// this object... default = '.page-child'
+					const newHtml = html.querySelector(enterTransition.el)
 
-						// query the new newHtml for the selector defined on
-						// this object... default = '.page-child'
-						const newHtml = html.querySelector(enterTransition.el)
+					// props object passed to each after method
+					const props = {
+						oldHtml: document.querySelector(exitTransition.el),
+						wrapper,
+						newHtml,
+						title,
+						html,
+						to,
+						from,
+						action
+					}
 
-						// props object passed to each after method
-						const props = {
-							oldHtml: document.querySelector(exitTransition.el),
-							wrapper,
-							newHtml,
-							title,
-							html,
-							to,
-							from,
+					// check... do we want to unmount the previous html
+					const shouldUnmount = enterTransition.shouldUnmount(props)
+					const shouldMount = enterTransition.shouldMount(props)
+
+					// if we do... sure... unmount event
+					shouldUnmount &&
+						eventBus.emit(Action.ROUTE_TRANSITION_BEFORE_DOM_UPDATE, props)
+
+					// update the dom method
+					enterTransition.updateDom(props)
+
+					// emit update event
+					shouldMount &&
+						eventBus.emit(Action.ROUTE_TRANSITION_AFTER_DOM_UPDATE, props)
+
+					// no proms here.. just call this method
+					exitTransition.onAfterExit(props)
+
+					// return that props object we made earlier
+					return props
+				})
+				.then(props => {
+					// we have props...
+					// it's possible we don't, we could have bailed early
+					if (props) {
+						// enter props
+						const enterProps = {
+							...props,
 							action
 						}
 
-						// check... do we want to unmount the previous html
-						const shouldUnmount = enterTransition.shouldUnmount(props)
-						const shouldMount = enterTransition.shouldUnmount(props)
+						// emit some more
+						eventBus.emit(Action.ROUTE_TRANSITION_ENTER, enterProps)
 
-						// if we do... sure... unmount event
-						shouldUnmount &&
-							eventBus.emit(Action.ROUTE_TRANSITION_BEFORE_DOM_UPDATE, props)
+						// cycle through the enter methods
+						promise('onEnter', enterTransition, enterProps).then(() => {
+							enterTransition.onAfterEnter(enterProps)
 
-						// update the dom method
-						enterTransition.updateDom(props)
+							historyManager.set('from', newState)
+							eventBus.emit(Action.ROUTE_TRANSITION_COMPLETE, enterProps)
+						})
+					}
 
-						// emit update event
-						shouldMount &&
-							eventBus.emit(Action.ROUTE_TRANSITION_AFTER_DOM_UPDATE, props)
-
-						// no proms here.. just call this method
-						exitTransition.onAfterExit(props)
-
-						// return that props object we made earlier
-						return props
-					})
-					.then(props => {
-						// we have props...
-						// it's possible we don't, we could have bailed early
-						if (props) {
-							// enter props
-							const enterProps = {
-								...props,
-								action
-							}
-
-							// emit some more
-							eventBus.emit(Action.ROUTE_TRANSITION_ENTER, enterProps)
-
-							// cycle through the enter methods
-							promise('onEnter', enterTransition, enterProps).then(() => {
-								enterTransition.onAfterEnter(enterProps)
-
-								historyManager.set('from', newState)
-								eventBus.emit(Action.ROUTE_TRANSITION_COMPLETE, enterProps)
-							})
-						}
-
-						return props
-					})
-			)
+					return props
+				})
 		}
 	}
 })()

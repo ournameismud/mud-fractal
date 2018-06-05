@@ -1,7 +1,6 @@
 import * as R from 'ramda'
 import { segmentize, beautifyPath } from '@/core/utils/strings'
 import { parseUrl } from '@/core/router/utils/parseUrl'
-import cache from '@/core/router/cache'
 
 /**
  * credit:
@@ -9,9 +8,10 @@ import cache from '@/core/router/cache'
  * https://github.com/luruke/barba.js/blob/master/src/Pjax/Pjax.js
  *
  */
-export const preventClick = (evt, element) => {
+export function preventClick(evt, element) {
+	if (!element || !element.href) return
+
 	const { href } = element
-	if (!element || !href) return
 
 	//Middle click, cmd click, and ctrl click
 	if (evt.which > 1 || evt.metaKey || evt.ctrlKey || evt.shiftKey || evt.altKey)
@@ -43,14 +43,6 @@ export const preventClick = (evt, element) => {
 
 	return true
 }
-
-export const getLinks = R.compose(
-	R.filter(
-		pathname => pathname !== window.location.pathname && !cache.get(pathname)
-	),
-	R.map(R.prop('pathname')),
-	R.filter(link => !preventClick({}, link.pathname))
-)
 
 export const activeLinks = (() => {
 	let previous

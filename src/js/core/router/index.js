@@ -1,19 +1,15 @@
-import * as R from 'ramda'
 import createEvents from '@/core/modules/createEvents'
 import eventBus from '@/core/modules/eventBus'
 import { composeProps } from '@/core/modules/refs'
-import { preventClick, getLinks, activeLinks } from '@/core/router/utils/links'
+import { preventClick, activeLinks } from '@/core/router/utils/links'
 import historyManager from '@/core/router/history'
 import cache from '@/core/router/cache'
 import request from '@/core/router/request'
 import lifecycle from '@/core/router/lifecycle'
-import Worker from '@/core/router/fetch.worker.js'
+import lazyload from '@/core/router/lazyload'
 import * as Action from '@/core/router/actions'
 
 export default (() => {
-	// setup a worker
-	const worker = new Worker()
-
 	const defaultRoutes = [
 		{
 			path: '/',
@@ -24,18 +20,6 @@ export default (() => {
 			view: {}
 		}
 	]
-
-	// add listen to events...
-	worker.addEventListener('message', function({ data }) {
-		// should probably check what i'm getting here
-		// but... alpha... we're getting html responses
-		log(R.filter(R.identity)(data))
-
-		// data.forEach(({ key, data }) => {
-		// 	log(data)
-		// 	cache.set(key, { data })
-		// })
-	})
 
 	/***
 	 *@class Router
@@ -77,6 +61,10 @@ export default (() => {
 					if (action === 'PUSH') {
 						historyManager.push(pathname, { attr: dataAttrs })
 					}
+				})
+				.catch(e => {
+					eventBus.emit(Action.ROUTER_PAGE_NOT_FOUND, e)
+					console.warn(`[PREFETCH] no page found at ${e.url}`)
 				})
 		}
 
@@ -127,10 +115,8 @@ export default (() => {
 		}
 
 		lazyload = () => {
-			const links = getLinks([...document.querySelectorAll('a')])
-
-			links.length && worker.postMessage({ links })
-
+			const items = [...document.querySelectorAll('a')]
+			lazyload(items)
 			return this
 		}
 	}

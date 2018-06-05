@@ -33,7 +33,10 @@ self.addEventListener(
 						}
 					})
 			}).catch(() => {
-				console.error('hello')
+				return {
+					key: link,
+					data: false
+				}
 			})
 		})
 

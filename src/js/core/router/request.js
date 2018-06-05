@@ -14,10 +14,6 @@ export default (pathname, options = {}, type = 'text') => {
 	return new Promise((resolve, reject) => {
 		// are we in the cache... yeah... get me and return
 		if (cache.get(pathname)) {
-			log('are we here')
-			// log('from cache')
-			// pass the response object back...
-			// cos.. yeah... might want it
 			resolve(cache.get(pathname))
 			return
 		}
@@ -43,7 +39,6 @@ export default (pathname, options = {}, type = 'text') => {
 				}
 
 				// things are not so good....
-				log('SHIT')
 				// object to hold all that went wrong
 				const resp = {
 					data: false,
@@ -51,21 +46,17 @@ export default (pathname, options = {}, type = 'text') => {
 					status,
 					url
 				}
-				// set the failed failed shiz into the cache ??? why... [RETHINk] ?
-
-				// bail..
-				throw new Error('Network response was not ok.')
-			})
-			.catch(err => {
-				log('SHIT')
-				reject(err)
+				return resp
 			})
 			.then(data => {
 				// we have the goodies
 				// add it to the cache
-				cache.set(pathname, {
-					data
-				})
+
+				if (!data.data) {
+					cache.set(pathname, {
+						data
+					})
+				}
 				// we are done here... pass the response on
 				resolve(data)
 			})
