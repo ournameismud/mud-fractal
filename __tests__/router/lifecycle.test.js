@@ -124,7 +124,7 @@ describe('lifecycle function', () => {
 		lifecycle.addRoutes(routes)
 
 		const history = historyManager.get('from')
-		expect(history.path).toBe('/')
+		expect(history.route).toBe('/')
 	})
 
 	it('the onload method should be called', () => {

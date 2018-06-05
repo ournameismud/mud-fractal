@@ -28,7 +28,7 @@ export default (() => {
 	 * @return Router
 	 */
 	return class Router {
-		constructor({ routes, rootNode, navLinks, classes }) {
+		constructor({ routes, rootNode, navLinks, classes, onEnter, onExit }) {
 			// bootup the lifecycle
 			lifecycle
 				.addRoutes(routes || defaultRoutes)
@@ -43,6 +43,14 @@ export default (() => {
 			this.$events = createEvents.call(this, document, {
 				'click a': 'onClick',
 				'mouseover a': 'onMouseEnter'
+			})
+
+			eventBus.on(Action.ROUTE_TRANSITION_BEFORE_DOM_UPDATE, (...props) => {
+				onExit(...props)
+			})
+
+			eventBus.on(Action.ROUTE_TRANSITION_AFTER_DOM_UPDATE, (...props) => {
+				onEnter(...props)
 			})
 
 			return this

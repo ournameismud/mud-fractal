@@ -1,5 +1,65 @@
 import { findRoute, flattenRoutes } from '@/core/router/utils/paths'
-import routes from '../routes'
+const transitions = {
+	onLoad() {
+		document.querySelector(this.el).classList.add('onLoad')
+	},
+
+	onError() {
+		log('on error')
+		//	document.body.classList.add('onError')
+	},
+
+	onExit({ next }) {
+		next()
+	}
+}
+
+const routes = [
+	{
+		path: '/',
+		name: 'root',
+		view: transitions,
+		options: {}
+	},
+	{
+		path: '/a/',
+		name: 'a',
+		view: transitions,
+		options: {},
+		children: [
+			{
+				path: /(p)+(\d+)/,
+				view: {},
+				options: {},
+				name: 'pagination'
+			},
+			{
+				path: ':id',
+				name: 'dynamic',
+				view: {},
+				options: {}
+			},
+			{
+				path: '/terry/',
+				name: 'terry',
+				view: {},
+				options: {},
+				children: {
+					path: ':id',
+					name: 'terry:id',
+					view: {},
+					options: {}
+				}
+			}
+		]
+	},
+	{
+		path: '*',
+		name: 'default',
+		view: transitions,
+		options: {}
+	}
+]
 
 describe('flattenRoute function', () => {
 	it('should be a function', () => {
@@ -33,12 +93,8 @@ describe('findRoute function', () => {
 	})
 
 	it('should match the root page', () => {
-		const props = {
-			path: '/',
-			name: 'root'
-		}
-
-		expect(find('/')).toMatchObject(props)
+		const result = find('/')
+		expect(result.name).toBe('root')
 	})
 
 	it('should match the a single level path', () => {

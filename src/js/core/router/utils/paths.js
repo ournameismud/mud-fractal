@@ -104,7 +104,7 @@ const matches = (routes, data) => {
 				}
 			}
 
-			return { path, score, pattern, pageNo, params: data, ...rest }
+			return { route: path, score, pattern, pageNo, params: data, ...rest }
 		}),
 		R.filter(({ path }) => {
 			return matchRoute(path)(str.beautifyPath(slug))
@@ -119,8 +119,11 @@ export const findRoute = routes => {
 		const { isRoot } = data
 
 		if (isRoot) {
+			const { path: route, ...rest } = R.find(R.propEq('path', '/'))(routes)
+
 			return {
-				...R.find(R.propEq('path', '/'))(routes),
+				route,
+				...rest,
 				params: data
 			}
 		}
@@ -131,8 +134,11 @@ export const findRoute = routes => {
 			return match
 		}
 
+		const { path: route, ...rest } = R.find(R.propEq('path', '*'))(routes)
+
 		return {
-			...R.find(R.propEq('path', '*'))(routes),
+			route,
+			...rest,
 			params: data
 		}
 	}

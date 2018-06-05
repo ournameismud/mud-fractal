@@ -28,8 +28,8 @@ new App({
 			root: 'is-current-root',
 			parent: 'is-current-parent'
 		},
-		onExit() {
-			log('ON EXIT')
+		onExit(props) {
+			log('ON EXIT', props)
 		},
 		onEnter() {
 			log('ON ENTER')

@@ -3,7 +3,11 @@ import paginationExample from '@/views/loaders/pagination'
 export default [
 	{
 		path: '/',
-		view: {}
+		view: {},
+		name: 'terry',
+		options: {
+			things: 10
+		}
 	},
 	{
 		path: '/blog/',
