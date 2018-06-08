@@ -1,3 +1,5 @@
+const { px2em } = require('./tailwind.utils')
+
 /*
   |-----------------------------------------------------------------------------
   | Screens                      https://tailwindcss.com/docs/responsive-design
@@ -18,10 +20,10 @@
   */
 
 const screens = {
-	sm: '576px',
-	md: '768px',
-	lg: '992px',
-	xl: '1200px'
+	sm: px2em('576px'),
+	md: px2em('768px'),
+	lg: px2em('992px'),
+	xl: px2em('1200px')
 }
 
 module.exports = {
