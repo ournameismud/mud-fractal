@@ -1,16 +1,28 @@
 import createEvents from '@/core/modules/createEvents'
 import refs, { composeProps } from '@/core/modules/refs'
 import eventBus from '@/core/modules/eventBus'
-import resizer from '@/core/modules/resizer'
+// import resizer from '@/core/modules/resizer'
 import inview from '@/core/modules/inview'
 import * as Actions from '@/core/router/actions'
+
+class MixinBuilder {
+	constructor(superclass) {
+		this.superclass = superclass
+	}
+
+	with(...mixins) {
+		return mixins.reduce((c, mixin) => mixin(c), this.superclass)
+	}
+}
+
+export const mix = superclass => new MixinBuilder(superclass)
 
 /**
  * class Behaviour
  *
  */
 export default class Behaviour {
-	constructor(el = document, name) {
+	constructor(el = document, name = '') {
 		this.$name = name
 		this.$el = el
 		this.$eventBus = eventBus
@@ -41,7 +53,6 @@ export default class Behaviour {
 		this.$eventBus.on(Actions.ROUTE_TRANSITION_ENTER, this.routes.enter)
 		this.$eventBus.on(Actions.ROUTE_TRANSITION_EXIT, this.routes.exit)
 		this.$refs = refs(this.$el)
-		this.$screen = resizer(this.screens)
 		if (this.events) {
 			this.$events = createEvents.call(this, this.$el, this.events)
 		}

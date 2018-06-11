@@ -1,13 +1,16 @@
-import Behaviour from '@/core/Behaviour'
+import Behaviour, { mix } from '@/core/Behaviour'
+import { ResizeMixin } from '@/core/modules/resizer'
 
 export default class HomePage extends Behaviour {
 	mount = () => {
 		// log('mount: HomePage')
 		this.$el.classList.add('mount')
 		this.$events.attachAll()
-		this.$screen.on('window:resize', ({ width, height, query }) => {
-			// log({ width, height, query })
-		})
+
+		log('hello')
+		// this.$screen.on('window:resize', ({ width, height, query }) => {
+		// 	// log({ width, height, query })
+		// })
 	}
 
 	unmount = () => {
@@ -45,11 +48,11 @@ export default class HomePage extends Behaviour {
 
 	screens = {
 		'(min-width: 1024px)': ({ match, width, height, query }) => {
-			// log('(min-width: 1024px)', match, width, height, query)
+			log('(min-width: 1024px)', match, width, height, query)
 		},
 
 		'(min-width: 680px)': ({ match, width, height, query }) => {
-			// log('(min-width: 680px)', match, width, height, query)
+			log('(min-width: 680px)', match, width, height, query)
 		}
 	}
 }
