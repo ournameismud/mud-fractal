@@ -43,7 +43,7 @@ export default class Behaviour {
 
 	screens = {}
 
-	init = () => {
+	init() {
 		this.$observer = inview(
 			this.$el,
 			this.viewport,
@@ -60,15 +60,15 @@ export default class Behaviour {
 		return this
 	}
 
-	updateRefs = () => {
+	updateRefs() {
 		this.$refs = { ...this.$refs, ...refs(this.$el) }
 	}
 
-	mount = () => {}
+	mount() {}
 
-	unmount = () => {}
+	unmount() {}
 
-	destroy = () => {
+	destroy() {
 		this.unmount()
 		this.$eventBus.off(Actions.ROUTE_TRANSITION_ENTER, this.routes.enter)
 		this.$eventBus.off(Actions.ROUTE_TRANSITION_EXIT, this.routes.exit)
