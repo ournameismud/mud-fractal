@@ -78,6 +78,7 @@
 		"babel-plugin-ramda": "^1.6.1",
 		"fetch-mock": "^6.4.2",
 		"mulp": "2.0.0",
+		"tailwindcss-alpha": "^0.1.1",
 		"tailwindcss-aspect-ratio": "^1.0.0",
 		"tailwindcss-fluid": "^0.1.0",
 		"tailwindcss-visuallyhidden": "^1.0.1",

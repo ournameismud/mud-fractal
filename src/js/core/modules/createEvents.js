@@ -1,7 +1,7 @@
 import Delegate from 'dom-delegate'
 import * as R from 'ramda'
 
-export default R.curry(function(context, obj) {
+export const createEvents = R.curry(function(context, obj) {
 	const events = Object.entries(obj).map(([key, fn]) => {
 		const eventAndNode = R.compose(R.map(R.trim), R.split(' '))(key)
 		const capture = !!R.compose(R.length, R.match(/mouse/g), R.head)(
@@ -58,3 +58,19 @@ export default R.curry(function(context, obj) {
 		}
 	}
 })
+
+export const CreateEventsMixin = superclass =>
+	class extends superclass {
+		init() {
+			this.$events = createEvents.call(this, this.$el, this.events)
+
+			if (super.init) super.init()
+
+			return this
+		}
+
+		destroy() {
+			this.$events.destroy()
+			if (super.destroy) super.destroy()
+		}
+	}

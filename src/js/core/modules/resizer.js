@@ -176,8 +176,13 @@ export const resizer = (function() {
 export const ResizeMixin = superclass =>
 	class extends superclass {
 		init() {
-			// this.$resizer = resizer(this.screens)
+			this.$resizer = resizer(this.screens)
 			if (super.init) super.init()
-			log('hello')
+			return this
+		}
+
+		destroy() {
+			this.$resizer.destroy()
+			if (super.destroy) super.destroy()
 		}
 	}

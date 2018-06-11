@@ -1,8 +1,8 @@
-import inview from '@/core/modules/inview'
+import { inview } from '@/core/modules/inview'
 
 describe('inview function', () => {
 	document.body.innerHTML = `<div id="test">
-                              <div id="wrapper" style="height: 400px; position: absolute; top: 0">
+                              <div id="wrapper" style="height: 400px; position: absolute; top: 500px">
                                 <b class="fake" data-behaviour="ModuleB"></b>
                               </div>
                             </div>`
@@ -23,8 +23,8 @@ describe('inview function', () => {
 			},
 			{}
 		)
-		window.scrollTo(0, 0)
-		window.resizeTo(500, 1000)
+		window.scrollTo(500, 0)
+		window.resizeTo(500, 400)
 		setTimeout(() => {
 			done()
 		}, 10)

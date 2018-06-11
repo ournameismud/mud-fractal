@@ -1,4 +1,4 @@
-import createEvents from '@/core/modules/createEvents'
+import { createEvents } from '@/core/modules/createEvents'
 import eventBus from '@/core/modules/eventBus'
 import { composeProps } from '@/core/modules/refs'
 import { preventClick, activeLinks } from '@/core/router/utils/links'
@@ -79,7 +79,6 @@ export default (() => {
 		onMouseEnter = (e, elm) => {
 			const { pathname } = elm
 			if (!preventClick(e, elm) || cache.get(pathname)) {
-				// log('NARP')
 				return
 			}
 

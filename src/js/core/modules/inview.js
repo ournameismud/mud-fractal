@@ -1,6 +1,6 @@
 import * as R from 'ramda'
 
-const inview = R.curry((root, events, options) => {
+export const inview = R.curry((root, events, options) => {
 	if (!events) return
 
 	const opts = options ? options : {}
@@ -33,4 +33,22 @@ const inview = R.curry((root, events, options) => {
 	}
 })
 
-export default inview
+export const InviewMixin = superclass =>
+	class extends superclass {
+		init() {
+			this.$observer = inview(
+				this.$el,
+				this.viewport,
+				this.registerObserverOptions || {}
+			)
+
+			if (super.init) super.init()
+
+			return this
+		}
+
+		destroy() {
+			// this.$observer.destroy()
+			if (super.destroy) super.destroy()
+		}
+	}

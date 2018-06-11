@@ -1,8 +1,17 @@
-import Behaviour from '@/core/Behaviour'
+import Behaviour, { mix } from '@/core/Behaviour'
+import { ResizeMixin } from '@/core/modules/resizer'
+import { CreateEventsMixin } from '@/core/modules/createEvents'
+import { RefsMixin } from '@/core/modules/refs'
+import { InviewMixin } from '@/core/modules/inview'
 import eventBus from '@/core/modules/eventBus'
 import * as Actions from '@/core/router/actions'
 
-class ExampleWithAllTheBitsCovered extends Behaviour {
+class ExampleWithAllTheBitsCovered extends mix(Behaviour).with(
+	ResizeMixin,
+	CreateEventsMixin,
+	InviewMixin,
+	RefsMixin
+) {
 	mount = () => {
 		this.$el.classList.add('mount')
 		this.$events.attachAll()

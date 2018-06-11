@@ -1,25 +1,28 @@
 $fonts: (
-  bold: (
-    Roboto,
-    Helvetica Neue,
-    sans-serif
-  ),
-  italic: (
-    Roboto,
-    Helvetica Neue,
-    sans-serif
-  ),
   light: (
-    Roboto,
-    Helvetica Neue,
-    sans-serif
-  ),
-  light-italic: (
+    NeutrifPro-Light,
     Roboto,
     Helvetica Neue,
     sans-serif
   ),
   regular: (
+    NeutrifPro-Regular,
+    Monaco,
+    Consolas,
+    Liberation Mono,
+    Courier New,
+    monospace
+  ),
+  semi: (
+    NeutrifPro-SemiBold,
+    Monaco,
+    Consolas,
+    Liberation Mono,
+    Courier New,
+    monospace
+  ),
+  bold: (
+    NeutrifPro-Bold,
     Roboto,
     Helvetica Neue,
     sans-serif
