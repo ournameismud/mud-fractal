@@ -1,19 +1,20 @@
 # Spon.js
-Spon.js is little framework to help manage javascript functionality for modern websites.   It servers two purposes.  The first is to manage the loading and initialisation of javascript modules (behaviours).  The second is to control page transitions (router*), commonly referred to as PJAX.  
 
-The main idea behind this framework is to marry the two requirements together. 
+Spon.js is little framework to help manage javascript functionality for modern websites. It servers two purposes. The first is to manage the loading and initialisation of javascript modules (behaviours). The second is to control page transitions (router\*), commonly referred to as PJAX.
+
+The main idea behind this framework is to marry the two requirements together.
 
 ### Behaviour Features:
 
 - [ ] code splitting based on data-behaviour attributes (powered by web pack)
 - [ ] component based event delegation (dom-delegate.js)
 - [ ] global event emitter (mitt.js)
-- [ ] screen size events and utilities 
+- [ ] screen size events and utilities
 - [ ] viewport detection (intersection observer)
 - [ ] refs object which queries the component for any data-module elements
 - [ ] page transition events
 
-*It’s not really a router... but it wants to behave like one! 
+\*It’s not really a router... but it wants to behave like one!
 
 ### Router Features
 
@@ -26,14 +27,13 @@ The main idea behind this framework is to marry the two requirements together.
 - [ ] Event emitter
 - [ ] Error handling
 
-
-
 ## Getting started
 
 ### app.js
+
 `src/js/app.js`
 
-Some imports… 
+Some imports…
 
 ```javascript
 // console log util... log('message')
@@ -42,14 +42,13 @@ import '@/plugins/logger'
 import App from '@/core/App'
 ```
 
-
 We can now instantiate a `new` App class
 
-One of the properties the `App` expects is a `chunks` function.  This is the function that will be used to load data behaviours
+One of the properties the `App` expects is a `chunks` function. This is the function that will be used to load data behaviours
 
-He we’re using `dynamic imports` to asynchronously load our javascript modules.  This function is resolved by the app loader.
+He we’re using `dynamic imports` to asynchronously load our javascript modules. This function is resolved by the app loader.
 
-The chunks function is called for each element in the html that has a `data-behaviour` attribute. 
+The chunks function is called for each element in the html that has a `data-behaviour` attribute.
 
 ```html
 <div data-behaviour="ModuleA"></div>
@@ -61,14 +60,13 @@ The `@` symbol is an alias defined in the web pack config that resolves to the r
 new App({
 	chunks: behaviour => import(`@/behaviours/${behaviour}`)
 }).mount()
-
 ```
 
-
 ## Behaviour modules
+
 `src/js/behaviours/ModuleA.js`
 
-Each behaviour that is loaded via the chunks property **must** be a `class` that extends the root `Behaviour`. The new class must be the  default export
+Each behaviour that is loaded via the chunks property **must** be a `class` that extends the root `Behaviour`. The new class must be the default export
 
 Let’s import the `Behaviour`
 
@@ -76,20 +74,18 @@ Let’s import the `Behaviour`
 import Behaviour from '@/core/Behaviour'
 
 export default class extends Behaviour {}
-
 ```
 
 Boom! We have a behaviour. (As it’s the default you can omit the name… but sometimes it’s nice to name things anyway)
 
 **The constructor**
 
-You shouldn’t ever have to use the constructor… 
+You shouldn’t ever have to use the constructor…
 
 ```javascript
 import Behaviour from '@/core/Behaviour'
 
 export default class ModuleA extends Behaviour {
-
 	/***
 	 * constructor
 	 * @param el:HTMLElement - the html node with the data-behaviour
@@ -103,7 +99,7 @@ export default class ModuleA extends Behaviour {
 }
 ```
 
-Instead… use the `mount` method.  This is called after the behaviour has been instantiated
+Instead… use the `mount` method. This is called after the behaviour has been instantiated
 
 ```javascript
 export default class ModuleA extends Behaviour {
@@ -117,7 +113,7 @@ export default class ModuleA extends Behaviour {
 
 #### Mixins
 
-Rather than adding all of the common utilities, such as Dom and window events, to the main `Behaviour` class each can be combined during instantiation 
+Rather than adding all of the common utilities, such as Dom and window events, to the main `Behaviour` class each piece of functionality can be combined during instantiation
 
 Let’s add some Dom events
 
@@ -125,20 +121,22 @@ Let’s add some Dom events
 import Behaviour, { mix } from '@/core/Behaviour'
 import { EventsMixin } from '@/core/modules/createEvents'
 
-export default class ModuleA extends mix(Behaviour).with(
-	CreateEventsMixin
-) {
-
+export default class ModuleA extends mix(Behaviour).with(EventsMixin) {
 	mount() {
 		// add each of the events defined
 		// in the events object
 		// each event is delegated to this.$el
 		this.$$events.attachAll()
+
+		// you can also attach events by key
+		// this.$$events.attach('click [data-button]')
+		// this.$$events.remove('click [data-button]')
+		// this can be useful when dealing with responsive behaviours
 	}
-	
+
 	// {'event element' : function }
 	events = {
-		'click [data-button]' : 'onClick'
+		'click [data-button]': 'onClick'
 	}
 
 	onClick = (event, element) => {
@@ -147,7 +145,6 @@ export default class ModuleA extends mix(Behaviour).with(
 	}
 }
 ```
-
 
 Wonderful… how about some window resize events
 
@@ -160,21 +157,20 @@ export default class ModuleA extends mix(Behaviour).with(
 	EventsMixin,
 	ResizeMixin
 ) {
-
 	mount() {
 		this.$$events.attachAll()
 
-		this.$$screen.on('resize', (props) => {
+		this.$$screen.on('resize', props => {
 			console.log(...props)
 		})
 
 		const width = this.$$screen.width
 		const height = this.$$screen.height
 	}
-	
+
 	// {'event element' : function }
 	events = {
-		'click [data-button]' : 'onClick'
+		'click [data-button]': 'onClick'
 	}
 
 	onClick = (event, element) => {
@@ -182,24 +178,21 @@ export default class ModuleA extends mix(Behaviour).with(
 		element.classList.toggle('is-clicked')
 	}
 
-  // each matching breakpoint will be called on load
+	// each matching breakpoint will be called on load
 	// and again on resize when the breakpoints state changes.  If the the breakpoint fails the function will be called again, with props.match set to false
 	screens = {
-			'(min-width: 1024px)': (props) => {
-				if(props.match) {
-					console.log(...props)
-				}
-			},
-	
-			'(min-width: 680px)': (props) => {
-				
+		'(min-width: 1024px)': props => {
+			if (props.match) {
+				console.log(...props)
 			}
-		}
+		},
+
+		'(min-width: 680px)': props => {}
+	}
 }
 ```
 
-
-SPRING BREAK… intersection observer anyone? 
+SPRING BREAK… intersection observer anyone?
 
 ```javascript
 import Behaviour, { mix } from '@/core/Behaviour'
@@ -219,15 +212,14 @@ export default class ModuleA extends mix(Behaviour).with(
 		enter() {
 			console.log(this.$el, 'is in the viewport')
 		},
-		
+
 		exit() {
 			console.log(this.$el, 'is not in the viewport')
 		}
 	}
-	
+
 }
 ```
-
 
 Refs… rather than manually querying the Dom, why not let the framework do some of the work.
 
@@ -259,7 +251,6 @@ By using the RefsMixin you’ll have the following object available
     "amount": "10"
   }
 }
-
 ```
 
 Example:
@@ -277,18 +268,15 @@ export default class ModuleA extends mix(Behaviour).with(
 	InviewMixin,
 	RefsMixin
 ) {
-
 	// removed other stuff for the sake of the trees
 	mount() {
-		const { 
-			sally: { amount }, 
-			gary: { 
-				node: $gary 
-			} 
+		const {
+			sally: { amount },
+			gary: { node: $gary }
 		} = this.$$refs
 
 		$gary.classList.add('is-gary')
-		
+
 		console.log(amount)
 	}
 }
@@ -298,19 +286,20 @@ export default class ModuleA extends mix(Behaviour).with(
 
 Every Behaviour has access to a global event emitted
 
-_src_js_behaviours_ModuleA.js
+\_src_js_behaviours_ModuleA.js
+
 ```javascript
 export default class ModuleA extends Behaviour {
 	mount() {
-		this.$$eventBus.on('some:event', (value) => {
+		this.$$eventBus.on('some:event', value => {
 			console.log(value)
 		})
 	}
 }
 ```
 
+\_src_js_behaviours_ModuleB.js
 
-_src_js_behaviours_ModuleB.js
 ```javascript
 export default class ModuleB.js extends Behaviour {
 	mount() {
@@ -321,6 +310,7 @@ export default class ModuleB.js extends Behaviour {
 ```
 
 You can also access the event bus by importing it
+
 ```javascript
 import eventBus from '@/core/modules/eventBus'
 
@@ -331,7 +321,7 @@ export default class ModuleB.js extends Behaviour {
 
 		eventBus.on('ROUTE_TRANSITION_ENTER', (props) => {
 			console.log(props)
-		}) 
+		})
 	}
 }
 ```
@@ -341,8 +331,8 @@ export default class ModuleB.js extends Behaviour {
 If you need to destroy any custom code when a page transition occurs use the unmount method
 
 Eg
-```javascript
 
+```javascript
 export default class ModuleB.js extends Behaviour {
 	// ...,
 	unmount() {
@@ -354,8 +344,8 @@ export default class ModuleB.js extends Behaviour {
 
 That’s 90% of behaviours.
 
-
 ## Router
+
 Back to `app.js`
 
 ```javascript
@@ -399,9 +389,7 @@ new App({
 	 */
 	chunks: behaviour => import(`@/behaviours/${behaviour}`)
 }).mount()
-
 ```
-
 
 ### Routes array
 
@@ -420,13 +408,12 @@ const defaultRoutes = [
 		view: {}
 	}
 ]
-
 ```
 
-If you’re on the home page it’s going to match the the object with the ‘/‘ path.  Any other url will fallback to the ‘*’ object
+If you’re on the home page it’s going to match the the object with the ‘/‘ path. Any other url will fallback to the ‘\*’ object
 
 Let’s add a home page transition…
- 
+
 ```javascript
 import FancyAnimation from 'made-up-animation-lib'
 
@@ -435,7 +422,7 @@ const homePage = {
 	// this will be called when leaving the home page
 	// the next() prop MUST BE CALLED
 	onExit({ next, ...props }) {
-		console.log(props) // lots and lots of stuff 
+		console.log(props) // lots and lots of stuff
 		FancyAnimation.dance({
 			onComplete: () {
 				next()
@@ -447,13 +434,13 @@ const homePage = {
 	// it will not be called on load
 	// the next() prop MUST BE CALLED
 	onEnter({ next, ...props }) {
-		console.log(props) // lots and lots of stuff 
+		console.log(props) // lots and lots of stuff
 		next()
 	},
-	
+
 	// this will only be called on the inital load
 	onLoad() {
-		console.log('Home page onload')	
+		console.log('Home page onload')
 	}
 }
 
@@ -470,9 +457,7 @@ const defaultRoutes = [
 		name: 'other-page' // could be useful
 	}
 ]
-
 ```
-
 
 ### Transition lifecycle
 
@@ -481,64 +466,70 @@ There are a number of other methods that you can use that are called during the 
 Each method is passed a props object that contains lots of useful things… checkout the console.
 
 #### onLoad
+
 `onLoad(props) :void`
 
 Called once on the initial load
 
 #### shouldUnmount
+
 `shouldUnmount(props) :boolean`
 
 Called before updateDom()
-By default this returns true.  If it returns false the data behaviours will not be destroyed
+By default this returns true. If it returns false the data behaviours will not be destroyed
 
 #### shouldMount
+
 `shouldMount(props) :boolean`
 
 Called after updateDom()
-By default this returns true.  If it returns false the data behaviours will not be mounted
+By default this returns true. If it returns false the data behaviours will not be mounted
 
 #### updateDom
-`updateDom(props) :void` 
+
+`updateDom(props) :void`
 
 This is called after onExit and onAfterExit
 
-By default. This is the method that removes the old Dom and injects the new one. 
+By default. This is the method that removes the old Dom and injects the new one.
+
 ```javascript
 updateDom({ wrapper, newHtml, title }) {
 	wrapper.innerHTML = ''
 	wrapper.appendChild(newHtml)
 	document.title = title
 }
-
 ```
 
-
 #### onExit
+
 `onExit(props): Promise`
 
-Called when a page request has been made.   
-The props object has a next property that **must** be used to resolve the promise 
+Called when a page request has been made.  
+The props object has a next property that **must** be used to resolve the promise
 
 #### onAfterExit
-`onAfterExit(props)	:void`
+
+`onAfterExit(props) :void`
 Called after the Ajax request has resolved and the onExit method has resolved
 
 #### onEnter
+
 `onEnter(props): Promise`
 
 Called after updateDom and onAfterExit
-The props object has a next property that **must** be used to resolve the promise 
+The props object has a next property that **must** be used to resolve the promise
 
 #### onAfterEnter
-`onAfterEnter(props)	:void`
+
+`onAfterEnter(props) :void`
 Called after onEnter has resolved
 
 ### Routes array… part 2
 
-Let’s add a some more routes… 
+Let’s add a some more routes…
 
 ```javascript
-
 export default [
 	{
 		path: '/',
@@ -551,7 +542,7 @@ export default [
 			path: ':id',
 			view: {},
 			name: 'dyanmic'
-		}	
+		}
 	},
 	{
 		path: '*',
@@ -560,7 +551,7 @@ export default [
 ]
 ```
 
-2 new transitons… 
+2 new transitons…
 
 The about page _about_
 And then any child page… woot
@@ -569,7 +560,6 @@ More… I want to add a specific route to one of those child pages…
 Let’s change the children object into an array.
 
 ```javascript
-
 export default [
 	{
 		path: '/',
@@ -598,12 +588,11 @@ export default [
 ]
 ```
 
-Now _about_team/ will get it’s own transition… more woot
+Now \_about_team/ will get it’s own transition… more woot
 
 How about a blog… with some pagination
 
 ```javascript
-
 import paginationExample from '@/views/loaders/pagination'
 
 export default [
@@ -642,7 +631,6 @@ Now… blog_p2 will have one transition, and blog_any-other-slug will have anoth
 And you can nest… for ever… but you probably won’t
 
 ```javascript
-
 import paginationExample from '@/views/loaders/pagination'
 
 export default [
@@ -668,14 +656,12 @@ export default [
 ]
 ```
 
-
 ### Events
 
-These are all the events that are fired from the router… 
+These are all the events that are fired from the router…
 When they are emitted should be fairly clear
 
 ```javascript
-
 'ROUTER_POP_EVENT'
 'ROUTER_POP_EVENT'
 'ROUTE_LINK_CLICKED'
@@ -687,10 +673,9 @@ When they are emitted should be fairly clear
 'ROUTE_TRANSITION_ENTER'
 'ROUTE_TRANSITION_COMPLETE'
 
-// 
+//
 
 eventBus.on('ROUTER_POP_EVENT', () => {})
 ```
 
-
-And that’s 90% of the router stuff… 
+And that’s 90% of the router stuff…
