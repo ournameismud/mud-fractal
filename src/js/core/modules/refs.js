@@ -46,7 +46,9 @@ export default root => createRefs([...root.querySelectorAll('*[data-element]')])
 export const RefsMixin = superclass =>
 	class extends superclass {
 		init() {
-			this.$refs = createRefs([...this.$el.querySelectorAll('*[data-element]')])
+			this.$$refs = createRefs([
+				...this.$el.querySelectorAll('*[data-element]')
+			])
 			if (super.init) super.init()
 		}
 	}

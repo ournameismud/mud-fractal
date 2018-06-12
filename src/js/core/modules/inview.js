@@ -36,7 +36,7 @@ export const inview = R.curry((root, events, options) => {
 export const InviewMixin = superclass =>
 	class extends superclass {
 		init() {
-			this.$observer = inview(
+			this.$$inview = inview(
 				this.$el,
 				this.viewport,
 				this.registerObserverOptions || {}
@@ -48,7 +48,7 @@ export const InviewMixin = superclass =>
 		}
 
 		destroy() {
-			// this.$observer.destroy()
+			// this.$$inview.destroy()
 			if (super.destroy) super.destroy()
 		}
 	}

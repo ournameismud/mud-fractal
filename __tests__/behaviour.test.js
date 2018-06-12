@@ -14,7 +14,7 @@ class ExampleWithAllTheBitsCovered extends mix(Behaviour).with(
 ) {
 	mount = () => {
 		this.$el.classList.add('mount')
-		this.$events.attachAll()
+		this.$$events.attachAll()
 	}
 
 	unmount = () => {
@@ -84,28 +84,28 @@ describe('behaviour class', () => {
 	})
 
 	it('should link to the global event bus', () => {
-		const { $eventBus } = behaviour
+		const { $$eventBus } = behaviour
 
-		expect($eventBus).toBe(eventBus)
-		expect($eventBus.on).toBeInstanceOf(Function)
-		expect($eventBus.emit).toBeInstanceOf(Function)
-		expect($eventBus.off).toBeInstanceOf(Function)
+		expect($$eventBus).toBe(eventBus)
+		expect($$eventBus.on).toBeInstanceOf(Function)
+		expect($$eventBus.emit).toBeInstanceOf(Function)
+		expect($$eventBus.off).toBeInstanceOf(Function)
 
 		let tempValue = 0
 
 		const funk = () => (tempValue += 1)
 
-		$eventBus.on('update', funk)
+		$$eventBus.on('update', funk)
 
-		$eventBus.emit('update')
-		$eventBus.off('update', funk)
-		$eventBus.emit('update')
+		$$eventBus.emit('update')
+		$$eventBus.off('update', funk)
+		$$eventBus.emit('update')
 
 		expect(tempValue).toBe(1)
 	})
 
-	it('should have a $refs object containing any data-elemenet items and there data-attributes', () => {
-		expect(behaviour.$refs).toBeInstanceOf(Object)
+	it('should have a $$refs object containing any data-elemenet items and there data-attributes', () => {
+		expect(behaviour.$$refs).toBeInstanceOf(Object)
 
 		const target = {
 			node: $refItem,
@@ -113,20 +113,20 @@ describe('behaviour class', () => {
 			prop2: 'b'
 		}
 
-		behaviour.$refs.item.node.classList.add('test')
+		behaviour.$$refs.item.node.classList.add('test')
 
-		expect(behaviour.$refs.item).toMatchObject(target)
+		expect(behaviour.$$refs.item).toMatchObject(target)
 		expect(target.node.classList.contains('test')).toBe(true)
 	})
 
 	it('should have an events object with 5 methods', () => {
-		const { $events } = behaviour
-		expect($events).toBeInstanceOf(Object)
-		expect($events.attachAll).toBeInstanceOf(Function)
-		expect($events.attach).toBeInstanceOf(Function)
-		expect($events.remove).toBeInstanceOf(Function)
-		expect($events.destroy).toBeInstanceOf(Function)
-		expect($events.emit).toBeInstanceOf(Function)
+		const { $$events } = behaviour
+		expect($$events).toBeInstanceOf(Object)
+		expect($$events.attachAll).toBeInstanceOf(Function)
+		expect($$events.attach).toBeInstanceOf(Function)
+		expect($$events.remove).toBeInstanceOf(Function)
+		expect($$events.destroy).toBeInstanceOf(Function)
+		expect($$events.emit).toBeInstanceOf(Function)
 	})
 
 	it('should attach the event listeners', () => {

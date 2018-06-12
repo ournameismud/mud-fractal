@@ -1,12 +1,12 @@
 import Behaviour, { mix } from '@/core/Behaviour'
-import { ResizeMixin } from '@/core/modules/resizer'
-import { CreateEventsMixin } from '@/core/modules/createEvents'
+import { ScreenMixin } from '@/core/modules/resizer'
+import { EventsMixin } from '@/core/modules/createEvents'
 import { RefsMixin } from '@/core/modules/refs'
 import { InviewMixin } from '@/core/modules/inview'
 
 export default class HomePage extends mix(Behaviour).with(
-	ResizeMixin,
-	CreateEventsMixin,
+	ScreenMixin,
+	EventsMixin,
 	InviewMixin,
 	RefsMixin
 ) {
@@ -14,9 +14,13 @@ export default class HomePage extends mix(Behaviour).with(
 		'click [data-link]': 'onClick'
 	}
 	mount = () => {
-		this.$events.attachAll()
+		this.$$events.attachAll()
 
-		log(this)
+		const $node = document.createElement('pre')
+
+		$node.innerHTML = JSON.stringify(this.$$refs, null, 2)
+
+		this.$el.appendChild($node)
 	}
 
 	onClick = (e, elm) => {

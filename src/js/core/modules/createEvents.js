@@ -59,10 +59,10 @@ export const createEvents = R.curry(function(context, obj) {
 	}
 })
 
-export const CreateEventsMixin = superclass =>
+export const EventsMixin = superclass =>
 	class extends superclass {
 		init() {
-			this.$events = createEvents.call(this, this.$el, this.events)
+			this.$$events = createEvents.call(this, this.$el, this.events)
 
 			if (super.init) super.init()
 
@@ -70,7 +70,7 @@ export const CreateEventsMixin = superclass =>
 		}
 
 		destroy() {
-			this.$events.destroy()
+			this.$$events.destroy()
 			if (super.destroy) super.destroy()
 		}
 	}
