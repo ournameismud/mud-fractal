@@ -29,15 +29,15 @@ export default (() => {
 			this.$body = $body
 			this.$html = $html
 
-			this._eventBus = eventBus
+			this.$$eventBus = eventBus
 
 			this.$data = composeProps([...this.$el.attributes]) // here lies a bug
 		}
 
 		init() {
 			if (this.routes) {
-				this._eventBus.on(Actions.ROUTE_TRANSITION_ENTER, this.routes.enter)
-				this._eventBus.on(Actions.ROUTE_TRANSITION_EXIT, this.routes.exit)
+				this.$$eventBus.on(Actions.ROUTE_TRANSITION_ENTER, this.routes.enter)
+				this.$$eventBus.on(Actions.ROUTE_TRANSITION_EXIT, this.routes.exit)
 			}
 		}
 
@@ -49,8 +49,8 @@ export default (() => {
 			this.unmount()
 
 			if (this.routes) {
-				this._eventBus.off(Actions.ROUTE_TRANSITION_ENTER, this.routes.enter)
-				this._eventBus.off(Actions.ROUTE_TRANSITION_EXIT, this.routes.exit)
+				this.$$eventBus.off(Actions.ROUTE_TRANSITION_ENTER, this.routes.enter)
+				this.$$eventBus.off(Actions.ROUTE_TRANSITION_EXIT, this.routes.exit)
 			}
 		}
 	}
