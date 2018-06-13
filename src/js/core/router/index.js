@@ -1,13 +1,13 @@
 import { createEvents } from '@/core/modules/createEvents'
 import eventBus from '@/core/modules/eventBus'
 import { composeProps } from '@/core/modules/refs'
-import { preventClick, activeLinks } from '@/core/router/utils/links'
-import historyManager from '@/core/router/history'
-import cache from '@/core/router/cache'
-import request from '@/core/router/request'
-import lifecycle from '@/core/router/lifecycle'
-import lazyload from '@/core/router/lazyload'
-import * as Action from '@/core/router/actions'
+import { preventClick, activeLinks } from './utils/links'
+import historyManager from './history'
+import cache from './cache'
+import request from './request'
+import lifecycle from './lifecycle'
+import lazyload from './lazyload'
+import * as Action from './actions'
 
 export default (() => {
 	const defaultRoutes = [
@@ -28,12 +28,22 @@ export default (() => {
 	 * @return Router
 	 */
 	return class Router {
-		constructor({ routes, rootNode, navLinks, classes, onEnter, onExit }) {
+		constructor({
+			routes,
+			rootNode,
+			navLinks,
+			classes,
+			onEnter,
+			onExit,
+			prefectTargets = '[data-prefetch]'
+		}) {
 			// bootup the lifecycle
 			lifecycle
 				.addRoutes(routes || defaultRoutes)
 				.setWrapper(rootNode)
 				.onLoad(window.location.pathname)
+
+			this.prefectTargets = prefectTargets
 
 			// the root node... ?? configurable at the route level
 			this.$wrapper = rootNode
@@ -124,7 +134,7 @@ export default (() => {
 		}
 
 		lazyload = () => {
-			const items = [...document.querySelectorAll('a')]
+			const items = [...document.querySelectorAll(this.prefectTargets)]
 			lazyload(items)
 			return this
 		}

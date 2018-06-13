@@ -1,48 +1,62 @@
 import * as R from 'ramda'
 
-export const inview = R.curry((root, events, options = {}) => {
+export function inview(base = document, events = {}) {
 	if (!events) return
 
-	const defaults = {
+	const defaultOptions = {
 		rootMargin: '0px',
-		threshold: 0,
-		...options
+		threshold: 0
 	}
 
-	const destroy = () => observer.unobserve(root) // eslint-disable-line no-use-before-define
+	let isActive = false
+	let observer
 
-	const onIntersection = entry => {
-		const item = R.head(entry)
-		log(entry)
-		const { isIntersecting } = item
-		const type = isIntersecting ? 'enter' : 'exit'
-		if (events[type]) {
-			events[type]({
-				item,
-				destroy
-			})
+	const onIntersection = entries => {
+		entries.forEach(item => {
+			const { isIntersecting } = item
+			const type = isIntersecting ? 'enter' : 'exit'
+			if (events[type]) {
+				const remove = events[type](item)
+
+				if (remove) {
+					observer.unobserve(item.target)
+				}
+			}
+		})
+	}
+
+	function watch({ selector, options = defaultOptions }) {
+		isActive = true
+		observer = new IntersectionObserver(onIntersection, options)
+		const nodes =
+			typeof selector === 'string'
+				? [...base.querySelectorAll(selector)]
+				: selector
+
+		R.forEach(item => {
+			observer.observe(item)
+		})(nodes)
+	}
+
+	function destroy() {
+		if (observer && isActive) {
+			observer.disconnect()
+			isActive = false
 		}
 	}
 
-	const observer = new IntersectionObserver(onIntersection, defaults)
-
-	R.forEach(item => {
-		observer.observe(item)
-	})([...document.querySelectorAll('[data-element]')])
-
 	return {
-		destroy
+		destroy,
+		watch
 	}
-})
+}
 
 export const InviewMixin = superclass =>
 	class extends superclass {
 		init() {
-			this.$$inview = inview(
-				this.$el,
-				this.viewport,
-				this.registerObserverOptions || {}
-			)
+			const events = this.viewport
+			const base = this.$el
+			this.$$inview = inview(base, events)
 
 			if (super.init) super.init()
 
@@ -50,7 +64,7 @@ export const InviewMixin = superclass =>
 		}
 
 		destroy() {
-			// this.$$inview.destroy()
+			this.$$inview.destroy()
 			if (super.destroy) super.destroy()
 		}
 	}

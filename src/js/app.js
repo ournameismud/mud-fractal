@@ -31,6 +31,7 @@ new App({
 			root: 'is-current-root',
 			parent: 'is-current-parent'
 		},
+		prefectTargets: '[data-prefetch]',
 		onExit() {},
 		onEnter() {}
 	},

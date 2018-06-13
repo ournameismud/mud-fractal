@@ -1,4 +1,4 @@
-import cache from '@/core/router/cache'
+import cache from './cache'
 
 /** *
  * request function... ajax or cache
@@ -10,7 +10,15 @@ import cache from '@/core/router/cache'
  * @return :promise
  */
 
-export default (pathname, options = {}, type = 'text') =>
+export default (
+	pathname,
+	options = {
+		headers: {
+			'X-SPONJS-ROUTE': 'true'
+		}
+	},
+	type = 'text'
+) =>
 	new Promise(resolve => {
 		// are we in the cache... yeah... get me and return
 		if (cache.get(pathname)) {

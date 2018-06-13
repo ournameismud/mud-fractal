@@ -1,6 +1,6 @@
 import * as R from 'ramda'
 import { segmentize, beautifyPath } from '@/core/utils/strings'
-import { parseUrl } from '@/core/router/utils/parseUrl'
+import { parseUrl } from './parseUrl'
 
 /**
  * credit:
@@ -88,7 +88,10 @@ export const activeLinks = (() => {
 				Object.entries,
 				R.map(
 					R.compose(
-						R.filter(({ segments, matchAgainst }) => matchAgainst === R.join('/', segments)),
+						R.filter(
+							({ segments, matchAgainst }) =>
+								matchAgainst === R.join('/', segments)
+						),
 						R.map(node => {
 							const { href } = node
 							const { path: pathname } = parseUrl(href)

@@ -1,6 +1,6 @@
 import createHistory from 'history/createBrowserHistory'
 import eventBus from '@/core/modules/eventBus'
-import * as Action from '@/core/router/actions'
+import * as Action from './actions'
 
 /** *
  *

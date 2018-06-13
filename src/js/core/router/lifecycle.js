@@ -1,10 +1,11 @@
-import { findRoute } from '@/core/router/utils/paths'
-import baseTransition from '@/core/router/transition'
-import request from '@/core/router/request'
-import cache from '@/core/router/cache'
-import historyManager from '@/core/router/history'
+import { findRoute } from './utils/paths'
+import { setTransitionAttributes } from './utils/dom'
+import baseTransition from './transition'
+import request from './request'
+import cache from './cache'
+import historyManager from './history'
 import eventBus from '@/core/modules/eventBus'
-import * as Action from '@/core/router/actions'
+import * as Action from './actions'
 import domify from 'domify'
 
 /** *
@@ -82,6 +83,8 @@ const lifecycle = (() => {
 			// emit this bad boy
 			eventBus.emit(Action.ROUTE_TRANSITION_LOAD, newState)
 
+			setTransitionAttributes.lifecycle('on-load')
+
 			return this
 		},
 
@@ -146,6 +149,15 @@ const lifecycle = (() => {
 			// we have requested exit... emit
 			eventBus.emit(Action.ROUTE_TRANSITION_EXIT, exitProps)
 
+			// log(from, to)
+			if (from.name) {
+				setTransitionAttributes.from(from.name)
+			}
+			if (to.name) {
+				setTransitionAttributes.to(to.name)
+			}
+			setTransitionAttributes.lifecycle('on-exit')
+
 			// now... lets do the promise funk
 			return Promise.all([
 				promise('onExit', exitTransition, exitProps),
@@ -198,12 +210,20 @@ const lifecycle = (() => {
 					// update the dom method
 					enterTransition.updateDom(props)
 
+					if (to.customBodyProp) {
+						const prop = to.customBodyProp(newHtml)
+						setTransitionAttributes.toggleCustomBodyProp(prop)
+					} else {
+						setTransitionAttributes.toggleCustomBodyProp(false)
+					}
+
 					// emit update event
 					if (shouldMount)
 						eventBus.emit(Action.ROUTE_TRANSITION_AFTER_DOM_UPDATE, props)
 
 					// no proms here.. just call this method
 					exitTransition.onAfterExit(props)
+					setTransitionAttributes.lifecycle('on-after-exit')
 
 					// return that props object we made earlier
 					return props
@@ -220,10 +240,12 @@ const lifecycle = (() => {
 
 						// emit some more
 						eventBus.emit(Action.ROUTE_TRANSITION_ENTER, enterProps)
+						setTransitionAttributes.lifecycle('on-enter')
 
 						// cycle through the enter methods
 						promise('onEnter', enterTransition, enterProps).then(() => {
 							enterTransition.onAfterEnter(enterProps)
+							setTransitionAttributes.lifecycle('done')
 
 							historyManager.set('from', newState)
 							eventBus.emit(Action.ROUTE_TRANSITION_COMPLETE, enterProps)

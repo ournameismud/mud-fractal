@@ -1,7 +1,8 @@
 import * as R from 'ramda'
-import Worker from '@/core/router/fetch.worker.js'
-import cache from '@/core/router/cache'
-import { preventClick } from '@/core/router/utils/links'
+import Worker from './fetch.worker.js'
+import cache from './cache'
+import { preventClick } from './utils/links'
+import { inview } from '@/core/modules/inview'
 
 /** *
  * lazyload/prefetch items on a webworker...
@@ -20,6 +21,30 @@ export default (() => {
 	// setup an array to store
 	const errorLinks = []
 
+	const viewport = inview(document, {
+		enter({ isIntersecting, target }) {
+			if (isIntersecting) {
+				const links = R.compose(
+					// reject error items
+					R.reject(key => R.contains(key)(errorLinks)),
+					// ignore any that are in the cache
+					R.filter(
+						pathname =>
+							pathname !== window.location.pathname && !cache.get(pathname)
+					),
+					// just get the unique paths
+					R.uniqBy(value => value),
+					// grab the pathname
+					R.map(R.prop('pathname'))
+				)([target])
+
+				if (links.length) worker.postMessage({ links })
+
+				return true
+			}
+		}
+	})
+
 	// add listen to events...
 	worker.addEventListener('message', ({ data }) => {
 		// should probably check what i'm getting here
@@ -36,24 +61,17 @@ export default (() => {
 		})
 	})
 
-	return nodes => {
-		// get the vailid links
-		const links = R.compose(
-			// reject error items
-			R.reject(key => R.contains(key)(errorLinks)),
-			// ignore any that are in the cache
-			R.filter(
-				pathname =>
-					pathname !== window.location.pathname && !cache.get(pathname)
-			),
-			// just get the unique paths
-			R.uniqBy(value => value),
-			// grab the pathname
-			R.map(R.prop('pathname')),
-			// check for linkyness
-			R.filter(link => !preventClick({}, link.pathname))
-		)(nodes)
+	viewport.watch({
+		selector: '[data-prefetch]'
+	})
 
-		if (links.length) worker.postMessage({ links })
+	return nodes => {
+		const validLinks = R.filter(link => !preventClick({}, link.pathname))(nodes)
+
+		viewport.destroy()
+
+		viewport.watch({
+			selector: validLinks
+		})
 	}
 })()

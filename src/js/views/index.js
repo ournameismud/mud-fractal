@@ -4,7 +4,13 @@ export default [
 	{
 		path: '/',
 		view: {},
-		name: 'terry',
+		name: 'home-page',
+		customBodyProp: html => {
+			const $hero = html.querySelector('.c-hero')
+			if ($hero) {
+				return 'hero'
+			}
+		},
 		options: {
 			things: 10
 		}
@@ -12,6 +18,7 @@ export default [
 	{
 		path: '/blog/',
 		view: {},
+		name: 'blog-listing',
 		options: {
 			paginationParent: true
 		},
@@ -28,11 +35,9 @@ export default [
 			},
 			{
 				path: ':id',
-				name: 'post',
+				name: 'blog-post',
 				view: {
 					onEnter({ next }) {
-						log('hello bitches')
-
 						next()
 					}
 				},
@@ -43,6 +48,7 @@ export default [
 	},
 	{
 		path: '*',
+		name: 'default',
 		view: {}
 	}
 ]

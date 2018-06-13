@@ -11,6 +11,8 @@ export default (() =>
 			}
 
 			this.$loader = loader(chunks)
+
+			log('MOUNT YEAH')
 		}
 
 		mount = () => {

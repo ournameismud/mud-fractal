@@ -207,14 +207,21 @@ export default class ModuleA extends mix(Behaviour).with(
 ) {
 
 	// removed other stuff for the sake of the trees
+	mount() {
+		this.$$inview.watch({
+			selector: '[data-element]' // querySelectorAll
+		})
+	}
 
 	viewport: {
 		enter() {
-			console.log(this.$el, 'is in the viewport')
+			console.log('[data-element]', 'is in the viewport')
+
+			return true // stop watching the current node
 		},
 
 		exit() {
-			console.log(this.$el, 'is not in the viewport')
+			console.log('[data-element]', 'is not in the viewport')
 		}
 	}
 

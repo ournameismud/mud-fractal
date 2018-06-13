@@ -13,6 +13,7 @@ export default class HomePage extends mix(Behaviour).with(
 	events = {
 		'click [data-link]': 'onClick'
 	}
+
 	mount = () => {
 		this.$$events.attachAll()
 
@@ -21,22 +22,19 @@ export default class HomePage extends mix(Behaviour).with(
 		$node.innerHTML = JSON.stringify(this.$$refs, null, 2)
 
 		this.$el.appendChild($node)
+
+		// this.$$inview.watch({
+		// 	selector: '[data-element]'
+		// })
 	}
 
 	onClick = (e, elm) => {
 		e.preventDefault()
 		elm.classList.toggle('huzzah')
-		log('HELLO')
 	}
 
 	screens = {
-		'(min-width: 1024px)': ({ match, width, height, query }) => {
-			log('(min-width: 1024px)', match, width, height, query)
-		},
-
-		'(min-width: 680px)': ({ match, width, height, query }) => {
-			log('(min-width: 680px)', match, width, height, query)
-		}
+		'(min-width: 1024px)': () => {}
 	}
 
 	unmount = () => {
@@ -45,12 +43,12 @@ export default class HomePage extends mix(Behaviour).with(
 	}
 
 	viewport = {
-		enter: props => {
-			log('ExampleClass enter', props)
+		enter: item => {
+			log(item)
 		},
 
 		exit: () => {
-			log('ExampleClass exit')
+			log('exit')
 		}
 	}
 
