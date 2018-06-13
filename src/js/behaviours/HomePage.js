@@ -45,8 +45,8 @@ export default class HomePage extends mix(Behaviour).with(
 	}
 
 	viewport = {
-		enter: () => {
-			log('ExampleClass enter')
+		enter: props => {
+			log('ExampleClass enter', props)
 		},
 
 		exit: () => {

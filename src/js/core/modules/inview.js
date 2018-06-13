@@ -14,11 +14,12 @@ export const inview = R.curry((root, events, options) => {
 
 	const onIntersection = entry => {
 		const item = R.head(entry)
+		log(entry)
 		const { isIntersecting } = item
 		const type = isIntersecting ? 'enter' : 'exit'
 		if (events[type]) {
 			events[type]({
-				...item,
+				item,
 				destroy
 			})
 		}
@@ -26,7 +27,9 @@ export const inview = R.curry((root, events, options) => {
 
 	const observer = new IntersectionObserver(onIntersection, defaults)
 
-	observer.observe(root)
+	R.forEach(item => {
+		observer.observe(item)
+	})([...document.querySelectorAll('[data-element]')])
 
 	return {
 		destroy
