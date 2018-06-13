@@ -105,7 +105,6 @@ function columns(cols = 12) {
 	)(array)
 }
 
-columns(12) // ?
 
 module.exports = {
 	px2rem,
