@@ -2,7 +2,7 @@ export default {
 	el: '.page-child',
 
 	onLoad(props) {
-		console.info('onLoad', props)
+		console.info('onLoad', props) // eslint-disable-line no-console
 	},
 
 	shouldUnmount() {
@@ -14,16 +14,16 @@ export default {
 	},
 
 	onError: props => {
-		console.warn('error loading page', props)
+		console.warn('error loading page', props) // eslint-disable-line no-console
 	},
 
 	updateDom({ wrapper, newHtml, title }) {
-		wrapper.innerHTML = ''
+		wrapper.innerHTML = '' // eslint-disable-line no-param-reassign
 		wrapper.appendChild(newHtml)
 		document.title = title
 	},
 
-	onExit({ next, action, from, to }) {
+	onExit({ next }) {
 		// console.table({ from: from.data.path, to: to.data.path, action }) // eslint-disable-line
 		next()
 	},

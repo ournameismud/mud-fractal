@@ -22,11 +22,12 @@ module.exports = env => {
 		mode: env,
 		entry: entries,
 		cache: true,
-		context: context,
+		context,
 		output: {
 			path: path.normalize(dest),
 			publicPath: '/dist/js/',
 			pathinfo: env !== 'production' && true,
+			globalObject: 'this', // https://github.com/webpack/webpack/issues/6642
 			filename:
 				env === 'production'
 					? `[name].${filename}.${TASK_CONFIG.stamp}.js`
@@ -61,6 +62,10 @@ module.exports = env => {
 					test: /\.js?$/,
 					loader: ['babel-loader', 'webpack-module-hot-accept'],
 					exclude: /node_modules/
+				},
+				{
+					test: /\.worker\.js$/,
+					use: { loader: 'worker-loader' }
 				},
 				{
 					test: /\.js$/,

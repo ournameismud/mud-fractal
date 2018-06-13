@@ -41,7 +41,8 @@
 					"module-resolver",
 					{
 						"alias": {
-							"@": "./src/js/"
+							"@": "./src/js/",
+							"~": "./src/templates/"
 						}
 					}
 				]
