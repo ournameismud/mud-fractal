@@ -1,80 +1,6 @@
 import eventBus from '@/core/modules/eventBus'
 import raf from 'raf'
 import * as R from 'ramda'
-
-// get the :after style from the body
-const getStyle = () => window.getComputedStyle(document.body, ':after')
-
-// get the content prop and give it a clean
-const query = R.compose(R.replace(/'|"/g, ''), item =>
-	item.getPropertyValue('content')
-)
-
-// compose the functions together to return the current breakpoint
-const getCurrentMediaQuery = R.compose(query, getStyle)
-
-const windowMatch = breakpoint => window.matchMedia(breakpoint).matches
-
-/**
- *
- * @function getWindowProps
- *
- * @return :object with the current width/height/breakpoint
- */
-function getWindowProps() {
-	const width = window.innerWidth
-	const height = window.innerHeight
-	const query = getCurrentMediaQuery()
-
-	return {
-		width,
-		height,
-		query
-	}
-}
-/**
- *
- * consumes an object like this:
- *
- *  {
- *	'(min-width: 960px)': () => {},
- *	'(min-width: 680px)': () => {}
- *	}
- *
- * @function mapEventsToResize
- *
- * @param :object
- *
- * @return :array of functions
- */
-function mapEventsToResize(events) {
-	return R.compose(
-		R.map(([breakpoint, fn]) => {
-			// <REFACTOR></REFACTOR> me thinks this could be written in
-			// a way that it can be defined outside of the loop
-			const once = (arg, fn) => {
-				if (once.value === arg) return
-				fn({ match: arg, ...getWindowProps() })
-				once.value = arg
-			}
-
-			// <REFACTOR></REFACTOR> me thinks this could be written in
-			// a way that it can be defined outside of the loop
-			const test = (breakpoint, fn) => {
-				const state = windowMatch(breakpoint)
-				once(state, fn)
-			}
-
-			const matchQueryTest = test.bind(null, breakpoint, fn)
-			windowMatch(breakpoint) && matchQueryTest()
-			eventBus.on('window:resize', matchQueryTest)
-
-			return matchQueryTest
-		}),
-		Object.entries
-	)(events)
-}
-
 /***
  *
  * Wrapper/Helper window resize event
@@ -84,7 +10,80 @@ function mapEventsToResize(events) {
  * @return :function resizer
  */
 
-export default (function resizer() {
+export const resizer = (function() {
+	// get the :after style from the body
+	const getStyle = () => window.getComputedStyle(document.body, ':after')
+
+	// get the content prop and give it a clean
+	const query = R.compose(R.replace(/'|"/g, ''), item =>
+		item.getPropertyValue('content')
+	)
+
+	// compose the functions together to return the current breakpoint
+	const getCurrentMediaQuery = R.compose(query, getStyle)
+
+	const windowMatch = breakpoint => window.matchMedia(breakpoint).matches
+
+	/**
+	 *
+	 * @function getWindowProps
+	 *
+	 * @return :object with the current width/height/breakpoint
+	 */
+	function getWindowProps() {
+		const width = window.innerWidth
+		const height = window.innerHeight
+		const query = getCurrentMediaQuery()
+
+		return {
+			width,
+			height,
+			query
+		}
+	}
+	/**
+	 *
+	 * consumes an object like this:
+	 *
+	 *  {
+	 *	'(min-width: 960px)': () => {},
+	 *	'(min-width: 680px)': () => {}
+	 *	}
+	 *
+	 * @function mapEventsToResize
+	 *
+	 * @param :object
+	 *
+	 * @return :array of functions
+	 */
+	function mapEventsToResize(events) {
+		return R.compose(
+			R.map(([breakpoint, fn]) => {
+				// <REFACTOR></REFACTOR> me thinks this could be written in
+				// a way that it can be defined outside of the loop
+				const once = (arg, fn) => {
+					if (once.value === arg) return
+					fn({ match: arg, ...getWindowProps() })
+					once.value = arg
+				}
+
+				// <REFACTOR></REFACTOR> me thinks this could be written in
+				// a way that it can be defined outside of the loop
+				const test = (breakpoint, fn) => {
+					const state = windowMatch(breakpoint)
+					once(state, fn)
+				}
+
+				const matchQueryTest = test.bind(null, breakpoint, fn)
+				windowMatch(breakpoint) && matchQueryTest()
+				eventBus.on('window:resize', matchQueryTest)
+
+				return matchQueryTest
+			}),
+			Object.entries
+		)(events)
+	}
+
 	// setup a handle reference
 	let handle
 
@@ -173,3 +172,17 @@ export default (function resizer() {
 		}
 	}
 })()
+
+export const ScreenMixin = superclass =>
+	class extends superclass {
+		init() {
+			this.$$screen = resizer(this.screens)
+			if (super.init) super.init()
+			return this
+		}
+
+		destroy() {
+			this.$$screen.destroy()
+			if (super.destroy) super.destroy()
+		}
+	}

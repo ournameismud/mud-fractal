@@ -45,16 +45,13 @@
   <body>
 		<pre id="debug"></pre>
 		<div class="flex">
-			<header class="w-4/12" data-behaviour="Header">
+			<header class="w-4/12">
 				<ul class="list-reset p-1">
 					{% for entry in menu %}
 						<li class="text-lg mb-1">
 							<a href="{{ entry.slug }}" data-prop-1="hello" data-prefetch>{{ entry.title }}</a>
 						</li>
 					{% endfor %}
-					<li class="text-lg mb-1">
-						<a href="/no-such-page" data-prop-1="hello" data-prefetch>Error</a>
-					</li>
 				</ul>
 			</header>
 			<main id="page-wrapper" class="w-full p-1">
@@ -65,16 +62,13 @@
 			</main>
 		</div>
 
-			<footer class="flex" data-behaviour="Header">
+			<footer class="flex">
 				<ul class="list-reset flex p-1">
 					{% for entry in menu %}
 						<li class="text-lg mr-1">
 							<a href="{{ entry.slug }}" data-prop-1="hello" data-prefetch>{{ entry.title }}</a>
 						</li>
 					{% endfor %}
-					<li class="text-lg mr-1">
-						<a href="/no-such-page" data-prop-1="hello" data-prefetch>Error</a>
-					</li>
 				</ul>
 			</footer>
     <script src="/dist/js/vendor.bundle{{ stamp }}.js"></script>

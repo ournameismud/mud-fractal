@@ -8,7 +8,7 @@ export default {
 	shouldUnmount() {
 		return true
 	},
-	
+
 	shouldMount() {
 		return true
 	},
@@ -21,8 +21,6 @@ export default {
 		wrapper.innerHTML = ''
 		wrapper.appendChild(newHtml)
 		document.title = title
-
-		return true // return true to unmount previous html
 	},
 
 	onExit({ next, action, from, to }) {

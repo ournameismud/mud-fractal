@@ -10,12 +10,12 @@ new App({
 	/***
 	 * router
 	 *
-	 * @prop routes :array - routes object
-	 * @prop rootNode:HTMLElement - the root html node
-	 * @prop navLinks :array - an array of links that should update on navigation
-	 * @prop classes :object - clases applied to active links
-	 * @prop onExit :function - called before the dom is updated
-	 * @prop onEnter :function - called after the dom is updated
+	 * @property routes :array - routes object
+	 * @property rootNode:HTMLElement - the root html node
+	 * @property navLinks :array - an array of links that should update on navigation
+	 * @property classes :object - clases applied to active links
+	 * @property onExit :function - called before the dom is updated
+	 * @property onEnter :function - called after the dom is updated
 	 *
 	 */
 	router: {
@@ -37,7 +37,7 @@ new App({
 	/***
 	 * chunks
 	 *
-	 * @prop :chunks : dynamic import of modules - function used by the loader
+	 * @property :chunks : dynamic import of modules - function used by the loader
 	 *
 	 */
 	chunks: behaviour => import(`@/behaviours/${behaviour}`)

@@ -57,6 +57,10 @@ export default function loader(fn) {
 	 *
 	 */
 	function hydrate(context, wrapper = '#page-wrapper') {
+		setTimeout(() => {
+			unmount()
+		}, 3000)
+
 		return Promise.all(
 			gatherBehaviours([...context.querySelectorAll('*[data-behaviour]')])
 		).then(data => {

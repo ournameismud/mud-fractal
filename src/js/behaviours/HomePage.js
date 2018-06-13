@@ -1,13 +1,42 @@
-import Behaviour from '@/core/Behaviour'
+import Behaviour, { mix } from '@/core/Behaviour'
+import { ScreenMixin } from '@/core/modules/resizer'
+import { EventsMixin } from '@/core/modules/createEvents'
+import { RefsMixin } from '@/core/modules/refs'
+import { InviewMixin } from '@/core/modules/inview'
 
-export default class HomePage extends Behaviour {
+export default class HomePage extends mix(Behaviour).with(
+	ScreenMixin,
+	EventsMixin,
+	InviewMixin,
+	RefsMixin
+) {
+	events = {
+		'click [data-link]': 'onClick'
+	}
 	mount = () => {
-		// log('mount: HomePage')
-		this.$el.classList.add('mount')
-		this.$events.attachAll()
-		this.$screen.on('window:resize', ({ width, height, query }) => {
-			// log({ width, height, query })
-		})
+		this.$$events.attachAll()
+
+		const $node = document.createElement('pre')
+
+		$node.innerHTML = JSON.stringify(this.$$refs, null, 2)
+
+		this.$el.appendChild($node)
+	}
+
+	onClick = (e, elm) => {
+		e.preventDefault()
+		elm.classList.toggle('huzzah')
+		log('HELLO')
+	}
+
+	screens = {
+		'(min-width: 1024px)': ({ match, width, height, query }) => {
+			log('(min-width: 1024px)', match, width, height, query)
+		},
+
+		'(min-width: 680px)': ({ match, width, height, query }) => {
+			log('(min-width: 680px)', match, width, height, query)
+		}
 	}
 
 	unmount = () => {
@@ -15,22 +44,13 @@ export default class HomePage extends Behaviour {
 		this.$el.classList.add('unmount')
 	}
 
-	events = {
-		'click [data-link]': 'onClick'
-	}
-
-	onClick = (e, elm) => {
-		e.preventDefault()
-		elm.classList.toggle('huzzah')
-	}
-
 	viewport = {
 		enter: () => {
-			// log('ExampleClass enter')
+			log('ExampleClass enter')
 		},
 
 		exit: () => {
-			// log('ExampleClass exit')
+			log('ExampleClass exit')
 		}
 	}
 
@@ -40,16 +60,6 @@ export default class HomePage extends Behaviour {
 		},
 		exit: () => {
 			this.$el.classList.toggle('exit')
-		}
-	}
-
-	screens = {
-		'(min-width: 1024px)': ({ match, width, height, query }) => {
-			// log('(min-width: 1024px)', match, width, height, query)
-		},
-
-		'(min-width: 680px)': ({ match, width, height, query }) => {
-			// log('(min-width: 680px)', match, width, height, query)
 		}
 	}
 }

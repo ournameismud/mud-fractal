@@ -1,74 +1,57 @@
-import createEvents from '@/core/modules/createEvents'
-import refs, { composeProps } from '@/core/modules/refs'
+import { composeProps } from '@/core/modules/refs'
 import eventBus from '@/core/modules/eventBus'
-import resizer from '@/core/modules/resizer'
-import inview from '@/core/modules/inview'
 import * as Actions from '@/core/router/actions'
+
+class MixinBuilder {
+	constructor(superclass) {
+		this.superclass = superclass
+	}
+
+	with(...mixins) {
+		return mixins.reduce((c, mixin) => mixin(c), this.superclass)
+	}
+}
+
+export const mix = superclass => new MixinBuilder(superclass)
 
 /**
  * class Behaviour
  *
  */
-export default class Behaviour {
-	constructor(el = document, name) {
-		this.$name = name
-		this.$el = el
-		this.$eventBus = eventBus
-		this.$data = composeProps([...this.$el.attributes]) // here lies a bug
-	}
+export default (() => {
+	const $html = document.getElementsByTagName('html')[0]
+	const $body = document.body
 
-	registerObserverOptions = {}
+	return class Behaviour {
+		constructor(el = document, name = '') {
+			this.$name = name
+			this.$el = el
+			this.$body = $body
+			this.$html = $html
 
-	routes = {
-		enter: () => {},
-		exit: () => {}
-	}
+			this._eventBus = eventBus
 
-	viewport = {
-		enter: () => {},
-		exit: () => {}
-	}
-
-	screens = {}
-
-	init() {
-		this.$observer = inview(
-			this.$el,
-			this.viewport,
-			this.registerObserverOptions
-		)
-
-		this.$eventBus.on(Actions.ROUTE_TRANSITION_ENTER, this.routes.enter)
-		this.$eventBus.on(Actions.ROUTE_TRANSITION_EXIT, this.routes.exit)
-		this.$refs = refs(this.$el)
-		this.$screen = resizer(this.screens)
-		if (this.events) {
-			this.$events = createEvents.call(this, this.$el, this.events)
+			this.$data = composeProps([...this.$el.attributes]) // here lies a bug
 		}
 
-		return this
-	}
-
-	updateRefs() {
-		this.$refs = { ...this.$refs, ...refs(this.$el) }
-	}
-
-	mount() {}
-
-	unmount() {}
-
-	destroy() {
-		this.unmount()
-		this.$eventBus.off(Actions.ROUTE_TRANSITION_ENTER, this.routes.enter)
-		this.$eventBus.off(Actions.ROUTE_TRANSITION_EXIT, this.routes.exit)
-		this.$screen.destroy()
-
-		if (this.viewport) {
-			this.$observer.destroy()
+		init() {
+			if (this.routes) {
+				this._eventBus.on(Actions.ROUTE_TRANSITION_ENTER, this.routes.enter)
+				this._eventBus.on(Actions.ROUTE_TRANSITION_EXIT, this.routes.exit)
+			}
 		}
 
-		if (this.events) {
-			this.$events.destroy()
+		mount() {}
+
+		unmount() {}
+
+		destroy() {
+			this.unmount()
+
+			if (this.routes) {
+				this._eventBus.off(Actions.ROUTE_TRANSITION_ENTER, this.routes.enter)
+				this._eventBus.off(Actions.ROUTE_TRANSITION_EXIT, this.routes.exit)
+			}
 		}
 	}
-}
+})()
