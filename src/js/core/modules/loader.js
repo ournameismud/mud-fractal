@@ -19,20 +19,21 @@ export default function loader(fn) {
 	// get all of the data-behaviour props
 	// return an array of behaviour objects
 	const gatherBehaviours = R.compose(
-		R.map(({ node, behaviour }) => {
-			return new Promise(resolve => {
-				fn(behaviour).then(resp => {
-					resolve({
-						id: behaviour,
-						node,
-						behaviour: resp.default
+		R.map(
+			({ node, behaviour }) =>
+				new Promise(resolve => {
+					fn(behaviour).then(resp => {
+						resolve({
+							id: behaviour,
+							node,
+							behaviour: resp.default
+						})
 					})
 				})
-			})
-		}),
+		),
 		R.flatten,
-		R.map(node => {
-			return R.compose(
+		R.map(node =>
+			R.compose(
 				R.map(behaviour => ({
 					behaviour,
 					node
@@ -40,7 +41,7 @@ export default function loader(fn) {
 				R.split(' '),
 				R.replace(/^\s+|\s+$|\s+(?=\s)/g, '')
 			)(node.getAttribute('data-behaviour'))
-		})
+		)
 	)
 
 	/**
@@ -57,10 +58,6 @@ export default function loader(fn) {
 	 *
 	 */
 	function hydrate(context, wrapper = '#page-wrapper') {
-		setTimeout(() => {
-			unmount()
-		}, 3000)
-
 		return Promise.all(
 			gatherBehaviours([...context.querySelectorAll('*[data-behaviour]')])
 		).then(data => {
@@ -77,7 +74,7 @@ export default function loader(fn) {
 			)(data)
 
 			const scope = R.compose(
-				//R.filter(({ fn }) => typeof fn === 'function'),
+				// R.filter(({ fn }) => typeof fn === 'function'),
 				R.filter(item => item.destroy)
 			)(stack)
 
@@ -99,7 +96,7 @@ export default function loader(fn) {
 	 */
 	function unmount() {
 		R.compose(
-			R.map(({ fn }) => {
+			R.forEach(({ fn }) => {
 				fn.destroy()
 			})
 		)(state.scope)

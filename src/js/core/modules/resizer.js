@@ -1,7 +1,7 @@
 import eventBus from '@/core/modules/eventBus'
 import raf from 'raf'
 import * as R from 'ramda'
-/***
+/** *
  *
  * Wrapper/Helper window resize event
  *
@@ -75,7 +75,7 @@ export const resizer = (function() {
 				}
 
 				const matchQueryTest = test.bind(null, breakpoint, fn)
-				windowMatch(breakpoint) && matchQueryTest()
+				if (windowMatch(breakpoint)) matchQueryTest()
 				eventBus.on('window:resize', matchQueryTest)
 
 				return matchQueryTest

@@ -9,12 +9,13 @@
 
 */
 
+// eslint-disable-next-line no-restricted-globals
 self.addEventListener(
 	'message',
 	e => {
 		const { links } = e.data
-		const proms = links.map(link => {
-			return new Promise((resolve, reject) => {
+		const proms = links.map(link =>
+			new Promise((resolve, reject) => {
 				fetch(link)
 					.then(response => {
 						const { ok, status, url } = response
@@ -22,6 +23,7 @@ self.addEventListener(
 						if (ok) {
 							return response.text()
 						}
+						// eslint-disable-next-line prefer-promise-reject-errors
 						reject({ ok, status, url })
 						return false
 					})
@@ -32,16 +34,14 @@ self.addEventListener(
 							resolve({ key: link, data })
 						}
 					})
-			}).catch(() => {
-				return {
-					key: link,
-					data: false
-				}
-			})
-		})
+			}).catch(() => ({
+				key: link,
+				data: false
+			}))
+		)
 
 		Promise.all(proms).then(data => {
-			self.postMessage(data)
+			self.postMessage(data) // eslint-disable-line no-restricted-globals
 		})
 	},
 	false

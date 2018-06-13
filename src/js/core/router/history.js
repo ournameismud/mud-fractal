@@ -2,7 +2,7 @@ import createHistory from 'history/createBrowserHistory'
 import eventBus from '@/core/modules/eventBus'
 import * as Action from '@/core/router/actions'
 
-/***
+/** *
  *
  * Create a history listener and listen for stuff
  *
@@ -25,7 +25,7 @@ const historyManager = (() => {
 	})
 
 	return {
-		/***
+		/** *
 		 * set('string', value)
 		 *
 		 * set an item into the history store
@@ -38,7 +38,7 @@ const historyManager = (() => {
 			store[key] = value
 		},
 
-		/***
+		/** *
 		 * get('string')
 		 *
 		 * get an item from the history store

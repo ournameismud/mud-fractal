@@ -1,4 +1,7 @@
 const path = require('path')
+const util = require('gulp-util')
+
+const { env } = util.env
 
 module.exports = {
 	title: 'Mud-Fractal',
@@ -72,14 +75,15 @@ module.exports = {
 
 	js: {
 		entries: {
-			// preview: ['./app.js'], // for craftcms, babel-polyfill has a hissy fit
-			app: ['./app.js']
-		},
-		hot: {
-			enabled: true,
-			reload: true,
-			quiet: true,
-			react: false
+			app:
+				env !== 'production'
+					? [
+						'webpack/hot/dev-server',
+						'webpack-hot-middleware/client',
+						'./app.js'
+					  ]
+					: ['./app.js'],
+			preview: ['./app.js']
 		},
 		extensions: ['js', 'json'],
 		extractSharedJs: false,

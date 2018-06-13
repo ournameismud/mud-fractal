@@ -2,9 +2,8 @@ import * as R from 'ramda'
 import Worker from '@/core/router/fetch.worker.js'
 import cache from '@/core/router/cache'
 import { preventClick } from '@/core/router/utils/links'
-import { beautifyPath } from '@/core/utils/strings'
 
-/***
+/** *
  * lazyload/prefetch items on a webworker...
  *
  * returns a function which when called requests urls and adds them to the cache
@@ -22,7 +21,7 @@ export default (() => {
 	const errorLinks = []
 
 	// add listen to events...
-	worker.addEventListener('message', function({ data }) {
+	worker.addEventListener('message', ({ data }) => {
 		// should probably check what i'm getting here
 		// but... alpha... we're getting html responses
 
@@ -55,6 +54,6 @@ export default (() => {
 			R.filter(link => !preventClick({}, link.pathname))
 		)(nodes)
 
-		links.length && worker.postMessage({ links })
+		if (links.length) worker.postMessage({ links })
 	}
 })()

@@ -7,7 +7,7 @@ import eventBus from '@/core/modules/eventBus'
 import * as Action from '@/core/router/actions'
 import domify from 'domify'
 
-/***
+/** *
  * native lifecycle
  *
  * @return :object
@@ -22,7 +22,7 @@ const lifecycle = (() => {
 	let wrapper
 
 	return {
-		/***
+		/** *
 		 *
 		 * The routes structure is gonna need a rewrite so...
 		 * suject to change...
@@ -42,7 +42,7 @@ const lifecycle = (() => {
 			return this
 		},
 
-		/***
+		/** *
 		 *
 		 * assign the default wrapper...
 		 *
@@ -60,7 +60,7 @@ const lifecycle = (() => {
 			return this
 		},
 
-		/***
+		/** *
 		 *
 		 * This function is called once upon load
 		 *
@@ -85,7 +85,7 @@ const lifecycle = (() => {
 			return this
 		},
 
-		/***
+		/** *
 		 *
 		 * This is the main thing... from/request/to etc... all here
 		 *
@@ -98,7 +98,7 @@ const lifecycle = (() => {
 			// get the new route object
 			const newState = matchRoute(pathname)
 			// have we been supplice with a transition object... no.. use the route one
-			const view = trans ? trans : newState.view
+			const view = trans || newState.view
 
 			// update the from history store.... <REWITE></REWITE>
 			// historyManager.store.to = newState
@@ -123,7 +123,7 @@ const lifecycle = (() => {
 				dataAttrs
 			}
 
-			/***
+			/** *
 			 *
 			 * promise function... does a thing.. returns a transiton promise
 			 *
@@ -192,14 +192,14 @@ const lifecycle = (() => {
 					const shouldMount = enterTransition.shouldMount(props)
 
 					// if we do... sure... unmount event
-					shouldUnmount &&
+					if (shouldUnmount)
 						eventBus.emit(Action.ROUTE_TRANSITION_BEFORE_DOM_UPDATE, props)
 
 					// update the dom method
 					enterTransition.updateDom(props)
 
 					// emit update event
-					shouldMount &&
+					if (shouldMount)
 						eventBus.emit(Action.ROUTE_TRANSITION_AFTER_DOM_UPDATE, props)
 
 					// no proms here.. just call this method

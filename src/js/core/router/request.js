@@ -1,6 +1,6 @@
 import cache from '@/core/router/cache'
 
-/***
+/** *
  * request function... ajax or cache
  *
  * @param :string - the pathname
@@ -10,8 +10,8 @@ import cache from '@/core/router/cache'
  * @return :promise
  */
 
-export default (pathname, options = {}, type = 'text') => {
-	return new Promise((resolve, reject) => {
+export default (pathname, options = {}, type = 'text') =>
+	new Promise(resolve => {
 		// are we in the cache... yeah... get me and return
 		if (cache.get(pathname)) {
 			resolve(cache.get(pathname))
@@ -20,7 +20,7 @@ export default (pathname, options = {}, type = 'text') => {
 
 		// no cache... lets fetch it
 
-		/***
+		/** *
 		 * native fetch
 		 *
 		 * @param :string - the pathname
@@ -61,4 +61,3 @@ export default (pathname, options = {}, type = 'text') => {
 				resolve(data)
 			})
 	})
-}

@@ -7,7 +7,7 @@ if (module.hot) {
 }
 
 new App({
-	/***
+	/** *
 	 * router
 	 *
 	 * @property routes :array - routes object
@@ -18,6 +18,7 @@ new App({
 	 * @property onEnter :function - called after the dom is updated
 	 *
 	 */
+
 	router: {
 		routes,
 		rootNode: document.getElementById('page-wrapper'),
@@ -34,7 +35,7 @@ new App({
 		onEnter() {}
 	},
 
-	/***
+	/** *
 	 * chunks
 	 *
 	 * @property :chunks : dynamic import of modules - function used by the loader

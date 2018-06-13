@@ -3,8 +3,8 @@ import eventBus from '@/core/modules/eventBus'
 import Router from '@/core/router/'
 import * as Actions from '@/core/router/actions'
 
-export default (() => {
-	return class App {
+export default (() =>
+	class App {
 		constructor({ router, chunks }) {
 			if (router) {
 				this.$router = new Router({ ...router })
@@ -16,7 +16,7 @@ export default (() => {
 		mount = () => {
 			this.$loader.hydrate(document)
 
-			this.$router && this.$router.mount().lazyload()
+			if (this.$router) this.$router.mount().lazyload()
 
 			eventBus.on(Actions.ROUTE_TRANSITION_BEFORE_DOM_UPDATE, () => {
 				this.$loader.unmount()
@@ -27,5 +27,4 @@ export default (() => {
 				this.$router.lazyload()
 			})
 		}
-	}
-})()
+	})()

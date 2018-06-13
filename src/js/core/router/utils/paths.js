@@ -1,35 +1,7 @@
 import pathToRegexp from 'path-to-regexp'
 import * as R from 'ramda'
-import { matchRoute, parseUrl } from './parseUrl'
 import * as str from '@/core/utils/strings'
-
-/**
- * flattens the routes into a single flat array
- *
- * @function flattenRoutes
- *
- * @param :array
- *
- * @return :array
- */
-
-export const flattenRoutes = R.reduce((acc, curr) => {
-	const { path: tmpPath, children, ...rest } = curr
-	let tmp = []
-
-	const path = tmpPath
-
-	tmp.push({ path: str.beautifyPath(tmpPath), ...rest })
-
-	if (children) {
-		const items = Array.isArray(children) ? children : [children]
-		tmp.push(...mapChildren(path)(items))
-	}
-
-	acc.push(...tmp)
-
-	return acc
-}, [])
+import { matchRoute, parseUrl } from './parseUrl'
 
 /**
  * recursively loop over any route children
@@ -63,6 +35,34 @@ function mapChildren(base) {
 		})
 	)
 }
+
+/**
+ * flattens the routes into a single flat array
+ *
+ * @function flattenRoutes
+ *
+ * @param :array
+ *
+ * @return :array
+ */
+
+export const flattenRoutes = R.reduce((acc, curr) => {
+	const { path: tmpPath, children, ...rest } = curr
+	const tmp = []
+
+	const path = tmpPath
+
+	tmp.push({ path: str.beautifyPath(tmpPath), ...rest })
+
+	if (children) {
+		const items = Array.isArray(children) ? children : [children]
+		tmp.push(...mapChildren(path)(items))
+	}
+
+	acc.push(...tmp)
+
+	return acc
+}, [])
 
 /**
  * finds all the route matches
@@ -106,9 +106,7 @@ const matches = (routes, data) => {
 
 			return { route: path, score, pattern, pageNo, params: data, ...rest }
 		}),
-		R.filter(({ path }) => {
-			return matchRoute(path)(str.beautifyPath(slug))
-		})
+		R.filter(({ path }) => matchRoute(path)(str.beautifyPath(slug)))
 	)(routes)
 }
 

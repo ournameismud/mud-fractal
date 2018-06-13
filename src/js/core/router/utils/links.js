@@ -13,26 +13,26 @@ export function preventClick(evt, element) {
 
 	const { href } = element
 
-	//Middle click, cmd click, and ctrl click
+	// Middle click, cmd click, and ctrl click
 	if (evt.which > 1 || evt.metaKey || evt.ctrlKey || evt.shiftKey || evt.altKey)
 		return
 
-	//Ignore target with _blank target
+	// Ignore target with _blank target
 	if (element.target && element.target === '_blank') return
 
-	//Check if it's the same domain
+	// Check if it's the same domain
 	if (
 		window.location.protocol !== element.protocol ||
 		window.location.hostname !== element.hostname
 	)
 		return
 
-	//Check if the port is the same
+	// Check if the port is the same
 
-	//Ignore case when a hash is being tacked on the current URL
+	// Ignore case when a hash is being tacked on the current URL
 	if (href.indexOf('#') > -1) return
 
-	//Ignore case where there is download attribute
+	// Ignore case where there is download attribute
 	if (
 		element.getAttribute &&
 		typeof element.getAttribute('download') === 'string'
@@ -88,9 +88,7 @@ export const activeLinks = (() => {
 				Object.entries,
 				R.map(
 					R.compose(
-						R.filter(({ segments, matchAgainst }) => {
-							return matchAgainst === R.join('/', segments)
-						}),
+						R.filter(({ segments, matchAgainst }) => matchAgainst === R.join('/', segments)),
 						R.map(node => {
 							const { href } = node
 							const { path: pathname } = parseUrl(href)

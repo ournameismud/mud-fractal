@@ -17,9 +17,7 @@ export const createEvents = R.curry(function(context, obj) {
 	const handleFunctions = R.curry((evt, transform, fns) => {
 		R.compose(
 			R.forEach(event => $delegate[transform](...event)),
-			R.map(item => {
-				return R.find(([a, b]) => [a, b].join(' ') === item)(evt)
-			})
+			R.map(item => R.find(([a, b]) => [a, b].join(' ') === item)(evt))
 		)(fns)
 	})(events)
 
@@ -29,6 +27,7 @@ export const createEvents = R.curry(function(context, obj) {
 			try {
 				R.forEach(event => $delegate.on(...event))(events)
 			} catch (err) {
+				// eslint-disable-next-line
 				console.error(
 					'Handler must be a type of Function, careful with arrow functions, they will need to be above the events object:',
 					err

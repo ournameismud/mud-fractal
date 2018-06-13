@@ -1,16 +1,15 @@
 import * as R from 'ramda'
 
-export const inview = R.curry((root, events, options) => {
+export const inview = R.curry((root, events, options = {}) => {
 	if (!events) return
 
-	const opts = options ? options : {}
 	const defaults = {
 		rootMargin: '0px',
 		threshold: 0,
-		...opts
+		...options
 	}
 
-	const destroy = () => observer.unobserve(root)
+	const destroy = () => observer.unobserve(root) // eslint-disable-line no-use-before-define
 
 	const onIntersection = entry => {
 		const item = R.head(entry)

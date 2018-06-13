@@ -6,39 +6,39 @@ export const removeSpecialCharacters = R.compose(
 	R.replace(/[^a-zA-Z\d\s:]/g, '')
 )
 
-export const pascalify = R.memoizeWith(R.identity, str => {
-	return R.compose(
+export const pascalify = R.memoizeWith(R.identity, str =>
+	R.compose(
 		R.join(''),
 		R.over(R.lensIndex(0))(R.toUpper),
 		R.replace(/[\s]+(.)?/g, (match, ch) => (ch ? R.toUpper(ch) : '')),
 		R.toLower,
 		removeSpecialCharacters
 	)(str)
-})
+)
 
-export const camelify = R.memoizeWith(R.identity, str => {
-	return R.compose(
+export const camelify = R.memoizeWith(R.identity, str =>
+	R.compose(
 		R.replace(/[\s]+(.)?/g, (match, ch) => (ch ? R.toUpper(ch) : '')),
 		R.toLower,
 		removeSpecialCharacters
 	)(str)
-})
+)
 
-export const slugify = R.memoizeWith(R.identity, str => {
-	return R.compose(
+export const slugify = R.memoizeWith(R.identity, str =>
+	R.compose(
 		R.replace(/[\s]+(.)?/g, (match, ch) => (ch ? `-${R.toLower(ch)}` : '')),
 		R.toLower,
 		removeSpecialCharacters
 	)(str)
-})
+)
 
-export const snakeify = R.memoizeWith(R.identity, str => {
-	return R.compose(
+export const snakeify = R.memoizeWith(R.identity, str =>
+	R.compose(
 		R.replace(/[\s]+(.)?/g, (match, ch) => (ch ? `_${R.toLower(ch)}` : '')),
 		R.toLower,
 		removeSpecialCharacters
 	)(str)
-})
+)
 
 export const segmentize = R.compose(
 	R.filter(R.identity),

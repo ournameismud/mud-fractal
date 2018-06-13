@@ -21,8 +21,8 @@ export default (() => {
 		}
 	]
 
-	/***
-	 *@class Router
+	/** *
+	 * @class Router
 	 * @param :object
 	 *
 	 * @return Router
@@ -37,7 +37,7 @@ export default (() => {
 
 			// the root node... ?? configurable at the route level
 			this.$wrapper = rootNode
-			this.$links = activeLinks({ scope: navLinks, classes: classes })
+			this.$links = activeLinks({ scope: navLinks, classes })
 
 			// set the dom events
 			this.$events = createEvents.call(this, document, {
@@ -56,7 +56,7 @@ export default (() => {
 			return this
 		}
 
-		/***
+		/** *
 		 * @static goTo
 		 * @param :object
 		 *
@@ -70,9 +70,10 @@ export default (() => {
 						historyManager.push(pathname, { attr: dataAttrs })
 					}
 				})
-				.catch(e => {
-					eventBus.emit(Action.ROUTER_PAGE_NOT_FOUND, e)
-					console.warn(`[PREFETCH] no page found at ${e.url}`)
+				.catch(err => {
+					eventBus.emit(Action.ROUTER_PAGE_NOT_FOUND, err)
+					// eslint-disable-next-line
+					console.warn(`[PREFETCH] no page found at ${err.url}`)
 				})
 		}
 
@@ -83,7 +84,8 @@ export default (() => {
 			}
 
 			request(pathname).catch(err => {
-				console.warn(`[PREFETCH] no page found at ${pathname}`)
+				// eslint-disable-next-line
+				console.warn(`[PREFETCH] no page found at ${pathname}`, err)
 			})
 		}
 

@@ -34,7 +34,7 @@ const gatherProps = node => composeProps([...node.attributes])
 
 const createRefs = R.reduce((acc, node) => {
 	acc[`${sanitizeName(node.getAttribute('data-element'))}`] = {
-		node: node,
+		node,
 		...gatherProps(node)
 	}
 

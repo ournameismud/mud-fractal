@@ -27,7 +27,7 @@ export default (() => {
 
 			if (alienPage) {
 				prevHtml = null
-				wrapper.innerHTML = ''
+				wrapper.innerHTML = '' // eslint-disable-line no-param-reassign
 			}
 
 			// if we are going forward
@@ -56,7 +56,7 @@ export default (() => {
 				const $previousWrapper = wrapper.querySelector(
 					`[data-spon-page="${toPageNumber - 1}"]`
 				)
-				const $btnWrapper = $previousWrapper ? $previousWrapper : wrapper
+				const $btnWrapper = $previousWrapper || wrapper
 
 				if (!alienPage) {
 					toggleBtnState($btnWrapper, 'next', 'none')
@@ -92,7 +92,7 @@ export default (() => {
 					// if we don't have any previous html
 					if (!tempPrev) {
 						// empty the wrapper
-						wrapper.innerHTML = ''
+						wrapper.innerHTML = '' // eslint-disable-line no-param-reassign
 						// set the current page number on data-spon-page attribute
 						newHtml.setAttribute('data-spon-page', toPageNumber)
 						// inject into the dom

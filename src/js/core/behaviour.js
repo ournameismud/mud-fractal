@@ -41,9 +41,9 @@ export default (() => {
 			}
 		}
 
-		mount() {}
+		mount = () => {}
 
-		unmount() {}
+		unmount = () => {}
 
 		destroy() {
 			this.unmount()
