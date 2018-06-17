@@ -49,7 +49,7 @@
 		"coverage": "jest --coverage",
 		"gen-cert": "node ./cert/cli.js gen-certs",
 		"lint:js": "eslint --ext .js,.jsx .",
-		"format:js": "prettier 'src/**/*.{js,jsx}' --write"
+		"pretty": "prettier 'src/**/*.{js,jsx,scss}' --write"
 	},
 	"dependencies": {
 		"debug": "^3.1.0",

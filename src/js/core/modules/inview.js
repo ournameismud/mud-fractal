@@ -26,20 +26,22 @@ export function inview(base = document, events = {}) {
 	}
 
 	function watch({ selector, options = defaultOptions }) {
-		isActive = true
-		observer = new IntersectionObserver(onIntersection, options)
-		const nodes =
-			typeof selector === 'string'
-				? [...base.querySelectorAll(selector)]
-				: selector
+		if (window.IntersectionObserver) {
+			isActive = true
+			observer = new IntersectionObserver(onIntersection, options)
+			const nodes =
+				typeof selector === 'string'
+					? [...base.querySelectorAll(selector)]
+					: selector
 
-		R.forEach(item => {
-			observer.observe(item)
-		})(nodes)
+			R.forEach(item => {
+				observer.observe(item)
+			})(nodes)
+		}
 	}
 
 	function destroy() {
-		if (observer && isActive) {
+		if (observer && isActive && window.IntersectionObserver) {
 			observer.disconnect()
 			isActive = false
 		}

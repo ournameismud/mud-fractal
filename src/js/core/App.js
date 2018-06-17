@@ -6,13 +6,11 @@ import * as Actions from '@/core/router/actions'
 export default (() =>
 	class App {
 		constructor({ router, chunks }) {
-			if (router) {
+			if (router && typeof window.fetch === 'function') {
 				this.$router = new Router({ ...router })
 			}
 
 			this.$loader = loader(chunks)
-
-			log('MOUNT YEAH')
 		}
 
 		mount = () => {

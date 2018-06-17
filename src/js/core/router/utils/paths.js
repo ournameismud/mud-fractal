@@ -67,7 +67,6 @@ export const flattenRoutes = R.reduce((acc, curr) => {
 /**
  * finds all the route matches
  * gives each match a score
- * returns the route with the best score
  *
  * @function matches
  *

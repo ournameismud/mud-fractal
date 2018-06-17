@@ -2,6 +2,21 @@ import * as R from 'ramda'
 import { segmentize, beautifyPath } from '@/core/utils/strings'
 import { parseUrl } from './parseUrl'
 
+import local from 'local-links'
+
+export const localLinks = scope =>
+	[...scope.querySelectorAll('a')]
+		.filter(
+			a =>
+				local.isLocal('click', a, true) === null &&
+				a.href !== window.location.href
+		)
+		.forEach(a => {
+			log(a.href)
+			a.setAttribute('target', '_blank')
+			a.setAttribute('rel', 'noopener')
+		})
+
 /**
  * credit:
  *
@@ -39,7 +54,7 @@ export function preventClick(evt, element) {
 	)
 		return
 
-	if (element.classList.contains('no-spon')) return
+	if (element.hasAttribute('data-no-route')) return
 
 	return true
 }

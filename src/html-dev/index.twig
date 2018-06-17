@@ -8,7 +8,11 @@
 
 {% block content %}
 	<div id="test" data-behaviour="HomePage">
-		<div class="c-hero min-h-screen bg-blue"></div>
+		<div class="c-hero min-h-screen bg-blue">
+			<a href='/blog' data-no-route id="local">Local</a>
+			<a href='#hash' id="hash">Local</a>
+			<a href='http://google.com' id="google">Google</a>
+		</div>
 		<div data-element="gary" data-name="gary" data-amount="10">
 			<h1>Gary</h1>
 		</div>

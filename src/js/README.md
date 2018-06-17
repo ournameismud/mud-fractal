@@ -6,7 +6,7 @@ The main idea behind this framework is to marry the two requirements together.
 
 ### Behaviour Features:
 
-- [ ] code splitting based on data-behaviour attributes (powered by web pack)
+- [ ] code splitting based on data-behaviour attributes (powered by webpack)
 - [ ] component based event delegation (dom-delegate.js)
 - [ ] global event emitter (mitt.js)
 - [ ] screen size events and utilities
@@ -26,6 +26,7 @@ The main idea behind this framework is to marry the two requirements together.
 - [ ] Transition lifecycle
 - [ ] Event emitter
 - [ ] Error handling
+- [ ] Automatically sets external links to target="\_blank" and rel="noopener"
 
 ## Getting started
 
@@ -106,7 +107,7 @@ export default class ModuleA extends Behaviour {
 	mount() {
 		// start defining your behaviours functionality here
 
-		this.$el.hasAttribute('data-behaviour="ModuleA"') // true
+		this.$el.hasAttribute('data-behaviour') // true
 	}
 }
 ```
@@ -670,7 +671,7 @@ When they are emitted should be fairly clear
 
 ```javascript
 'ROUTER_POP_EVENT'
-'ROUTER_POP_EVENT'
+'ROUTER_PAGE_NOT_FOUND'
 'ROUTE_LINK_CLICKED'
 'ROUTE_TRANSITION_LOAD'
 'ROUTE_TRANSITION_EXIT'
@@ -684,5 +685,9 @@ When they are emitted should be fairly clear
 
 eventBus.on('ROUTER_POP_EVENT', () => {})
 ```
+
+### Ignore links
+
+Any anchors with `data-no-route` will be ignored by the router class
 
 And that’s 90% of the router stuff…
