@@ -25,11 +25,8 @@ const lifecycle = (() => {
 	return {
 		/** *
 		 *
-		 * The routes structure is gonna need a rewrite so...
-		 * suject to change...
-		 *
-		 * at the moment we're returing a functiona storing
-		 * it on the matchRoute var
+		 * create the matchRoute function
+		 * setup the history store
 		 *
 		 * @function addRoutes
 		 * @param :array
@@ -93,14 +90,18 @@ const lifecycle = (() => {
 		 * This is the main thing... from/request/to etc... all here
 		 *
 		 * @function transition
-		 * @param :string
+		 * @param :object
+		 * 	@property :string pathname
+		 * 	@property :string action - POP|PUSH
+		 * 	@property :object transition
+		 * 	@property :dataAttrs object - any data attribute on the link
 		 *
 		 * @return :lifecycle
 		 */
 		transition({ pathname, action, transition: trans, dataAttrs }) {
 			// get the new route object
 			const newState = matchRoute(pathname)
-			// have we been supplice with a transition object... no.. use the route one
+			// have we been supplied with a transition object... no.. use the route one <--- transition prop needs testing
 			const view = trans || newState.view
 
 			// update the from history store.... <REWITE></REWITE>
@@ -196,7 +197,8 @@ const lifecycle = (() => {
 						html,
 						to,
 						from,
-						action
+						action,
+						dataAttrs
 					}
 
 					// check... do we want to unmount the previous html

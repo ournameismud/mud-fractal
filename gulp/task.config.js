@@ -19,6 +19,7 @@ module.exports = {
 		height: 768
 	},
 
+	// set task/watch to false when using fractal mode
 	html: {
 		task: null,
 		watch: false,

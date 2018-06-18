@@ -1,7 +1,7 @@
 import { createEvents } from '@/core/modules/createEvents'
 import eventBus from '@/core/modules/eventBus'
 import { composeProps } from '@/core/modules/refs'
-import { preventClick, activeLinks } from './utils/links'
+import { preventClick, activeLinks, localLinks } from './utils/links'
 import historyManager from './history'
 import cache from './cache'
 import request from './request'
@@ -45,7 +45,7 @@ export default (() => {
 
 			this.prefectTargets = prefectTargets
 
-			// the root node... ?? configurable at the route level
+			// the root node...
 			this.$wrapper = rootNode
 			this.$links = activeLinks({ scope: navLinks, classes })
 
@@ -75,10 +75,12 @@ export default (() => {
 		static goTo = ({ pathname, action, dataAttrs }, transition) => {
 			lifecycle
 				.transition({ pathname, action, transition, dataAttrs })
-				.then(({ action }) => {
+				.then(({ action, newHtml }) => {
 					if (action === 'PUSH') {
 						historyManager.push(pathname, { attr: dataAttrs })
 					}
+					log(newHtml)
+					localLinks(newHtml)
 				})
 				.catch(err => {
 					eventBus.emit(Action.ROUTER_PAGE_NOT_FOUND, err)
@@ -127,6 +129,8 @@ export default (() => {
 					this.$links(url)
 				}
 			)
+
+			localLinks(document)
 
 			this.$events.attachAll()
 

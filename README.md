@@ -1,47 +1,83 @@
-# Gulp + Fractal
+# mud-fractal
+
+## Gulp + Fractal
 
 ![Mud](http://ournameismud.co.uk/css/images/maps-icon.png)
 
-> Frontend starter kit integrated with [Fractal](http://fractal.build/), inspired by [Blendid](https://github.com/vigetlabs/blendid)
+> Frontend starter kit integrated with [Fractal](http://fractal.build/), inspired by [Blendid](https://github.com/vigetlabs/blendid), powered by gulp, webpack.
+
+All of the build/task dependencies are managed through a single npm package. [mulp](https://github.com/ournameismud/mulp)
+
+### Getting started
+
+Clone the repo… and install
 
 ###### Installation
 
-`yarn`
+`yarn` / `npm install`
 
 ###### Gettings Start
 
-Start development server
+> Start fractal server
 
-`yarn start`
+`npm start`
 
-With craft
+> With craft
 
-`yarn run cms`
+`npm run cms`
 
-Create a production build
+> Create a library build
 
-`yarn run build`
+`npm run build:fractal`
 
-Create an optimised build with critical/purge css
+> Create a production build
 
-`yarn run build:production`
+`npm run build`
 
-Build fractal components
+> Create an optimised build with critical/purge css
 
-`yarn run build:components`
+`npm run build:production`
 
-Create a static build (see publish settings in gulp/path.config.json)
+> Build fractal components
 
-`yarn run build:static`
+`npm run build:components`
 
-Save a snapshot of components for regression testing
+> Create a static build (see publish settings in gulp/path.config.json)
 
-`yarn run reference`
+`npm run build:static`
 
-Test against the snapshots with an optimised build
+> Save a snapshot of components for regression testing
 
-`yarn run diff`
+`npm run reference`
 
-If you have netlify setup, you can deploy the fractal library with this
+> Test against the snapshots with an optimised build
 
-`yarn run deploy`
+`npm run diff`
+
+> If you have netlify setup, you can deploy the fractal library with this
+
+`npm run deploy`
+
+> Run any tests with jest
+
+`npm run test`
+
+> Run tests in watch mode
+
+`npm run test:watch`
+
+> Get a test coverage report
+
+`npm run coverage`
+
+> Create https certs for browsersync
+
+`npm run gen-cert`
+
+> Lint all the javascript feels
+
+`npm run lint:js`
+
+> Format all the code with prettier
+
+`npm run pretty`
