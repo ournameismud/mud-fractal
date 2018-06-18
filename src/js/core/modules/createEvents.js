@@ -16,8 +16,17 @@ export const createEvents = R.curry(function(context, obj) {
 
 	const handleFunctions = R.curry((evt, transform, fns) => {
 		R.compose(
-			R.forEach(event => $delegate[transform](...event)),
-			R.map(item => R.find(([a, b]) => [a, b].join(' ') === item)(evt))
+			R.forEach(event => {
+				log(event)
+				$delegate[transform](...event)
+			}),
+			R.map(item => R.find(([a, b]) => {
+				// alls add/remove of events without a selector - things like keydown/keyup
+				if(typeof b === 'function') {
+					return a === item
+				}
+				return [a, b].join(' ') === item
+			})(evt))
 		)(fns)
 	})(events)
 

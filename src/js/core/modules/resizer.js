@@ -75,7 +75,7 @@ export const resizer = (function() {
 				}
 
 				const matchQueryTest = test.bind(null, breakpoint, fn)
-				if (windowMatch(breakpoint)) matchQueryTest()
+				// if (windowMatch(breakpoint)) matchQueryTest()
 				eventBus.on('window:resize', matchQueryTest)
 
 				return matchQueryTest
