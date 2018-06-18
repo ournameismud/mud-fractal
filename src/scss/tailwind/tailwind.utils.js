@@ -6,10 +6,38 @@ const BASE_FONT_SIZE = 16
 const percentage = (x, y) => `${(x / y * 100).toFixed(4)}%`
 const stripUnits = R.compose(R.head, R.match(/\d+/g))
 
+// https://github.com/modularscale/modularscale-js#ratios
+
 const msSettings = {
 	ratio: 1.125,
 	base: BASE_FONT_SIZE
 }
+
+function px2rem(value) {
+	let num = value
+
+	if (typeof value === 'string') {
+		num = stripUnits(value)
+	}
+
+	return `${(num / BASE_FONT_SIZE).toFixed(4)}rem`
+}
+
+function px2em(value) {
+	let num = value
+
+	if (typeof value === 'string') {
+		num = stripUnits(value)
+	}
+
+	return `${(num / BASE_FONT_SIZE).toFixed(4)}em`
+}
+
+function ms2rem(ms, settings = msSettings) {
+	return px2rem(modularscale(ms, settings))
+}
+
+ms2rem(10) // ?
 
 function gutter(n = 1, size = 20) {
 	return px2rem(n * size)
@@ -28,13 +56,20 @@ function numRange(from, to, mutation) {
 	})(array)
 }
 
+const maxSizes = (from, to, slices) => {
+	const values = numRange(from, to * slices, counter => counter / slices * 100)
+
+	return R.reduce((acc, curr) => {
+		acc[curr.toString()] = px2rem(curr)
+		return acc
+	}, {})(values) // ?
+}
+
 function msRange(from, to, settings = msSettings) {
-	const values = numRange(from, to, counter => {
-		return {
-			key: counter,
-			value: ms2rem(counter, settings)
-		}
-	})
+	const values = numRange(from, to, counter => ({
+		key: counter,
+		value: ms2rem(counter, settings)
+	}))
 
 	return R.reduce((acc, curr) => {
 		acc[`ms-${curr.key}`] = curr.value
@@ -51,30 +86,6 @@ function spacing(num = 12, slices = 4) {
 		acc[key] = gutter(curr)
 		return acc
 	}, {})(values)
-}
-
-function px2rem(value) {
-	let num = value
-
-	if (typeof value === 'string') {
-		num = stripUnits(value)
-	}
-
-	return `${num / BASE_FONT_SIZE}rem`
-}
-
-function px2em(value) {
-	let num = value
-
-	if (typeof value === 'string') {
-		num = stripUnits(value)
-	}
-
-	return `${num / BASE_FONT_SIZE}em`
-}
-
-function ms2rem(ms, settings = msSettings) {
-	return px2rem(modularscale(ms, settings))
 }
 
 function hex2rgba(hex, alpha = 1) {
@@ -105,14 +116,15 @@ function columns(cols = 12) {
 	)(array)
 }
 
-
 module.exports = {
 	px2rem,
 	px2em,
 	ms2rem,
 	msRange,
+	maxSizes,
 	hex2rgba,
 	columns,
 	spacing,
-	gutter
+	gutter,
+	numRange
 }

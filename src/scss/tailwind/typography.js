@@ -1,5 +1,6 @@
-const { color } = require('./colors')
-const { px2rem, msRange } = require('./tailwind.utils')
+const R = require('ramda')
+const { colors } = require('./colors')
+const { msRange } = require('./tailwind.utils')
 
 /*
   |-----------------------------------------------------------------------------
@@ -21,12 +22,6 @@ const { px2rem, msRange } = require('./tailwind.utils')
   */
 
 const textSizes = {
-	// '2xl': px2rem(45),
-	// xl: px2rem(30),
-	// lg: px2rem(24),
-	// body: px2rem(18),
-	// sm: px2rem(12),
-	// xs: px2rem(9),
 	...msRange(-2, 10)
 }
 
@@ -138,7 +133,7 @@ const tracking = {
   |
   */
 
-const textColors = color
+const textColors = colors
 
 module.exports = {
 	fonts,

@@ -44,8 +44,6 @@ module.exports = {
 	svgFill,
 	svgStroke,
 
-	plugins,
-
 	screens,
 
 	width,
@@ -66,6 +64,7 @@ module.exports = {
 	textColors,
 	textSizes,
 
+	plugins,
 	modules: {
 		appearance: [],
 		backgroundAttachment: [],

@@ -65,7 +65,7 @@ module.exports = env => {
 				},
 				{
 					test: /\.worker\.js$/,
-					use: { loader: 'worker-loader' }
+					use: [{ loader: 'worker-loader' }, { loader: 'babel-loader' }]
 				},
 				{
 					test: /\.js$/,

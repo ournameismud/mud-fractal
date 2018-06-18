@@ -5,7 +5,7 @@ const { env } = util.env
 
 module.exports = {
 	title: 'Mud-Fractal',
-	mode: 'fractal',
+	mode: 'html',
 
 	cms: {
 		watch: false,
@@ -21,8 +21,8 @@ module.exports = {
 
 	// set task/watch to false when using fractal mode
 	html: {
-		task: null,
-		watch: false,
+		task: 'code',
+		watch: true,
 		extensions: ['twig', 'html', 'json'],
 		excludeFolders: ['__data', 'wrapper', 'macros']
 	},

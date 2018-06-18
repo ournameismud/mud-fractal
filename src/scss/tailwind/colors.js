@@ -17,6 +17,8 @@
 const colors = {
 	transparent: 'transparent',
 
+	space: '#0f0f0f',
+
 	black: '#1f1f1f',
 	red: '#e54630',
 	white: '#ffffff',

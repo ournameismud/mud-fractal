@@ -1,4 +1,4 @@
-const color = require('./colors')
+const { colors } = require('./colors')
 
 /*
   |-----------------------------------------------------------------------------
@@ -38,7 +38,7 @@ const borderWidths = {
   |
   */
 
-const borderColors = color
+const borderColors = colors
 
 /*
   |-----------------------------------------------------------------------------
