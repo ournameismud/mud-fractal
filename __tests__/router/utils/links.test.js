@@ -4,7 +4,7 @@ document.body.innerHTML = `<div>
 <a id="valid" href="/waffle/">Root</a>
 <a id="external" href="http://www.otherdomain.com/path/">a</a>
 <a id="download" download="" href="/some/download.pdf">a</a>
-<a id="spon" class="no-spon" href="/some/ignoredlink">a</a>
+<a id="spon" data-no-route href="/some/ignoredlink">a</a>
 <a id="blank" target="_blank" href="/some/ignoredlink">a</a>
 <a id="hash" href="/some/ignoredlink#waffle">a</a>
 <a class="root" class="root"  href="/">Root</a>

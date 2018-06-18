@@ -13,6 +13,7 @@ class ExampleWithAllTheBitsCovered extends mix(Behaviour).with(
 	RefsMixin
 ) {
 	mount = () => {
+		this.$$eventBus.emit('window:resize')
 		this.$el.classList.add('mount')
 		this.$$events.attachAll()
 	}
@@ -33,9 +34,6 @@ class ExampleWithAllTheBitsCovered extends mix(Behaviour).with(
 	screens = {
 		'(min-width: 600px)': () => {
 			this.$el.classList.add('min-width-600')
-		},
-		'(min-width: 800px)': () => {
-			this.$el.classList.add('min-width-800')
 		}
 	}
 
@@ -172,6 +170,5 @@ describe('behaviour class', () => {
 		})
 
 		expect(behaviour.$el.classList.contains('min-width-600')).toBe(true)
-		expect(behaviour.$el.classList.contains('min-width-800')).toBe(false)
 	})
 })

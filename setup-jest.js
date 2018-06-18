@@ -10,6 +10,7 @@ const dom = new JSDOM(
 
 global.window = dom.window
 global.document = dom.window.document
+global.window.innerWidth = 1024
 
 // Simulate window resize event
 const resizeEvent = document.createEvent('Event')
@@ -38,9 +39,10 @@ Object.defineProperty(document, 'currentStyle', {
 
 if (window.Element && !Element.prototype.closest) {
 	Element.prototype.closest = function(s) {
-		let matches = (this.document || this.ownerDocument).querySelectorAll(s),
-			i,
-			el = this
+		const matches = (this.document || this.ownerDocument).querySelectorAll(s)
+		let i
+		let el = this
+		// eslint-disable-next-line no-cond-assign
 		do {
 			i = matches.length
 			while (--i >= 0 && matches.item(i) !== el) {} // eslint-disable-line
@@ -50,9 +52,9 @@ if (window.Element && !Element.prototype.closest) {
 }
 
 Object.defineProperty(window, 'matchMedia', {
-	value: jest.fn(a => {
-		return { matches: global.innerWidth > parseInt(a.match(/\d+/)[0], 10) }
-	})
+	value: jest.fn(a => ({
+		matches: global.innerWidth > parseInt(a.match(/\d+/)[0], 10)
+	}))
 })
 
 window.log = console.log // eslint-disable-line
