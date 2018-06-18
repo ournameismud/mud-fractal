@@ -5,7 +5,7 @@ const { env } = util.env
 
 module.exports = {
 	title: 'Mud-Fractal',
-	mode: 'html',
+	mode: 'fractal',
 
 	cms: {
 		watch: false,
@@ -20,8 +20,8 @@ module.exports = {
 	},
 
 	html: {
-		task: 'code',
-		watch: true,
+		task: null,
+		watch: false,
 		extensions: ['twig', 'html', 'json'],
 		excludeFolders: ['__data', 'wrapper', 'macros']
 	},
