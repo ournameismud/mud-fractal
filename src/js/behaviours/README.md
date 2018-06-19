@@ -1,3 +1,6 @@
+An example behaviour with all the bits
+
+```javascript
 import Behaviour, { mix } from '@/core/Behaviour'
 import {
 	ScreenMixin,
@@ -74,3 +77,4 @@ export default class ExampleWithAllTheThings extends mix(Behaviour).with(
 		}
 	}
 }
+```
