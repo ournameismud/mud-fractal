@@ -39,6 +39,12 @@ export default class ExampleWithAllTheThings extends mix(Behaviour).with(
 
 		// call this to trigger the screens object to run on load
 		this.$$eventBus.emit('window:resize')
+
+		// window rezize:
+
+		this.$$screen.on('window:resize', props => {
+			console.log(props)
+		})
 	}
 
 	onClick = (e, elm) => {
