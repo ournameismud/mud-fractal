@@ -34,3 +34,30 @@ img {
 		padding: 0 gutter(2);
 	}
 }
+
+// Accessibly hide browser input and replace with custom icon
+input[type='radio'],
+input[type='checkbox'] {
+	border: 0;
+	clip: rect(0 0 0 0);
+	height: 1px;
+	margin: -1px;
+	overflow: hidden;
+	padding: 0;
+	position: absolute;
+	width: 1px;
+
+	+ label span:first-child {
+		display: block;
+		color: rgba($black, 0);
+		padding: 4px;
+		border: 1px solid black;
+		width: rem(20px);
+	}
+
+	&:checked {
+		+ label span:first-child {
+			color: rgba($black, 1);
+		}
+	}
+}

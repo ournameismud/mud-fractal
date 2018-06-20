@@ -4393,10 +4393,6 @@ fg-loadcss@^2.0.1:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/fg-loadcss/-/fg-loadcss-2.0.1.tgz#71c00e470a57f7739d0736124dfc8791995e8af1"
 
-fg-loadjs@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/fg-loadjs/-/fg-loadjs-1.0.0.tgz#c096af1675b9ed0d3b588f69ef186c6d81dbfb01"
-
 figures@^1.3.5:
   version "1.7.0"
   resolved "https://registry.yarnpkg.com/figures/-/figures-1.7.0.tgz#cbe1e3affcf1cd44b80cadfed28dc793a9701d2e"
@@ -11690,9 +11686,9 @@ spon-slide@^1.0.7:
   dependencies:
     mitt "^1.1.3"
 
-sponlax@2.0.1:
-  version "2.0.1"
-  resolved "https://registry.yarnpkg.com/sponlax/-/sponlax-2.0.1.tgz#34154556d1d74168c8c9c2edca519475eb504f9e"
+sponlax@2.0.2:
+  version "2.0.2"
+  resolved "https://registry.yarnpkg.com/sponlax/-/sponlax-2.0.2.tgz#21cb4541f3299dab0ed1e21ddc5528a68f676ef1"
 
 sprintf-js@~1.0.2:
   version "1.0.3"
