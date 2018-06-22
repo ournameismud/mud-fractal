@@ -4,12 +4,11 @@ const path = require('path')
 const backstopjs = require('backstopjs')
 const util = require('gulp-util')
 const requireGlob = require('require-glob')
-// const { resolvePath } = require('../utils/paths')
-module.exports = {
-	test
-}
 
-gulp.task('backstop_reference', test)
+/* eslint-disable no-restricted-syntax */
+
+const camelCaseToDash = myStr =>
+	myStr.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase()
 
 function test() {
 	const { url, defaults } = TASK_CONFIG.backstop
@@ -23,27 +22,25 @@ function test() {
 			PATH_CONFIG.fractal.src,
 			'**/**/*.config.js'
 		)
-	).then(function (modules) {
+	).then(modules => {
 		const scenarios = []
 
-		for (let key in modules) {
-			for (let row in modules[key]) {
+		for (const key in modules) {
+			for (const row in modules[key]) {
 				let config = modules[key][row][`${row}Config`]
 
-				const title = row
+				const title = camelCaseToDash(row)
 				if (title !== 'context') {
 					const { selector = 'body', variants = [], status } = config
 
 					if (status === 'test') {
 						if (variants.length > 0) {
-							config = variants.map(({ name }) => {
-								return {
-									...defaults,
-									selectors: [`${selector}`],
-									label: name,
-									url: `${url}${title}--${name}.html`
-								}
-							})
+							config = variants.map(({ name }) => ({
+								...defaults,
+								selectors: [`${selector}`],
+								label: name,
+								url: `${url}${title}--${name}.html`
+							}))
 							scenarios.push(...config)
 						} else {
 							scenarios.push({
@@ -74,9 +71,9 @@ function test() {
 
 		// Resolve files from PWD
 		if (SERVER.files) {
-			SERVER.files = SERVER.files.map(function (glob) {
-				return path.resolve(process.env.PWD, glob)
-			})
+			SERVER.files = SERVER.files.map(glob =>
+				path.resolve(process.env.PWD, glob)
+			)
 		}
 
 		const conf = {
@@ -94,9 +91,15 @@ function test() {
 					browserSync.exit()
 				})
 				.catch(e => {
-					console.error(e)
+					console.error(e) // eslint-disable-line no-console
 					browserSync.exit()
 				})
 		})
 	})
 }
+
+module.exports = {
+	test
+}
+
+gulp.task('backstop_reference', test)
