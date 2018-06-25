@@ -14,7 +14,7 @@ self.addEventListener(
 	'message',
 	e => {
 		const { links } = e.data
-		const proms = links.map(link =>
+		links.map(link =>
 			new Promise((resolve, reject) => {
 				fetch(link)
 					.then(response => {
@@ -31,7 +31,8 @@ self.addEventListener(
 						if (args) {
 							const data = args[0].data ? { ...args[0].data } : args[0]
 
-							resolve({ key: link, data })
+							resolve()
+							self.postMessage([{ key: link, data }]) // eslint-disable-line no-restricted-globals
 						}
 					})
 			}).catch(() => ({
@@ -40,9 +41,9 @@ self.addEventListener(
 			}))
 		)
 
-		Promise.all(proms).then(data => {
-			self.postMessage(data) // eslint-disable-line no-restricted-globals
-		})
+		// Promise.all(proms).then(data => {
+		// 	self.postMessage(data) // eslint-disable-line no-restricted-globals
+		// })
 	},
 	false
 )

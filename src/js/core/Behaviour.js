@@ -54,8 +54,11 @@ export default (() => {
 
 		init() {
 			if (this.routes) {
-				this.$$eventBus.on(Actions.ROUTE_TRANSITION_ENTER, this.routes.enter)
-				this.$$eventBus.on(Actions.ROUTE_TRANSITION_EXIT, this.routes.exit)
+				if(this.routes.enter)
+					this.$$eventBus.on(Actions.ROUTE_TRANSITION_ENTER, this.routes.enter)
+				
+				if(this.routes.exit)
+					this.$$eventBus.on(Actions.ROUTE_TRANSITION_EXIT, this.routes.exit)
 			}
 		}
 

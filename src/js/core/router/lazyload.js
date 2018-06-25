@@ -51,6 +51,7 @@ export default (() => {
 		// but... alpha... we're getting html responses
 
 		data.forEach(({ key, data }) => {
+			log(`fetched: ${key}`)
 			if (data) {
 				cache.set(key, { data })
 			} else {
