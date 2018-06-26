@@ -5,14 +5,6 @@ import { gather } from '@/core/modules/loader'
 import { camelify } from '@/core/utils/strings'
 
 export default (() => {
-	/*
-		The cache... html responses from ajax requests get stored here
-		We should probably put a limit on it!
-
-		keys are beautified, with a leading slash, before storing to unsure 
-		prevent duplicate requests... probably a better way... hmm!
-		does the job! 
-	*/
 	const cache = {}
 	// using the the gather function from the core loader
 	const chunks = component => import(`@/ui/${component}`)
@@ -64,29 +56,10 @@ export default (() => {
 			)(JSON.parse(cache))
 		},
 
-		/** *
-		 * set('string', value)
-		 *		 *
-		 * set an item into the cache
-		 *
-		 * @param {string}
-		 * @param {function}
-		 *
-		 * @return {void}
-		 */
 		set(key, value) {
 			cache[key] = value
 		},
 
-		/** *
-		 * get('string')
-		 *
-		 * get an item from the cache
-		 *		 *
-		 * @param {String}
-		 *
-		 * @return {function}
-		 */
 		get(key) {
 			return cache[key]
 		},
@@ -95,15 +68,6 @@ export default (() => {
 			return cache
 		},
 
-		/** *
-		 * remove('string', value)
-		 *
-		 * delete an item from the cache
-		 *
-		 * @param {string}
-		 *
-		 * @return :any
-		 */
 		remove(key) {
 			delete cache[key]
 		}
