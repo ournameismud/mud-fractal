@@ -32,8 +32,8 @@ export const createEvents = R.curry(function(context, obj) {
 	})(events)
 
 	return {
-		attachAll() {
-			$delegate = $delegate || new Delegate(context)
+		attachAll(root = context) {
+			$delegate = $delegate || new Delegate(root)
 			try {
 				R.forEach(event => $delegate.on(...event))(events)
 			} catch (err) {
@@ -45,8 +45,8 @@ export const createEvents = R.curry(function(context, obj) {
 			}
 		},
 
-		attach(fns) {
-			$delegate = $delegate || new Delegate(context)
+		attach(fns, root = context) {
+			$delegate = $delegate || new Delegate(root)
 			handleFunctions('on', fns)
 		},
 
