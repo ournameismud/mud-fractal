@@ -1,5 +1,3 @@
-// WIP - coming soon...
-
 import * as R from 'ramda'
 import { gather } from '@/core/modules/loader'
 import { camelify } from '@/core/utils/strings'
