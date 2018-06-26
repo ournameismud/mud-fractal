@@ -7,9 +7,9 @@ import mitt from 'mitt'
  * @class DropDown
  * @desc This class handles dropdowns...
  * @example /04-components/dropdown
- * 
+ *
  * Required markup:
- * 
+ *
  * <div data-ui="Dropdown" data-ui-options='{"update-text": true, "intercept-links": true}' data-ui-key="downloads-dropdown">
  * 	<button data-dropdown-button>
  * 		<span class="mr-1" data-dropdown-text>View all products</span>
@@ -30,7 +30,7 @@ import mitt from 'mitt'
  * 	</div>
  * </div>
  *
- * @param {HTMLElement} - node to bind to 
+ * @param {HTMLElement} - node to bind to
  * @param {Object} - options
  * @param {String} - key name
  *
