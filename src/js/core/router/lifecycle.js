@@ -11,7 +11,7 @@ import domify from 'domify'
 /** *
  * native lifecycle
  *
- * @return :object
+ * @return {Object}
  */
 const lifecycle = (() => {
 	/*
@@ -29,7 +29,7 @@ const lifecycle = (() => {
 		 * setup the history store
 		 *
 		 * @function addRoutes
-		 * @param :array
+		 * @param {Array}
 		 *
 		 * @return :lifecycle
 		 */
@@ -63,7 +63,7 @@ const lifecycle = (() => {
 		 * This function is called once upon load
 		 *
 		 * @function setWrapper
-		 * @param :string -> the pathname yeah: /blog/terry
+		 * @param {String} -> the pathname yeah: /blog/terry
 		 *
 		 * @return :lifecycle
 		 */
@@ -90,10 +90,10 @@ const lifecycle = (() => {
 		 * This is the main thing... from/request/to etc... all here
 		 *
 		 * @function transition
-		 * @param :object
-		 * 	@property :string pathname
-		 * 	@property :string action - POP|PUSH
-		 * 	@property :object transition
+		 * @param {Object}
+		 * 	@property {String} pathname
+		 * 	@property {String} action - POP|PUSH
+		 * 	@property {Object} transition
 		 * 	@property :dataAttrs object - any data attribute on the link
 		 *
 		 * @return :lifecycle
@@ -132,8 +132,8 @@ const lifecycle = (() => {
 			 * promise function... does a thing.. returns a transiton promise
 			 *
 			 * @function promise
-			 * @param :string
-			 * @param :object
+			 * @param {String}
+			 * @param {Object}
 			 * @param :striobjectng
 			 *
 			 * @return :lifecycle

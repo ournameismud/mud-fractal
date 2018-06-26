@@ -23,9 +23,9 @@ export default (() => {
 
 	/** *
 	 * @class Router
-	 * @param :object
+	 * @param {Object}
 	 *
-	 * @return Router
+	 * @return {Router}
 	 */
 	return class Router {
 		constructor({
@@ -68,9 +68,9 @@ export default (() => {
 
 		/** *
 		 * @static goTo
-		 * @param :object
+		 * @param {Object}
 		 *
-		 * @return void
+		 * @return {void}
 		 */
 		static goTo = ({ pathname, action, dataAttrs }, transition) => {
 			lifecycle
@@ -89,6 +89,14 @@ export default (() => {
 				})
 		}
 
+		/** *
+		 * @method onMouseEnter
+		 * @description mouse enter event, triggers a fetch
+		 * @param {Object} - event object
+		 * @param {HTMLElement} -
+		 *
+		 * @return {void}
+		 */
 		onMouseEnter = (e, elm) => {
 			const { pathname } = elm
 			if (!preventClick(e, elm) || cache.get(pathname)) {
@@ -101,6 +109,14 @@ export default (() => {
 			})
 		}
 
+		/** *
+		 * @method onClick
+		 * @description click event, fetch the next page
+		 * @param {Object} - event object
+		 * @param {HTMLElement} -
+		 *
+		 * @return {void}
+		 */
 		onClick = (e, elm) => {
 			const { pathname } = elm
 
@@ -118,6 +134,12 @@ export default (() => {
 			Router.goTo({ pathname, dataAttrs, action: 'PUSH' })
 		}
 
+		/** *
+		 * @method mount
+		 * @description Called after instantiation, boots everything up
+		 *
+		 * @return {Router}
+		 */
 		mount = () => {
 			eventBus.on(Action.ROUTER_POP_EVENT, ({ pathname }) => {
 				lifecycle.transition({ pathname, action: 'POP' })
@@ -137,6 +159,12 @@ export default (() => {
 			return this
 		}
 
+		/** *
+		 * @method lazyload
+		 * @description prefetch content on a service worker
+		 *
+		 * @return {Router}
+		 */
 		lazyload = () => {
 			const items = [...document.querySelectorAll(this.prefectTargets)]
 			lazyload(items)

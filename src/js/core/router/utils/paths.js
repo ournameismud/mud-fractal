@@ -9,9 +9,9 @@ import { matchRoute, parseUrl } from './parseUrl'
  *
  * @function mapChildren
  *
- * @param :string
+ * @param {String}
  *
- * @return :function
+ * @return {Function}
  */
 function mapChildren(base) {
 	return R.compose(
@@ -41,9 +41,9 @@ function mapChildren(base) {
  *
  * @function flattenRoutes
  *
- * @param :array
+ * @param {Array}
  *
- * @return :array
+ * @return {Array}
  */
 
 export const flattenRoutes = R.reduce((acc, curr) => {
@@ -70,11 +70,11 @@ export const flattenRoutes = R.reduce((acc, curr) => {
  *
  * @function matches
  *
- * @param :array
- * @param :string
- * @param :object
+ * @param {Array}
+ * @param {String}
+ * @param {Object}
  *
- * @return :object
+ * @return {Object}
  */
 const matches = (routes, data) => {
 	const { path: slug } = data

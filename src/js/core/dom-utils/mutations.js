@@ -5,10 +5,10 @@ import domify from 'domify'
  *
  * Insert a dom node before another node
  *
- * @param node/string - the node to insert
- * @param before:HTMLElement - the node to insert before
+ * @param {HTMLElement | String} - the node to insert
+ * @param {HTMLelement} - the node to insert before
  *
- * @return :void
+ * @return {void}
  *
  */
 
@@ -23,10 +23,10 @@ export function insertBefore(node, before) {
  *
  * Insert a dom node before another node
  *
- * @param node/string - the node to insert
- * @param after:HTMLElement - the node to insert after
+ * @param {HTMLElement | String} - the node to insert
+ * @param {HTMLelement} - the node to insert after
  *
- * @return :void
+ * @return {void}
  *
  */
 

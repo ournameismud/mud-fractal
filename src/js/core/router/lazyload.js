@@ -9,9 +9,9 @@ import { inview } from '@/core/modules/inview'
  *
  * returns a function which when called requests urls and adds them to the cache
  *
- * @param :array[nodeList]
+ * @param {Array|nodeList}
  *
- * @return :function
+ * @return {Function}
  *
  */
 

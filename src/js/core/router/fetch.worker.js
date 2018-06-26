@@ -40,10 +40,6 @@ self.addEventListener(
 				data: false
 			}))
 		)
-
-		// Promise.all(proms).then(data => {
-		// 	self.postMessage(data) // eslint-disable-line no-restricted-globals
-		// })
 	},
 	false
 )

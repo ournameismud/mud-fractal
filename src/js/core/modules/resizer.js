@@ -7,7 +7,7 @@ import * as R from 'ramda'
  *
  * @function resizer
  *
- * @return :function resizer
+ * @return {Function} resizer
  */
 
 export const resizer = (function() {
@@ -28,7 +28,7 @@ export const resizer = (function() {
 	 *
 	 * @function getWindowProps
 	 *
-	 * @return :object with the current width/height/breakpoint
+	 * @return {Object} with the current width/height/breakpoint
 	 */
 	function getWindowProps() {
 		const width = window.innerWidth
@@ -52,9 +52,9 @@ export const resizer = (function() {
 	 *
 	 * @function mapEventsToResize
 	 *
-	 * @param :object
+	 * @param {Object}
 	 *
-	 * @return :array of functions
+	 * @return {Array} of functions
 	 */
 	function mapEventsToResize(events) {
 		return R.compose(
@@ -95,7 +95,7 @@ export const resizer = (function() {
 	 * @private
 	 * @function windowResizeEvent
 	 *
-	 * @return void
+	 * @return {void}
 	 */
 	function windowResizeEvent() {
 		const { width, height, query } = getWindowProps()
@@ -123,7 +123,7 @@ export const resizer = (function() {
 	 *
 	 * @function addWindowResizeEvent
 	 *
-	 * @return object
+	 * @return {Object}
 	 */
 	function addWindowResizeEvent() {
 		if (addWindowResizeEvent.isRunning) return

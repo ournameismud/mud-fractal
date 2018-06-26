@@ -1,12 +1,15 @@
 import Delegate from 'dom-delegate'
 import * as R from 'ramda'
 
+// do not use an array function... we need to be able to bind
 export const createEvents = R.curry(function(context, obj) {
 	const events = Object.entries(obj).map(([key, fn]) => {
 		const eventAndNode = R.compose(R.map(R.trim), R.split(' '))(key)
-		const capture = !!R.compose(R.length, R.match(/mouse/g), R.head)(
-			eventAndNode
-		)
+		const capture = !!R.compose(
+			R.length,
+			R.match(/(blur|mouse|touch)/g),
+			R.head
+		)(eventAndNode)
 		const funk = typeof fn === 'string' ? this[fn] : fn
 		return [...eventAndNode, funk, capture]
 	})

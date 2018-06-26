@@ -5,9 +5,9 @@ import { segmentize, beautifyPath, slugFromPath } from '@/core/utils/strings'
  *
  * @function parseUri
  *
- * @param :string url
+ * @param {String} url
  *
- * @return :object
+ * @return {Object}
  */
 export function parseUri(str) {
 	const o = parseUri.options
@@ -66,26 +66,26 @@ function decodeParam(param) {
  *
  * @function createPathObject
  *
- * @param :object pathToRegexp options
+ * @param {Object} pathToRegexp options
  *
- * @return :function
+ * @return {Function}
  */
 function createPathObject(options = {}) {
 	/**
 	 *
-	 * @param :string the test path
+	 * @param {String} the test path
 	 *
-	 * @return :function
+	 * @return {Function}
 	 */
 	return function(path) {
 		const keys = []
 		const re = pathToRegexp(path, keys, options)
 
 		/**
-		 * @param :string // the url you want to match
-		 * @param :object
+		 * @param {String} // the url you want to match
+		 * @param {Object}
 		 *
-		 * @return :object / :boolean
+		 * @return {Object} / {Boolean}
 		 */
 		return function(pathname, params = {}) {
 			const m = re.exec(pathname)
@@ -112,7 +112,7 @@ function createPathObject(options = {}) {
  *
  * @function matchRoute
  *
- * @return :function
+ * @return {Function}
  */
 export const matchRoute = createPathObject({
 	// path-to-regexp options
@@ -125,9 +125,9 @@ export const matchRoute = createPathObject({
  *
  * @function parseUrl
  *
- * @param :string url...
+ * @param {String} url...
  *
- * @return :object
+ * @return {Object}
  */
 export const parseUrl = href => {
 	const { anchor: hash, host, path, queryKey, source } = parseUri(href)

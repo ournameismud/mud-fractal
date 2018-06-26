@@ -20,7 +20,8 @@ export const camelify = R.memoizeWith(R.identity, str =>
 	R.compose(
 		R.replace(/[\s]+(.)?/g, (match, ch) => (ch ? R.toUpper(ch) : '')),
 		R.toLower,
-		removeSpecialCharacters
+		removeSpecialCharacters,
+		R.replace('-', ' ')
 	)(str)
 )
 

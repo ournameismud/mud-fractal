@@ -46,12 +46,12 @@ export const parseCss = style => Object.entries(style)
  *
  * @function setStyle
  *
- * @param :HTMLELement
- * @param :Object
+ * @param {HTMLElement}
+ * @param {Object}
  *
  * @example
  *
- * setStyle(document.getElementById('a), {
+ * setStyle(document.getElementById('a'), {
  *   transition: 'all 300ms ease',
  * 	 'margin-top': '20px'
  * })

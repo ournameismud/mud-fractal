@@ -3,7 +3,7 @@ import { leadingSlashPath } from '@/core/utils/strings'
 /** *
  * Cache object
  *
- * @return :object
+ * @return {Object}
  */
 const cache = (() => {
 	/*
@@ -24,9 +24,9 @@ const cache = (() => {
 		 *
 		 * set an item into the cache
 		 *
-		 * @param :string, :any
+		 * @param {String}, :any
 		 *
-		 * @return void
+		 * @return {void}
 		 */
 		set(key, value) {
 			cache[leadingSlashPath(key)] = value
@@ -39,9 +39,9 @@ const cache = (() => {
 		 *
 		 * the input is beautified, with a leading slash, before requesting
 		 *
-		 * @param :string
+		 * @param {String}
 		 *
-		 * @return :any
+		 * @return {Object}
 		 */
 		get(key) {
 			return cache[leadingSlashPath(key)]

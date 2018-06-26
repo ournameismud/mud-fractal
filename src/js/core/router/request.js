@@ -3,9 +3,9 @@ import cache from './cache'
 /** *
  * request function... ajax or cache
  *
- * @param :string - the pathname
- * @param :object - any fetch options
- * @param :string - the type of response transofmr
+ * @param {String} - the pathname
+ * @param {Object} - any fetch options
+ * @param {String} - the type of response transofmr
  *
  * @return :promise
  */
@@ -31,8 +31,8 @@ export default (
 		/** *
 		 * native fetch
 		 *
-		 * @param :string - the pathname
-		 * @param :object - any fetch options
+		 * @param {String} - the pathname
+		 * @param {Object} - any fetch options
 		 *
 		 * @return :promise
 		 */

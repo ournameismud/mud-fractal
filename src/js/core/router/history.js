@@ -30,9 +30,9 @@ const historyManager = (() => {
 		 *
 		 * set an item into the history store
 		 *
-		 * @param :string, :any
+		 * @param {String}, :any
 		 *
-		 * @return void
+		 * @return {void}
 		 */
 		set(key, value) {
 			store[key] = value
@@ -43,7 +43,7 @@ const historyManager = (() => {
 		 *
 		 * get an item from the history store
 		 *
-		 * @param :string
+		 * @param {String}
 		 *
 		 * @return :any
 		 */
@@ -54,8 +54,19 @@ const historyManager = (() => {
 		/*
 			wrapper function
 			
-			eg: history.push('/home', { some: 'state' })
+			eg: 
 		*/
+
+		/** *
+		 * push('path', opts = {})
+		 *
+		 * history.push('/home', { some: 'state' })
+		 *
+		 * @param {String}
+		 * @param {Object}
+		 *
+		 * @return :any
+		 */
 		push(...args) {
 			history.push(...args)
 		}

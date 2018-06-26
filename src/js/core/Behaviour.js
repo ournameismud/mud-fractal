@@ -54,24 +54,27 @@ export default (() => {
 
 		init() {
 			if (this.routes) {
-				if(this.routes.enter)
+				if (this.routes.enter)
 					this.$$eventBus.on(Actions.ROUTE_TRANSITION_ENTER, this.routes.enter)
-				
-				if(this.routes.exit)
+
+				if (this.routes.exit)
 					this.$$eventBus.on(Actions.ROUTE_TRANSITION_EXIT, this.routes.exit)
 			}
 		}
 
-		mount = () => {}
+		mount() {} // eslint-disable-line class-methods-use-this
 
-		unmount = () => {}
+		unmount() {} // eslint-disable-line class-methods-use-this
 
 		destroy() {
 			this.unmount()
 
 			if (this.routes) {
-				this.$$eventBus.off(Actions.ROUTE_TRANSITION_ENTER, this.routes.enter)
-				this.$$eventBus.off(Actions.ROUTE_TRANSITION_EXIT, this.routes.exit)
+				if (this.routes.enter)
+					this.$$eventBus.off(Actions.ROUTE_TRANSITION_ENTER, this.routes.enter)
+
+				if (this.routes.exit)
+					this.$$eventBus.off(Actions.ROUTE_TRANSITION_EXIT, this.routes.exit)
 			}
 		}
 	}
