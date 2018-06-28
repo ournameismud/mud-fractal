@@ -148,6 +148,27 @@ export const resizer = (function() {
  * @memberof Behaviour
  * @mixin ScreenMixin
  * @description class used to handle window resize events
+ * @example
+ * import ScreenMixin, { mix } from '@/core/ScreenMixin'
+ * import {
+ * 	ScreenMixin,
+ * } from '@/core/modules/'
+ *
+ * export default class ExampleWithAllTheThings extends mix(Behaviour).with(
+ * 	ScreenMixin
+ * ) {
+ * 	mount = () => {
+ * 		this.$$screen.on('window:resize', () => {})
+ * 	}
+ *
+ *	screens = {
+ *		'(min-width: 1024px)': ({ match, ...rest }) => {
+ *			if (match) {
+ *				log(rest)
+ *			}
+ *		}
+ *	}
+ * }
  * @return {RefsMixin}
  */
 export const ScreenMixin = superclass =>

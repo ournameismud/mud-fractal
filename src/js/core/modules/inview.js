@@ -58,6 +58,31 @@ export function inview(base = document, events = {}) {
  * @memberof Behaviour
  * @mixin InviewMixin
  * @description class used to manage elements entering/exiting the viewport
+ * @example
+ * import InviewMixin, { mix } from '@/core/ScreenMixin'
+ * import {
+ * 	RefsMixin,
+ * } from '@/core/modules/'
+ *
+ * export default class ExampleWithAllTheThings extends mix(Behaviour).with(
+ * 	InviewMixin
+ * ) {
+ * 	mount = () => {
+ * 		this.$$inview.watch({
+ * 			selector: '[data-element]'
+ * 		})
+ * 	}
+ *
+ * 	viewport = {
+ *		enter: node => {
+ *			log('exit', node)
+ *		},
+ *
+ *		exit: node => {
+ *			log('exit', node)
+ *		}
+ *	}
+ * }
  * @return {InviewMixin}
  */
 export const InviewMixin = superclass =>

@@ -47,7 +47,19 @@ export default root => createRefs([...root.querySelectorAll('*[data-element]')])
  * Create a router
  * @memberof Behaviour
  * @mixin RefsMixin
- * @description class used to query the behaviour for data-element nodes
+ * @example
+ * import ScreenMixin, { mix } from '@/core/ScreenMixin'
+ * import {
+ * 	RefsMixin,
+ * } from '@/core/modules/'
+ *
+ * export default class ExampleWithAllTheThings extends mix(Behaviour).with(
+ * 	RefsMixin
+ * ) {
+ * 	mount = () => {
+ * 		this.$$refs.someElement.node.classList.add('hello')
+ * 	}
+ * }
  * @return {RefsMixin}
  */
 export const RefsMixin = superclass =>
