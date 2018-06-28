@@ -15,15 +15,54 @@ class MixinBuilder {
 export const mix = superclass => new MixinBuilder(superclass)
 
 /**
- * Create a router
+ *
  * @namespace Behavior
+ * @description Behavior class to handle adding/removing functionality from the dom.
+ * Use the mixins to add enhancements
  *
  * @class Behavior
  *
- * @property {HTMLElement} el - the html element to bind the behaviour too
- * @property {String} name - a name to give the behaviour
+ * @param {HTMLElement} el - the html element to bind the behaviour too
+ * @param {String} name - a name to give the behaviour
  *
- * @return {Behaviour}
+ * @property {String} Behaviour.$name -  The name given to the behaviour
+ * @property {HTMLElement} Behaviour.$el -  The element the behaviour is attached to
+ * @property {HTMLElement} Behaviour.$body -  the body element
+ * @property {HTMLElement} Behaviour.$html -  the html element
+ * @property {Object} Behaviour.$data - any data attributes on the $el
+ * @property {Function} Behaviour.$$$eventBus.on -  global event emitter, listen to events
+ * @property {Function} Behaviour.$$$eventBus.off -  global event emitter, remove to events
+ * @property {Function} Behaviour.$$$eventBus.emit -  global event emitter, emit event
+ * @property {Object} Behavior.KEY_CODES
+ * @property {Number} Behaviour.KEY_CODS.DELETE_KEY -  delete
+ * @property {Number} Behaviour.KEY_CODS.SHIFT_KEY - shift
+ * @property {Number} Behaviour.KEY_CODS.CTRL_KEY - control
+ * @property {Number} Behaviour.KEY_CODS.ALT_KEY -  alt
+ * @property {Number} Behaviour.KEY_CODS.RETURN_KEY - return
+ * @property {Number} Behaviour.KEY_CODS.ESC_KEY - escape
+ * @property {Number} Behaviour.KEY_CODS.SPACE_KEY - space
+ * @property {Number} Behaviour.KEY_CODS.LEFT_KEY - left
+ * @property {Number} Behaviour.KEY_CODS.UP_KEY - up
+ * @property {Number} Behaviour.KEY_CODS.RIGHT_KEY - right
+ * @property {Number} Behaviour.KEY_CODS.DOWN_KEY - down
+ * @property {Number} Behaviour.KEY_CODS.CMD_KEY - command
+ * @example
+ * import Behaviour from '@/core/Behaviour'
+ *
+ * export default class ExampleWithAllTheThings Behaviour {
+ * 	mount = () => {
+ * 		// this.$el === the node with the data-behaviour
+ * 		this.$el.classList.add('mount')
+ * 		// this.$body === <body></body>
+ * 		// this.$html === <html></html>
+ * 		// this.KEY_CODES === common key codes
+ * 		// this.$data === any data attributes on this.$el
+ * 	}
+ *
+ * 	unmount = () => {}
+ * }
+ *
+ * @return {Behavior}
  */
 export default (() => {
 	const $html = document.getElementsByTagName('html')[0]

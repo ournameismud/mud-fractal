@@ -81,3 +81,7 @@ Clone the repo… and install
 > Format all the code with prettier
 
 `npm run pretty`
+
+> Generate documentation
+
+`npm run generate-docs`

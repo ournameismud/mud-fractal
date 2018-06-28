@@ -7,12 +7,11 @@ export default (event, element, callback) => {
 		if (e.target === element && !complete) {
 			complete = true
 			resolve()
-			return
 		}
 	}
 
 	return new Promise(resolve => {
-		callback && callback()
+		callback()
 		element.addEventListener(event, done.bind(null, resolve))
 	})
 }

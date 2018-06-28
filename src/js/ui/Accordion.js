@@ -2,9 +2,16 @@ import { createEvents } from '@/core/modules/createEvents'
 import mitt from 'mitt'
 
 /** *
+ * @namespace Accordion
  * @class Accordion
- * @desc This class handles accordions...
- * @example /04-components/downloads-draw
+ * @desc This class handles accordions... 
+ * @example 
+ * 
+ * js: 
+ * 
+ * new Accordion(document.getElementById('accordion'), { 
+ * 	closeOthers: true 
+ * }, 'ui-key').mount()
  * 
  * Required markup:
  * 
@@ -23,9 +30,13 @@ import mitt from 'mitt'
 		</li>
 	</ul>
  *
- * @param {HTMLElement} - node to bind to 
- * @param {Object} - options
- * @param {String} - key name
+
+ * @param {HTMLElement} el - node to bind to
+ * @param {Object} options - options
+ * @param {String} key - key name
+ *
+ * @property {Boolean} options.closeOthers - only allow one accordion to be open at a time
+ * @property {Number} options.activeIndex - set one of the accordions to be open
  * 
  * @return {Accordion}
  */
@@ -75,6 +86,7 @@ export default class Accordion {
 	}
 
 	/** *
+	 * @memberof Accordion
 	 * @method mount
 	 * @desc Add the events
 	 *
@@ -88,14 +100,23 @@ export default class Accordion {
 		'click [data-accordion-button]': 'onClick'
 	}
 
+	/** *
+	 * @memberof Accordion
+	 * @method unmount
+	 * @desc remove the events
+	 *
+	 * @return {void}
+	 */
 	unmount = () => {
 		this.$$events.destroy()
 	}
 
 	/** *
+	 * @memberof Accordion
 	 * @method onClick
 	 * @desc the click event...
-	 * @param {Object} : the event object
+	 * @param {Object} e : the event object
+	 * @param {HTMLElement} elm : the node clicked
 	 *
 	 * @return {void}
 	 */
@@ -126,9 +147,10 @@ export default class Accordion {
 	}
 
 	/** *
+	 * @memberof Accordion
 	 * @method open
 	 * @desc Open the accordion
-	 * @param {Number} : index of the accordion to open
+	 * @param {Number} index : index of the accordion to open
 	 *
 	 * @return {void}
 	 */
@@ -142,9 +164,10 @@ export default class Accordion {
 	}
 
 	/** *
+	 * @memberof Accordion
 	 * @method close
 	 * @desc Close the accordion
-	 * @param {Number} : index of the accordion to close
+	 * @param {Number} index : index of the accordion to close
 	 *
 	 * @return {void}
 	 */

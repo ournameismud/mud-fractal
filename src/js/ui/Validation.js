@@ -13,7 +13,7 @@ import mitt from 'mitt'
  *
  * js:
  * const $form = document.querySelector('[data-form-delivery]')
- * const valid = new Validate($form, {
+ * const validator = new Validate($form, {
  * 	rules: {
  * 		email: {
  * 			presence: true,
@@ -28,19 +28,19 @@ import mitt from 'mitt'
  * 			presence: true
  * 		}
  * 	},
- * 	ajax: false
+ * 	ajax: true
  * })
  *
- * valid.mount()
+ * validator.mount()
  *
- * valid.on('submit:success', ({ data }) => {
+ * validator.on('submit:success', ({ data }) => {
  * 	fetch(data, {
  * 		method: 'POST'
  * 	})
- * 		.then(response => response.json)
- * 		.then(data => {
- * 			// handle the response
- * 		})
+ * 	.then(response => response.json)
+ * 	.then(data => {
+ * 		// handle the response
+ * 	})
  * })
  *
  * html:
@@ -51,6 +51,11 @@ import mitt from 'mitt'
  * 	</div>
  * 	<button type="submit">Submit</button>
  * </form>
+ *
+ * @param {HTMLElement} el - the form to validate
+ * @param {Object} options - any form options
+ * @property {Boolean} options.ajax - should prevent default be called when submitting the form
+ * @property {Boolean} options.rules - form validation rules
  *
  */
 

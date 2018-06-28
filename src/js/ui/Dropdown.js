@@ -4,12 +4,15 @@ import animationEnd from '@/utils/animationEnd'
 import mitt from 'mitt'
 
 /** *
- * @class DropDown
- * @desc This class handles dropdowns...
- * @example /04-components/dropdown
- * 
+ * @namespace Dropdown
+ * @class Dropdown
+ * @description Handles dropdowns
+ *
+ * @example
+ *
  * Required markup:
- * 
+ *
+ * html:
  * <div data-ui="Dropdown" data-ui-options='{"update-text": true, "intercept-links": true}' data-ui-key="downloads-dropdown">
  * 	<button data-dropdown-button>
  * 		<span class="mr-1" data-dropdown-text>View all products</span>
@@ -30,9 +33,13 @@ import mitt from 'mitt'
  * 	</div>
  * </div>
  *
- * @param {HTMLElement} - node to bind to 
- * @param {Object} - options
- * @param {String} - key name
+ * @param {HTMLElement} el - node to bind to
+ * @param {Object} options - options
+ * @param {String} key - key name
+ *
+ * @property {Boolean} options.updateText - should the dropdown text update to reflect the selected item
+ * @property {Boolean} options.interceptLinks - should any links called prevent default
+ * @property {Boolean} options.closeOnClick - should the dropdown close when an item is clicked
  *
  * @return {DropDown}
  */
@@ -76,6 +83,7 @@ export default class DropDown {
 	}
 
 	/** *
+	 * @memberof Dropdown
 	 * @method mount
 	 * @desc Add the events
 	 *
@@ -87,6 +95,7 @@ export default class DropDown {
 
 	/** *
 	 * @method mount
+	 * @memberof Dropdown
 	 * @desc removes the events
 	 *
 	 * @return {void}
@@ -104,9 +113,10 @@ export default class DropDown {
 	}
 
 	/** *
+	 * @memberof Dropdown
 	 * @method onClick
 	 * @desc the click event...
-	 * @param {Object} : the event object
+	 * @param {Object} e : the event object
 	 *
 	 * @return {void}
 	 */
@@ -121,6 +131,7 @@ export default class DropDown {
 	}
 
 	/** *
+	 * @memberof Dropdown
 	 * @method onBlur
 	 * @desc the blur event... this is used to close the dropdown when clicking outside
 	 *
@@ -143,10 +154,11 @@ export default class DropDown {
 	}
 
 	/** *
+	 * @memberof Dropdown
 	 * @method onItemClick
 	 * @desc handle various options, this is only called when intercept links is true
-	 * @param {Object} : the event object
-	 * @param {HTMLElement} : the element clicked
+	 * @param {Object} e : the event object
+	 * @param {HTMLElement} elm : the element clicked
 	 *
 	 * @return {void}
 	 */
@@ -181,9 +193,10 @@ export default class DropDown {
 	}
 
 	/** *
+	 * @memberof Dropdown
 	 * @method onResetClick
 	 * @desc reset the dropdown label text and close
-	 * @param {Object} : the event object
+	 * @param {Object} e : the event object
 	 *
 	 * @return {void}
 	 */
@@ -202,6 +215,7 @@ export default class DropDown {
 	}
 
 	/** *
+	 * @memberof Dropdown
 	 * @method open
 	 * @desc open the dropdown, once the animation has finished set the focus state
 	 *
@@ -219,6 +233,7 @@ export default class DropDown {
 	}
 
 	/** *
+	 * @memberof Dropdown
 	 * @method close
 	 * @desc close the dropdown
 	 *

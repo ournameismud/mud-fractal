@@ -71,9 +71,38 @@ export const createEvents = R.curry(function(context, obj) {
 
 /**
  * Create a router
- * @memberof Behaviour
  * @mixin EventsMixin
  * @description class used to manage adding/removing delegated dom events
+ *
+ * @example
+ * import Behaviour, { mix } from '@/core/Behaviour'
+ * import {
+ * 	EventsMixin,
+ * } from '@/core/modules/'
+ *
+ * export default class ExampleWithAllTheThings extends mix(Behaviour).with(
+ * 	EventsMixin
+ * ) {
+ * 	events = {
+ * 		'click [data-link]': 'onClick'
+ * 	}
+ *
+ * 	mount = () => {
+ * 		// attach all the events
+ * 		this.$$events.attachAll()
+ * 		// attach events by key
+ * 		this.$$events.attach(['click [data-link]'])
+ * 		// remove events by key
+ * 		this.$$events.remove(['click [data-link]'])
+ * 		// destroy all the events
+ * 		this.$$events.destroy()
+ * 	}
+ *
+ * 	onClick = (e, elm) => {
+ * 		e.preventDefault()
+ * 		elm.classList.toggle('huzzah')
+ * 	}
+ * }
  * @return {EventsMixin}
  */
 export const EventsMixin = superclass =>

@@ -31,13 +31,13 @@ export default (() => {
 	 *
 	 * @class Router
 	 *
-	 * @property {Object} options
-	 * @property {String} options.routes - an array of routes
-	 * @property {HTMLElement} options.rootNode - the root html element
-	 * @property {Array} options.navLinks - any array of anchors to update on transition
-	 * @property {Object} options.classes.match - The class applied to matching linkes
-	 * @property {Object} options.classes.root - The class applied to matching root link
-	 * @property {Object} options.classes.parent - The class applied to mathcing parent link
+	 * @param {Object} options
+	 * @param {String} options.routes - an array of routes
+	 * @param {HTMLElement} options.rootNode - the root html element
+	 * @param {Array} options.navLinks - any array of anchors to update on transition
+	 * @param {Object} options.classes.match - The class applied to matching linkes
+	 * @param {Object} options.classes.root - The class applied to matching root link
+	 * @param {Object} options.classes.parent - The class applied to mathcing parent link
 	 *
 	 */
 	return class Router {
@@ -82,11 +82,11 @@ export default (() => {
 		/** *
 		 * @static goTo
 		 * @memberof Router
-		 * @property {Object} options
-		 * @property {String} options.pathname - pathname for the page to navigate to
-		 * @property {String} options.action - the type of history action
-		 * @property {Object} options.dataAttrs - any data attributes on the link clicked
-		 * @property {Object} transition - transition, a custom transition object
+		 * @param {Object} options
+		 * @param {String} options.pathname - pathname for the page to navigate to
+		 * @param {String} options.action - the type of history action
+		 * @param {Object} options.dataAttrs - any data attributes on the link clicked
+		 * @param {Object} transition - transition, a custom transition object
 		 *
 		 * @return {void}
 		 */
@@ -111,8 +111,8 @@ export default (() => {
 		 * @method onMouseEnter
 		 * @memberof Router
 		 * @description mouse enter event, triggers a fetch
-		 * @property {Object} e - event object
-		 * @property {HTMLElement} elm - the html element entered
+		 * @param {Object} e - event object
+		 * @param {HTMLElement} elm - the html element entered
 		 *
 		 * @return {void}
 		 */
@@ -132,8 +132,8 @@ export default (() => {
 		 * @method onClick
 		 * @memberof Router
 		 * @description mouse click event, triggers a fetch
-		 * @property {Object} e - event object
-		 * @property {HTMLElement} elm - the html element entered
+		 * @param {Object} e - event object
+		 * @param {HTMLElement} elm - the html element entered
 		 *
 		 * @return {void}
 		 */
