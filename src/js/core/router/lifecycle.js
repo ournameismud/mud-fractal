@@ -8,11 +8,33 @@ import eventBus from '@/core/modules/eventBus'
 import * as Action from './actions'
 import domify from 'domify'
 
-/** *
- * native lifecycle
+/**
+ * @typedef {Object} lifecycle
+ * @property {function} addRoutes - add the routes to the lifecycle
+ * @property {Array} addRoutes.routesObject - an array of anchors
  *
- * @return {Object}
+ * @property {function} setWrapper - function to set the wrapper element
+ * @property {HTMLElement} setWrapper.node - the html element to set as a wrapper
+ *
+ * @property {function} onLoad - function to set the wrapper element
+ * @property {String} onLoad.pathname - the pathname to load
+ *
+ * @property {function} transition
+ * @property {String} transition.pathname - path name to transition to
+ * @property {String} transition.action - the history action - POP|PUSH
+ * @property {String} transition.transition - a custom transition object
+ * @property {String} transition.dataAttrs - any data attributes on the link clicked
+ *
  */
+
+/**
+ * Create a router
+ * @memberof RouterUtils
+ * @description lifecycle of pages entering/exiting the dom
+ * @function lifecycle
+ * @return {lifecycle}
+ */
+
 const lifecycle = (() => {
 	/*
 		setup to vars to share
@@ -23,34 +45,12 @@ const lifecycle = (() => {
 	let wrapper
 
 	return {
-		/** *
-		 *
-		 * create the matchRoute function
-		 * setup the history store
-		 *
-		 * @function addRoutes
-		 * @param {Array}
-		 *
-		 * @return :lifecycle
-		 */
-
 		addRoutes(routesObject) {
 			matchRoute = findRoute(routesObject)
 			historyManager.set('from', matchRoute(window.location.pathname))
 			return this
 		},
 
-		/** *
-		 *
-		 * assign the default wrapper...
-		 *
-		 * i'm thinking this could be overwritten on a route basis
-		 *
-		 * @function setWrapper
-		 * @param :HTMLElement
-		 *
-		 * @return :lifecycle
-		 */
 		setWrapper(node) {
 			// assign the node to the wrapper var
 			wrapper = node
@@ -58,15 +58,6 @@ const lifecycle = (() => {
 			return this
 		},
 
-		/** *
-		 *
-		 * This function is called once upon load
-		 *
-		 * @function setWrapper
-		 * @param {String} -> the pathname yeah: /blog/terry
-		 *
-		 * @return :lifecycle
-		 */
 		onLoad(pathname) {
 			// get the new route object
 			const newState = matchRoute(pathname)
@@ -85,19 +76,6 @@ const lifecycle = (() => {
 			return this
 		},
 
-		/** *
-		 *
-		 * This is the main thing... from/request/to etc... all here
-		 *
-		 * @function transition
-		 * @param {Object}
-		 * 	@property {String} pathname
-		 * 	@property {String} action - POP|PUSH
-		 * 	@property {Object} transition
-		 * 	@property :dataAttrs object - any data attribute on the link
-		 *
-		 * @return :lifecycle
-		 */
 		transition({ pathname, action, transition: trans, dataAttrs }) {
 			// get the new route object
 			const newState = matchRoute(pathname)

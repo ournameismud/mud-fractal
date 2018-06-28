@@ -1,16 +1,15 @@
 import * as R from 'ramda'
-
 /**
+ * @memberof loader
+ * @description Get data behaviours and instantiate
+ * @function gather
+ * @property {Promise} fn - The dynamic import function
+ * @property {String} attr - The data attribute used to select behaviours
  *
- * @function loader
- *
- * @param :promise -> behaviour => import(`@/behaviours/${behaviour}`)
- *
- * @return {Object}
+ * @return {Promise}
  *
  */
-
-export const gather = (fn, attr) =>
+export const gather = (fn, attr = 'data-behaviour') =>
 	R.compose(
 		R.map(
 			({ node, behaviour }) =>
@@ -37,27 +36,30 @@ export const gather = (fn, attr) =>
 		)
 	)
 
+/**
+ * @namespace loader
+ * @function loader
+ * @property {Promise} -> behaviour => import(`@/behaviours/${behaviour}`)
+ *
+ * @return {Object}
+ *
+ */
 export default function loader(fn) {
 	const state = {
 		stack: [],
 		scope: []
 	}
 
-	// get all of the data-behaviour props
-	// return an array of behaviour objects
 	const gatherBehaviours = gather(fn, 'data-behaviour')
 
 	/**
-	 * @public
-	 *
-	 * Get data behaviours and instantiate
-	 *
+	 * @memberof loader
+	 * @description Get data behaviours and instantiate
 	 * @function hydrate
+	 * @property {HTMLElement} context - the selector to query from
+	 * @property {String} wrapper - css selector, used to work out if an element should be destroyed
 	 *
-	 * @param :HTMLElement
-	 * @param {String} - css selector
-	 *
-	 * @return {Object}
+	 * @return {Promise}
 	 *
 	 */
 	function hydrate(context, wrapper = '#page-wrapper') {
@@ -86,14 +88,10 @@ export default function loader(fn) {
 	}
 
 	/**
-	 * @public
-	 *
-	 * destroy the behaviours
-	 *
+	 * @memberof loader
+	 * @description Unmount the scoped behaviours
 	 * @function unmount
-	 *
-	 * @return {void}e
-	 *
+	 * @return {void}
 	 */
 	function unmount() {
 		R.compose(

@@ -4,6 +4,15 @@ import { parseUrl } from './parseUrl'
 
 import local from 'local-links'
 
+/**
+ *
+ * @memberof RouterUtils
+ * @function localLinks
+ * @description adds target blank and rel noopener attributes to external links
+ * @property {HTMLElement} scope - the element to query from
+ * @return {Object}
+ *
+ */
 export const localLinks = scope =>
 	[...scope.querySelectorAll('a')]
 		.filter(
@@ -18,9 +27,14 @@ export const localLinks = scope =>
 		})
 
 /**
- * credit:
  *
- * https://github.com/luruke/barba.js/blob/master/src/Pjax/Pjax.js
+ * @memberof RouterUtils
+ * @function preventClick
+ * @description checks whether a link should be handled by the router
+ * @author https://github.com/luruke/barba.js/blob/master/src/Pjax/Pjax.js
+ * @property {Object} evt - the event object
+ * @property {HTMLElement} element - the anchor being tested
+ * @return {Boolean}
  *
  */
 export function preventClick(evt, element) {
@@ -58,7 +72,14 @@ export function preventClick(evt, element) {
 
 	return true
 }
-
+/**
+ *
+ * @memberof RouterUtils
+ * @function activeLinks
+ * @description add active classes to any active elements
+ * @return {function}
+ *
+ */
 export const activeLinks = (() => {
 	let previous
 	let $anchors = []

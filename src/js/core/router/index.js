@@ -9,6 +9,10 @@ import lifecycle from './lifecycle'
 import lazyload from './lazyload'
 import * as Action from './actions'
 
+/**
+ * @namespace RouterUtils
+ */
+
 export default (() => {
 	const defaultRoutes = [
 		{
@@ -21,11 +25,20 @@ export default (() => {
 		}
 	]
 
-	/** *
-	 * @class Router
-	 * @param {Object}
+	/**
+	 * Create a router
+	 * @namespace Router
 	 *
-	 * @return {Router}
+	 * @class Router
+	 *
+	 * @property {Object} options
+	 * @property {String} options.routes - an array of routes
+	 * @property {HTMLElement} options.rootNode - the root html element
+	 * @property {Array} options.navLinks - any array of anchors to update on transition
+	 * @property {Object} options.classes.match - The class applied to matching linkes
+	 * @property {Object} options.classes.root - The class applied to matching root link
+	 * @property {Object} options.classes.parent - The class applied to mathcing parent link
+	 *
 	 */
 	return class Router {
 		constructor({
@@ -68,7 +81,12 @@ export default (() => {
 
 		/** *
 		 * @static goTo
-		 * @param {Object}
+		 * @memberof Router
+		 * @property {Object} options
+		 * @property {String} options.pathname - pathname for the page to navigate to
+		 * @property {String} options.action - the type of history action
+		 * @property {Object} options.dataAttrs - any data attributes on the link clicked
+		 * @property {Object} transition - transition, a custom transition object
 		 *
 		 * @return {void}
 		 */
@@ -91,9 +109,10 @@ export default (() => {
 
 		/** *
 		 * @method onMouseEnter
+		 * @memberof Router
 		 * @description mouse enter event, triggers a fetch
-		 * @param {Object} - event object
-		 * @param {HTMLElement} -
+		 * @property {Object} e - event object
+		 * @property {HTMLElement} elm - the html element entered
 		 *
 		 * @return {void}
 		 */
@@ -111,9 +130,10 @@ export default (() => {
 
 		/** *
 		 * @method onClick
-		 * @description click event, fetch the next page
-		 * @param {Object} - event object
-		 * @param {HTMLElement} -
+		 * @memberof Router
+		 * @description mouse click event, triggers a fetch
+		 * @property {Object} e - event object
+		 * @property {HTMLElement} elm - the html element entered
 		 *
 		 * @return {void}
 		 */
@@ -136,6 +156,7 @@ export default (() => {
 
 		/** *
 		 * @method mount
+		 * @memberof Router
 		 * @description Called after instantiation, boots everything up
 		 *
 		 * @return {Router}
@@ -161,6 +182,7 @@ export default (() => {
 
 		/** *
 		 * @method lazyload
+		 * @memberof Router
 		 * @description prefetch content on a service worker
 		 *
 		 * @return {Router}

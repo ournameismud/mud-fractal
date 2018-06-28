@@ -4,12 +4,11 @@ import * as str from '@/core/utils/strings'
 import { matchRoute, parseUrl } from './parseUrl'
 
 /**
- * recursively loop over any route children
- * returns a functions that expects an array of routes
- *
+ * @memberof RouterUtils
  * @function mapChildren
+ * @description recursively loop over any route children returns a functions that expects an array of routes
  *
- * @param {String}
+ * @property {String} base - The base path
  *
  * @return {Function}
  */
@@ -37,15 +36,12 @@ function mapChildren(base) {
 }
 
 /**
- * flattens the routes into a single flat array
- *
+ * @memberof RouterUtils
  * @function flattenRoutes
- *
- * @param {Array}
- *
- * @return {Array}
+ * @description Flatten the nest route map into a 1 dimensional array
+ * @property {Array} - The routes array to flatten
+ * @return {Array} - The flattened route
  */
-
 export const flattenRoutes = R.reduce((acc, curr) => {
 	const { path: tmpPath, children, ...rest } = curr
 	const tmp = []
@@ -65,17 +61,14 @@ export const flattenRoutes = R.reduce((acc, curr) => {
 }, [])
 
 /**
- * finds all the route matches
- * gives each match a score
- *
+ * @memberof RouterUtils
  * @function matches
- *
- * @param {Array}
- * @param {String}
- * @param {Object}
- *
- * @return {Object}
+ * @description finds all the route matches and gives each match a score
+ * @property {Array} routes - The routes array to search through
+ * @property {Object} data - data about the requested url
+ * @return {Array} - An array of matching routes
  */
+
 const matches = (routes, data) => {
 	const { path: slug } = data
 
@@ -109,6 +102,20 @@ const matches = (routes, data) => {
 	)(routes)
 }
 
+/**
+ * @typedef {Object} Route
+ * @property {Object} route - the matched route
+ * @property {Object} rest - all the other properties from the url data
+ * @property {Object} params - any url params
+ */
+
+/**
+ * @memberof RouterUtils
+ * @function findRoute
+ * @description function used to match urls to routes
+ * @property {Array} routes - The routes array to search through
+ * @return {Route}
+ */
 export const findRoute = routes => {
 	const routeMap = flattenRoutes(routes)
 	return url => {

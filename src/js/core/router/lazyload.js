@@ -4,15 +4,19 @@ import cache from './cache'
 import { preventClick } from './utils/links'
 import { inview } from '@/core/modules/inview'
 
-/** *
- * lazyload/prefetch items on a webworker...
+/**
+ * @typedef {Object} Lazyload
+ * @property {function} load function to track items in the viewport and fetch
+ * @property {Array} load.args an array of anchors
  *
- * returns a function which when called requests urls and adds them to the cache
- *
- * @param {Array|nodeList}
- *
- * @return {Function}
- *
+ */
+
+/**
+ * Create a router
+ * @memberof RouterUtils
+ * @description fetch links within the viewport on a web worker
+ * @function lazyload
+ * @return {Lazyload}
  */
 
 export default (() => {

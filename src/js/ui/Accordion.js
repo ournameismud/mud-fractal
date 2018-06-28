@@ -11,15 +11,15 @@ import mitt from 'mitt'
  * <ul data-ui="Accordion" data-ui-options='{"close-others": true, "active-index": 1}' data-ui-key="downloads-accordion">
 		<li>
 			<a href="#bt1" data-accordion-button>Datasheets</a>
-			<ul class="list-reset hidden" id="bt1">...</ul>
+			<ul class="list-reset hidden" data-accordion-dropdown id="bt1">...</ul>
 		</li>
 		<li>
 			<a href="#bt2" data-accordion-button>Datasheets</a>
-			<ul class="list-reset hidden" id="bt2">...</ul>
+			<ul class="list-reset hidden" data-accordion-dropdown id="bt2">...</ul>
 		</li>
 		<li>
 			<a href="#bt3" data-accordion-button>Datasheets</a>
-			<ul class="list-reset hidden" id="bt3">...</ul>
+			<ul class="list-reset hidden" data-accordion-dropdown id="bt3">...</ul>
 		</li>
 	</ul>
  *

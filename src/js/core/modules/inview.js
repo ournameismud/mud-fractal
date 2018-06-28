@@ -53,6 +53,13 @@ export function inview(base = document, events = {}) {
 	}
 }
 
+/**
+ * Create a router
+ * @memberof Behaviour
+ * @mixin InviewMixin
+ * @description class used to manage elements entering/exiting the viewport
+ * @return {InviewMixin}
+ */
 export const InviewMixin = superclass =>
 	class extends superclass {
 		init() {

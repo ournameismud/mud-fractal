@@ -46,7 +46,7 @@ export const parseCss = style => Object.entries(style)
  *
  * @function setStyle
  *
- * @param {HTMLElement}
+ * @param :HTMLELement
  * @param {Object}
  *
  * @example

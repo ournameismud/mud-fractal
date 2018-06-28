@@ -49,7 +49,9 @@
 		"coverage": "jest --coverage",
 		"gen-cert": "node ./cert/cli.js gen-certs",
 		"lint:js": "eslint --ext .js,.jsx .",
-		"pretty": "prettier 'src/**/*.{js,jsx,scss}' --write"
+		"pretty": "prettier 'src/**/*.{js,jsx,scss}' --write",
+		"generate-docs":
+			"node_modules/.bin/jsdoc -c jsdoc.json && cd docs && http-server"
 	},
 	"dependencies": {
 		"debug": "^3.1.0",
@@ -66,11 +68,15 @@
 		"path-to-regexp": "^2.1.0",
 		"picturefill": "^3.0.2",
 		"raf-throttle": "^2.0.3",
-		"ramda": "^0.25.0"
+		"ramda": "^0.25.0",
+		"validate.js": "^0.12.0"
 	},
 	"devDependencies": {
 		"babel-plugin-ramda": "^1.6.1",
+		"docdash": "^0.4.0",
 		"fetch-mock": "^6.4.2",
+		"jsdoc": "^3.5.5",
+		"http-server": "^0.11.1",
 		"mulp": "2.2.0",
 		"tailwindcss-alpha": "^0.1.1",
 		"tailwindcss-aspect-ratio": "^1.0.0",

@@ -15,8 +15,15 @@ class MixinBuilder {
 export const mix = superclass => new MixinBuilder(superclass)
 
 /**
- * class Behaviour
+ * Create a router
+ * @namespace Behavior
  *
+ * @class Behavior
+ *
+ * @property {HTMLElement} el - the html element to bind the behaviour too
+ * @property {String} name - a name to give the behaviour
+ *
+ * @return {Behaviour}
  */
 export default (() => {
 	const $html = document.getElementsByTagName('html')[0]
@@ -49,9 +56,19 @@ export default (() => {
 
 			this.KEY_CODES = KEY_CODES
 
-			this.$data = composeProps([...this.$el.attributes]) // here lies a bug
+			this.$data = this.$el.attributes
+				? composeProps([...this.$el.attributes])
+				: null // here lies a bug
 		}
 
+		/**
+		 * Create a router
+		 * @memberof Behavior
+		 *
+		 * @method init
+		 * @description initialise the router events
+		 * @return {void}
+		 */
 		init() {
 			if (this.routes) {
 				if (this.routes.enter)
@@ -62,10 +79,34 @@ export default (() => {
 			}
 		}
 
+		/**
+		 * Create a router
+		 * @memberof Behavior
+		 *
+		 * @method mount
+		 * @description called after instantiation
+		 * @return {void}
+		 */
 		mount() {} // eslint-disable-line class-methods-use-this
 
+		/**
+		 * Create a router
+		 * @memberof Behavior
+		 *
+		 * @method unmount
+		 * @description called when destroying
+		 * @return {void}
+		 */
 		unmount() {} // eslint-disable-line class-methods-use-this
 
+		/**
+		 * Create a router
+		 * @memberof Behavior
+		 *
+		 * @method destroy
+		 * @description kill the current behaviour
+		 * @return {void}
+		 */
 		destroy() {
 			this.unmount()
 

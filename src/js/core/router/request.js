@@ -1,13 +1,13 @@
 import cache from './cache'
 
-/** *
- * request function... ajax or cache
+/**
+ * @memberof RouterUtils
+ * @function request
  *
- * @param {String} - the pathname
- * @param {Object} - any fetch options
- * @param {String} - the type of response transofmr
- *
- * @return :promise
+ * @property {String} pathname - pathname to fetch
+ * @property {Object} options - options to be used by fetch
+ * @property {String} type - the type of response
+ * @return {Promise}
  */
 
 export default (

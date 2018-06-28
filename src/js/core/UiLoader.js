@@ -54,10 +54,29 @@ export default (() => {
 			)(JSON.parse(cache))
 		},
 
+		/** *
+		 * set('string', value)
+		 *		 *
+		 * set an item into the cache
+		 *
+		 * @param {string}
+		 * @param {function}
+		 *
+		 * @return {void}
+		 */
 		set(key, value) {
 			cache[key] = value
 		},
 
+		/** *
+		 * get('string')
+		 *
+		 * get an item from the cache
+		 *		 *
+		 * @param {String}
+		 *
+		 * @return {function}
+		 */
 		get(key) {
 			return cache[key]
 		},
@@ -66,6 +85,15 @@ export default (() => {
 			return cache
 		},
 
+		/** *
+		 * remove('string', value)
+		 *
+		 * delete an item from the cache
+		 *
+		 * @param {string}
+		 *
+		 * @return :any
+		 */
 		remove(key) {
 			delete cache[key]
 		}

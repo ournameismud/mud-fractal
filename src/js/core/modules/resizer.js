@@ -1,14 +1,6 @@
 import eventBus from '@/core/modules/eventBus'
 import raf from 'raf'
 import * as R from 'ramda'
-/** *
- *
- * Wrapper/Helper window resize event
- *
- * @function resizer
- *
- * @return {Function} resizer
- */
 
 export const resizer = (function() {
 	// get the :after style from the body
@@ -27,6 +19,7 @@ export const resizer = (function() {
 	/**
 	 *
 	 * @function getWindowProps
+	 * @member resizer
 	 *
 	 * @return {Object} with the current width/height/breakpoint
 	 */
@@ -41,21 +34,7 @@ export const resizer = (function() {
 			query
 		}
 	}
-	/**
-	 *
-	 * consumes an object like this:
-	 *
-	 *  {
-	 *	'(min-width: 960px)': () => {},
-	 *	'(min-width: 680px)': () => {}
-	 *	}
-	 *
-	 * @function mapEventsToResize
-	 *
-	 * @param {Object}
-	 *
-	 * @return {Array} of functions
-	 */
+
 	function mapEventsToResize(events) {
 		return R.compose(
 			R.map(([breakpoint, fn]) => {
@@ -116,15 +95,6 @@ export const resizer = (function() {
 		}
 	}
 
-	/**
-	 * add the window resize event
-	 *
-	 * returns the destroy method
-	 *
-	 * @function addWindowResizeEvent
-	 *
-	 * @return {Object}
-	 */
 	function addWindowResizeEvent() {
 		if (addWindowResizeEvent.isRunning) return
 		addWindowResizeEvent.isRunning = true
@@ -173,6 +143,13 @@ export const resizer = (function() {
 	}
 })()
 
+/**
+ * Create a router
+ * @memberof Behaviour
+ * @mixin ScreenMixin
+ * @description class used to handle window resize events
+ * @return {RefsMixin}
+ */
 export const ScreenMixin = superclass =>
 	class extends superclass {
 		init() {

@@ -5,11 +5,9 @@ import * as R from 'ramda'
 export const createEvents = R.curry(function(context, obj) {
 	const events = Object.entries(obj).map(([key, fn]) => {
 		const eventAndNode = R.compose(R.map(R.trim), R.split(' '))(key)
-		const capture = !!R.compose(
-			R.length,
-			R.match(/(blur|mouse|touch)/g),
-			R.head
-		)(eventAndNode)
+		const capture = !!R.compose(R.length, R.match(/(blur|mouse)/g), R.head)(
+			eventAndNode
+		)
 		const funk = typeof fn === 'string' ? this[fn] : fn
 		return [...eventAndNode, funk, capture]
 	})
@@ -71,6 +69,13 @@ export const createEvents = R.curry(function(context, obj) {
 	}
 })
 
+/**
+ * Create a router
+ * @memberof Behaviour
+ * @mixin EventsMixin
+ * @description class used to manage adding/removing delegated dom events
+ * @return {EventsMixin}
+ */
 export const EventsMixin = superclass =>
 	class extends superclass {
 		init() {

@@ -2,11 +2,21 @@ import createHistory from 'history/createBrowserHistory'
 import eventBus from '@/core/modules/eventBus'
 import * as Action from './actions'
 
-/** *
+/**
+ * @typedef {Object} History
+ * @property {function} set Set an items into cache
+ * @property {String} set.key Name of the item to cache
+ * @property {Object} set.value Value of the item to cache
+ * @property {function} get Get an item from the cache
+ * @property {String} get.key Name of the item to get
+ * @property {function} push push an item onto the history stack
  *
- * Create a history listener and listen for stuff
- *
- * @return object
+ */
+
+/**
+ * @memberof RouterUtils
+ * @function historyManager
+ * @return {History}
  */
 const historyManager = (() => {
 	// create a new history instance
@@ -25,48 +35,14 @@ const historyManager = (() => {
 	})
 
 	return {
-		/** *
-		 * set('string', value)
-		 *
-		 * set an item into the history store
-		 *
-		 * @param {String}, :any
-		 *
-		 * @return {void}
-		 */
 		set(key, value) {
 			store[key] = value
 		},
 
-		/** *
-		 * get('string')
-		 *
-		 * get an item from the history store
-		 *
-		 * @param {String}
-		 *
-		 * @return :any
-		 */
 		get(key) {
 			return store[key]
 		},
 
-		/*
-			wrapper function
-			
-			eg: 
-		*/
-
-		/** *
-		 * push('path', opts = {})
-		 *
-		 * history.push('/home', { some: 'state' })
-		 *
-		 * @param {String}
-		 * @param {Object}
-		 *
-		 * @return :any
-		 */
 		push(...args) {
 			history.push(...args)
 		}

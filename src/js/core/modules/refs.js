@@ -43,6 +43,13 @@ const createRefs = R.reduce((acc, node) => {
 
 export default root => createRefs([...root.querySelectorAll('*[data-element]')])
 
+/**
+ * Create a router
+ * @memberof Behaviour
+ * @mixin RefsMixin
+ * @description class used to query the behaviour for data-element nodes
+ * @return {RefsMixin}
+ */
 export const RefsMixin = superclass =>
 	class extends superclass {
 		init() {
