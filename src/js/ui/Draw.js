@@ -4,25 +4,28 @@ import mitt from 'mitt'
 /** *
  * @namespace Draw
  * @class Draw
- * @desc This class handles Draws... 
- * @example 
- * 
- * js: 
- * 
- * new Draw(document.getElementById('test'), {}, 'test-node').mount()
- * 
- * Required markup:
- * 
- * <div id="test" data-ui="Draw" data-ui-options='{}' data-ui-key="menu-draw"></div>
+ * @desc This class handles Draws...
+ * @example
  *
-
+ * js:
+ *
+ * new Draw(document.getElementById('test'), {}, 'test-node').mount()
+ *
+ * Required markup:
+ *
+ * <a href="#test" data-ui="Draw" data-ui-options='{}' data-ui-key="menu-draw"></a>
+ * <div id="test"></div>
+ *
+ * maybe?.. maybe data-attributes...
+ * hmmm... nah.. id me thinks
+ *
  * @param {HTMLElement} el - node to bind to
  * @param {Object} options - options
  * @param {String} key - key name
  *
  * @property {Boolean} options.XXX - only allow one Draw to be open at a time
  * @property {Number} options.XXX - set one of the Draws to be open
- * 
+ *
  * @return {Draw}
  */
 
