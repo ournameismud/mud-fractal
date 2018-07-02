@@ -33,7 +33,7 @@ Ui.mount().then(() => {
 				root: 'is-current-root',
 				parent: 'is-current-parent'
 			},
-			prefectTargets: '[data-prefetch]',
+			prefetchTargets: '[data-prefetch]',
 			onExit() {},
 			onEnter() {}
 		},

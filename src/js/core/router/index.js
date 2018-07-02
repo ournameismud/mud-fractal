@@ -48,7 +48,7 @@ export default (() => {
 			classes,
 			onEnter,
 			onExit,
-			prefectTargets = '[data-prefetch]'
+			prefetchTargets = '[data-prefetch]'
 		}) {
 			// bootup the lifecycle
 			lifecycle
@@ -56,7 +56,7 @@ export default (() => {
 				.setWrapper(rootNode)
 				.onLoad(window.location.pathname)
 
-			this.prefectTargets = prefectTargets
+			this.prefetchTargets = prefetchTargets
 
 			// the root node...
 			this.$wrapper = rootNode
@@ -188,7 +188,7 @@ export default (() => {
 		 * @return {Router}
 		 */
 		lazyload = () => {
-			const items = [...document.querySelectorAll(this.prefectTargets)]
+			const items = [...document.querySelectorAll(this.prefetchTargets)]
 			lazyload(items)
 			return this
 		}
