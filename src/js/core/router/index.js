@@ -118,14 +118,24 @@ export default (() => {
 		 */
 		onMouseEnter = (e, elm) => {
 			const { pathname } = elm
-			if (!preventClick(e, elm) || cache.get(pathname)) {
+			if (
+				!preventClick(e, elm) ||
+				cache.get(pathname) ||
+				elm.classList.contains('---is-fetching---')
+			) {
 				return
 			}
 
-			request(pathname).catch(err => {
-				// eslint-disable-next-line
-				console.warn(`[PREFETCH] no page found at ${pathname}`, err)
-			})
+			elm.classList.add('---is-fetching---')
+
+			request(pathname)
+				.then(() => {
+					elm.classList.remove('---is-fetching---')
+				})
+				.catch(err => {
+					// eslint-disable-next-line
+					console.warn(`[PREFETCH] no page found at ${pathname}`, err)
+				})
 		}
 
 		/** *
