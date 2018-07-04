@@ -1,0 +1,13 @@
+{% import '@helpers' as h %}
+
+{% set extend = craft.app.config.general.custom.wrapper ~ '_layout.twig' %}
+{% extends extend %}
+
+{% block critical_css %}
+	<!-- build:critical-->
+	<!-- endbuild -->
+{% endblock %}
+
+{% block content %}
+
+{% endblock %}
