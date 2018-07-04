@@ -8,15 +8,15 @@
 
 All of the build/task dependencies are managed through a single npm package. [mulp](https://github.com/ournameismud/mulp)
 
-### Getting started
+## Getting started
 
 Clone the repo… and install
 
-###### Installation
+### Installation
 
 `yarn` / `npm install`
 
-###### Gettings Start
+### Gettings Start
 
 > Start fractal server
 
@@ -25,6 +25,8 @@ Clone the repo… and install
 > With craft
 
 `npm run cms`
+
+### Builds
 
 > Create a library build
 
@@ -46,6 +48,8 @@ Clone the repo… and install
 
 `npm run build:static`
 
+### Units and regression tests
+
 > Save a snapshot of components for regression testing
 
 `npm run reference`
@@ -53,10 +57,6 @@ Clone the repo… and install
 > Test against the snapshots with an optimised build
 
 `npm run diff`
-
-> If you have netlify setup, you can deploy the fractal library with this
-
-`npm run deploy`
 
 > Run any tests with jest
 
@@ -70,9 +70,19 @@ Clone the repo… and install
 
 `npm run coverage`
 
+### Deployment (netlify)
+
+> If you have netlify setup, you can deploy the fractal library with this
+
+`npm run deploy`
+
+### https
+
 > Create https certs for browsersync
 
 `npm run gen-cert`
+
+### Linting/formatting
 
 > Lint all the javascript feels
 
@@ -85,3 +95,27 @@ Clone the repo… and install
 > Generate documentation
 
 `npm run generate-docs`
+
+### Fractal helpers
+
+The following commands require `komp`: https://github.com/FrancisVega/komp
+
+> Scaffold new objects/components/etc
+
+`komp new ./02-objects/example-obj --template fractal`
+
+> Scaffold new page
+
+`komp new ./05-objects/example-page --template page`
+
+### Postcss plugins available:
+
+- [postcss-inline-svg](https://github.com/TrySound/postcss-inline-svg)
+- [postcss-write-svg](https://github.com/jonathantneal/postcss-write-svg)
+- [postcss-aspect-ratio](https://www.npmjs.com/package/postcss-aspect-ratio)
+- [postcss-animation](https://www.npmjs.com/package/postcss-animation)
+- [postcss-triangle](https://github.com/jedmao/postcss-triangle)
+- [postcss-object-fit-images](https://github.com/ronik-design/postcss-object-fit-images)
+- [rucksack-css](https://github.com/seaneking/rucksack)
+- [postcss-easing-gradients](https://github.com/larsenwork/postcss-easing-gradients)
+- [tailwind](https://tailwindcss.com/)
