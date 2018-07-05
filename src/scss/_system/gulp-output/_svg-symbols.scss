@@ -5,65 +5,68 @@
 	display: block;
 	max-width: 100%;
 
-	> svg {
-		position: absolute;
+  > svg {
+    position: absolute;
 		width: 100%;
 		max-width: 100%;
-		height: 100%;
-		display: block;
-		fill: currentColor;
-	}
+    height: 100%;
+    display: block;
+    fill: currentColor;
+  }
 
-	&:after {
-		content: '';
-		display: block;
-		height: 0;
-		width: auto;
-	}
+  &:after {
+    content: "";
+    display: block;
+    height: 0; 
+    width: auto;
+  }
 }
 
 .icon--ui-close {
-	width: rem(22.4px);
-	&:after {
-		padding-bottom: 100%;
-	}
+  width: rem(22.4px);
+  &:after {
+    padding-bottom: 100%;
+  }
 }
 .icon--ui-facebook {
-	width: rem(20.28px);
-	&:after {
-		padding-bottom: 100%;
-	}
+  width: rem(20.28px);
+  &:after {
+    padding-bottom: 100%;
+  }
 }
 .icon--ui-instagram {
-	width: rem(20.04px);
-	&:after {
-		padding-bottom: 100%;
-	}
+  width: rem(20.04px);
+  &:after {
+    padding-bottom: 100%;
+  }
 }
 .icon--ui-next {
-	width: rem(25.77px);
-	&:after {
-		padding-bottom: 192%;
-	}
+  width: rem(25.77px);
+  &:after {
+    padding-bottom: 192%;
+  }
 }
 .icon--ui-prev {
-	width: rem(25.77px);
-	&:after {
-		padding-bottom: 192%;
-	}
+  width: rem(25.77px);
+  &:after {
+    padding-bottom: 192%;
+  }
 }
 .icon--ui-twitter {
-	width: rem(20.82px);
-	&:after {
-		padding-bottom: 80%;
-	}
+  width: rem(20.82px);
+  &:after {
+    padding-bottom: 80%;
+  }
 }
 .icon--ui-video-play {
-	width: rem(57px);
-	&:after {
-		padding-bottom: 100%;
-	}
+  width: rem(57px);
+  &:after {
+    padding-bottom: 100%;
+  }
 }
+
+
+
 
 $icon--ui-close-width: 22px;
 $icon--ui-close-height: 22px;

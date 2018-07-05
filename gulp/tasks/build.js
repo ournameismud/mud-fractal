@@ -21,6 +21,7 @@ function build(cb) {
 		if (util.env.config === 'cms') {
 			return buildCode(cb)
 				.then(fractalTemplates)
+				.then(purge)
 				.then(() => {
 					validateHtml()
 				})
