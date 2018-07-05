@@ -4,7 +4,8 @@ Spon.js is little framework to help manage javascript functionality for modern w
 
 The main idea behind this framework is to marry the two requirements together.
 
-
+## js docs:
+https://spondocs.netlify.com/
 
 ### Behaviour Features:
 

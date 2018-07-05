@@ -59,7 +59,8 @@
 		"lint:js": "eslint --ext src/js/** .",
 		"lint:scss": "stylelint src/**/*.scss --syntax scss",
 		"pretty": "prettier 'src/**/*.{js,jsx,scss}' --write",
-		"generate-docs": "node_modules/.bin/jsdoc -c jsdoc.json && cd docs && http-server"
+		"generate-docs": "node_modules/.bin/jsdoc -c jsdoc.json && cd docs && http-server",
+		"deploy-docs": "node_modules/.bin/jsdoc -c jsdoc.json && cd docs && netlify deploy"
 	},
 	"dependencies": {
 		"debug": "^3.1.0",
