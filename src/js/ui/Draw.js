@@ -55,7 +55,7 @@ export default class Draw {
 	}
 
 	events = {
-		'click [data-Draw-button]': 'onClick'
+		'click [data-draw-toggle]': 'onClick'
 	}
 
 	/** *
@@ -78,7 +78,9 @@ export default class Draw {
 	 *
 	 * @return {void}
 	 */
-	onClick = (e, elm) => {}
+	onClick = (e, elm) => {
+
+	}
 
 	/** *
 	 * @memberof Draw

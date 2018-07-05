@@ -49,7 +49,6 @@ export default class Accordion {
 
 	constructor(el, options, key) {
 		this.options = { ...this.defaults, ...options }
-		this.options = { ...this.defaults, ...options }
 		this.key = key
 
 		Object.assign(this, mitt())
