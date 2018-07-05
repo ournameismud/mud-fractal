@@ -4,18 +4,14 @@ const gulp = require('gulp')
 const changed = require('gulp-changed')
 const rename = require('gulp-rename')
 const util = require('gulp-util')
+const prependFile = require('prepend-file')
 
-module.exports = {
-	exportPaths,
-	fractalTemplates
-}
-
-gulp.task('fractalTemplates', fractalTemplates)
+/* eslint-disable */
 
 function fractalTemplates(input) {
-	const map = input
-		? input
-		: require(path.resolve(
+	const map =
+		input ||
+		require(path.resolve(
 			process.env.PWD,
 			PATH_CONFIG.src,
 			PATH_CONFIG.fractal.src,
@@ -40,22 +36,40 @@ function fractalTemplates(input) {
 	)
 
 	return Promise.all(
-		fracts.map(({ src, dest, handle }) => {
-			return new Promise(resolve => {
-				const d = path.resolve(process.env.PWD, PATH_CONFIG.fractal.base, dest)
-
-				gulp
-					.src(path.resolve(process.env.PWD, src))
-					.pipe(changed(d))
-					.pipe(
-						rename({
-							basename: handle
-						})
+		fracts.map(
+			({ src, dest, handle }) =>
+				new Promise(resolve => {
+					const d = path.resolve(
+						process.env.PWD,
+						PATH_CONFIG.fractal.base,
+						dest
 					)
-					.pipe(gulp.dest(d))
-					.on('end', resolve)
-			})
-		})
+
+					gulp
+						.src(path.resolve(process.env.PWD, src))
+						.pipe(changed(d))
+						.pipe(
+							rename({
+								basename: handle
+							})
+						)
+						.pipe(gulp.dest(d))
+						.on('end', () => {
+							prependFile(
+								`${d}/${handle}.twig`,
+								`{# GENERATED FILE. DO NOT EDIT.\n  GENERATED FILE. DO NOT EDIT.\n GENERATED FILE. DO NOT EDIT.\n #}\n`,
+								function(err) {
+									if (err) {
+										// Error
+										console.log(err)
+										process.exit()
+									}
+									resolve()
+								}
+							)
+						})
+				})
+		)
 	)
 }
 
@@ -63,7 +77,8 @@ function exportPaths(fractal) {
 	if (TASK_CONFIG.mode === 'fractal' && util.env.config === 'cms') {
 		return new Promise(resolve => {
 			const map = {}
-			for (let item of fractal.components.flattenDeep()) {
+
+			for (const item of fractal.components.flattenDeep()) {
 				if (
 					!item.viewPath.includes('01-base/') &&
 					!item.viewPath.includes('wrapper/')
@@ -78,7 +93,7 @@ function exportPaths(fractal) {
 					map[`@${handle}`] = {
 						src: path.resolve(process.env.PWD, item.viewPath),
 						dest: `${PATH_CONFIG.fractal.output}/${dest}`,
-						handle: handle,
+						handle,
 						target: `${PATH_CONFIG.fractal.output}/${dest}/${handle}.twig`
 					}
 				}
@@ -99,7 +114,13 @@ function exportPaths(fractal) {
 
 			resolve(map)
 		})
-	} else {
-		return Promise.resolve()
 	}
+	return Promise.resolve()
 }
+
+module.exports = {
+	exportPaths,
+	fractalTemplates
+}
+
+gulp.task('fractalTemplates', fractalTemplates)
