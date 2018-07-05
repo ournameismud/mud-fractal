@@ -1,6 +1,6 @@
 # mud-fractal
 
-## Gulp + Fractal
+## Webpack / Gulp / Fractal
 
 ![Mud](http://ournameismud.co.uk/css/images/maps-icon.png)
 
@@ -18,81 +18,81 @@ Clone the repo… and install
 
 ### Gettings Start
 
-> Start fractal server
+######  Start fractal server
 
 `npm start`
 
-> With craft
+###### With craft
 
 `npm run cms`
 
 ### Builds
 
-> Create a library build
+###### Create a library build
 
 `npm run build:fractal`
 
-> Create a production build
+###### Create a production build
 
 `npm run build`
 
-> Create an optimised build with critical/purge css
+###### Create an optimised build with critical/purge css
 
 `npm run build:production`
 
-> Build fractal components
+###### Build fractal components
 
 `npm run build:components`
 
-> Create a static build (see publish settings in gulp/path.config.json)
+###### Create a static build (see publish settings in gulp/path.config.json)
 
 `npm run build:static`
 
-### Units and regression tests
+### Unit and regression tests
 
-> Save a snapshot of components for regression testing
+###### Save a snapshot of components for regression testing
 
 `npm run reference`
 
-> Test against the snapshots with an optimised build
+######  Test against the snapshots with an optimised build
 
 `npm run diff`
 
-> Run any tests with jest
+###### Run any tests with jest
 
 `npm run test`
 
-> Run tests in watch mode
+###### Run tests in watch mode
 
 `npm run test:watch`
 
-> Get a test coverage report
+###### Get a test coverage report
 
 `npm run coverage`
 
 ### Deployment (netlify)
 
-> If you have netlify setup, you can deploy the fractal library with this
+###### If you have netlify setup, you can deploy the fractal library with this
 
 `npm run deploy`
 
 ### https
 
-> Create https certs for browsersync
+###### Create https certs for browsersync
 
 `npm run gen-cert`
 
 ### Linting/formatting
 
-> Lint all the javascript feels
+###### Lint all the javascript feels
 
 `npm run lint:js`
 
-> Format all the code with prettier
+###### Format all the code with prettier
 
 `npm run pretty`
 
-> Generate documentation
+###### Generate documentation
 
 `npm run generate-docs`
 
@@ -100,11 +100,11 @@ Clone the repo… and install
 
 The following commands require `komp`: https://github.com/FrancisVega/komp
 
-> Scaffold new objects/components/etc
+###### Scaffold new objects/components/etc
 
 `komp new ./02-objects/example-obj --template fractal`
 
-> Scaffold new page
+###### Scaffold new page
 
 `komp new ./05-objects/example-page --template page`
 

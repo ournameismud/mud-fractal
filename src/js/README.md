@@ -4,8 +4,11 @@ Spon.js is little framework to help manage javascript functionality for modern w
 
 The main idea behind this framework is to marry the two requirements together.
 
+
+
 ### Behaviour Features:
 
+- [ ] NEW FEATURE!.. data-ui="Dropdown" and other ui components... zero code, options defined on the element
 - [ ] code splitting based on data-behaviour attributes (powered by webpack)
 - [ ] component based event delegation (dom-delegate.js)
 - [ ] global event emitter (mitt.js)
