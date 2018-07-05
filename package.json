@@ -83,7 +83,7 @@
 	"devDependencies": {
 		"fetch-mock": "^6.4.2",
 		"http-server": "^0.11.1",
-		"mulp": "2.2.1",
+		"mulp": "2.2.2",
 		"tailwindcss-alpha": "^0.1.1",
 		"webpack-bundle-analyzer": "^2.13.1"
 	}
