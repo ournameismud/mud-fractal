@@ -78,9 +78,7 @@ export default class Draw {
 	 *
 	 * @return {void}
 	 */
-	onClick = (e, elm) => {
-
-	}
+	onClick = (e, elm) => {}
 
 	/** *
 	 * @memberof Draw

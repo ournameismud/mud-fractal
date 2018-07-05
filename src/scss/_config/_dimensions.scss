@@ -10,7 +10,11 @@ $wrapper-width: 1380px;
 
 $base-padding: 20px;
 
-$grid-gutters: (mobile: 15px, tablet: 30px, desktop: 60px);
+$grid-gutters: (
+	mobile: 15px,
+	tablet: 30px,
+	desktop: 60px
+);
 
 // 4 symmetrical, fluid columns
 // gutters are 1/4 the size of a column

@@ -2,6 +2,10 @@ import { composeProps } from '@/core/modules/refs'
 import eventBus from '@/core/modules/eventBus'
 import * as Actions from '@/core/router/actions'
 
+/**
+ * @namespace dom
+ */
+
 class MixinBuilder {
 	constructor(superclass) {
 		this.superclass = superclass

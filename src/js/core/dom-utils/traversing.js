@@ -1,6 +1,6 @@
 /**
  * Create a router
- * @memberof dom.utils
+ * @memberof dom
  *
  * @function getSiblings
  *

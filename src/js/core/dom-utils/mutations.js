@@ -1,6 +1,7 @@
 import domify from 'domify'
 
 /** *
+ * @memberof dom
  * @function insertBefore
  *
  * @description Insert a dom node before another node
@@ -19,6 +20,7 @@ export function insertBefore(node, before) {
 }
 
 /** *
+ * @memberof dom
  * @function insertAfter
  *
  * @description Insert a dom node before another node

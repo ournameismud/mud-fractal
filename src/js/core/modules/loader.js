@@ -1,4 +1,9 @@
 import * as R from 'ramda'
+
+/**
+ * @namespace loader
+ */
+
 /**
  * @memberof loader
  * @description Get data behaviours and instantiate
@@ -37,9 +42,12 @@ export const gather = (fn, attr = 'data-behaviour') =>
 	)
 
 /**
- * @namespace loader
+ * @memberof loader
  * @function loader
- * @property {Promise} -> behaviour => import(`@/behaviours/${behaviour}`)
+ * @param {Promise} fn - 
+ * @example
+ * 
+ * loader(import(`@/behaviours/${behaviour}`))
  *
  * @return {Object}
  *

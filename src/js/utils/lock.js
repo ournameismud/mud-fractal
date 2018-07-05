@@ -1,10 +1,10 @@
-/**
- * Helper function to lock the screen in the current position and prevent scrolling
- *
- * @function lock
- *
- * @return {Object}, capture/release methods
- */
+//
+// Helper function to lock the screen in the current position and prevent scrolling
+//
+// @function lock
+//
+// @return {Object}, capture/release methods
+//
 export const lock = () => {
 	const { style } = document.body
 	let windowTop

@@ -1,6 +1,10 @@
 import Delegate from 'dom-delegate'
 import * as R from 'ramda'
 
+/**
+ * @namespace createEvents
+ */
+
 // do not use an array function... we need to be able to bind
 export const createEvents = R.curry(function(context, obj) {
 	const events = Object.entries(obj).map(([key, fn]) => {
@@ -33,6 +37,11 @@ export const createEvents = R.curry(function(context, obj) {
 	})(events)
 
 	return {
+		/**
+		 * @memberof createEvents
+		 * @function attachAll
+		 * @param {HTMLElement} root - the element to delegate to
+		 */
 		attachAll(root = context) {
 			$delegate = $delegate || new Delegate(root)
 			try {
@@ -46,21 +55,46 @@ export const createEvents = R.curry(function(context, obj) {
 			}
 		},
 
+		/**
+		 * @memberof createEvents
+		 * @function attach
+		 * @param {Array} fns - an array of cuntions
+		 * @param {HTMLElement} root - the element to delegate to
+		 * @return {void}
+		 */
 		attach(fns, root = context) {
 			$delegate = $delegate || new Delegate(root)
 			handleFunctions('on', fns)
 		},
 
+		/**
+		 * @memberof createEvents
+		 * @function remove
+		 * @param {Array} fns - an array of cuntions
+		 * @return {void}
+		 */
 		remove(fns) {
 			if (!$delegate) return
 			handleFunctions('off', fns)
 		},
 
+		/**
+		 * @memberof createEvents
+		 * @function destroy
+		 * @return {void}
+		 */
 		destroy() {
 			if (!$delegate) return
 			R.forEach(event => $delegate.off(...event))(events)
 		},
 
+		/**
+		 * @memberof createEvents
+		 * @function destroy
+		 * @param {HTMLElement} root - the element to trigger an event on
+		 * @param {String} event - the name of the event to trigger
+		 * @return {void}
+		 */
 		emit($node, event) {
 			emit = emit || document.createEvent('HTMLEvents')
 			emit.initEvent(event, true, false)

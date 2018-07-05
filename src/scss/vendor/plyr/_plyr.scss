@@ -174,9 +174,7 @@
 		border: 0 !important;
 		height: 1px !important;
 		width: 1px !important;
-	}
-
- @else {
+	} @else {
 		position: absolute;
 		padding: 0;
 		border: 0;

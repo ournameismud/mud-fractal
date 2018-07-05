@@ -2,6 +2,10 @@ import eventBus from '@/core/modules/eventBus'
 import raf from 'raf'
 import * as R from 'ramda'
 
+/**
+ * @namespace resizer
+ */
+
 export const resizer = (function() {
 	// get the :after style from the body
 	const getStyle = () => window.getComputedStyle(document.body, ':after')
@@ -17,10 +21,8 @@ export const resizer = (function() {
 	const windowMatch = breakpoint => window.matchMedia(breakpoint).matches
 
 	/**
-	 *
+	 * @memberof resizer
 	 * @function getWindowProps
-	 * @member resizer
-	 *
 	 * @return {Object} with the current width/height/breakpoint
 	 */
 	function getWindowProps() {
@@ -35,6 +37,12 @@ export const resizer = (function() {
 		}
 	}
 
+	/**
+	 * @memberof resizer
+	 * @function mapEventsToResize
+	 * @param {Array} events - array of functions to test/trigger
+	 * @return {Object} with the current width/height/breakpoint
+	 */
 	function mapEventsToResize(events) {
 		return R.compose(
 			R.map(([breakpoint, fn]) => {
@@ -70,8 +78,8 @@ export const resizer = (function() {
 	let last = getCurrentMediaQuery()
 
 	/**
-	 * The throttled window resize event
-	 * @private
+	 * @description The throttled window resize event
+	 * @memberof resizer
 	 * @function windowResizeEvent
 	 *
 	 * @return {void}
@@ -95,6 +103,13 @@ export const resizer = (function() {
 		}
 	}
 
+	/**
+	 * @description add the window event - return a destroy method
+	 * @memberof resizer
+	 * @function addWindowResizeEvent
+	 *
+	 * @return {Object}
+	 */
 	function addWindowResizeEvent() {
 		if (addWindowResizeEvent.isRunning) return
 		addWindowResizeEvent.isRunning = true

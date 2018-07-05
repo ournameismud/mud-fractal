@@ -2,6 +2,11 @@ import * as R from 'ramda'
 import { gather } from '@/core/modules/loader'
 import { camelify } from '@/core/utils/strings'
 
+/**
+ * @namespace UI
+ * @description lazyload data-ui components
+ *
+ */
 export default (() => {
 	const cache = {}
 	// using the the gather function from the core loader
@@ -9,6 +14,13 @@ export default (() => {
 	const loader = gather(chunks, 'data-ui')
 
 	return {
+		/**
+		 * @memberof UI
+		 * @function mount
+		 * @description loader data-ui component
+		 *	@param {HTMLElement} context - the element to querySelectorAll from
+		 * @return {Promise}
+		 */
 		mount(context = document) {
 			// this is the same as the core loader (more or less)
 			return Promise.all(
@@ -41,6 +53,12 @@ export default (() => {
 			})
 		},
 
+		/**
+		 * @memberof UI
+		 * @function unmount
+		 * @description destroy ui components
+		 * @return {voide}
+		 */
 		unmount() {
 			R.compose(
 				R.reduce((acc, [key, value]) => {
@@ -55,12 +73,13 @@ export default (() => {
 		},
 
 		/** *
-		 * set('string', value)
-		 *		 *
-		 * set an item into the cache
 		 *
-		 * @param {string}
-		 * @param {function}
+		 * @memberof UI
+		 * @function set
+		 * @example set('terry', value)
+		 * @description set an item into the cache
+		 * @param {String} set - the name of the key
+		 * @param {Any} value - the vaue to store
 		 *
 		 * @return {void}
 		 */
@@ -69,30 +88,39 @@ export default (() => {
 		},
 
 		/** *
-		 * get('string')
 		 *
-		 * get an item from the cache
-		 *		 *
-		 * @param {String}
+		 * @memberof UI
+		 * @function get
+		 * @example get('terry')
+		 * @description get an item from the cache
+		 * @param {String} key - the name of item to get
 		 *
-		 * @return {function}
+		 * @return {Object}
 		 */
 		get(key) {
 			return cache[key]
 		},
 
+		/** *
+		 *
+		 * @memberof UI
+		 * @function getStore
+		 * @description get the entire cache
+		 *
+		 * @return {Object}
+		 */
 		getStore() {
 			return cache
 		},
 
 		/** *
-		 * remove('string', value)
 		 *
-		 * delete an item from the cache
+		 * @memberof UI
+		 * @function remove
+		 * @description delete an item from the cache
+		 * @param {string} key - remove an item from the cache
 		 *
-		 * @param {string}
-		 *
-		 * @return :any
+		 * @return {voide}
 		 */
 		remove(key) {
 			delete cache[key]

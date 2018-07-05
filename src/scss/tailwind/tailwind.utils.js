@@ -96,9 +96,9 @@ function hex2rgba(hex, alpha = 1) {
 
 	return result
 		? `rgba(${result
-			.splice(1)
-			.map(n => parseInt(n, 16))
-			.join(',')}, ${alpha})`
+				.splice(1)
+				.map(n => parseInt(n, 16))
+				.join(',')}, ${alpha})`
 		: null
 }
 

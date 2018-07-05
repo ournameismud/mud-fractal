@@ -105,17 +105,6 @@ const lifecycle = (() => {
 				dataAttrs
 			}
 
-			/** *
-			 *
-			 * promise function... does a thing.. returns a transiton promise
-			 *
-			 * @function promise
-			 * @param {String}
-			 * @param {Object}
-			 * @param :striobjectng
-			 *
-			 * @return :lifecycle
-			 */
 			const promise = (method, transition, props = {}) =>
 				new Promise((resolve, reject) => {
 					transition[method]({

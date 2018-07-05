@@ -6,23 +6,25 @@ const prefix = (() => {
 	const styles = window.getComputedStyle(document.documentElement, '')
 	const pre = ([...styles].join('').match(/-(moz|webkit|ms)-/) ||
 		(styles.OLink === '' && ['', 'o']))[1]
-	const dom = 'WebKit|Moz|MS|O'.match(new RegExp(`(${  pre  })`, 'i'))[1]
+	const dom = 'WebKit|Moz|MS|O'.match(new RegExp(`(${pre})`, 'i'))[1]
 
 	return {
 		dom,
 		lowercase: pre,
-		css: `-${  pre  }-`,
+		css: `-${pre}-`,
 		js: pre[0].toUpperCase() + pre.substr(1)
 	}
 })()
 
 const lens = R.over(R.lensIndex(0))
 
-const camelify = R.memoizeWith(R.identity, str => R.compose(
-	R.join(''),
-	lens(R.toLower),
-	R.replace(/[-_\s]+(.)?/g, (match, ch) => (ch ? R.toUpper(ch) : ''))
-)(str))
+const camelify = R.memoizeWith(R.identity, str =>
+	R.compose(
+		R.join(''),
+		lens(R.toLower),
+		R.replace(/[-_\s]+(.)?/g, (match, ch) => (ch ? R.toUpper(ch) : ''))
+	)(str)
+)
 
 const prop = R.memoizeWith(R.identity, prop => {
 	const prefixed = R.compose(
@@ -38,12 +40,14 @@ const prop = R.memoizeWith(R.identity, prop => {
 	)
 })
 
-export const parseCss = style => Object.entries(style)
-	.map(([attr, value]) => ({ attr: prop(attr), value }))
-	.map(({ attr, value }) => ({ [attr]: value }))
+export const parseCss = style =>
+	Object.entries(style)
+		.map(([attr, value]) => ({ attr: prop(attr), value }))
+		.map(({ attr, value }) => ({ [attr]: value }))
 
 /**
  *
+ * @memberof dom
  * @function setStyle
  *
  * @param :HTMLELement

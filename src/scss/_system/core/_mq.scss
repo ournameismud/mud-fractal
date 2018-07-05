@@ -1,4 +1,9 @@
-$breakpoints: (min: 280px, small: 480px, large: 800px, max: 1280px) !default;
+$breakpoints: (
+	min: 280px,
+	small: 480px,
+	large: 800px,
+	max: 1280px
+) !default;
 
 /*
 	@function breakpoint

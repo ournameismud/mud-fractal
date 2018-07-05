@@ -9,17 +9,12 @@ if (module.hot) {
 
 Ui.mount().then(() => {
 	new App({
-		/** *
-		 * router
-		 *
-		 * @property routes :array - routes object
-		 * @property rootNode:HTMLElement - the root html node
-		 * @property navLinks :array - an array of links that should update on navigation
-		 * @property classes :object - clases applied to active links
-		 * @property onExit :function - called before the dom is updated
-		 * @property onEnter :function - called after the dom is updated
-		 *
-		 */
+		// @property {Array} routes - routes object
+		// @property {HTMLElement} rootNode - the root html node
+		// @property {Array} navLinks - an array of links that should update on navigation
+		// @property {Object} classes - clases applied to active links
+		// @property {Function} onExit - called before the dom is updated
+		// @property {Function} function - called after the dom is updated
 
 		router: {
 			routes,
@@ -38,12 +33,7 @@ Ui.mount().then(() => {
 			onEnter() {}
 		},
 
-		/** *
-		 * chunks
-		 *
-		 * @property :chunks : dynamic import of modules - function used by the loader
-		 *
-		 */
+		// @property {Function} routes - dynamic import of modules - function used by the loader
 		chunks: behaviour => import(`@/behaviours/${behaviour}`)
 	}).mount()
 })
