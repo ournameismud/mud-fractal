@@ -81,7 +81,8 @@ function exportPaths(fractal) {
 			for (const item of fractal.components.flattenDeep()) {
 				if (
 					!item.viewPath.includes('01-base/') &&
-					!item.viewPath.includes('wrapper/')
+					item.view !== '_layout.twig' &&
+					item.view !== '_base.twig'
 				) {
 					const handle = item.handle.includes('--default')
 						? item.handle.split('--default')[0]
@@ -93,7 +94,7 @@ function exportPaths(fractal) {
 					map[`@${handle}`] = {
 						src: path.resolve(process.env.PWD, item.viewPath),
 						dest: `${PATH_CONFIG.fractal.output}/${dest}`,
-						handle,
+						handle: handle,
 						target: `${PATH_CONFIG.fractal.output}/${dest}/${handle}.twig`
 					}
 				}
