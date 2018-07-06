@@ -5,6 +5,7 @@ const changed = require('gulp-changed')
 const rename = require('gulp-rename')
 const util = require('gulp-util')
 const prependFile = require('prepend-file')
+// const htmlmin = require('gulp-htmlmin')
 
 /* eslint-disable */
 
@@ -45,6 +46,10 @@ function fractalTemplates(input) {
 						dest
 					)
 
+					if (PRODUCTION) {
+						console.log(`building: ${handle}`)
+					}
+
 					gulp
 						.src(path.resolve(process.env.PWD, src))
 						.pipe(changed(d))
@@ -57,7 +62,7 @@ function fractalTemplates(input) {
 						.on('end', () => {
 							prependFile(
 								`${d}/${handle}.twig`,
-								`{# GENERATED FILE. DO NOT EDIT.\n  GENERATED FILE. DO NOT EDIT.\n GENERATED FILE. DO NOT EDIT.\n #}\n`,
+								`{# GENERATED FILE. DO NOT EDIT. #}\n`,
 								function(err) {
 									if (err) {
 										// Error
@@ -91,6 +96,7 @@ function exportPaths(fractal) {
 					const dest = path
 						.resolve(process.env.PWD, item.viewDir)
 						.split('templates/')[1]
+
 					map[`@${handle}`] = {
 						src: path.resolve(process.env.PWD, item.viewPath),
 						dest: `${PATH_CONFIG.fractal.output}/${dest}`,

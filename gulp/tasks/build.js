@@ -16,110 +16,6 @@ const { purge } = require('./purge')
 const { cleanFractal } = require('./clean')
 const { validateHtml } = require('./htmlhint')
 
-function build(cb) {
-	if (TASK_CONFIG.mode === 'fractal') {
-		if (util.env.config === 'cms') {
-			return buildCode(cb)
-				.then(fractalTemplates)
-				.then(purge)
-				.then(() => {
-					validateHtml()
-				})
-		} else {
-			return buildFractal()
-				.then(buildCode)
-				.then(() => {
-					validateHtml()
-				})
-		}
-	} else {
-		return buildCode(cb)
-	}
-}
-
-function production(cb) {
-	if (TASK_CONFIG.mode === 'fractal') {
-		if (util.env.config === 'cms') {
-			return buildCode(cb)
-				.then(fractalTemplates)
-				.then(purge)
-				.then(critialCss)
-				.then(sizeReport)
-		} else {
-			return (
-				buildFractal()
-					.then(buildCode)
-					.then(purge)
-					//.then(critialCss)
-					.then(sizeReport)
-			)
-		}
-	} else {
-		return buildCode(cb)
-	}
-}
-
-function publish(cb) {
-	build(cb)
-		.then(() => {
-			const { html, src } = PATH_CONFIG.publish
-			return Promise.all(
-				html.map(({ template, name, output }) => {
-					return new Promise(resolve => {
-						return gulp
-							.src(path.resolve(process.env.PWD, src, template))
-							.pipe(
-								gulpif(
-									typeof name !== 'undefined',
-									rename({
-										basename: name
-									})
-								)
-							)
-							.pipe(htmlmin({ collapseWhitespace: true }))
-							.pipe(
-								gulp.dest(
-									path.resolve(
-										process.env.PWD,
-										PATH_CONFIG.public,
-										'_tmp',
-										output
-									)
-								)
-							)
-							.on('finish', resolve)
-					})
-				})
-			)
-		})
-		.then(() => {
-			return cleanFractal()
-		})
-		.then(() => {
-			return new Promise(resolve => {
-				gulp
-					.src(path.resolve(process.env.PWD, PATH_CONFIG.public, '_tmp/**'))
-					.pipe(gulp.dest(path.resolve(process.env.PWD, PATH_CONFIG.public)))
-					.on('finish', resolve)
-			})
-		})
-		.then(() => {
-			return del(
-				[path.resolve(process.env.PWD, PATH_CONFIG.public, '_tmp/**')],
-				{
-					force: true
-				}
-			)
-		})
-		.then(() => {
-			gulp
-				.src(path.resolve(process.env.PWD, PATH_CONFIG.public, '**/*'))
-				.pipe(
-					gulp.dest(path.resolve(process.env.PWD, PATH_CONFIG.publish.public))
-				)
-		})
-}
-
 function buildCode(cb) {
 	const { assetTasks, codeTasks } = getTasks()
 	codeTasks.push('bundle-script')
@@ -134,6 +30,130 @@ function buildCode(cb) {
 			resolve
 		)
 	})
+}
+
+function cleanPartials() {
+	return del(
+		[
+			path.resolve(
+				process.env.PWD,
+				PATH_CONFIG.fractal.base,
+				PATH_CONFIG.fractal.output,
+				'**'
+			),
+			`!${path.resolve(
+				process.env.PWD,
+				PATH_CONFIG.fractal.base,
+				PATH_CONFIG.fractal.output
+			)}`
+		],
+		{
+			force: true
+		}
+	)
+}
+
+function build(cb) {
+	if (TASK_CONFIG.mode === 'fractal') {
+		if (util.env.config === 'cms') {
+			return cleanPartials()
+				.then(buildCode)
+				.then(purge)
+				.then(sizeReport)
+				.then(() => {
+					validateHtml()
+				})
+		}
+		return buildFractal()
+			.then(buildCode)
+			.then(purge)
+			.then(sizeReport)
+			.then(() => {
+				validateHtml()
+			})
+	}
+	return buildCode(cb)
+}
+
+function production(cb) {
+	if (TASK_CONFIG.mode === 'fractal') {
+		if (util.env.config === 'cms') {
+			return (
+				buildCode(cb)
+					// .then(cleanPartials)
+					// .then(fractalTemplates)
+					.then(() => purge())
+					.then(critialCss)
+					.then(sizeReport)
+			)
+		}
+		return (
+			buildFractal()
+				.then(buildCode)
+				.then(purge)
+				// .then(critialCss)
+				.then(sizeReport)
+		)
+	}
+	return buildCode(cb)
+}
+
+function publish(cb) {
+	build(cb)
+		.then(() => {
+			const { html, src } = PATH_CONFIG.publish
+			return Promise.all(
+				html.map(
+					({ template, name, output }) =>
+						new Promise(resolve =>
+							gulp
+								.src(path.resolve(process.env.PWD, src, template))
+								.pipe(
+									gulpif(
+										typeof name !== 'undefined',
+										rename({
+											basename: name
+										})
+									)
+								)
+								.pipe(htmlmin({ collapseWhitespace: true }))
+								.pipe(
+									gulp.dest(
+										path.resolve(
+											process.env.PWD,
+											PATH_CONFIG.public,
+											'_tmp',
+											output
+										)
+									)
+								)
+								.on('finish', resolve)
+						)
+				)
+			)
+		})
+		.then(() => cleanFractal())
+		.then(
+			() =>
+				new Promise(resolve => {
+					gulp
+						.src(path.resolve(process.env.PWD, PATH_CONFIG.public, '_tmp/**'))
+						.pipe(gulp.dest(path.resolve(process.env.PWD, PATH_CONFIG.public)))
+						.on('finish', resolve)
+				})
+		)
+		.then(() =>
+			del([path.resolve(process.env.PWD, PATH_CONFIG.public, '_tmp/**')], {
+				force: true
+			})
+		)
+		.then(() => {
+			gulp
+				.src(path.resolve(process.env.PWD, PATH_CONFIG.public, '**/*'))
+				.pipe(
+					gulp.dest(path.resolve(process.env.PWD, PATH_CONFIG.publish.public))
+				)
+		})
 }
 
 function buildComponentMap() {
