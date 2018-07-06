@@ -436,7 +436,7 @@ const homePage = {
 	onExit({ next, ...props }) {
 		console.log(props) // lots and lots of stuff
 		FancyAnimation.dance({
-			onComplete: () {
+			onComplete() {
 				next()
 			}
 		})
