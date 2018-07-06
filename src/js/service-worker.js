@@ -1,3 +1,5 @@
+/* global workbox self */
+
 workbox.skipWaiting()
 workbox.clientsClaim()
 
@@ -34,7 +36,6 @@ workbox.routing.registerRoute(
 )
 */
 
-
 workbox.routing.registerRoute(
 	/\.(?:png|gif|jpg|jpeg|svg|webp)$/,
 	workbox.strategies.cacheFirst({
@@ -48,7 +49,7 @@ workbox.routing.registerRoute(
 	})
 )
 
-let networkFirstHandler = workbox.strategies.networkFirst({
+const networkFirstHandler = workbox.strategies.networkFirst({
 	cacheName: 'default',
 	plugins: [
 		new workbox.expiration.Plugin({
@@ -60,12 +61,12 @@ let networkFirstHandler = workbox.strategies.networkFirst({
 	]
 })
 
-let matcher = ({ event }) => event.request.mode === 'navigate'
-let handler = args =>
+const matcher = ({ event }) => event.request.mode === 'navigate'
+const handler = args =>
 	networkFirstHandler
 		.handle(args)
 		.then(response => (!response ? caches.match('/offline.html') : response))
 
 workbox.routing.registerRoute(matcher, handler)
 
-workbox.precaching.precacheAndRoute(self.__precacheManifest)
+workbox.precaching.precacheAndRoute(self.__precacheManifest) // eslint-disable-line no-restricted-globals

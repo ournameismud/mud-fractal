@@ -1,0 +1,33 @@
+{#
+  Get symbol markup
+  @param symbol: The symbol name (same as the svg file name, i.e. twitter, not icon-twitter)
+#}
+{% macro symbol(name) %}
+	<i class="icon icon--{{ name }}">
+		<svg>
+			<use class="no-barba" xlink:href="#{{ name }}"></use>
+		</svg>
+	</i>
+{% endmacro %}
+
+
+
+{% macro social(entry, className) %}
+	{% set list = ['email', 'facebook', 'instagram', 'linkedin', 'twitter', 'website'] %}
+	<ul class="flex items-center list-reset">
+		{% for item in list %}
+			{% if entry[item.key] is defined %}
+				<li>
+					<a class="block no-underline p-2 mr-2 {{ className }}" href="{{ item.value }}">
+						{{ _self.symbol('ui-' ~ item.key) }}
+					</a>
+				</li>
+			{% endif %}
+		{% endfor %}
+	</ul>
+{% endmacro %}
+
+
+{% macro image(image) %}
+	<img src="{{ image.url }}" width="{{ image.width }}" height="{{ image.height }}" alt="{{ image.title }}" />
+{% endmacro %}

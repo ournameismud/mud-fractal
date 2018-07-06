@@ -43,7 +43,7 @@
 			<ul class="c-nav__list list-reset md:flex relative text-body md:m-0 md:p-0">
 				{% for entry in entries %}
 					<li role="menuitem" class="c-nav__item text-center mb-4 md:mb-0 md:mx-2">
-						<a class="block text-black no-underline md:py-1 md:px-2 md:relative" href="{{ entry.slug }}">{{ entry.title }}</a>
+						<a class="block text-black no-underline md:py-1 md:px-2 md:relative" href="{{ entry.slug }}" data-prop-1="hello" data-prefetch>{{ entry.title }}</a>
 					</li>
 				{% endfor %}
 			</ul>

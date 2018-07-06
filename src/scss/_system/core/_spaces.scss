@@ -27,7 +27,12 @@ $base-padding: 20px !default;
 	@param $units: Boolean, return value with or withour units
 	@return rems/value
 */
-@function vr($lines: $base-line-multiple, $grid: $base-line-grid, $font-size: $base-font-size, $units: false) {
+@function vr(
+	$lines: $base-line-multiple,
+	$grid: $base-line-grid,
+	$font-size: $base-font-size,
+	$units: false
+) {
 	$output: ($lines * $grid) / $font-size;
 	@if $units {
 		@return rem($output * 1rem);

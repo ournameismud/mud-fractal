@@ -1,6 +1,5 @@
 const webpack = require('webpack')
 const path = require('path')
-const querystring = require('querystring')
 const { removeEmpty } = require('webpack-config-utils')
 const ProgressBarPlugin = require('progress-bar-webpack-plugin')
 const { InjectManifest } = require('workbox-webpack-plugin')
@@ -23,11 +22,12 @@ module.exports = env => {
 		mode: env,
 		entry: entries,
 		cache: true,
-		context: context,
+		context,
 		output: {
 			path: path.normalize(dest),
 			publicPath: '/dist/js/',
 			pathinfo: env !== 'production' && true,
+			globalObject: 'this', // https://github.com/webpack/webpack/issues/6642
 			filename:
 				env === 'production'
 					? `[name].${filename}.${TASK_CONFIG.stamp}.js`
@@ -49,11 +49,7 @@ module.exports = env => {
 		resolve: {
 			alias: {
 				'@': context,
-				'~': path.resolve(
-					process.env.PWD,
-					PATH_CONFIG.src,
-					'templates/04-components/'
-				)
+				'~': path.resolve(process.env.PWD, PATH_CONFIG.src, 'templates/')
 			}
 		},
 
@@ -64,8 +60,12 @@ module.exports = env => {
 			rules: [
 				{
 					test: /\.js?$/,
-					loader: 'babel-loader',
+					loader: ['babel-loader', 'webpack-module-hot-accept'],
 					exclude: /node_modules/
+				},
+				{
+					test: /\.worker\.js$/,
+					use: [{ loader: 'worker-loader' }, { loader: 'babel-loader' }]
 				},
 				{
 					test: /\.js$/,
@@ -82,8 +82,18 @@ module.exports = env => {
 				'process.env': {
 					NODE_ENV: env === 'production' ? '"production"' : '"development"'
 				}
-			}),
+			})
+		])
+	}
 
+	if (env === 'development') {
+		config.plugins.push(new webpack.HotModuleReplacementPlugin())
+	}
+
+	if (env === 'production') {
+		config.plugins.push(new webpack.NoEmitOnErrorsPlugin())
+
+		config.plugins.push(
 			new InjectManifest({
 				globDirectory: path.resolve(
 					process.env.PWD,
@@ -106,30 +116,7 @@ module.exports = env => {
 					'images/': '/dist/images/'
 				}
 			})
-		])
-	}
-
-	if (env === 'development') {
-		// Create new entry object with webpack-hot-middleware and react-hot-loader (if enabled)
-		if (!hot || hot.enabled !== false) {
-			for (let key in entries) {
-				const entry = []
-				const hotMiddleware = `webpack-hot-middleware/client?${querystring.stringify(
-					hot
-				)}`
-
-				if (hot.react) {
-					entry.push('react-hot-loader/patch')
-				}
-
-				entries[key] = entry.concat(hotMiddleware, entries[key])
-			}
-			config.plugins.push(new webpack.HotModuleReplacementPlugin())
-		}
-	}
-
-	if (env === 'production') {
-		config.plugins.push(new webpack.NoEmitOnErrorsPlugin())
+		)
 	}
 
 	return config

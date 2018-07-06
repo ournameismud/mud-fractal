@@ -1,0 +1,36 @@
+{
+	"menu": [
+		{
+			"title": "Home",
+			"slug": "/"
+		},
+		{
+			"title": "Blog",
+			"slug": "/blog/"
+		},
+		{
+			"title": "About",
+			"slug": "/about/"
+		},
+		{
+			"title": "Ted",
+			"slug": "/ted/"
+		},
+		{
+			"title": "Barry",
+			"slug": "/ted/barry/"
+		},
+		{
+			"title": "Ian",
+			"slug": "/ted/barry/ian/"
+		},
+		{
+			"title": "Sue",
+			"slug": "/ted/barry/ian/sue/"
+		},
+		{
+			"title": "Waffles",
+			"slug": "/waffles/"
+		}
+	]
+}

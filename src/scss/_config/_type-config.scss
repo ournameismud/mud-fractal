@@ -25,7 +25,10 @@ $minor-third: 1.2;
 $major-second: 1.125;
 $minor-second: 1.066666667;
 
-$modularscale: (base: rem($base-font-size), ratio: $major-second);
+$modularscale: (
+	base: rem($base-font-size),
+	ratio: $major-second
+);
 
 // @for $i from -2 through 16 {
 // 	$modularscale: (

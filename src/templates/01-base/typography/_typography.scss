@@ -15,35 +15,35 @@ html {
 }
 
 body {
-	@apply .text-body .leading-body .text-black .font-regular;
+	// @apply .text-body .leading-body .text-black .font-regular;
 }
 
 h1,
 .heading-1 {
-	@apply .text-2xl .leading-2xl .font-light;
+	// @apply .text-2xl .leading-2xl .font-light;
 }
 
 h2,
 .heading-2 {
-	@apply .text-xl .leading-xl .font-light;
+	// @apply .text-xl .leading-xl .font-light;
 }
 
 h3,
 .heading-3 {
-	@apply .text-lg .leading-lg .font-light;
+	// @apply .text-lg .leading-lg .font-light;
 }
 
 h4,
 .heading-4 {
-	@apply .text-body .leading-body .font-light;
+	// @apply .text-body .leading-body .font-light;
 }
 
 h5,
 .heading-5 {
-	@apply .text-sm .leading-sm .uppercase .font-light .tracking-tight;
+	// @apply .text-sm .leading-sm .uppercase .font-light .tracking-tight;
 }
 
 h6,
 .heading-6 {
-	@apply .text-xs .leading-xs .uppercase .font-light .tracking-tight;
+	// @apply .text-xs .leading-xs .uppercase .font-light .tracking-tight;
 }

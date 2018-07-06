@@ -22,8 +22,22 @@ $stop-fluid-width: 1280px !default;
 	@param $stop-fluid-width: width at which the font should be set at the max
 	@return value (calc)
 */
-@function calcfluid($min-type-size, $max-type-size, $start-fluid-width: $start-fluid-width, $stop-fluid-width: $stop-fluid-width) {
-	@return calc( #{$min-type-size} + (#{strip-units($max-type-size)} - #{strip-units($min-type-size)}) * ((100vw - #{$start-fluid-width}) / (#{strip-units($stop-fluid-width)} - #{strip-units($start-fluid-width)})) );
+@function calcfluid(
+	$min-type-size,
+	$max-type-size,
+	$start-fluid-width: $start-fluid-width,
+	$stop-fluid-width: $stop-fluid-width
+) {
+	@return calc(
+		#{$min-type-size} + (
+				#{strip-units($max-type-size)} - #{strip-units($min-type-size)}
+			) * ((100vw - #{$start-fluid-width}) /
+					(
+						#{strip-units($stop-fluid-width)} - #{strip-units(
+								$start-fluid-width
+							)}
+					))
+	);
 }
 
 /*
@@ -73,8 +87,8 @@ $stop-fluid-width: 1280px !default;
 	@return font-size, line-height
 */
 @mixin font-baseline(
-	$font-size: $base-font-size, 
-	$line-height:  $base-type-leading, 
+	$font-size: $base-font-size,
+	$line-height: $base-type-leading,
 	$browser-default-font-size: $current-rootsize
 ) {
 	font-size: strip-units($base-font-size) /

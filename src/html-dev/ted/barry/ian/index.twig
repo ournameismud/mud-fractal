@@ -1,0 +1,16 @@
+
+{% set extend = '/wrapper/_layout.twig' %}
+{% extends extend %}
+{% block critical_css %}
+	<!-- build:critical-->
+	<!-- endbuild -->
+{% endblock %}
+
+{% block content %}
+	<div id="test">
+		<div data-element="item" data-prop1="a" data-prop2="b">
+			<h1 class="mb-2">Ian</h1>
+			<a href="/ted/barry/ian/sue">sue</a>
+		</div>
+	</div>
+{% endblock %}

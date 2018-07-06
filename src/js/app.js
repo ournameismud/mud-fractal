@@ -1,57 +1,39 @@
 import '@/plugins/logger'
-// import WebFontLoader from '@/plugins/webfontloader'
-import Loader from '@/core/loader'
-
-import Router from '@/core/router'
+import App from '@/core/App'
 import routes from '@/views'
+import Ui from '@/core/UiLoader'
 
 if (module.hot) {
 	module.hot.accept()
 }
 
-// WebFontLoader()
+Ui.mount().then(() => {
+	new App({
+		// @property {Array} routes - routes object
+		// @property {HTMLElement} rootNode - the root html node
+		// @property {Array} navLinks - an array of links that should update on navigation
+		// @property {Object} classes - clases applied to active links
+		// @property {Function} onExit - called before the dom is updated
+		// @property {Function} function - called after the dom is updated
 
-const app = new Loader(document)
-const $container = document.getElementById('barba-wrapper')
-// document for first mount call
-let root = document
+		router: {
+			routes,
+			rootNode: document.getElementById('page-wrapper'),
+			navLinks: [
+				...document.querySelectorAll('header a'),
+				...document.querySelectorAll('footer a')
+			],
+			classes: {
+				match: 'is-current',
+				root: 'is-current-root',
+				parent: 'is-current-parent'
+			},
+			prefetchTargets: '[data-prefetch]',
+			onExit() {},
+			onEnter() {}
+		},
 
-if ($container) {
-	new Router({
-		routes,
-		transitionOnLoad: true,
-		onChange: [app.unmount],
-		onReady: [
-			() => {
-				app.mount(root)
-				root = $container
-			}
-		],
-		onComplete: [],
-		navigation: ['header nav', 'footer > ul'],
-		currentClass: 'is-current',
-		currentParentClass: 'is-current-child'
-	}).start()
-} else {
-	app.mount()
-}
-
-/*
-	Service worker chuff... 
-	
-	(function() {
-		if ('serviceWorker' in navigator) {
-			window.addEventListener('load', () => {
-				navigator.serviceWorker
-					.register('/sw.js')
-					.then(registration => {
-						log('SW registered: ', registration)
-					})
-					.catch(registrationError => {
-						console.warn('SW registration failed: ', registrationError)
-					})
-			})
-		}
-	})()
-
-*/
+		// @property {Function} routes - dynamic import of modules - function used by the loader
+		chunks: behaviour => import(`@/behaviours/${behaviour}`)
+	}).mount()
+})

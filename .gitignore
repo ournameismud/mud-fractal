@@ -17,11 +17,11 @@ deploy/storage
 
 deploy/public/assets
 deploy/public/resources
+docs
 
 
 # fractal
 # ----------------------------------------------------------------------
-comp-templates
 deploy/library
 
 

@@ -16,15 +16,8 @@ function _titleCase(str) {
 	return str
 		.toLowerCase()
 		.split(' ')
-		.map(function(word) {
-			return word.charAt(0).toUpperCase() + word.slice(1)
-		})
+		.map(word => word.charAt(0).toUpperCase() + word.slice(1))
 		.join(' ')
-}
-
-module.exports = {
-	templateEngine,
-	docsEngine
 }
 
 const dir = path.resolve(
@@ -76,11 +69,9 @@ function templateEngine(stamp) {
 				const t = test[0]
 				const keys = t._keys
 
-				return src.filter(item => {
-					return keys.filter(key => {
-						return item[key] === t[key]
-					}).length
-				})
+				return src.filter(
+					item => keys.filter(key => item[key] === t[key]).length
+				)
 			},
 
 			without(input, o) {
@@ -139,4 +130,9 @@ function docsEngine() {
 			title: TASK_CONFIG.title
 		}
 	}
+}
+
+module.exports = {
+	templateEngine,
+	docsEngine
 }

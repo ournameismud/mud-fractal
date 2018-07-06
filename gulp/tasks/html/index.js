@@ -17,7 +17,7 @@ module.exports = {
 gulp.task('html', html)
 
 function html() {
-	const stamp = global.production ? `.${TASK_CONFIG.stamp}` : ''
+	const stamp = PRODUCTION ? `.${TASK_CONFIG.stamp}` : ''
 
 	const exclude =
 		'!' +
