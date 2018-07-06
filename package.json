@@ -42,6 +42,7 @@
 		"precms": "npm run build:components",
 		"cms": "gulp --config cms",
 		"build": "gulp build --env production --config cms",
+		"prebuild:production": "npm run build:fractal",
 		"build:production": "gulp production --env production --config cms",
 		"build:components": "gulp build:component-map --config cms",
 		"build:fractal": "gulp build --env production --config fractal",
