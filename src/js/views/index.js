@@ -1,9 +1,25 @@
 import paginationExample from '@/views/loaders/pagination'
 
+const view = {
+	onEnter({ next, ...rest }) {
+		log(rest.to.name)
+		log(rest.from.name)
+
+		next()
+	},
+
+	onLeave({ next, ...rest }) {
+		log(rest.to.name)
+		log(rest.from.name)
+
+		next()
+	}
+}
+
 export default [
 	{
 		path: '/',
-		view: {},
+		view,
 		name: 'home-page',
 		customBodyProp: html => {
 			const $hero = html.querySelector('.c-hero')
@@ -17,7 +33,7 @@ export default [
 	},
 	{
 		path: '/blog/',
-		view: {},
+		view,
 		name: 'blog-listing',
 		options: {
 			paginationParent: true
@@ -27,7 +43,8 @@ export default [
 				path: /(p)+(\d+)/,
 				name: 'pagination',
 				view: {
-					...paginationExample
+					...paginationExample,
+					...view
 				},
 				options: {
 					pagination: true
@@ -36,11 +53,7 @@ export default [
 			{
 				path: ':id',
 				name: 'blog-post',
-				view: {
-					onEnter({ next }) {
-						next()
-					}
-				},
+				view,
 
 				options: {}
 			}
@@ -49,6 +62,6 @@ export default [
 	{
 		path: '*',
 		name: 'default',
-		view: {}
+		view
 	}
 ]

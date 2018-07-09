@@ -90,11 +90,17 @@ const matches = (routes, data) => {
 				if (pattern && pathToRegexp(pattern).exec(last)) {
 					score = 4
 					// get the page number
-					pageNo = R.compose(parseInt, R.head, R.match(/\d+/g))(last)
+					pageNo = R.compose(
+						parseInt,
+						R.head,
+						R.match(/\d+/g)
+					)(last)
 				} else if (slugLength === pathLength) {
 					score = 3
 				}
 			}
+
+			log(score)
 
 			return { route: path, score, pattern, pageNo, params: data, ...rest }
 		}),
@@ -134,7 +140,7 @@ export const findRoute = routes => {
 
 		const match = R.head(matches(routeMap, data))
 
-		if (match) {
+		if (match && match.score > 1) {
 			return match
 		}
 
