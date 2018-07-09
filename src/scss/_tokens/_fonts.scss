@@ -1,22 +1,30 @@
 $fonts: (
-	light: (NeutrifPro-Light, Roboto, Helvetica Neue, sans-serif),
-	regular:
-		(
-			NeutrifPro-Regular,
-			Monaco,
-			Consolas,
-			Liberation Mono,
-			Courier New,
-			monospace
-		),
-	semi:
-		(
-			NeutrifPro-SemiBold,
-			Monaco,
-			Consolas,
-			Liberation Mono,
-			Courier New,
-			monospace
-		),
-	bold: (NeutrifPro-Bold, Roboto, Helvetica Neue, sans-serif)
+  light: (
+    NeutrifPro-Light,
+    Roboto,
+    Helvetica Neue,
+    sans-serif
+  ),
+  regular: (
+    NeutrifPro-Regular,
+    Monaco,
+    Consolas,
+    Liberation Mono,
+    Courier New,
+    monospace
+  ),
+  semi: (
+    NeutrifPro-SemiBold,
+    Monaco,
+    Consolas,
+    Liberation Mono,
+    Courier New,
+    monospace
+  ),
+  bold: (
+    NeutrifPro-Bold,
+    Roboto,
+    Helvetica Neue,
+    sans-serif
+  )
 );
