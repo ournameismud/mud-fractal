@@ -2,7 +2,7 @@ const browserSync = require('browser-sync')
 const gulp = require('gulp')
 const { fractalServer } = require('./fractal/server')
 const { devServer } = require('./html/server')
-const { path } = require('path')
+const path = require('path')
 
 gulp.task('server:fractal', fractalServer)
 gulp.task('server:cms', devServer)
