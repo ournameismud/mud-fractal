@@ -34,6 +34,7 @@ Ui.mount().then(() => {
 		},
 
 		// @property {Function} routes - dynamic import of modules - function used by the loader
-		chunks: behaviour => import(`@/behaviours/${behaviour}`)
+		chunks: behaviour =>
+			import(/* webpackChunkName: "chunk-[request]" */ `@/behaviours/${behaviour}`)
 	}).mount()
 })

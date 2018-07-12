@@ -10,7 +10,7 @@ import { camelify } from '@/core/utils/strings'
 export default (() => {
 	const cache = {}
 	// using the the gather function from the core loader
-	const chunks = component => import(`@/ui/${component}`)
+	const chunks = component => import(/* webpackChunkName: "chunk-[request]" */`@/ui/${component}`)
 	const loader = gather(chunks, 'data-ui')
 
 	return {

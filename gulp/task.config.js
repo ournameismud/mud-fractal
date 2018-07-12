@@ -5,7 +5,7 @@ const { env } = util.env
 
 module.exports = {
 	title: 'Mud-Fractal',
-	mode: 'html',
+	mode: 'fractal',
 
 	cms: {
 		watch: false,

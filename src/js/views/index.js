@@ -5,6 +5,8 @@ const view = {
 		log(rest.to.name)
 		log(rest.from.name)
 
+		window.scrollTo(0, 0)
+
 		next()
 	},
 
