@@ -10,13 +10,24 @@
 */
 
 // eslint-disable-next-line no-restricted-globals
+
+let controller
 self.addEventListener(
 	'message',
 	e => {
-		const { links } = e.data
-		links.map(link =>
+		if (typeof controller === 'undefined') {
+			controller = new AbortController()
+		}
+
+		if (e.data === 'cancel') {
+			controller.abort()
+			controller = undefined
+		} else {
+			const { link } = e.data
 			new Promise((resolve, reject) => {
-				fetch(link)
+				let signal = controller.signal
+
+				fetch(link, { signal })
 					.then(response => {
 						const { ok, status, url } = response
 
@@ -35,11 +46,14 @@ self.addEventListener(
 							self.postMessage([{ key: link, data }]) // eslint-disable-line no-restricted-globals
 						}
 					})
+					.catch(() => {
+						log('abort request')
+					})
 			}).catch(() => ({
 				key: link,
 				data: false
 			}))
-		)
+		}
 	},
 	false
 )

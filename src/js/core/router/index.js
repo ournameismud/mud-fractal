@@ -68,13 +68,9 @@ export default (() => {
 				'mouseover a': 'onMouseEnter'
 			})
 
-			eventBus.on(Action.ROUTE_TRANSITION_BEFORE_DOM_UPDATE, (...props) => {
-				onExit(...props)
-			})
+			eventBus.on(Action.ROUTE_TRANSITION_BEFORE_DOM_UPDATE, onExit)
 
-			eventBus.on(Action.ROUTE_TRANSITION_AFTER_DOM_UPDATE, (...props) => {
-				onEnter(...props)
-			})
+			eventBus.on(Action.ROUTE_TRANSITION_AFTER_DOM_UPDATE, onEnter)
 
 			return this
 		}
@@ -91,19 +87,20 @@ export default (() => {
 		 * @return {void}
 		 */
 		static goTo = ({ pathname, action, dataAttrs }, transition) => {
+			log('GOTO')
+
 			lifecycle
 				.transition({ pathname, action, transition, dataAttrs })
 				.then(({ action, newHtml }) => {
 					if (action === 'PUSH') {
 						historyManager.push(pathname, { attr: dataAttrs })
 					}
-					log(newHtml)
 					localLinks(newHtml)
 				})
 				.catch(err => {
 					eventBus.emit(Action.ROUTER_PAGE_NOT_FOUND, err)
 					// eslint-disable-next-line
-					console.warn(`[PREFETCH] no page found at ${err.url}`)
+					console.warn(`[PREFETCH] no page found at ${err}`)
 				})
 		}
 
@@ -161,6 +158,7 @@ export default (() => {
 
 			const dataAttrs = composeProps([...elm.attributes])
 
+			lazyload.cancel()
 			Router.goTo({ pathname, dataAttrs, action: 'PUSH' })
 		}
 
@@ -178,7 +176,11 @@ export default (() => {
 
 			eventBus.on(
 				Action.ROUTE_TRANSITION_AFTER_DOM_UPDATE,
-				({ to: { params: { raw: url } } }) => {
+				({
+					to: {
+						params: { raw: url }
+					}
+				}) => {
 					this.$links(url)
 				}
 			)
@@ -199,7 +201,7 @@ export default (() => {
 		 */
 		lazyload = () => {
 			const items = [...document.querySelectorAll(this.prefetchTargets)]
-			lazyload(items)
+			lazyload.fetch(items)
 			return this
 		}
 	}

@@ -25,27 +25,36 @@ export default (() => {
 	// setup an array to store
 	const errorLinks = []
 
+	const getLinks = R.compose(
+		// reject error items
+		R.head,
+		R.reject(key => R.contains(key)(errorLinks)),
+		// ignore any that are in the cache
+		R.filter(
+			pathname => pathname !== window.location.pathname && !cache.get(pathname)
+		),
+		// just get the unique paths
+		R.uniqBy(value => value),
+		// grab the pathname
+		R.map(R.prop('pathname'))
+	)
+
 	const viewport = inview(document, {
 		enter({ isIntersecting, target }) {
 			if (isIntersecting) {
-				const links = R.compose(
-					// reject error items
-					R.reject(key => R.contains(key)(errorLinks)),
-					// ignore any that are in the cache
-					R.filter(
-						pathname =>
-							pathname !== window.location.pathname && !cache.get(pathname)
-					),
-					// just get the unique paths
-					R.uniqBy(value => value),
-					// grab the pathname
-					R.map(R.prop('pathname'))
-				)([target])
+				const link = getLinks([target])
 
-				if (links.length) worker.postMessage({ links })
+				if (link) {
+					// R.forEach(worker.postMessage)(links)
+					worker.postMessage({ link })
+				}
 
 				return true
 			}
+		},
+
+		exit({ isIntersecting }) {
+			log('EXIT', isIntersecting)
 		}
 	})
 
@@ -70,13 +79,21 @@ export default (() => {
 		selector: '[data-prefetch]'
 	})
 
-	return nodes => {
-		const validLinks = R.filter(link => !preventClick({}, link.pathname))(nodes)
+	return {
+		fetch(nodes) {
+			const validLinks = R.filter(link => !preventClick({}, link.pathname))(
+				nodes
+			)
 
-		viewport.destroy()
+			viewport.destroy()
 
-		viewport.watch({
-			selector: validLinks
-		})
+			viewport.watch({
+				selector: validLinks
+			})
+		},
+
+		cancel() {
+			worker.postMessage('cancel')
+		}
 	}
 })()
