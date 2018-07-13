@@ -51,10 +51,6 @@ export default (() => {
 
 				return true
 			}
-		},
-
-		exit({ isIntersecting }) {
-			log('EXIT', isIntersecting)
 		}
 	})
 

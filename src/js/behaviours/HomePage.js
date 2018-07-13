@@ -56,12 +56,12 @@ export default class ExampleWithAllTheThings extends mix(Behaviour).with(
 	}
 
 	viewport = {
-		enter: node => {
-			log('exit', node)
+		enter: () => {
+			// 	log('exit', node)
 		},
 
-		exit: node => {
-			log('exit', node)
+		exit: () => {
+			// 	log('exit', node)
 		}
 	}
 

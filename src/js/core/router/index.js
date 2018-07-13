@@ -87,8 +87,6 @@ export default (() => {
 		 * @return {void}
 		 */
 		static goTo = ({ pathname, action, dataAttrs }, transition) => {
-			log('GOTO')
-
 			lifecycle
 				.transition({ pathname, action, transition, dataAttrs })
 				.then(({ action, newHtml }) => {

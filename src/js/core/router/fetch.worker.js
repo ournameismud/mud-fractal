@@ -9,9 +9,9 @@
 
 */
 
-// eslint-disable-next-line no-restricted-globals
-
 let controller
+
+// eslint-disable-next-line no-restricted-globals
 self.addEventListener(
 	'message',
 	e => {
@@ -25,7 +25,7 @@ self.addEventListener(
 		} else {
 			const { link } = e.data
 			new Promise((resolve, reject) => {
-				let signal = controller.signal
+				const signal = controller.signal
 
 				fetch(link, { signal })
 					.then(response => {

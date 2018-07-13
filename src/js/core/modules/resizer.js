@@ -11,12 +11,16 @@ export const resizer = (function() {
 	const getStyle = () => window.getComputedStyle(document.body, ':after')
 
 	// get the content prop and give it a clean
-	const query = R.compose(R.replace(/'|"/g, ''), item =>
-		item.getPropertyValue('content')
+	const query = R.compose(
+		R.replace(/'|"/g, ''),
+		item => item.getPropertyValue('content')
 	)
 
 	// compose the functions together to return the current breakpoint
-	const getCurrentMediaQuery = R.compose(query, getStyle)
+	const getCurrentMediaQuery = R.compose(
+		query,
+		getStyle
+	)
 
 	const windowMatch = breakpoint => window.matchMedia(breakpoint).matches
 

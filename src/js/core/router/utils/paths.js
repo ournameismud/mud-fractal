@@ -100,8 +100,6 @@ const matches = (routes, data) => {
 				}
 			}
 
-			log(score)
-
 			return { route: path, score, pattern, pageNo, params: data, ...rest }
 		}),
 		R.filter(({ path }) => matchRoute(path)(str.beautifyPath(slug)))

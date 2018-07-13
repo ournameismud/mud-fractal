@@ -10,7 +10,7 @@ import { camelify } from '@/core/utils/strings'
 export default (() => {
 	const cache = {}
 	// using the the gather function from the core loader
-	const chunks = component => import(/* webpackChunkName: "chunk-[request]" */`@/ui/${component}`)
+	const chunks = component => import(`@/ui/${component}`)
 	const loader = gather(chunks, 'data-ui')
 
 	return {
@@ -18,7 +18,7 @@ export default (() => {
 		 * @memberof UI
 		 * @function mount
 		 * @description loader data-ui component
-		 *	@param {HTMLElement} context - the element to querySelectorAll from
+		 * @param {HTMLElement} context - the element to querySelectorAll from
 		 * @return {Promise}
 		 */
 		mount(context = document) {

@@ -21,7 +21,6 @@ export const localLinks = scope =>
 				a.href !== window.location.href
 		)
 		.forEach(a => {
-			log(a.href)
 			a.setAttribute('target', '_blank')
 			a.setAttribute('rel', 'noopener')
 		})
@@ -134,9 +133,10 @@ export const activeLinks = (() => {
 
 							const segments = segmentize(pathname)
 							const length = R.length(segments)
-							const matchAgainst = R.compose(R.join('/'), R.take(length))(
-								testSegments
-							)
+							const matchAgainst = R.compose(
+								R.join('/'),
+								R.take(length)
+							)(testSegments)
 
 							return {
 								node,
@@ -145,7 +145,9 @@ export const activeLinks = (() => {
 								className:
 									beautifyPath(pathname) === path
 										? 'match'
-										: length === 1 ? 'root' : 'parent'
+										: length === 1
+											? 'root'
+											: 'parent'
 							}
 						})
 					)
