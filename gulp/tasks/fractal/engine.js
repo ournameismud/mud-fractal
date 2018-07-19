@@ -84,6 +84,9 @@ function templateEngine(stamp) {
 					stamp
 				}
 			},
+			
+			// craftcms form function
+			csrfInput() {},
 
 			source(src) {
 				return fs.readFileSync(dir + src, 'utf8')
