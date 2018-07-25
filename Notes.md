@@ -275,15 +275,25 @@ server: {
 ```
 
 For Mamp... Go to the SSL tab for the domain. 
+
 Click the checkbox and press "Create self-signed certificate"
+
 Type whatever... doesnae matter
+
 Save.
+
 Open the `.crt` file with Keychain Access
+
 Find the domain name from the list
+
 Right click, get info
+
 Panel opens, click on the Trust dropdown,
+
 Then set each of the options as Always Trust.
+
 Save
+
 Booom!
 
 
