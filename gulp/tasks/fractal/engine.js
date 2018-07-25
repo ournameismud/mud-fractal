@@ -23,7 +23,8 @@ function _titleCase(str) {
 const dir = path.resolve(
 	process.env.PWD,
 	PATH_CONFIG.src,
-	PATH_CONFIG.fractal.src
+	PATH_CONFIG.fractal.src,
+	'svgs'
 )
 
 function templateEngine(stamp) {
@@ -84,12 +85,12 @@ function templateEngine(stamp) {
 					stamp
 				}
 			},
-			
+
 			// craftcms form function
 			csrfInput() {},
 
 			source(src) {
-				return fs.readFileSync(dir + src, 'utf8')
+				return fs.readFileSync(`${dir}/${src}`, 'utf8')
 			},
 
 			ratio(arg) {
