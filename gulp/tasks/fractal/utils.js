@@ -60,18 +60,7 @@ function fractalTemplates(input) {
 						)
 						.pipe(gulp.dest(d))
 						.on('end', () => {
-							prependFile(
-								`${d}/${handle}.twig`,
-								`{# GENERATED FILE. DO NOT EDIT. #}\n`,
-								function(err) {
-									if (err) {
-										// Error
-										console.log(err)
-										process.exit()
-									}
-									resolve()
-								}
-							)
+							resolve()
 						})
 				})
 		)
