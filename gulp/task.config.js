@@ -194,6 +194,14 @@ module.exports = {
 		fileName: 'symbols.twig',
 		extensions: ['svg']
 	},
+	
+
+	inlineSvgs: {
+		task: 'asset',
+		watch: true,
+		extensions: ['svg']
+	},
+
 
 	watch: {
 		gulpWatch: {
