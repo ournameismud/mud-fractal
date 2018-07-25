@@ -250,3 +250,40 @@ This will rebuild again, but this it will remove any unused css. It will then ta
 Once complete the results will be displayed in the browser.
 
 If everything has passed… We’re good to go live… Now you should run `npm run build:production`
+
+### Setting up https
+
+For the frontend, first run
+
+`mkdir private && npm run gen-certs`
+
+Go to gulp/task.config.js
+
+make sure the server prop looks like this
+```
+server: {
+	open: false,
+	browser: ['google chrome'],
+	port: 3000,
+	logLevel: 'info'
+	https: {
+		key: path.resolve(process.env.PWD, 'private', 'key.pem'),
+		cert: path.resolve(process.env.PWD, 'private', 'cert.pem')
+	}
+},
+
+```
+
+For Mamp... Go to the SSL tab for the domain. 
+Click the checkbox and press "Create self-signed certificate"
+Type whatever... doesnae matter
+Save.
+Open the `.crt` file with Keychain Access
+Find the domain name from the list
+Right click, get info
+Panel opens, click on the Trust dropdown,
+Then set each of the options as Always Trust.
+Save
+Booom!
+
+
