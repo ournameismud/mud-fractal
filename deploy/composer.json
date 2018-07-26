@@ -20,7 +20,7 @@
 	},
 	"require": {
 		"php": ">=7.0.0",
-		"craftcms/cms": "3.0.9",
+		"craftcms/cms": "3.0.17.1",
 		"vlucas/phpdotenv": "^2.4.0",
 		"nystudio107/craft-eagerbeaver": "1.0.3",
 		"verbb/image-resizer": "2.0.3",
