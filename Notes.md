@@ -255,7 +255,7 @@ If everything has passed… We’re good to go live… Now you should run `npm r
 
 For the frontend, first run
 
-`mkdir private && npm run gen-certs`
+`mkdir private && npm run gen-cert`
 
 Go to gulp/task.config.js
 
