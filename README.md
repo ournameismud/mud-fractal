@@ -102,7 +102,11 @@ The following commands require `komp`: https://github.com/FrancisVega/komp
 
 ###### Scaffold new objects/components/etc
 
-`komp new ./02-objects/example-obj --template fractal`
+`komp new --template fractal ./02-objects/example-obj`
+
+`komp new --template fractal ./03-globals/example-global`
+
+`komp new --template fractal ./04-components/example-component`
 
 ###### Scaffold new page
 
