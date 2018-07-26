@@ -5,6 +5,10 @@ Clone/Download [GitHub - ournameismud/mud-fractal: Fractal/Mudstone Frontend Boi
 
 ## TLDR
 
+Working on the cms? Want the latest partials
+
+`npm run build:components`
+
 When going live... 
 
 `npm run reference` 
