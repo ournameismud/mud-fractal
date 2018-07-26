@@ -8,6 +8,14 @@
 
 All of the build/task dependencies are managed through a single npm package. [mulp](https://github.com/ournameismud/mulp)
 
+## Docs
+
+[Workflow](https://github.com/ournameismud/mud-fractal/blob/master/Notes.md)
+
+[Structure](https://github.com/ournameismud/mud-fractal/blob/master/src/docs/index.md)
+
+[JS Setup](https://github.com/ournameismud/mud-fractal/blob/master/src/js/README.md)
+
 ## Getting started
 
 Clone the repo… and install
@@ -16,7 +24,7 @@ Clone the repo… and install
 
 `yarn` / `npm install`
 
-### Gettings Start
+### Dev mode
 
 ######  Start fractal server
 
