@@ -1,8 +1,8 @@
 # mud-fractal
 
-## Webpack / Gulp / Fractal
-
 ![Mud](https://ournameismud.co.uk/android-chrome-192x192.png)
+
+## Webpack / Gulp / Fractal
 
 > Frontend starter kit integrated with [Fractal](http://fractal.build/), inspired by [Blendid](https://github.com/vigetlabs/blendid), powered by gulp, webpack.
 
