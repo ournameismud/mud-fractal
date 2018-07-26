@@ -98,7 +98,7 @@ Clone the repo… and install
 
 ### Fractal helpers
 
-The following commands require `komp`: https://github.com/FrancisVega/komp
+The following commands require `komp`: https://github.com/FrancisVega/komp (`npm i -g komp`)
 
 ###### Scaffold new objects/components/etc
 
