@@ -52,7 +52,7 @@ return [
     // Live (production) environment
     'live' => [
         // Craft defined config settings
-        'allowAutoUpdates' => false,
+        'allowUpdates' => false,
         'backupOnUpdate' => false,
         'devMode' => false,
         'enableTemplateCaching' => true,
@@ -64,7 +64,7 @@ return [
     // Staging (pre-production) environment
     'staging' => [
         // Craft defined config settings
-        'allowAutoUpdates' => false,
+        'allowUpdates' => false,
         'backupOnUpdate' => false,
         'devMode' => false,
         'enableTemplateCaching' => true,
@@ -76,7 +76,7 @@ return [
     // Local (development) environment
     'local' => [
         // Craft defined config settings
-        'allowAutoUpdates' => true,
+        'allowUpdates' => true,
         'backupOnUpdate' => true,
         'devMode' => true,
         'enableTemplateCaching' => false,
