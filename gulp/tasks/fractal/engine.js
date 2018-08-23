@@ -1,4 +1,5 @@
 const faker = require('faker')
+const R = require('ramda')
 const mdAbbr = require('markdown-it-abbr')
 const mdFootnote = require('markdown-it-footnote')
 const md = require('markdown-it')({
@@ -11,6 +12,14 @@ const md = require('markdown-it')({
 
 const fs = require('fs')
 const path = require('path')
+
+const slugify = R.compose(
+	R.replace(/[\s]+(.)?/g, (match, ch) => (ch ? `-${R.toLower(ch)}` : '')),
+	R.toLower,
+	R.trim,
+	R.replace(/\s+/g, ' '),
+	R.replace(/[^a-zA-Z\d\s:]/g, '')
+)
 
 function _titleCase(str) {
 	return str
@@ -65,6 +74,12 @@ function templateEngine(stamp) {
 				if (str) return
 				return `https://source.unsplash.com/random/${size}`
 			},
+			
+			
+			kebab(src) {
+				return slugify(src)
+			},
+
 
 			with(src, test) {
 				const t = test[0]
