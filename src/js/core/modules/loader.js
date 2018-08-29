@@ -1,4 +1,5 @@
 import * as R from 'ramda'
+import eventBus from '@/core/modules/eventBus'
 
 /**
  * @namespace loader
@@ -83,6 +84,8 @@ export default function loader(fn) {
 				const destroy = node.closest(wrapper)
 				return { fn, destroy, id }
 			})(data)
+			
+			eventBus.emit('window:resize')
 
 			const scope = R.compose(
 				// R.filter(({ fn }) => typeof fn === 'function'),
