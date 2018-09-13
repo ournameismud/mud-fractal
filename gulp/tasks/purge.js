@@ -17,12 +17,7 @@ function purge() {
 		PATH_CONFIG.dist
 	)
 
-	const html = path.resolve(
-		process.env.PWD,
-		PATH_CONFIG.fractal.build,
-		'components/preview/',
-		'*.html'
-	)
+	const html = path.resolve(process.env.PWD, 'src', 'templates/**/**', '*.twig')
 	const js = path.resolve(process.env.PWD, 'src/js/**/**/*.js')
 
 	return new Promise((resolve, reject) => {
@@ -34,7 +29,7 @@ function purge() {
 					extractors: [
 						{
 							extractor: TailwindExtractor,
-							extensions: ['html', 'js']
+							extensions: ['twig', 'js']
 						}
 					],
 					whitelistPatterns: TASK_CONFIG.purge.whitelistPatterns
