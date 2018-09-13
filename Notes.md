@@ -23,8 +23,10 @@ If you've made some changes to the markup, you will need to run `npm run build:f
 
 *Important!*
 
-When running the site through purgecss it is important that all of the markup is contained within the fractal src.  Purgecss checks for class names in the fractal output (deploy/library/components/preview/*.html). This way all of the possible markup is exposed and not just the html that is currently rendered by the cms (for example a feature might be turned off on the site, but it could be enabled by the site admins and thus the css would be missing)
+When running the site through purgecss it is important that all of the markup is contained within the fractal src.  Purgecss checks for class names in the ~~fractal output (deploy/library/components/preview/*.html).~~ This way all of the possible markup is exposed and not just the html that is currently rendered by the cms (for example a feature might be turned off on the site, but it could be enabled by the site admins and thus the css would be missing)
 
+* UPDATE.
+Purging is now based on the template src files
 
 ## Install
 
