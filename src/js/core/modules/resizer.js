@@ -117,7 +117,7 @@ export const resizer = (function() {
 	function addWindowResizeEvent() {
 		if (addWindowResizeEvent.isRunning) return
 		addWindowResizeEvent.isRunning = true
-		handle = raf.bind(null, windowResizeEvent)
+		handle = raf(windowResizeEvent)
 
 		window.addEventListener('resize', handle, false)
 
