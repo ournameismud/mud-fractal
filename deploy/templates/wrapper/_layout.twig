@@ -47,8 +47,14 @@
 
   <body>
 
-		{% block content %}
-		{% endblock %}
+
+
+		<main id="page-wrapper">
+			<div class="page-child">
+				{% block content %}
+				{% endblock %}
+			</div>	
+		</main>
 
 		<script>
 			loadjs([
