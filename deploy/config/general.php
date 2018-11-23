@@ -40,13 +40,7 @@ return [
             'basePath' => getenv('CRAFTENV_BASE_PATH'),
             'baseUrl' => getenv('CRAFTENV_BASE_URL'),
             'craftEnv' => CRAFT_ENVIRONMENT,
-            'staticAssetsVersion' => 1,
-            'objects' => "/_partials/02-objects/",
-            'global' => "/_partials/03-global/",
-            'components' => "/_partials/04-components/",
-            'pages' => "/_partials/05-pages/",
-            'macros' => "/_partials/macros/",
-            'wrapper' => "/wrapper/"
+            'staticAssetsVersion' => 1
         ]
     ],
     // Live (production) environment

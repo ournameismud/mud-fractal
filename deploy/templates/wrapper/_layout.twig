@@ -1,11 +1,13 @@
 <!DOCTYPE html>
+
 <!-- build:cms-->
 {% set stamp = ".1530823019326" %}
 <!-- endbuild-->
+
 <html lang="en-gb" dir="ltr" class="no-js">
   <head>
 	  <meta charset="utf-8">
-    <title>{{ siteTitle|length ? siteTitle : 'Mud/Fractal' }}</title>
+    <title>{{ siteName|length ? siteName : 'Mud/Fractal' }}</title>
 	  <meta name="description" content="">
 		<meta name="viewport" content="width=device-width, initial-scale=1" viewport-fit="cover">
 		{# Robots blocking for staging URLs #}
@@ -44,15 +46,10 @@
   </head>
 
   <body>
-    {% include '@header' %}
-		<main id="page-wrapper">
-			<div class="page-child">
-				{% block content %}
-				{% endblock %}
-			</div>
-		</main>
-		{% include '@footer' %}
-		{% include '@symbols' %}
+
+		{% block content %}
+		{% endblock %}
+
 		<script>
 			loadjs([
 				'//polyfill.io/v2/polyfill.min.js?features=default-3.6,IntersectionObserver,es6,Object.entries', 
@@ -60,5 +57,6 @@
 				'/dist/js/app.bundle{{ stamp }}.js'
 			], {async: false});
 		</script>
+
   </body>
 </html>
